@@ -1,10 +1,18 @@
+// =========================
 // LOADER
+// =========================
 
 window.addEventListener("load", () => {
-  document.querySelector(".loader").classList.add("hidden");
+  const loader = document.querySelector(".loader");
+
+  if (loader) {
+    loader.classList.add("hidden");
+  }
 });
 
-// REVEAL ANIMATION
+// =========================
+// REVEAL ANIMATIONS
+// =========================
 
 const reveals = document.querySelectorAll(".reveal");
 
@@ -23,32 +31,60 @@ const observer = new IntersectionObserver(
 
 reveals.forEach(el => observer.observe(el));
 
+// =========================
 // FAQ
+// =========================
 
 const faqItems = document.querySelectorAll(".faq-item");
 
 faqItems.forEach(item => {
+
   const button = item.querySelector(".faq-question");
 
   button.addEventListener("click", () => {
     item.classList.toggle("active");
   });
+
 });
 
+// =========================
 // CURSOR GLOW
+// =========================
 
 const glow = document.querySelector(".cursor-glow");
 
 window.addEventListener("mousemove", e => {
+
+  if (!glow) return;
+
   glow.style.left = `${e.clientX}px`;
   glow.style.top = `${e.clientY}px`;
+
 });
 
+// =========================
 // MOBILE MENU
+// =========================
 
 const mobileBtn = document.querySelector(".mobile-menu-btn");
 const mobileNav = document.querySelector(".mobile-nav");
 
-mobileBtn.addEventListener("click", () => {
-  mobileNav.classList.toggle("active");
-});
+if (mobileBtn && mobileNav) {
+
+  mobileBtn.addEventListener("click", () => {
+    mobileNav.classList.toggle("active");
+  });
+
+  // CLOSE MENU WHEN LINK CLICKED
+
+  const mobileLinks = mobileNav.querySelectorAll("a");
+
+  mobileLinks.forEach(link => {
+
+    link.addEventListener("click", () => {
+      mobileNav.classList.remove("active");
+    });
+
+  });
+
+}
