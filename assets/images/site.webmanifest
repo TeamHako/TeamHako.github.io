@@ -1,0 +1,20 @@
+{
+  "name": "hako",
+  "short_name": "hako",
+  "description": "An ambient Anki companion.",
+  "icons": [
+    {
+      "src": "/assets/images/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#bc002d",
+  "background_color": "#f7f4ed",
+  "display": "standalone"
+}

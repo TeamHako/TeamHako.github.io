@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background: hanko red with subtle inset border for depth -->
+  <rect width="512" height="512" rx="96" ry="96" fill="#bc002d"/>
+  <!-- The 箱 character, centered, white, in a serif/mincho style -->
+  <text
+    x="256"
+    y="256"
+    text-anchor="middle"
+    dominant-baseline="central"
+    fill="#ffffff"
+    font-family="'Shippori Mincho','Noto Serif JP','Hiragino Mincho ProN','Yu Mincho',serif"
+    font-weight="700"
+    font-size="360">箱</text>
+</svg>
