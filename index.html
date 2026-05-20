@@ -305,9 +305,25 @@
           Drop your email and I'll send one note when pre-orders open &mdash; not before, not after.
         </p>
 
-        <form class="notify-form" action="#" method="post" onsubmit="return false;">
-          <input type="email" placeholder="your@email.com" required aria-label="Email address" />
+        <form class="notify-form" id="notifyForm">
+          <!-- Web3Forms access key (replace YOUR_ACCESS_KEY_HERE with the one you receive by email) -->
+          <input type="hidden" name="access_key" value="df7c9141-85ec-4969-9ddb-e87723e463f5" />
+          <!-- Subject line for the notification email you receive -->
+          <input type="hidden" name="subject" value="hako waitlist signup" />
+          <!-- Where Web3Forms sends the notification (your email — set when you signed up) -->
+          <input type="hidden" name="from_name" value="hako waitlist" />
+        
+          <input
+            type="email"
+            name="email"
+            placeholder="your@email.com"
+            required
+            aria-label="Email address"
+          />
           <button type="submit" class="btn-primary">Notify me</button>
+        
+          <!-- Honeypot: bots fill this; humans don't -->
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
         </form>
 
         <p class="notify-meta">
