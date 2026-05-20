@@ -117,21 +117,76 @@
 // ============================================================
 // NOTIFY FORM — placeholder behavior until backend is wired
 // ============================================================
+// ============================================================
+// NOTIFY FORM — submits to Web3Forms via AJAX
+// Each submission is emailed to you. Export CSV from Web3Forms dashboard.
+// ============================================================
 (function() {
-  const form = document.querySelector(".notify-form");
+  const form = document.getElementById("notifyForm");
   if (!form) return;
-  form.addEventListener("submit", (e) => {
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    const button = form.querySelector("button[type='submit']");
     const input = form.querySelector("input[type='email']");
-    if (!input || !input.value.trim()) return;
-    // TODO: wire to actual backend (Buttondown, ConvertKit, Mailchimp, etc.)
-    // For now, show a confirmation by replacing the form contents.
-    const email = input.value.trim();
-    const container = form.parentElement;
-    form.style.display = "none";
-    const confirm = document.createElement("p");
-    confirm.style.cssText = "color: var(--accent); font-weight: 500; font-size: 17px; margin-top: 8px;";
-    confirm.textContent = `Thanks — I'll write to ${email} when it drops.`;
-    form.insertAdjacentElement("afterend", confirm);
+    const email = input ? input.value.trim() : "";
+
+    // Disable button + show pending state
+    if (button) {
+      button.disabled = true;
+      button.textContent = "Sending…";
+    }
+
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        showConfirmation(form, email);
+      } else {
+        showError(form, button, "Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      showError(form, button, "Couldn't reach the server. Please try again later.");
+      console.error("Web3Forms error:", err);
+    }
   });
+
+  function showConfirmation(form, email) {
+    form.style.display = "none";
+    const message = document.createElement("p");
+    message.style.cssText =
+      "color: var(--accent); font-weight: 500; font-size: 17px; margin-top: 8px; line-height: 1.6;";
+    message.textContent = email
+      ? `You're on the list. I'll write to ${email} when it drops.`
+      : "You're on the list. I'll write to you when it drops.";
+    form.insertAdjacentElement("afterend", message);
+  }
+
+  function showError(form, button, msg) {
+    if (button) {
+      button.disabled = false;
+      button.textContent = "Notify me";
+    }
+    const existing = form.parentElement.querySelector(".notify-error");
+    if (existing) existing.remove();
+    const err = document.createElement("p");
+    err.className = "notify-error";
+    err.style.cssText =
+      "color: var(--accent); font-size: 13px; margin-top: 12px;";
+    err.textContent = msg;
+    form.insertAdjacentElement("afterend", err);
+  }
 })();
