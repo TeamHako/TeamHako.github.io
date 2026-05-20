@@ -1,590 +1,422 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-theme="light">
 <head>
-
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hako · an ambient Anki companion</title>
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+  <meta name="description" content="A handmade ambient device that shows your Anki progress on your desk. Made by @jareddesu in small batches. Drops summer 2026." />
 
-  <title>Hako — Immersion Reimagined</title>
-
-  <!-- SEO -->
-
-  <meta
-    name="description"
-    content="Premium immersion-focused language learning hardware inspired by retro Japanese tech aesthetics."
-  />
-
-  <!-- OPEN GRAPH -->
-
-  <meta property="og:title" content="Hako" />
-
-  <meta
-    property="og:description"
-    content="Premium immersion-focused language learning hardware."
-  />
-
+  <meta property="og:title" content="hako" />
+  <meta property="og:description" content="An ambient Anki companion. Handmade. Small batches. Drops summer 2026." />
   <meta property="og:type" content="website" />
 
-  <!-- FAVICON -->
-
-  <link
-    rel="icon"
-    href="assets/images/favicon.png"
-  />
-
-  <!-- CSS -->
-
-  <link
-    rel="stylesheet"
-    href="style.css"
-  />
-
-  <!-- GOOGLE FONT -->
+  <link rel="icon" href="assets/images/favicon.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
-
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-  <!-- =========================
-       LOADER
-  ========================== -->
+  <!-- Decorative background character — sits behind everything -->
+  <div class="bg-character" aria-hidden="true">箱</div>
 
-  <div class="loader">
-    <div class="loader-box"></div>
-  </div>
-
-  <!-- =========================
-       CURSOR GLOW
-  ========================== -->
-
-  <div class="cursor-glow"></div>
-
-  <!-- =========================
-       NAVBAR
-  ========================== -->
-
+  <!-- ============================================================ -->
+  <!-- NAVBAR                                                       -->
+  <!-- ============================================================ -->
   <header class="navbar">
-
-    <div class="logo">
-      HAKO
-    </div>
-
-    <!-- DESKTOP NAV -->
+    <a href="#" class="logo">
+      <span class="logo-mark">箱</span>
+      <span class="logo-word">hako</span>
+    </a>
 
     <nav class="nav-links">
-
-      <a href="#products">Products</a>
-      <a href="#about">About</a>
-      <a href="#team">Team</a>
+      <a href="#what">What it is</a>
+      <a href="#process">Process</a>
+      <a href="#maker">Maker</a>
+      <a href="#testers">Testers</a>
       <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
-
     </nav>
 
-    <!-- MOBILE BUTTON -->
-
-    <button
-      class="mobile-menu-btn"
-      aria-label="Open Menu"
-    >
-      ☰
-    </button>
-
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+        <span class="theme-icon-sun">☀</span>
+        <span class="theme-icon-moon">☾</span>
+      </button>
+      <a href="#notify" class="btn-cta-small">Notify me</a>
+      <button class="mobile-menu-btn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </header>
 
-  <!-- =========================
-       MOBILE NAV
-  ========================== -->
-
-  <div class="mobile-nav">
-
-    <a href="#products">Products</a>
-    <a href="#about">About</a>
-    <a href="#team">Team</a>
+  <!-- Mobile slide-down menu -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#what">What it is</a>
+    <a href="#process">Process</a>
+    <a href="#maker">Maker</a>
+    <a href="#testers">Testers</a>
     <a href="#faq">FAQ</a>
-    <a href="#contact">Contact</a>
-
+    <a href="#notify" class="btn-cta-small">Notify me</a>
   </div>
 
-  <!-- =========================
-       HERO SECTION
-  ========================== -->
-
+  <!-- ============================================================ -->
+  <!-- HERO                                                         -->
+  <!-- ============================================================ -->
   <section class="hero">
-
-    <div class="hero-content reveal">
-
-      <p class="eyebrow">
-        Immersion Reimagined
-      </p>
-
-      <h1>
-        Premium language learning hardware designed to keep you immersed.
+    <div class="hero-content">
+      <p class="eyebrow reveal">an ambient Anki companion</p>
+      <h1 class="reveal">
+        A small wooden box<br/>
+        that knows how<br/>
+        your studies are going.
       </h1>
-
-      <p class="hero-subtext">
-        Inspired by retro Japanese tech aesthetics,
-        minimalist industrial design,
-        and immersive learning culture.
+      <p class="hero-sub reveal">
+        hako lives on your desk and shows your daily Anki progress on a 64×64 LED matrix.
+        No notifications, no dopamine loop &mdash; just a quiet presence that knows what's due.
       </p>
 
-      <div class="hero-buttons">
-
-        <a
-          href="#products"
-          class="btn-primary"
-        >
-          Buy Now
-        </a>
-
-        <a
-          href="#about"
-          class="btn-secondary"
-        >
-          Learn More
-        </a>
-
+      <div class="hero-cta reveal">
+        <a href="#notify" class="btn-primary">Notify me when it drops</a>
+        <a href="#what" class="btn-link">Learn more <span class="arrow">→</span></a>
       </div>
 
+      <p class="hero-tagline reveal">
+        <span class="kanji-mark">第一弾</span>
+        First batch &middot; <strong>Summer 2026</strong> &middot; ~25 units
+      </p>
     </div>
-
-    <!-- HERO DEVICE -->
 
     <div class="hero-device reveal">
-
-      <img
-        src="assets/images/hako-device.png"
-        alt="Hako Device"
-        loading="lazy"
-      />
-
+      <div class="device-frame">
+        <img src="assets/images/hako-device.png" alt="hako device" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');" />
+        <!-- Fallback if image missing -->
+        <div class="device-placeholder-grid">
+          <span>箱</span>
+        </div>
+      </div>
     </div>
-
   </section>
 
-  <!-- =========================
-       PRODUCTS
-  ========================== -->
-
-  <section
-    id="products"
-    class="section"
-  >
-
-    <div class="section-header reveal">
-
-      <p class="section-tag">
-        PRODUCTS
-      </p>
-
-      <h2>
-        The Hako Ecosystem
-      </h2>
-
-    </div>
-
-    <div class="product-grid">
-
-      <!-- PRODUCT CARD -->
-
-      <div class="product-card glass reveal">
-
-        <h3>
-          Hako Device
-        </h3>
-
-        <p>
-          A distraction-free immersion companion
-          designed for language learners.
-        </p>
-
-        <ul>
-          <li>Portable pixel display</li>
-          <li>Anki integration</li>
-          <li>Immersion statistics</li>
-          <li>Customizable themes</li>
-        </ul>
-
+  <!-- ============================================================ -->
+  <!-- WHAT IT IS                                                   -->
+  <!-- ============================================================ -->
+  <section id="what" class="section section-what">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="label-mark">一</span>
+        <span class="label-text">What it is</span>
       </div>
 
-      <!-- ACCESSORIES -->
-
-      <div class="product-card glass reveal">
-
-        <h3>
-          Accessories
-        </h3>
-
-        <p>
-          Premium add-ons designed to enhance
-          your immersion workflow.
-        </p>
-
-      </div>
-
-      <!-- MERCH -->
-
-      <div class="product-card glass reveal">
-
-        <h3>
-          Merch
-        </h3>
-
-        <p>
-          Stickers, apparel, desk accessories,
-          and retro-tech inspired collectibles.
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- =========================
-       ABOUT
-  ========================== -->
-
-  <section
-    id="about"
-    class="section"
-  >
-
-    <div class="section-header reveal">
-
-      <p class="section-tag">
-        ABOUT
-      </p>
-
-      <h2>
-        Built for immersion.
-      </h2>
-
-    </div>
-
-    <div class="glass about-box reveal">
-
-      <p>
-        Hako exists to make language learning feel tangible,
-        motivating, and emotionally engaging.
-      </p>
-
-      <br>
-
-      <p>
-        Inspired by retro Japanese electronics,
-        minimalist industrial design,
-        and immersive media culture,
-        Hako blends digital immersion with physical interaction.
-      </p>
-
-    </div>
-
-  </section>
-
-  <!-- =========================
-       TEAM
-  ========================== -->
-
-  <section
-    id="team"
-    class="section"
-  >
-
-    <div class="section-header reveal">
-
-      <p class="section-tag">
-        TEAM
-      </p>
-
-      <h2>
-        People Behind Hako
-      </h2>
-
-    </div>
-
-    <div class="team-grid">
-
-      <div class="team-card glass reveal">
-
-        <img
-          src="assets/images/team-placeholder.jpg"
-          alt="Team Member"
-          loading="lazy"
-        />
-
-        <h3>
-          Jared
-        </h3>
-
-        <p>
-          Founder / Creative Direction
-        </p>
-
-      </div>
-
-      <div class="team-card glass reveal">
-
-        <img
-          src="assets/images/team-placeholder.jpg"
-          alt="Team Member"
-          loading="lazy"
-        />
-
-        <h3>
-          Future Team Member
-        </h3>
-
-        <p>
-          Hardware / Product Design
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- =========================
-       COMMUNITY
-  ========================== -->
-
-  <section class="section">
-
-    <div class="section-header reveal">
-
-      <p class="section-tag">
-        COMMUNITY
-      </p>
-
-      <h2>
-        Join the Community
-      </h2>
-
-    </div>
-
-    <div class="social-links reveal">
-
-      <a
-        href="https://youtube.com/@jareddesu"
-        target="_blank"
-      >
-        YouTube
-      </a>
-
-      <a href="#">
-        Discord
-      </a>
-
-      <a href="#">
-        Twitter/X
-      </a>
-
-      <a href="#">
-        Instagram
-      </a>
-
-      <a href="#">
-        GitHub
-      </a>
-
-    </div>
-
-  </section>
-
-  <!-- =========================
-       EMAIL LIST
-  ========================== -->
-
-  <section class="section">
-
-    <div class="email-box glass reveal">
-
-      <h2>
-        Stay Updated
-      </h2>
-
-      <p>
-        Join the email list for launch updates,
-        accessories,
-        development news,
-        and behind-the-scenes content.
-      </p>
-
-      <a
-        href="https://JaredDesu.com"
-        target="_blank"
-        class="btn-primary"
-      >
-        Join Email List
-      </a>
-
-    </div>
-
-  </section>
-
-  <!-- =========================
-       FAQ
-  ========================== -->
-
-  <section
-    id="faq"
-    class="section"
-  >
-
-    <div class="section-header reveal">
-
-      <p class="section-tag">
-        FAQ
-      </p>
-
-      <h2>
-        Frequently Asked Questions
-      </h2>
-
-    </div>
-
-    <div class="faq-container reveal">
-
-      <!-- FAQ ITEM -->
-
-      <div class="faq-item">
-
-        <button class="faq-question">
-          What is Hako?
-        </button>
-
-        <div class="faq-answer">
-          Hako is a premium immersion-focused
-          language learning device.
+      <h2 class="reveal">A glanceable view of your review queue.</h2>
+
+      <div class="what-grid">
+        <div class="what-card reveal">
+          <div class="what-num">01</div>
+          <h3>Today's load, at a glance</h3>
+          <p>
+            How many cards are due. How many you've done. Time remaining.
+            One number, one color, no notification dread.
+          </p>
         </div>
 
-      </div>
-
-      <!-- FAQ ITEM -->
-
-      <div class="faq-item">
-
-        <button class="faq-question">
-          Will Hako support Anki?
-        </button>
-
-        <div class="faq-answer">
-          Yes.
-          Hako is designed with Anki integration in mind.
+        <div class="what-card reveal">
+          <div class="what-num">02</div>
+          <h3>A study companion, not a coach</h3>
+          <p>
+            A small chibi mood-shifts with your workload. Behind on reviews,
+            it looks worried. Caught up, it rests easy. No streaks, no shame.
+          </p>
         </div>
 
+        <div class="what-card reveal">
+          <div class="what-num">03</div>
+          <h3>Cards you've recently added</h3>
+          <p>
+            A rotating window into your newest additions, random samples, or
+            anything tagged. Quiet revision while you work on other things.
+          </p>
+        </div>
+
+        <div class="what-card reveal">
+          <div class="what-num">04</div>
+          <h3>Six weeks of history</h3>
+          <p>
+            A heatmap of your past reviews. Retention windows. Card health.
+            Enough context to feel your progress without obsessing over it.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- PROCESS / CRAFT                                              -->
+  <!-- ============================================================ -->
+  <section id="process" class="section section-process">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="label-mark">二</span>
+        <span class="label-text">Process</span>
       </div>
 
-    </div>
+      <h2 class="reveal">Built by one person, in small batches.</h2>
 
+      <div class="process-grid">
+        <div class="process-step reveal">
+          <p class="step-num">手作り</p>
+          <h3>Handmade enclosure</h3>
+          <p>
+            Each case is cut from baltic birch plywood and assembled in my workshop.
+            Visible joinery. Soft natural finish. No glossy polish &mdash; just the wood.
+          </p>
+        </div>
+
+        <div class="process-step reveal">
+          <p class="step-num">電子</p>
+          <h3>Real components</h3>
+          <p>
+            A Raspberry Pi Zero W drives a 64×64 RGB LED matrix. Inside, the same
+            software that runs the desktop preview &mdash; built and refined over months
+            with the testing community.
+          </p>
+        </div>
+
+        <div class="process-step reveal">
+          <p class="step-num">少量</p>
+          <h3>Small batches, by design</h3>
+          <p>
+            First batch is ~25 units. I'd rather make 25 well than 250 hastily.
+            If you miss this batch, the next is planned for late 2026.
+          </p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- =========================
-       CONTACT
-  ========================== -->
+  <!-- ============================================================ -->
+  <!-- MAKER                                                        -->
+  <!-- ============================================================ -->
+  <section id="maker" class="section section-maker">
+    <div class="section-inner maker-layout">
+      <div class="section-label reveal">
+        <span class="label-mark">三</span>
+        <span class="label-text">Maker</span>
+      </div>
 
-  <section
-    id="contact"
-    class="section"
-  >
+      <div class="maker-content">
+        <div class="maker-text reveal">
+          <h2>Made by Jared.</h2>
+          <p class="maker-bio">
+            I'm a Japanese learner and YouTuber who's spent the last few years
+            documenting AJATT-style immersion at <a href="https://youtube.com/@jareddesu" target="_blank" rel="noopener">@jareddesu</a>.
+            hako started because my desk needed something quieter than a phone and
+            more present than a tab.
+          </p>
+          <p class="maker-bio">
+            It's a solo project. Every unit will be assembled, tested, and shipped by me.
+            If you have a question, you'll hear back from me directly.
+          </p>
+          <div class="maker-links">
+            <a href="https://youtube.com/@jareddesu" target="_blank" rel="noopener" class="maker-link">YouTube ↗</a>
+            <a href="#" class="maker-link">Discord ↗</a>
+            <a href="#" class="maker-link">Twitter ↗</a>
+          </div>
+        </div>
 
-    <div class="section-header reveal">
+        <div class="maker-portrait reveal">
+          <div class="portrait-frame">
+            <!-- Replace with real photo when available -->
+            <div class="portrait-placeholder">J</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <p class="section-tag">
-        CONTACT
+  <!-- ============================================================ -->
+  <!-- TESTERS                                                      -->
+  <!-- ============================================================ -->
+  <section id="testers" class="section section-testers">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="label-mark">四</span>
+        <span class="label-text">Testers</span>
+      </div>
+
+      <h2 class="reveal">The people who shaped this.</h2>
+      <p class="section-sub reveal">
+        hako wouldn't exist in its current form without the testers in the Discord who
+        ran builds for months, broke things in interesting ways, and pushed me toward better choices.
       </p>
 
-      <h2>
-        Get In Touch
-      </h2>
-
+      <div class="testers-wall">
+        <!-- Replace these with real testers. Each circle: an avatar image + @handle. -->
+        <div class="tester reveal">
+          <div class="tester-avatar"><span>?</span></div>
+          <p class="tester-handle">@tester01</p>
+        </div>
+        <div class="tester reveal">
+          <div class="tester-avatar"><span>?</span></div>
+          <p class="tester-handle">@tester02</p>
+        </div>
+        <div class="tester reveal">
+          <div class="tester-avatar"><span>?</span></div>
+          <p class="tester-handle">@tester03</p>
+        </div>
+        <div class="tester reveal">
+          <div class="tester-avatar"><span>?</span></div>
+          <p class="tester-handle">@tester04</p>
+        </div>
+        <div class="tester reveal">
+          <div class="tester-avatar"><span>?</span></div>
+          <p class="tester-handle">@tester05</p>
+        </div>
+        <div class="tester reveal">
+          <div class="tester-avatar"><span>?</span></div>
+          <p class="tester-handle">@tester06</p>
+        </div>
+        <div class="tester reveal">
+          <div class="tester-avatar"><span>?</span></div>
+          <p class="tester-handle">@tester07</p>
+        </div>
+        <div class="tester reveal">
+          <div class="tester-avatar"><span>?</span></div>
+          <p class="tester-handle">@tester08</p>
+        </div>
+      </div>
     </div>
-
-    <form class="contact-form glass reveal">
-
-      <input
-        type="text"
-        placeholder="Name"
-      />
-
-      <input
-        type="email"
-        placeholder="Email"
-      />
-
-      <textarea
-        placeholder="Message"
-      ></textarea>
-
-      <button
-        type="submit"
-        class="btn-primary"
-      >
-        Send Message
-      </button>
-
-    </form>
-
   </section>
 
-  <!-- =========================
-       FOOTER
-  ========================== -->
+  <!-- ============================================================ -->
+  <!-- NOTIFY ME                                                    -->
+  <!-- ============================================================ -->
+  <section id="notify" class="section section-notify">
+    <div class="section-inner">
+      <div class="notify-box reveal">
+        <p class="kanji-mark large">第一弾</p>
+        <h2>First batch drops summer 2026.</h2>
+        <p class="notify-sub">
+          About 25 units. Handmade. Then a few months of quiet before batch two.
+          Drop your email and I'll send one note when pre-orders open &mdash; not before, not after.
+        </p>
 
+        <form class="notify-form" action="#" method="post" onsubmit="return false;">
+          <input type="email" placeholder="your@email.com" required aria-label="Email address" />
+          <button type="submit" class="btn-primary">Notify me</button>
+        </form>
+
+        <p class="notify-meta">
+          One email when it's ready. No newsletter, no drip campaigns, no resale to anyone, ever.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- FAQ                                                          -->
+  <!-- ============================================================ -->
+  <section id="faq" class="section section-faq">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="label-mark">五</span>
+        <span class="label-text">FAQ</span>
+      </div>
+
+      <h2 class="reveal">Questions you might be asking.</h2>
+
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <button class="faq-question">What does hako actually do?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">
+            <p>It sits on your desk and shows your Anki progress on a 64×64 LED matrix. Six screens you can switch between — today's queue, card health, a six-week heatmap, a study-pet chibi, recent or random card review, and retention percentages. It's ambient, not interactive: there's no touchscreen, no notifications, no app to open.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question">How does it connect to Anki?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">
+            <p>Via the free AnkiConnect addon. hako talks to your local Anki Desktop over Wi-Fi. As long as Anki is open on your computer, hako stays in sync. The device polls roughly every 30 seconds — fast enough to feel live, slow enough to never interrupt.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question">What's the price?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">
+            <p>The first-batch price will be announced closer to launch. It will reflect the actual cost of small-batch handmade hardware, not the cheapest possible mass-produced version.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question">Can I try it without buying the hardware?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">
+            <p>Yes. The desktop preview app runs on Mac and Windows and shows exactly what the physical device shows. If you join the Discord, you can try the beta now and shape what ships in summer 2026.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question">Does it support languages besides Japanese?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">
+            <p>Yes. It works with any Anki deck. The bundled font has full Latin and Japanese kana/kanji coverage, plus optional Unifont for wider script support. Korean, Mandarin, Cyrillic, and most European languages render correctly.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question">Will there be more batches after the first?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">
+            <p>Plan is yes, late 2026 onward — but each batch is small by design. If you miss one, you'll be able to join a waitlist for the next.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- FOOTER                                                       -->
+  <!-- ============================================================ -->
   <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="logo">
+          <span class="logo-mark">箱</span>
+          <span class="logo-word">hako</span>
+        </div>
+        <p class="footer-tagline">An ambient Anki companion.</p>
+      </div>
 
-    <div class="footer-left">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <p class="footer-heading">The thing</p>
+          <a href="#what">What it is</a>
+          <a href="#process">Process</a>
+          <a href="#notify">Notify me</a>
+        </div>
 
-      <h3>
-        HAKO
-      </h3>
+        <div class="footer-col">
+          <p class="footer-heading">The maker</p>
+          <a href="#maker">About</a>
+          <a href="https://youtube.com/@jareddesu" target="_blank" rel="noopener">YouTube ↗</a>
+          <a href="#" target="_blank" rel="noopener">Discord ↗</a>
+        </div>
 
-      <p>
-        Immersion Reimagined.
-      </p>
-
+        <div class="footer-col">
+          <p class="footer-heading">Boring stuff</p>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="mailto:hello@hakoshop.com">Email</a>
+        </div>
+      </div>
     </div>
 
-    <div class="footer-right">
-
-      <a href="#">
-        Privacy
-      </a>
-
-      <a href="#">
-        Terms
-      </a>
-
-      <a href="#contact">
-        Contact
-      </a>
-
+    <div class="footer-baseline">
+      <p>© 2026 hako · made in <span class="footer-emoji">🛠️</span> by Jared</p>
     </div>
-
   </footer>
 
-  <!-- JAVASCRIPT -->
-
   <script src="script.js"></script>
-
 </body>
 </html>
