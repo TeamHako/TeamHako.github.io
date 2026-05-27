@@ -73,7 +73,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;;
 }
 
 body {
@@ -83,7 +83,7 @@ body {
   font-size: 16px;
   line-height: 1.65;
   font-weight: 400;
-  overflow-x: hidden;
+  overflow-x: clip;
   transition: background-color 0.4s ease, color 0.4s ease;
   position: relative;
   min-height: 100vh;
@@ -537,6 +537,10 @@ a { color: inherit; text-decoration: none; }
   color: var(--ink);
   margin-bottom: 60px;
   max-width: 760px;
+}
+
+* {
+  outline: 1px solid red;
 }
 
 .section-label {
