@@ -1529,11 +1529,6 @@ h6,
     max-width: 220px;
   }
 
-  .testers-wall {
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 16px;
-  }
-
   .tester-avatar {
     width: 60px;
     height: 60px;
