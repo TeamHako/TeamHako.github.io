@@ -911,7 +911,6 @@ a { color: inherit; text-decoration: none; }
 }
 
 .faq-item.active .faq-icon {
-  transform: rotate(45deg);
   color: var(--accent);
 }
 
