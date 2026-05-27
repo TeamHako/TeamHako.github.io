@@ -5,16 +5,13 @@
   const STORAGE_KEY = "hako-theme";
   const root = document.documentElement;
 
-  // Initialize from localStorage or default to light (washi)
   const stored = localStorage.getItem(STORAGE_KEY);
   if (stored === "dark" || stored === "light") {
     root.setAttribute("data-theme", stored);
   } else {
-    // No preference saved — default to light (washi paper aesthetic)
     root.setAttribute("data-theme", "light");
   }
 
-  // Theme toggle button
   const toggle = document.querySelector(".theme-toggle");
   if (toggle) {
     toggle.addEventListener("click", () => {
@@ -49,7 +46,7 @@
 })();
 
 // ============================================================
-// FAQ ACCORDION
+// FAQ ACCORDION — keeps click-to-toggle behavior + ARIA
 // ============================================================
 (function() {
   const faqItems = document.querySelectorAll(".faq-item");
@@ -57,10 +54,16 @@
     const button = item.querySelector(".faq-question");
     if (!button) return;
     button.addEventListener("click", () => {
-      // Close other open items for a cleaner reading experience
       const wasActive = item.classList.contains("active");
-      faqItems.forEach((other) => other.classList.remove("active"));
-      if (!wasActive) item.classList.add("active");
+      faqItems.forEach((other) => {
+        other.classList.remove("active");
+        const btn = other.querySelector(".faq-question");
+        if (btn) btn.setAttribute("aria-expanded", "false");
+      });
+      if (!wasActive) {
+        item.classList.add("active");
+        button.setAttribute("aria-expanded", "true");
+      }
     });
   });
 })();
@@ -78,26 +81,23 @@
     nav.classList.toggle("active");
   });
 
-  // Close on link click
   nav.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => nav.classList.remove("active"));
   });
 
-  // Close on outside click
   document.addEventListener("click", (e) => {
     if (!nav.contains(e.target) && !btn.contains(e.target)) {
       nav.classList.remove("active");
     }
   });
 
-  // Close on Escape
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") nav.classList.remove("active");
   });
 })();
 
 // ============================================================
-// SCROLLED NAV STATE (optional subtle shadow when scrolled)
+// SCROLLED NAV STATE
 // ============================================================
 (function() {
   const nav = document.querySelector(".navbar");
@@ -115,11 +115,7 @@
 })();
 
 // ============================================================
-// NOTIFY FORM — placeholder behavior until backend is wired
-// ============================================================
-// ============================================================
-// NOTIFY FORM — submits to Web3Forms via AJAX
-// Each submission is emailed to you. Export CSV from Web3Forms dashboard.
+// NOTIFY FORM
 // ============================================================
 (function() {
   const form = document.getElementById("notifyForm");
@@ -132,7 +128,6 @@
     const input = form.querySelector("input[type='email']");
     const email = input ? input.value.trim() : "";
 
-    // Disable button + show pending state
     if (button) {
       button.disabled = true;
       button.textContent = "Sending…";
@@ -189,4 +184,76 @@
     err.textContent = msg;
     form.insertAdjacentElement("afterend", err);
   }
+})();
+
+// ============================================================
+// SIGNUP COUNTER
+// Animates 0 → SIGNUP_COUNT when scrolled into view, with an
+// ease-in-out curve. Hidden until the count crosses MIN_TO_SHOW
+// to avoid showing anti-social proof at low numbers.
+// ============================================================
+(function() {
+  const counter = document.getElementById("signupCounter");
+  const numberEl = document.getElementById("counterNumber");
+  if (!counter || !numberEl) return;
+
+  const target = window.SIGNUP_COUNT || 0;
+  const minToShow = window.MIN_TO_SHOW || 0;
+
+  // Hide entirely until we have impressive numbers
+  if (target < minToShow) {
+    counter.style.display = "none";
+    return;
+  }
+
+  // Reveal the counter to layout (it's visible but the number is still 0)
+  counter.style.display = "";
+  counter.setAttribute("aria-hidden", "false");
+
+  // Respect users who don't want motion — just show the final number
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reducedMotion) {
+    numberEl.textContent = target.toLocaleString();
+    counter.classList.add("active");
+    return;
+  }
+
+  // Cubic ease-in-out for a satisfying acceleration/deceleration curve
+  function easeInOut(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function runCounter() {
+    const duration = 1800;          // ms — slow enough to register, fast enough to not bore
+    const start = performance.now();
+
+    function frame(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = easeInOut(progress);
+      const value = Math.round(eased * target);
+      numberEl.textContent = value.toLocaleString();
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        numberEl.textContent = target.toLocaleString();
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // Only start the count when the user can actually see it
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          counter.classList.add("active");
+          runCounter();
+          observer.unobserve(counter);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+  observer.observe(counter);
 })();
