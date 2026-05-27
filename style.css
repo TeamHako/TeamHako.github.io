@@ -1118,3 +1118,123 @@ a { color: inherit; text-decoration: none; }
   width: 240px;  /* or whatever fits — but a multiple of 64 looks best */
   height: 240px;
 }
+
+
+/* ============================================================
+   ADDITIONS: image slots, FAQ hint, signup counter
+   Append to the bottom of style.css.
+   ============================================================ */
+
+/* --- Screen screenshots inside "What it is" cards --- */
+
+.what-screen {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.what-screen img {
+  width: 192px;          /* 3x the 64px native pixel size — sharp and chunky */
+  height: 192px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  border-radius: 8px;
+  background: #0a0a0a;   /* tiny matte border around the matrix-like image */
+  padding: 6px;
+  border: 1px solid var(--border-soft);
+}
+
+/* --- Assembly photos in Process section --- */
+
+.process-photo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--border-soft);
+  margin-bottom: 24px;
+  background: var(--surface-soft);
+}
+
+.process-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.process-step:hover .process-photo img {
+  transform: scale(1.03);
+}
+
+/* --- FAQ hint and improved affordance --- */
+
+.faq-hint {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 24px;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+
+.faq-question .faq-text {
+  flex: 1;
+}
+
+/* Make the + icon more like an obvious affordance and less like an X */
+.faq-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-faint);
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.faq-item.active .faq-icon {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* --- Signup counter --- */
+
+.signup-counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border-soft);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.signup-counter.active {
+  opacity: 1;
+}
+
+.counter-number {
+  font-family: "Shippori Mincho", serif;
+  font-size: 42px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  /* fixed-width feel without using monospace — tabular figures */
+  font-variant-numeric: tabular-nums;
+}
+
+.counter-label {
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
