@@ -1016,11 +1016,27 @@ h6,
 
 .testers-wall {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
-
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 24px;
-
   margin-top: 32px;
+  justify-items: center;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .testers-wall {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 520px) {
+  .testers-wall {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
 }
 
 .tester {
