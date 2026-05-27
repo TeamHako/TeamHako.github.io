@@ -31,7 +31,6 @@
        Update SIGNUP_COUNT manually when you want to refresh
        the displayed waitlist size. The counter only appears
        once the count crosses MIN_TO_SHOW.
-       Later, this can be swapped for a real API call.
        ===================================================== -->
   <script>
     window.SIGNUP_COUNT = 0;       // update this with the real number
@@ -113,7 +112,6 @@
     <div class="hero-device reveal">
       <div class="device-frame">
         <img src="assets/images/hako-device.png" alt="hako device" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');" />
-        <!-- Fallback if image missing -->
         <div class="device-placeholder-grid">
           <span>箱</span>
         </div>
@@ -379,6 +377,10 @@
 
   <!-- ============================================================ -->
   <!-- FAQ                                                          -->
+  <!-- The faq-items are deliberately NOT .reveal — they need to    -->
+  <!-- toggle their own .active class for the accordion, and        -->
+  <!-- mixing both made closing a card hide the whole row.          -->
+  <!-- The list itself fades in instead.                            -->
   <!-- ============================================================ -->
   <section id="faq" class="section section-faq">
     <div class="section-inner">
@@ -390,9 +392,9 @@
       <h2 class="reveal">Questions you might be asking.</h2>
       <p class="faq-hint reveal">Tap any question to read the answer.</p>
 
-      <div class="faq-list">
-        <div class="faq-item reveal">
-          <button class="faq-question" aria-expanded="false">
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
             <span class="faq-text">What does hako actually do?</span>
             <span class="faq-icon" aria-hidden="true">+</span>
           </button>
@@ -401,8 +403,8 @@
           </div>
         </div>
 
-        <div class="faq-item reveal">
-          <button class="faq-question" aria-expanded="false">
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
             <span class="faq-text">How does it connect to Anki?</span>
             <span class="faq-icon" aria-hidden="true">+</span>
           </button>
@@ -411,8 +413,8 @@
           </div>
         </div>
 
-        <div class="faq-item reveal">
-          <button class="faq-question" aria-expanded="false">
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
             <span class="faq-text">What's the price?</span>
             <span class="faq-icon" aria-hidden="true">+</span>
           </button>
@@ -421,8 +423,8 @@
           </div>
         </div>
 
-        <div class="faq-item reveal">
-          <button class="faq-question" aria-expanded="false">
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
             <span class="faq-text">Can I try it without buying the hardware?</span>
             <span class="faq-icon" aria-hidden="true">+</span>
           </button>
@@ -431,8 +433,8 @@
           </div>
         </div>
 
-        <div class="faq-item reveal">
-          <button class="faq-question" aria-expanded="false">
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
             <span class="faq-text">Does it support languages besides Japanese?</span>
             <span class="faq-icon" aria-hidden="true">+</span>
           </button>
@@ -441,8 +443,8 @@
           </div>
         </div>
 
-        <div class="faq-item reveal">
-          <button class="faq-question" aria-expanded="false">
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
             <span class="faq-text">Will there be more batches after the first?</span>
             <span class="faq-icon" aria-hidden="true">+</span>
           </button>
