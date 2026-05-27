@@ -1108,3 +1108,13 @@ a { color: inherit; text-decoration: none; }
     transform: none !important;
   }
 }
+
+/* ============================================================
+   IMAGE FORMATTING
+   ============================================================ */
+.screen-shot {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  width: 240px;  /* or whatever fits — but a multiple of 64 looks best */
+  height: 240px;
+}
