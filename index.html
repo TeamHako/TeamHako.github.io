@@ -25,6 +25,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
+
+  <!-- =====================================================
+       SIGNUP COUNTER CONFIG
+       Update SIGNUP_COUNT manually when you want to refresh
+       the displayed waitlist size. The counter only appears
+       once the count crosses MIN_TO_SHOW.
+       Later, this can be swapped for a real API call.
+       ===================================================== -->
+  <script>
+    window.SIGNUP_COUNT = 0;       // update this with the real number
+    window.MIN_TO_SHOW = 50;       // counter stays hidden until we hit this
+  </script>
 </head>
 
 <body>
@@ -124,6 +136,9 @@
       <div class="what-grid">
         <div class="what-card reveal">
           <div class="what-num">01</div>
+          <div class="what-screen">
+            <img src="assets/images/screens/screen-today.png" alt="hako today screen" loading="lazy" />
+          </div>
           <h3>Today's load, at a glance</h3>
           <p>
             How many cards are due. How many you've done. Time remaining.
@@ -133,6 +148,9 @@
 
         <div class="what-card reveal">
           <div class="what-num">02</div>
+          <div class="what-screen">
+            <img src="assets/images/screens/screen-pet.png" alt="hako study pet screen" loading="lazy" />
+          </div>
           <h3>A study companion, not a coach</h3>
           <p>
             A small chibi mood-shifts with your workload. Behind on reviews,
@@ -151,6 +169,9 @@
 
         <div class="what-card reveal">
           <div class="what-num">04</div>
+          <div class="what-screen">
+            <img src="assets/images/screens/screen-heatmap.png" alt="hako six-week heatmap screen" loading="lazy" />
+          </div>
           <h3>Six weeks of history</h3>
           <p>
             A heatmap of your past reviews. Retention windows. Card health.
@@ -175,6 +196,9 @@
 
       <div class="process-grid">
         <div class="process-step reveal">
+          <div class="process-photo">
+            <img src="assets/images/process/assembly-01.jpg" alt="Assembling a hako enclosure by hand" loading="lazy" />
+          </div>
           <p class="step-num">手作り</p>
           <h3>Handmade enclosure</h3>
           <p>
@@ -184,6 +208,9 @@
         </div>
 
         <div class="process-step reveal">
+          <div class="process-photo">
+            <img src="assets/images/process/assembly-02.jpg" alt="hako internal electronics" loading="lazy" />
+          </div>
           <p class="step-num">電子</p>
           <h3>Real components</h3>
           <p>
@@ -320,11 +347,8 @@
         </p>
 
         <form class="notify-form" id="notifyForm">
-          <!-- Web3Forms access key (replace YOUR_ACCESS_KEY_HERE with the one you receive by email) -->
           <input type="hidden" name="access_key" value="df7c9141-85ec-4969-9ddb-e87723e463f5" />
-          <!-- Subject line for the notification email you receive -->
           <input type="hidden" name="subject" value="hako waitlist signup" />
-          <!-- Where Web3Forms sends the notification (your email — set when you signed up) -->
           <input type="hidden" name="from_name" value="hako waitlist" />
         
           <input
@@ -343,6 +367,12 @@
         <p class="notify-meta">
           One email when it's ready. No newsletter, no drip campaigns, no resale to anyone, ever.
         </p>
+
+        <!-- Live signup counter — appears once SIGNUP_COUNT >= MIN_TO_SHOW -->
+        <div class="signup-counter" id="signupCounter" aria-hidden="true">
+          <span class="counter-number" id="counterNumber">0</span>
+          <span class="counter-label">already on the list</span>
+        </div>
       </div>
     </div>
   </section>
@@ -358,45 +388,64 @@
       </div>
 
       <h2 class="reveal">Questions you might be asking.</h2>
+      <p class="faq-hint reveal">Tap any question to read the answer.</p>
 
       <div class="faq-list">
         <div class="faq-item reveal">
-          <button class="faq-question">What does hako actually do?<span class="faq-icon">+</span></button>
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-text">What does hako actually do?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
           <div class="faq-answer">
             <p>It sits on your desk and shows your Anki progress on a 64×64 LED matrix. Six screens you can switch between — today's queue, card health, a six-week heatmap, a study-pet chibi, recent or random card review, and retention percentages. It's ambient, not interactive: there's no touchscreen, no notifications, no app to open.</p>
           </div>
         </div>
 
         <div class="faq-item reveal">
-          <button class="faq-question">How does it connect to Anki?<span class="faq-icon">+</span></button>
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-text">How does it connect to Anki?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
           <div class="faq-answer">
             <p>Via the free AnkiConnect addon. hako talks to your local Anki Desktop over Wi-Fi. As long as Anki is open on your computer, hako stays in sync. The device polls roughly every 30 seconds — fast enough to feel live, slow enough to never interrupt.</p>
           </div>
         </div>
 
         <div class="faq-item reveal">
-          <button class="faq-question">What's the price?<span class="faq-icon">+</span></button>
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-text">What's the price?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
           <div class="faq-answer">
             <p>The first-batch price will be announced closer to launch. It will reflect the actual cost of small-batch handmade hardware, not the cheapest possible mass-produced version.</p>
           </div>
         </div>
 
         <div class="faq-item reveal">
-          <button class="faq-question">Can I try it without buying the hardware?<span class="faq-icon">+</span></button>
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-text">Can I try it without buying the hardware?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
           <div class="faq-answer">
             <p>Yes. The desktop preview app runs on Mac and Windows and shows exactly what the physical device shows. If you join the Discord, you can try the beta now and shape what ships in summer 2026.</p>
           </div>
         </div>
 
         <div class="faq-item reveal">
-          <button class="faq-question">Does it support languages besides Japanese?<span class="faq-icon">+</span></button>
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-text">Does it support languages besides Japanese?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
           <div class="faq-answer">
             <p>Yes. It works with any Anki deck. The bundled font has full Latin and Japanese kana/kanji coverage, plus optional Unifont for wider script support. Korean, Mandarin, Cyrillic, and most European languages render correctly.</p>
           </div>
         </div>
 
         <div class="faq-item reveal">
-          <button class="faq-question">Will there be more batches after the first?<span class="faq-icon">+</span></button>
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-text">Will there be more batches after the first?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
           <div class="faq-answer">
             <p>Plan is yes, late 2026 onward — but each batch is small by design. If you miss one, you'll be able to join a waitlist for the next.</p>
           </div>
