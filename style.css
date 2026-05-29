@@ -1742,3 +1742,190 @@ h6,
   letter-spacing: 0.04em;
   text-transform: lowercase;
 }
+
+/* ============================================================
+   ACCESS GATE — hype gate overlay. (Appended.)
+   Matches the washi (light) / sumi (dark) theme.
+   ============================================================ */
+
+body.gate-locked { overflow: hidden; }
+
+.gate {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--bg);
+  overflow: hidden;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.7s;
+}
+
+.gate::before {
+  content: "箱";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Shippori Mincho", serif;
+  font-size: clamp(30rem, 70vw, 60rem);
+  font-weight: 800;
+  color: var(--ink);
+  opacity: 0.025;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+
+:root[data-theme="dark"] .gate::before { opacity: 0.04; }
+
+.gate.gate-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.gate-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gate-mark {
+  font-family: "Shippori Mincho", serif;
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.gate-kana {
+  font-family: "Shippori Mincho", serif;
+  font-size: 15px;
+  letter-spacing: 0.3em;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+.gate-title {
+  font-family: "Shippori Mincho", serif;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.gate-tagline {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin-bottom: 36px;
+}
+
+.gate-form {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.gate-input {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 20px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.gate-input:focus { outline: none; border-color: var(--accent); }
+.gate-input::placeholder { color: var(--faint); }
+
+.gate-btn {
+  padding: 14px 26px;
+  background: var(--ink);
+  color: var(--bg);
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.gate-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.gate-form.gate-shake {
+  animation: gateShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes gateShake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-7px); }
+  40%, 60% { transform: translateX(7px); }
+}
+
+.gate-error {
+  min-height: 18px;
+  font-size: 13px;
+  color: var(--accent);
+  margin-bottom: 16px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.gate-error.show { opacity: 1; }
+
+.gate-help {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 320px;
+  margin-bottom: 32px;
+}
+
+.gate-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.gate-links a {
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  transition: color 0.2s ease;
+}
+
+.gate-links a:hover { color: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .gate-form.gate-shake { animation: none; }
+  .gate { transition: none; }
+}
+
+@media (max-width: 520px) {
+  .gate-form { flex-direction: column; }
+  .gate-input, .gate-btn { width: 100%; }
+}
