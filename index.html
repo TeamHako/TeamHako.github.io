@@ -40,6 +40,45 @@
 
 <body>
 
+  <!-- ============================================================ -->
+  <!-- ACCESS GATE — hype gate (NOT real security). Must be the     -->
+  <!-- first thing in <body> so it covers the whole page.           -->
+  <!-- ============================================================ -->
+  <div class="gate" id="accessGate">
+    <div class="gate-inner">
+      <div class="gate-mark">箱</div>
+      <p class="gate-kana">合言葉を</p>
+      <h1 class="gate-title">hako</h1>
+      <p class="gate-tagline">first batch · summer 2026</p>
+
+      <form class="gate-form" id="gateForm" autocomplete="off">
+        <input
+          type="password"
+          id="gateInput"
+          class="gate-input"
+          placeholder="enter the phrase"
+          aria-label="Access phrase"
+          autocomplete="off"
+          autofocus
+        />
+        <button type="submit" class="gate-btn">Enter</button>
+      </form>
+
+      <p class="gate-error" id="gateError" aria-live="polite"></p>
+
+      <p class="gate-help">
+        No phrase yet? It's shared in the Discord when you join the beta.
+      </p>
+
+      <div class="gate-links">
+        <a href="https://youtube.com/@jareddesu" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="#" target="_blank" rel="noopener" id="gateDiscord">Discord ↗</a>
+        <a href="#" id="gatePrivacy">Privacy</a>
+        <a href="#" id="gateTerms">Terms</a>
+      </div>
+    </div>
+  </div>
+
   <!-- Decorative background character — sits behind everything -->
   <div class="bg-character" aria-hidden="true">箱</div>
 
@@ -363,10 +402,6 @@
 
   <!-- ============================================================ -->
   <!-- FAQ                                                          -->
-  <!-- The faq-items are deliberately NOT .reveal — they need to    -->
-  <!-- toggle their own .active class for the accordion, and        -->
-  <!-- mixing both made closing a card hide the whole row.          -->
-  <!-- The list itself fades in instead.                            -->
   <!-- ============================================================ -->
   <section id="faq" class="section section-faq">
     <div class="section-inner">
