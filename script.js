@@ -1,4 +1,91 @@
 // ============================================================
+// ACCESS GATE — hype gate (NOT real security).
+// Runs first so the page is covered before anything else renders.
+//
+// Password stored only as a SHA-256 hash, so source-viewing won't
+// reveal the phrase. A determined dev can still bypass via DevTools
+// (inherent limit of client-side gating), but can't learn the phrase.
+//
+// To change the password, run in any browser console:
+//   crypto.subtle.digest("SHA-256", new TextEncoder().encode("yourphrase"))
+//     .then(b => console.log([...new Uint8Array(b)]
+//       .map(x => x.toString(16).padStart(2,"0")).join("")));
+// then paste the result as GATE_HASH below.
+// ============================================================
+(function() {
+  const GATE_HASH =
+    "9084bb947c414a201d727de0982159afccff5b614f8566c1b51f0ebf610aab8a"; // hako2027
+  const STORAGE_KEY = "hako-gate-ok";
+
+  const gate = document.getElementById("accessGate");
+  if (!gate) return;
+
+  if (sessionStorage.getItem(STORAGE_KEY) === "1") {
+    gate.parentNode && gate.parentNode.removeChild(gate);
+    return;
+  }
+
+  document.body.classList.add("gate-locked");
+
+  const form = document.getElementById("gateForm");
+  const input = document.getElementById("gateInput");
+  const errorEl = document.getElementById("gateError");
+
+  async function sha256Hex(text) {
+    const buf = await crypto.subtle.digest(
+      "SHA-256",
+      new TextEncoder().encode(text)
+    );
+    return [...new Uint8Array(buf)]
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  function unlock() {
+    sessionStorage.setItem(STORAGE_KEY, "1");
+    document.body.classList.remove("gate-locked");
+    gate.classList.add("gate-hidden");
+    setTimeout(() => {
+      gate.parentNode && gate.parentNode.removeChild(gate);
+    }, 750);
+  }
+
+  function reject() {
+    if (errorEl) {
+      errorEl.textContent = "Not quite. Check the Discord for the phrase.";
+      errorEl.classList.add("show");
+    }
+    if (form) {
+      form.classList.add("gate-shake");
+      setTimeout(() => form.classList.remove("gate-shake"), 450);
+    }
+    if (input) {
+      input.value = "";
+      input.focus();
+    }
+  }
+
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const value = input ? input.value.trim() : "";
+      if (!value) return;
+      try {
+        const hash = await sha256Hex(value);
+        if (hash === GATE_HASH) {
+          unlock();
+        } else {
+          reject();
+        }
+      } catch (err) {
+        console.error("Gate hash error:", err);
+        reject();
+      }
+    });
+  }
+})();
+
+// ============================================================
 // THEME TOGGLE — persists in localStorage
 // ============================================================
 (function() {
@@ -188,9 +275,6 @@
 
 // ============================================================
 // SIGNUP COUNTER
-// Animates 0 → SIGNUP_COUNT when scrolled into view, with an
-// ease-in-out curve. Hidden until the count crosses MIN_TO_SHOW
-// to avoid showing anti-social proof at low numbers.
 // ============================================================
 (function() {
   const counter = document.getElementById("signupCounter");
@@ -200,17 +284,14 @@
   const target = window.SIGNUP_COUNT || 0;
   const minToShow = window.MIN_TO_SHOW || 0;
 
-  // Hide entirely until we have impressive numbers
   if (target < minToShow) {
     counter.style.display = "none";
     return;
   }
 
-  // Reveal the counter to layout (it's visible but the number is still 0)
   counter.style.display = "";
   counter.setAttribute("aria-hidden", "false");
 
-  // Respect users who don't want motion — just show the final number
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reducedMotion) {
     numberEl.textContent = target.toLocaleString();
@@ -218,13 +299,12 @@
     return;
   }
 
-  // Cubic ease-in-out for a satisfying acceleration/deceleration curve
   function easeInOut(t) {
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   }
 
   function runCounter() {
-    const duration = 1800;          // ms — slow enough to register, fast enough to not bore
+    const duration = 1800;
     const start = performance.now();
 
     function frame(now) {
@@ -242,7 +322,6 @@
     requestAnimationFrame(frame);
   }
 
-  // Only start the count when the user can actually see it
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
