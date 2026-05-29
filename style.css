@@ -1847,7 +1847,7 @@ body.gate-locked { overflow: hidden; }
   background: var(--surface);
   color: var(--ink);
   font-family: inherit;
-  font-size: 14px;
+  font-size: 16px;   /* was 14px — 16px stops iOS auto-zoom on focus */
   transition: border-color 0.2s ease;
 }
 
