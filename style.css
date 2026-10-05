@@ -2148,3 +2148,54 @@ body.gate-locked { overflow: hidden; }
 }
 
 .policy p { margin: 0 0 16px; }
+
+/* Founder vs Kickstarter comparison */
+.edition-compare {
+  margin-top: 64px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border-soft);
+}
+.edition-compare h3 {
+  font-family: "Shippori Mincho", serif;
+  font-size: 26px;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.edition-sub {
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+.edition-sub a { color: var(--accent); }
+.edition-table-wrap { overflow-x: auto; margin-bottom: 20px; }
+.edition-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+.edition-table th,
+.edition-table td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-soft);
+  vertical-align: top;
+}
+.edition-table thead th {
+  color: var(--ink);
+  font-weight: 600;
+}
+.edition-table thead th:nth-child(2),
+.edition-table tbody td:nth-child(2) {
+  background: var(--accent-faint);
+}
+.edition-table tbody th {
+  color: var(--muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+@media (max-width: 520px) {
+  .edition-table { font-size: 14px; }
+  .edition-table th, .edition-table td { padding: 10px 8px; }
+  .edition-table tbody th { white-space: normal; }
+}
