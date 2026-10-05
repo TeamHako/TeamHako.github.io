@@ -2531,3 +2531,113 @@ body.gate-locked { overflow: hidden; }
 /* The menu link colour was overriding the button text colour */
 .mobile-nav a.btn-cta-small,
 .mobile-nav a.btn-cta-small:hover { color: var(--bg); text-align: center; }
+
+/* Rendered LED panels (assets/images/panel/<lang>/) */
+.what-screen img[src*="/panel/"] {
+  width: min(220px, 100%);
+  height: auto;
+  image-rendering: auto;
+  border-radius: 6px;
+  box-shadow: 0 0 0 6px #6e4527, 0 0 0 7px #5a371f, 0 10px 24px rgba(28, 24, 20, 0.22);
+  margin: 7px 0 4px;
+}
+
+/* ============================================================
+   ILLUSTRATIONS (setup steps, inside the box)
+   ============================================================ */
+.how-art {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 4px 0 16px;
+  overflow: visible;
+}
+.ill-ink { fill: var(--ink); }
+.ill-surface { fill: var(--surface); }
+.ill-accent { fill: var(--accent); }
+.ill-accent-soft { fill: var(--accent-faint); }
+.ill-line { fill: var(--faint); }
+.ill-line-bg { fill: var(--bg-deep); }
+.ill-card { fill: var(--surface); stroke: var(--border); stroke-width: 1.5; }
+.ill-kanji { font-family: "Shippori Mincho", serif; font-size: 18px; fill: var(--ink); }
+.ill-check { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ill-cable { fill: none; stroke: var(--ink-soft); stroke-width: 3.5; stroke-linecap: round; }
+.ill-waves path { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; opacity: 0.75; }
+.ill-cursor { stroke: var(--surface); stroke-width: 1; }
+.ill-inside { fill: var(--surface-soft); }
+.ill-ribbon { fill: none; stroke: #8a8a8a; stroke-width: 5; }
+.ill-coil rect { fill: none; stroke: #8a6d12; stroke-width: 1.5; stroke-dasharray: 3 2; }
+.ill-glow path { stroke: #f2c94c; stroke-width: 3; stroke-linecap: round; opacity: 0.5; }
+.ill-marker circle { fill: var(--accent); }
+.ill-marker text {
+  fill: #fff;
+  font: 600 14px "IBM Plex Sans", sans-serif;
+  text-anchor: middle;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ill-waves path { animation: hk-wave 2.4s ease-in-out infinite; }
+  .ill-waves path:nth-child(2) { animation-delay: 0.3s; }
+  .ill-waves path:nth-child(3) { animation-delay: 0.6s; }
+}
+@keyframes hk-wave {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.9; }
+}
+
+.inside {
+  margin-top: 72px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border-soft);
+}
+.inside h3 {
+  font-family: "Shippori Mincho", serif;
+  font-size: 26px;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.inside-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: center;
+  margin-top: 24px;
+}
+.inside-art { width: 100%; height: auto; display: block; }
+.inside-legend {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: inside;
+  display: grid;
+  gap: 14px;
+}
+.inside-legend li {
+  counter-increment: inside;
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  column-gap: 12px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  font-size: 15px;
+}
+.inside-legend li::before {
+  content: counter(inside);
+  grid-row: span 2;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  display: grid;
+  place-items: center;
+}
+.inside-legend strong { color: var(--ink); font-weight: 600; }
+.inside-legend span { color: var(--muted); }
+@media (max-width: 900px) {
+  .inside-layout { grid-template-columns: 1fr; gap: 24px; }
+}
+
+/* An element with the hidden attribute stays hidden even when a rule sets display */
+.founder-country[hidden] { display: none; }

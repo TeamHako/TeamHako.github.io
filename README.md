@@ -16,3 +16,12 @@ Placeholders show a dashed box with a label until the file exists. Drop in:
 - `FOUNDER_SOLD`: units sold so far (drives "N of 25 left").
 - `LINKS.discord`, `LINKS.twitter`: links are hidden while empty.
 - Before going live: fill in the seller's legal name in `terms.html`.
+
+## Panel images and translations
+
+- `assets/demo/` (live demo frames) and `assets/images/panel/<lang>/` (still panel
+  images in the cards and setup steps) are rendered from the device's own code. In the
+  hako-device repo: `python3 deploy/build-web-demo.py <site>/assets/demo` and
+  `python3 deploy/build-web-images.py <site>/assets/images/panel`.
+- `ja/` and `de/` are generated: edit `index.html` and `tools/i18n.json`; a GitHub
+  Action rebuilds them (or run `python3 tools/build-i18n.py`).

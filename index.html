@@ -221,7 +221,7 @@
         <div class="what-card reveal">
           <div class="what-num">01</div>
           <div class="what-screen">
-            <img src="assets/images/screens/screen-today.png" alt="hako today screen" loading="lazy" />
+            <img src="assets/images/panel/en/today.webp" alt="hako today screen" width="384" height="384" loading="lazy" />
           </div>
           <h3>Today's load, at a glance</h3>
           <p>
@@ -233,7 +233,7 @@
         <div class="what-card reveal">
           <div class="what-num">02</div>
           <div class="what-screen">
-            <img src="assets/images/screens/screen-pet.png" alt="hako study pet screen" loading="lazy" />
+            <img src="assets/images/panel/en/pet.webp" alt="hako study pet screen" width="384" height="384" loading="lazy" />
           </div>
           <h3>A study companion, not a coach</h3>
           <p>
@@ -244,6 +244,9 @@
 
         <div class="what-card reveal">
           <div class="what-num">03</div>
+          <div class="what-screen">
+            <img src="assets/images/panel/en/cards.webp" alt="hako cards screen" width="384" height="384" loading="lazy" />
+          </div>
           <h3>Cards you've recently added</h3>
           <p>
             A rotating window into your newest additions, random samples, or
@@ -254,7 +257,7 @@
         <div class="what-card reveal">
           <div class="what-num">04</div>
           <div class="what-screen">
-            <img src="assets/images/screens/screen-heatmap.png" alt="hako six-week heatmap screen" loading="lazy" />
+            <img src="assets/images/panel/en/heatmap.webp" alt="hako six-week heatmap screen" width="384" height="384" loading="lazy" />
           </div>
           <h3>Six weeks of history</h3>
           <p>
@@ -279,24 +282,85 @@
       <h2 class="reveal">Plug it in. Five minutes later, it's yours.</h2>
       <p class="section-sub reveal">No app to download, no account to make. Everything stays on your own Wi-Fi.</p>
 
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="hk-wood" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#8a5a36"/><stop offset="0.5" stop-color="#6e4527"/><stop offset="1" stop-color="#5a371f"/>
+          </linearGradient>
+        </defs>
+      </svg>
       <ol class="how-steps">
         <li class="how-step reveal">
           <span class="how-num">1</span>
+          <svg class="how-art" viewBox="0 0 240 150" role="img" aria-label="Plugging in hako: its screen shows the setup network to join">
+            <rect x="22" y="22" width="106" height="106" rx="11" fill="url(#hk-wood)"/>
+            <rect x="32" y="32" width="86" height="86" rx="2" fill="#0a0908"/>
+            <image href="assets/images/panel/en/setup-join.webp" x="33" y="33" width="84" height="84"/>
+            <circle cx="129" cy="75" r="8" fill="#3d3b37"/><rect x="128" y="68.5" width="2" height="5" rx="1" fill="#e9e3d6"/>
+            <path d="M75 128 C 75 146, 140 148, 172 134" class="ill-cable"/>
+            <rect x="170" y="125" width="24" height="16" rx="4" class="ill-ink"/>
+            <rect x="194" y="128" width="9" height="3" rx="1.5" class="ill-ink"/>
+            <rect x="194" y="135" width="9" height="3" rx="1.5" class="ill-ink"/>
+            <path d="M210 92 l-9 16 h8 l-5 14 l14-19 h-8 l6-11z" class="ill-accent"/>
+          </svg>
           <h3>Plug it in</h3>
           <p>hako opens its own setup network and shows a QR code.</p>
         </li>
         <li class="how-step reveal">
           <span class="how-num">2</span>
+          <svg class="how-art" viewBox="0 0 240 150" role="img" aria-label="Connecting with a phone: tap or scan, pick your Wi-Fi">
+            <rect x="22" y="22" width="106" height="106" rx="11" fill="url(#hk-wood)"/>
+            <rect x="32" y="32" width="86" height="86" rx="2" fill="#0a0908"/>
+            <image href="assets/images/panel/en/setup-connected.webp" x="33" y="33" width="84" height="84"/>
+            <circle cx="129" cy="75" r="8" fill="#3d3b37"/><rect x="128" y="68.5" width="2" height="5" rx="1" fill="#e9e3d6"/>
+            <g class="ill-waves"><path d="M148 44 q 6 8 0 16"/><path d="M141 39 q 11 13 0 26"/></g>
+            <rect x="160" y="26" width="58" height="106" rx="11" class="ill-ink"/>
+            <rect x="165" y="34" width="48" height="90" rx="5" class="ill-surface"/>
+            <rect x="170" y="44" width="38" height="11" rx="3" class="ill-accent-soft"/>
+            <rect x="174" y="48" width="18" height="3" rx="1.5" class="ill-accent"/>
+            <path d="M199 49 l3 3 l5 -6" class="ill-check"/>
+            <rect x="170" y="61" width="38" height="11" rx="3" class="ill-line-bg"/>
+            <rect x="174" y="65" width="22" height="3" rx="1.5" class="ill-line"/>
+            <rect x="170" y="78" width="38" height="11" rx="3" class="ill-line-bg"/>
+            <rect x="174" y="82" width="15" height="3" rx="1.5" class="ill-line"/>
+            <rect x="170" y="98" width="38" height="10" rx="5" class="ill-ink"/>
+          </svg>
           <h3>Connect with your phone</h3>
           <p>Scan the code, or tap your phone on the box. Pick your Wi-Fi and type the password. Time zone and language are set for you.</p>
         </li>
         <li class="how-step reveal">
           <span class="how-num">3</span>
+          <svg class="how-art" viewBox="0 0 240 150" role="img" aria-label="Clicking Allow in Anki on your computer">
+            <rect x="22" y="22" width="106" height="106" rx="11" fill="url(#hk-wood)"/>
+            <rect x="32" y="32" width="86" height="86" rx="2" fill="#0a0908"/>
+            <image href="assets/images/panel/en/setup-allow.webp" x="33" y="33" width="84" height="84"/>
+            <circle cx="129" cy="75" r="8" fill="#3d3b37"/><rect x="128" y="68.5" width="2" height="5" rx="1" fill="#e9e3d6"/>
+            <rect x="146" y="38" width="88" height="62" rx="5" class="ill-ink"/>
+            <rect x="151" y="43" width="78" height="52" rx="2" class="ill-surface"/>
+            <rect x="159" y="52" width="62" height="34" rx="3" class="ill-line-bg"/>
+            <rect x="164" y="58" width="40" height="3" rx="1.5" class="ill-line"/>
+            <rect x="164" y="64" width="30" height="3" rx="1.5" class="ill-line"/>
+            <rect x="192" y="74" width="24" height="8" rx="4" fill="#14b8a6"/>
+            <path d="M206 79 l0 13 l3.5 -3.5 l2.5 5.5 l2.5 -1 l-2.5 -5.5 l5 0z" class="ill-ink ill-cursor"/>
+            <path d="M138 100 h104 l-7 7 h-90z" class="ill-line-bg"/>
+          </svg>
           <h3>Add the hako add-on to Anki</h3>
           <p>In Anki, <em>Tools &rarr; Add-ons &rarr; Get Add-ons</em>, code <code>1077082455</code>. Click <strong>Allow</strong> when hako asks.</p>
         </li>
         <li class="how-step reveal">
           <span class="how-num">4</span>
+          <svg class="how-art" viewBox="0 0 240 150" role="img" aria-label="Studying as usual while the box keeps track">
+            <rect x="22" y="22" width="106" height="106" rx="11" fill="url(#hk-wood)"/>
+            <rect x="32" y="32" width="86" height="86" rx="2" fill="#0a0908"/>
+            <image href="assets/images/panel/en/setup-done.webp" x="33" y="33" width="84" height="84"/>
+            <circle cx="129" cy="75" r="8" fill="#3d3b37"/><rect x="128" y="68.5" width="2" height="5" rx="1" fill="#e9e3d6"/>
+            <rect x="166" y="66" width="52" height="36" rx="4" class="ill-card" transform="rotate(-10 192 84)"/>
+            <rect x="162" y="62" width="52" height="36" rx="4" class="ill-card" transform="rotate(6 188 80)"/>
+            <rect x="158" y="58" width="52" height="36" rx="4" class="ill-card"/>
+            <text x="184" y="83" text-anchor="middle" class="ill-kanji">箱</text>
+            <path d="M210 40 l2.5 6 l6 2.5 l-6 2.5 l-2.5 6 l-2.5 -6 l-6 -2.5 l6 -2.5z" class="ill-accent"/>
+            <path d="M226 62 l1.5 3.5 l3.5 1.5 l-3.5 1.5 l-1.5 3.5 l-1.5 -3.5 l-3.5 -1.5 l3.5 -1.5z" class="ill-accent"/>
+          </svg>
           <h3>Study as usual</h3>
           <p>Your reviews show up on the box while Anki is open. Updates install themselves overnight.</p>
         </li>
@@ -421,6 +485,61 @@
             The first batch is 25 units. I'd rather make 25 well than 250 hastily.
             If you miss it, join the waitlist: a larger run on Kickstarter comes next.
           </p>
+        </div>
+      </div>
+
+      <div class="inside reveal">
+        <h3>What's inside the box</h3>
+        <p class="edition-sub">No screens to tap, no buttons to learn. One knob, a shake sensor, and an NFC chip hidden just under the wood.</p>
+        <div class="inside-layout">
+          <svg class="inside-art" viewBox="0 0 640 330" role="img" aria-label="Cutaway of the hako box showing the LED panel, Raspberry Pi, NFC chip, shake sensor, knob and power">
+            <g class="ill-waves">
+              <path d="M360 56 q 22 -14 44 0"/><path d="M350 42 q 32 -22 64 0"/><path d="M340 28 q 42 -30 84 0"/>
+            </g>
+            <rect x="452" y="2" width="40" height="64" rx="8" class="ill-ink" transform="rotate(14 472 34)"/>
+            <rect x="457" y="9" width="30" height="48" rx="4" class="ill-surface" transform="rotate(14 472 34)"/>
+            <rect x="118" y="70" width="380" height="220" rx="18" fill="url(#hk-wood)"/>
+            <rect x="136" y="88" width="344" height="184" rx="8" class="ill-inside"/>
+            <g class="ill-glow"><path d="M96 120 h-30"/><path d="M96 160 h-40"/><path d="M96 200 h-34"/><path d="M96 240 h-26"/></g>
+            <rect x="104" y="96" width="30" height="168" rx="3" fill="#0f0e0c"/>
+            <g fill="#ff8a3d"><circle cx="110" cy="112" r="2"/><circle cx="110" cy="132" r="2"/><circle cx="110" cy="152" r="2"/></g>
+            <g fill="#3ddc6b"><circle cx="110" cy="172" r="2"/><circle cx="110" cy="192" r="2"/><circle cx="110" cy="212" r="2"/></g>
+            <g fill="#f2c94c"><circle cx="110" cy="232" r="2"/><circle cx="110" cy="248" r="2"/></g>
+            <path d="M136 180 C 160 180, 160 150, 192 150" class="ill-ribbon"/>
+            <rect x="192" y="112" width="22" height="124" rx="3" fill="#2f6b3a"/>
+            <rect x="214" y="122" width="14" height="104" rx="3" fill="#1f4e79"/>
+            <g fill="#c9a227"><rect x="196" y="122" width="5" height="8"/><rect x="196" y="140" width="5" height="12"/><rect x="196" y="164" width="5" height="20"/></g>
+            <rect x="300" y="90" width="120" height="12" rx="3" fill="#c9a227"/>
+            <g class="ill-coil"><rect x="306" y="93" width="108" height="6" rx="2"/></g>
+            <rect x="330" y="248" width="36" height="20" rx="3" fill="#6b3fa0"/>
+            <rect x="337" y="254" width="10" height="8" rx="1" fill="#1d1a15"/>
+            <rect x="498" y="150" width="18" height="40" rx="3" fill="#3d3b37"/>
+            <circle cx="530" cy="170" r="22" fill="#3d3b37"/><circle cx="530" cy="170" r="22" fill="url(#hk-knob)"/>
+            <rect x="527" y="150" width="6" height="14" rx="3" fill="#e9e3d6"/>
+            <rect x="480" y="240" width="22" height="22" rx="4" fill="#2b2a28"/>
+            <path d="M502 251 C 560 251, 560 300, 620 300" class="ill-cable"/>
+            <g class="ill-marker">
+              <circle cx="84" cy="96" r="13"/><text x="84" y="101">1</text>
+              <circle cx="203" cy="94" r="13"/><text x="203" y="99">2</text>
+              <circle cx="436" cy="96" r="13"/><text x="436" y="101">3</text>
+              <circle cx="386" cy="258" r="13"/><text x="386" y="263">4</text>
+              <circle cx="566" cy="134" r="13"/><text x="566" y="139">5</text>
+              <circle cx="560" cy="278" r="13"/><text x="560" y="283">6</text>
+            </g>
+            <defs>
+              <radialGradient id="hk-knob" cx="0.35" cy="0.3" r="0.8">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.35"/><stop offset="0.6" stop-color="#ffffff" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+          </svg>
+          <ol class="inside-legend">
+            <li><strong>64×64 LED panel</strong> <span>4,096 lights, easy to read from across the room</span></li>
+            <li><strong>Raspberry Pi and matrix driver</strong> <span>runs hako's software and updates itself overnight</span></li>
+            <li><strong>NFC chip, just under the wood</strong> <span>tap your phone here to set up Wi-Fi or open hako's web page</span></li>
+            <li><strong>Shake sensor</strong> <span>a gentle shake shows the next screen</span></li>
+            <li><strong>Knob</strong> <span>turn to change screens, press to refresh, hold for the menu</span></li>
+            <li><strong>Power</strong> <span>one adapter, made for your country</span></li>
+          </ol>
         </div>
       </div>
     </div>

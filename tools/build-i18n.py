@@ -54,6 +54,9 @@ def build(lang: str, source: str, tr: dict) -> tuple[str, list[str]]:
     page = page.replace('<meta property="og:locale" content="en_US" />', f'<meta property="og:locale" content="{head["locale"]}" />', 1)
     page = page.replace('<link rel="canonical" href="https://www.hakoshop.com/" />', f'<link rel="canonical" href="https://www.hakoshop.com/{lang}/" />', 1)
 
+    # Panel images are rendered per language (hako repo: deploy/build-web-images.py)
+    page = page.replace("assets/images/panel/en/", f"assets/images/panel/{lang}/")
+
     for entry in tr["attr"]:
         if entry["en"] not in page:
             missing.append(f"attr: {entry['en']}")

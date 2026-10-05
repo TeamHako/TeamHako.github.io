@@ -435,7 +435,6 @@ async function liveShop(cta, price) {
     cta.setAttribute("href", "#notify");
     return;
   }
-  if (!status.open) return; // "Pre-orders open spring 2027"
 
   // Country picker, names in the visitor's language, guessed from the browser
   let names;
@@ -461,7 +460,9 @@ async function liveShop(cta, price) {
   }
   select.addEventListener("change", showShipping);
   showShipping();
+  // Shown before pre-orders open too, so people can see what shipping costs
   picker.hidden = false;
+  if (!status.open) return; // the button keeps "Pre-orders open spring 2027"
 
   cta.textContent = T("shop.preorder", "Pre-order · {price}", { price });
   cta.setAttribute("href", "#");

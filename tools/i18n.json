@@ -108,6 +108,36 @@
       "en": "alt=\"hako internal electronics\"",
       "ja": "alt=\"hakoの内部の電子部品\"",
       "de": "alt=\"Die Elektronik im Inneren von hako\""
+    },
+    {
+      "en": "alt=\"hako cards screen\"",
+      "ja": "alt=\"hakoのカード画面\"",
+      "de": "alt=\"hako-Bildschirm mit deinen Karten\""
+    },
+    {
+      "en": "aria-label=\"Plugging in hako: its screen shows the setup network to join\"",
+      "ja": "aria-label=\"hakoの電源を入れると、接続する設定用ネットワークが画面に表示されます\"",
+      "de": "aria-label=\"hako einstecken: Der Bildschirm zeigt das Einrichtungs-WLAN\""
+    },
+    {
+      "en": "aria-label=\"Connecting with a phone: tap or scan, pick your Wi-Fi\"",
+      "ja": "aria-label=\"スマホで接続：かざすか読み取って、Wi-Fiを選ぶ\"",
+      "de": "aria-label=\"Mit dem Handy verbinden: antippen oder scannen, WLAN wählen\""
+    },
+    {
+      "en": "aria-label=\"Clicking Allow in Anki on your computer\"",
+      "ja": "aria-label=\"パソコンのAnkiで「許可」をクリック\"",
+      "de": "aria-label=\"In Anki am Computer auf Erlauben klicken\""
+    },
+    {
+      "en": "aria-label=\"Studying as usual while the box keeps track\"",
+      "ja": "aria-label=\"いつも通り勉強すると、箱が進み具合を見守ります\"",
+      "de": "aria-label=\"Wie gewohnt lernen, die Box behält den Überblick\""
+    },
+    {
+      "en": "aria-label=\"Cutaway of the hako box showing the LED panel, Raspberry Pi, NFC chip, shake sensor, knob and power\"",
+      "ja": "aria-label=\"hakoの内部構造：LEDパネル、Raspberry Pi、NFCチップ、振動センサー、ノブ、電源\"",
+      "de": "aria-label=\"Schnitt durch die hako-Box: LED-Panel, Raspberry Pi, NFC-Chip, Schüttelsensor, Drehknopf und Stromversorgung\""
     }
   ],
   "text": [
@@ -660,6 +690,76 @@
       "en": "Email",
       "ja": "メール",
       "de": "E-Mail"
+    },
+    {
+      "en": "What's inside the box",
+      "ja": "箱の中身",
+      "de": "Was in der Box steckt"
+    },
+    {
+      "en": "No screens to tap, no buttons to learn. One knob, a shake sensor, and an NFC chip hidden just under the wood.",
+      "ja": "タッチする画面も、覚えるボタンもありません。ノブがひとつと振動センサー、そして木のすぐ下に隠れたNFCチップだけです。",
+      "de": "Kein Touchscreen, keine Tasten zum Lernen. Ein Drehknopf, ein Schüttelsensor und ein NFC-Chip, versteckt direkt unter dem Holz."
+    },
+    {
+      "en": "64×64 LED panel",
+      "ja": "64×64 LEDパネル",
+      "de": "64×64-LED-Panel"
+    },
+    {
+      "en": "4,096 lights, easy to read from across the room",
+      "ja": "4,096個のLEDで、部屋の向こうからでも読みやすい",
+      "de": "4.096 Lichter, auch quer durch den Raum gut lesbar"
+    },
+    {
+      "en": "Raspberry Pi and matrix driver",
+      "ja": "Raspberry Piとマトリクスドライバー",
+      "de": "Raspberry Pi und Matrix-Treiber"
+    },
+    {
+      "en": "runs hako's software and updates itself overnight",
+      "ja": "hakoのソフトウェアを動かし、夜間に自動でアップデート",
+      "de": "steuert hako und aktualisiert sich nachts von selbst"
+    },
+    {
+      "en": "NFC chip, just under the wood",
+      "ja": "木のすぐ下のNFCチップ",
+      "de": "NFC-Chip, direkt unter dem Holz"
+    },
+    {
+      "en": "tap your phone here to set up Wi-Fi or open hako's web page",
+      "ja": "ここにスマホをかざすと、Wi-Fiの設定やhakoの設定ページが開きます",
+      "de": "Handy hier antippen, um das WLAN einzurichten oder hakos Webseite zu öffnen"
+    },
+    {
+      "en": "Shake sensor",
+      "ja": "振動センサー",
+      "de": "Schüttelsensor"
+    },
+    {
+      "en": "a gentle shake shows the next screen",
+      "ja": "軽く振ると次の画面へ",
+      "de": "leicht schütteln zeigt den nächsten Bildschirm"
+    },
+    {
+      "en": "Knob",
+      "ja": "ノブ",
+      "de": "Drehknopf"
+    },
+    {
+      "en": "turn to change screens, press to refresh, hold for the menu",
+      "ja": "回すと画面切り替え、押すと更新、長押しでメニュー",
+      "de": "drehen wechselt den Bildschirm, drücken aktualisiert, halten öffnet das Menü"
+    },
+    {
+      "en": "Power",
+      "ja": "電源",
+      "de": "Strom"
+    },
+    {
+      "en": "one adapter, made for your country",
+      "ja": "お住まいの国に合ったアダプターひとつ",
+      "de": "ein Netzteil, passend für dein Land"
     }
   ]
 }
