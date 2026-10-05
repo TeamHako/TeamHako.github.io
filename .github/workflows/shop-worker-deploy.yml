@@ -1,0 +1,76 @@
+# Deploys the shop Worker (worker/) to Cloudflare's free plan: runs its tests,
+# deploys, then pushes the Stripe secrets from this repo's GitHub secrets to
+# the Worker. Nothing private is stored in the repo. Setup: worker/README.md
+name: Shop Worker deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'worker/**'
+      - '.github/workflows/shop-worker-deploy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: shop-worker-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: worker
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}          # optional until checkout is used
+      STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}  # optional until the webhook exists
+      STRIPE_PRICE_ID: ${{ vars.STRIPE_PRICE_ID }}                 # repo variable, not a secret
+      PREORDERS_OPEN: ${{ vars.PREORDERS_OPEN }}                   # repo variable: "true" opens checkout
+    steps:
+      - name: Check out
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Check secrets
+        run: |
+          missing=0
+          for name in CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID; do
+            if [ -z "${!name}" ]; then echo "::error::Missing GitHub secret $name"; missing=1; fi
+          done
+          [ "$missing" = 0 ] || exit 1
+          case "$STRIPE_SECRET_KEY" in
+            ""|sk_*|rk_*) ;;
+            *) echo "::error::STRIPE_SECRET_KEY should start with rk_ (restricted key) or sk_"; exit 1 ;;
+          esac
+
+      - name: Install
+        run: npm ci --no-audit --no-fund
+
+      - name: Test against a fake Stripe
+        run: npm test
+
+      - name: Deploy
+        run: |
+          args=()
+          if [ -n "$STRIPE_PRICE_ID" ]; then args+=(--var "STRIPE_PRICE_ID:$STRIPE_PRICE_ID"); fi
+          if [ -n "$PREORDERS_OPEN" ]; then args+=(--var "PREORDERS_OPEN:$PREORDERS_OPEN"); fi
+          npx wrangler deploy "${args[@]}" | tee deploy.log
+          url="$(grep -oE 'https://[a-z0-9.-]+\.workers\.dev' deploy.log | head -1)"
+          {
+            echo "### Shop Worker deployed"
+            echo ""
+            echo "URL: ${url:-see the log above}"
+            echo ""
+            echo "- Stripe price: ${STRIPE_PRICE_ID:-(from wrangler.toml)}"
+            echo "- Pre-orders open: ${PREORDERS_OPEN:-(from wrangler.toml)}"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Push secrets
+        run: |
+          if [ -n "$STRIPE_SECRET_KEY" ]; then printf '%s' "$STRIPE_SECRET_KEY" | npx wrangler secret put STRIPE_SECRET_KEY; fi
+          if [ -n "$STRIPE_WEBHOOK_SECRET" ]; then printf '%s' "$STRIPE_WEBHOOK_SECRET" | npx wrangler secret put STRIPE_WEBHOOK_SECRET; fi
