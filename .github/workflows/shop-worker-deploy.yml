@@ -30,6 +30,7 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}          # optional until checkout is used
       STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}  # optional until the webhook exists
+      SIGNUPS_TOKEN: ${{ secrets.SIGNUPS_TOKEN }}                  # password for the waitlist CSV export
       STRIPE_PRICE_ID: ${{ vars.STRIPE_PRICE_ID || secrets.STRIPE_PRICE_ID }}  # not secret; variable or secret both work
       PREORDERS_OPEN: ${{ vars.PREORDERS_OPEN }}                   # repo variable: "true" opens checkout
       # Test shop (Stripe test mode), deployed only when its key exists
@@ -85,6 +86,7 @@ jobs:
         run: |
           if [ -n "$STRIPE_SECRET_KEY" ]; then printf '%s' "$STRIPE_SECRET_KEY" | npx wrangler secret put STRIPE_SECRET_KEY; fi
           if [ -n "$STRIPE_WEBHOOK_SECRET" ]; then printf '%s' "$STRIPE_WEBHOOK_SECRET" | npx wrangler secret put STRIPE_WEBHOOK_SECRET; fi
+          if [ -n "$SIGNUPS_TOKEN" ]; then printf '%s' "$SIGNUPS_TOKEN" | npx wrangler secret put SIGNUPS_TOKEN; fi
 
       - name: Deploy the test shop
         if: env.STRIPE_TEST_SECRET_KEY != ''

@@ -29,7 +29,8 @@
       "shop.all_held": "残りの箱は、いま他の方が決済中です。30分後にもう一度お試しください。",
       "shop.sold_out": "完売しました。Kickstarterのウェイティングリストにご登録ください。",
       "shop.not_open": "予約受付はまだ始まっていません。",
-      "shop.offline": "決済ページに接続できませんでした。もう一度お試しください。"
+      "shop.offline": "決済ページに接続できませんでした。もう一度お試しください。",
+      "notify.bad_email": "メールアドレスが正しくないようです。"
     },
     "de": {
       "notify.sending": "Wird gesendet…",
@@ -45,7 +46,8 @@
       "shop.all_held": "Die letzten Boxen sind gerade in anderen Bestellungen. Versuch es in 30 Minuten noch einmal.",
       "shop.sold_out": "Ausverkauft — trag dich in die Kickstarter-Warteliste ein.",
       "shop.not_open": "Die Vorbestellung ist noch nicht geöffnet.",
-      "shop.offline": "Die Kasse ist nicht erreichbar. Bitte versuch es noch einmal."
+      "shop.offline": "Die Kasse ist nicht erreichbar. Bitte versuch es noch einmal.",
+      "notify.bad_email": "Diese E-Mail-Adresse sieht nicht richtig aus."
     }
   },
   "attr": [

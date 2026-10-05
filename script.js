@@ -232,27 +232,34 @@ function T(key, fallback, vars) {
 
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData);
+    const lang = (document.documentElement.lang || "en").slice(0, 2);
 
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+    // Two places: the waitlist spreadsheet (shop Worker) and an email to Jared
+    // (Web3Forms). Either one succeeding counts; the Worker is the list.
+    const toList = window.SHOP_API
+      ? fetch(window.SHOP_API.replace(/\/$/, "") + "/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, lang, botcheck: payload.botcheck || "" }),
+        }).then(async (r) => {
+          if (r.status === 400) throw new Error("bad_email");
+          return r.ok && (await r.json()).ok;
+        })
+      : Promise.resolve(false);
+    const toEmail = fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ ...payload, language: lang }),
+    }).then(async (r) => (await r.json()).success);
 
-      const result = await response.json();
-
-      if (result.success) {
-        showConfirmation(form, email);
-      } else {
-        showError(form, button, T("error.generic", "Something went wrong. Please try again."));
-      }
-    } catch (err) {
+    const [list, mail] = await Promise.allSettled([toList, toEmail]);
+    if (list.status === "fulfilled" && list.value || mail.status === "fulfilled" && mail.value) {
+      showConfirmation(form, email);
+    } else if (list.reason && list.reason.message === "bad_email") {
+      showError(form, button, T("notify.bad_email", "That email address doesn't look right."));
+    } else {
       showError(form, button, T("notify.offline", "Couldn't reach the server. Please try again later."));
-      console.error("Web3Forms error:", err);
+      console.error("signup failed:", list.reason || list.value, mail.reason || mail.value);
     }
   });
 
@@ -291,60 +298,69 @@ function T(key, fallback, vars) {
   const numberEl = document.getElementById("counterNumber");
   if (!counter || !numberEl) return;
 
-  const target = window.SIGNUP_COUNT || 0;
-  const minToShow = window.MIN_TO_SHOW || 0;
+  function show(target) {
+    const minToShow = window.MIN_TO_SHOW || 0;
 
-  if (target < minToShow) {
-    counter.style.display = "none";
-    return;
-  }
-
-  counter.style.display = "";
-  counter.setAttribute("aria-hidden", "false");
-
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reducedMotion) {
-    numberEl.textContent = target.toLocaleString();
-    counter.classList.add("active");
-    return;
-  }
-
-  function easeInOut(t) {
-    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  }
-
-  function runCounter() {
-    const duration = 1800;
-    const start = performance.now();
-
-    function frame(now) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = easeInOut(progress);
-      const value = Math.round(eased * target);
-      numberEl.textContent = value.toLocaleString();
-      if (progress < 1) {
-        requestAnimationFrame(frame);
-      } else {
-        numberEl.textContent = target.toLocaleString();
-      }
+    if (target < minToShow) {
+      counter.style.display = "none";
+      return;
     }
-    requestAnimationFrame(frame);
+
+    counter.style.display = "";
+    counter.setAttribute("aria-hidden", "false");
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) {
+      numberEl.textContent = target.toLocaleString();
+      counter.classList.add("active");
+      return;
+    }
+
+    function easeInOut(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function runCounter() {
+      const duration = 1800;
+      const start = performance.now();
+
+      function frame(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeInOut(progress);
+        const value = Math.round(eased * target);
+        numberEl.textContent = value.toLocaleString();
+        if (progress < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          numberEl.textContent = target.toLocaleString();
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            counter.classList.add("active");
+            runCounter();
+            observer.unobserve(counter);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(counter);
   }
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          counter.classList.add("active");
-          runCounter();
-          observer.unobserve(counter);
-        }
-      });
-    },
-    { threshold: 0.5 }
-  );
-  observer.observe(counter);
+  // Live count from the shop Worker; SIGNUP_COUNT is the fallback
+  const manual = window.SIGNUP_COUNT || 0;
+  if (!window.SHOP_API) { show(manual); return; }
+  fetch(window.SHOP_API.replace(/\/$/, "") + "/status")
+    .then((r) => r.json())
+    .then((s) => show(Math.max(manual, Number(s.signups) || 0)))
+    .catch(() => show(manual));
 })();
 
 // ============================================================

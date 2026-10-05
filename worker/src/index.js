@@ -5,13 +5,15 @@
  *   POST /checkout {country}     reserves a unit and returns a Stripe Checkout URL
  *   GET  /order?session_id=...   the buyer's founder number (thanks page)
  *   POST /webhook                Stripe events: checkout.session.completed / .expired
+ *   POST /signup {email, lang}   waitlist sign-up from the website (one row per email)
+ *   GET  /signups.csv?token=...  the waitlist as CSV (Google Sheets: =IMPORTDATA(url))
  *
  * One Durable Object ("Founders") holds the count, so two people can never
  * buy the 25th unit. A unit is reserved while its checkout is open (Stripe
  * checkouts expire after 30 minutes) and becomes a sale, with the next
  * founder number, once Stripe reports it paid.
  *
- * Secrets: STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET (wrangler secret put).
+ * Secrets: STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, SIGNUPS_TOKEN (wrangler secret put).
  */
 
 const RESERVE_SECONDS = 30 * 60; // Stripe's minimum checkout lifetime
@@ -111,6 +113,35 @@ export class Founders {
       return Response.json({ number: data.sales[sessionId].number });
     }
 
+    // --- waitlist (its own Durable Object instance, see waitlist()) ---
+    if (op === "signup") {
+      const key = `signup:${info.email}`;
+      const existing = await this.storage.get(key);
+      if (existing) return Response.json({ ok: true, new: false });
+      const count = ((await this.storage.get("signup_count")) || 0) + 1;
+      await this.storage.put({ [key]: { ...info, at: new Date().toISOString() }, signup_count: count });
+      return Response.json({ ok: true, new: true, count });
+    }
+
+    if (op === "signup_count") {
+      return Response.json({ count: (await this.storage.get("signup_count")) || 0 });
+    }
+
+    if (op === "signups") {
+      const rows = [];
+      let start;
+      for (;;) {
+        const page = await this.storage.list({ prefix: "signup:", start, limit: 1000 });
+        for (const [k, v] of page) {
+          if (k !== start) rows.push(v);
+        }
+        if (page.size < 1000) break;
+        start = [...page.keys()].pop();
+      }
+      rows.sort((a, b) => (a.at < b.at ? -1 : 1));
+      return Response.json({ rows });
+    }
+
     if (op === "lookup") {
       const sale = data.sales[sessionId];
       return Response.json(sale ? { number: sale.number } : {});
@@ -123,6 +154,28 @@ export class Founders {
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
+function waitlist(env, body) {
+  const stub = env.FOUNDERS.get(env.FOUNDERS.idFromName("waitlist"));
+  return stub
+    .fetch("https://waitlist/", { method: "POST", body: JSON.stringify(body) })
+    .then((r) => r.json());
+}
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function safeEqual(a, b) {
+  if (typeof a !== "string" || typeof b !== "string" || a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
+
+function csvCell(v) {
+  const s = String(v ?? "");
+  // quote, and defuse spreadsheet formulas (=, +, -, @ at the start)
+  const safe = /^[=+\-@]/.test(s) ? `'${s}` : s;
+  return `"${safe.replace(/"/g, '""')}"`;
+}
 function founders(env, body) {
   const stub = env.FOUNDERS.get(env.FOUNDERS.idFromName("founder-edition"));
   return stub
@@ -212,7 +265,9 @@ function saleInfo(session) {
 // ---------------------------------------------------------------------------
 async function handleStatus(env, cors) {
   const s = await founders(env, { op: "status" });
+  const w = await waitlist(env, { op: "signup_count" });
   return json({
+    signups: w.count,
     open: env.PREORDERS_OPEN === "true",
     ...s,
     shipping: shippingTable(env),
@@ -291,6 +346,36 @@ async function handleOrder(url, env, cors) {
   return json(await founders(env, { op: "complete", sessionId: id, info: saleInfo(session) }), 200, cors);
 }
 
+async function handleSignup(request, env, cors) {
+  // Only from the website itself (browsers always send Origin on a POST like this)
+  if (!cors["Access-Control-Allow-Origin"]) return json({ error: "origin" }, 403, cors);
+  let data;
+  try {
+    data = await request.json();
+  } catch {
+    return json({ error: "bad_request" }, 400, cors);
+  }
+  if (data.botcheck) return json({ ok: true }, 200, cors); // honeypot: pretend it worked
+  const email = String(data.email || "").trim().toLowerCase();
+  if (email.length > 254 || !EMAIL_RE.test(email)) return json({ error: "bad_email" }, 400, cors);
+  const lang = ["en", "ja", "de"].includes(data.lang) ? data.lang : "en";
+  const country = String(request.headers.get("CF-IPCountry") || "").slice(0, 2);
+  const r = await waitlist(env, { op: "signup", info: { email, lang, country } });
+  return json({ ok: true, new: r.new }, 200, cors);
+}
+
+async function handleSignupsCsv(url, env) {
+  if (!env.SIGNUPS_TOKEN || !safeEqual(url.searchParams.get("token") || "", env.SIGNUPS_TOKEN)) {
+    return new Response("not found", { status: 404 });
+  }
+  const { rows } = await waitlist(env, { op: "signups" });
+  const lines = [["email", "joined (UTC)", "page language", "country"].map(csvCell).join(",")];
+  for (const r of rows) lines.push([r.email, r.at, r.lang, r.country].map(csvCell).join(","));
+  return new Response(lines.join("\n") + "\n", {
+    headers: { "Content-Type": "text/csv; charset=utf-8", "Cache-Control": "no-store" },
+  });
+}
+
 async function handleWebhook(request, env) {
   const body = await request.text();
   const ok = await verifyStripeSignature(body, request.headers.get("Stripe-Signature"),
@@ -327,6 +412,8 @@ export default {
       if (url.pathname === "/checkout" && request.method === "POST") return await handleCheckout(request, env, cors);
       if (url.pathname === "/order" && request.method === "GET") return await handleOrder(url, env, cors);
       if (url.pathname === "/webhook" && request.method === "POST") return await handleWebhook(request, env);
+      if (url.pathname === "/signup" && request.method === "POST") return await handleSignup(request, env, cors);
+      if (url.pathname === "/signups.csv" && request.method === "GET") return await handleSignupsCsv(url, env);
     } catch (e) {
       console.error(e);
       return json({ error: "server" }, 500, cors);
