@@ -16,7 +16,6 @@
   },
   "strings": {
     "ja": {
-      "gate.wrong": "違うようです。合言葉は Discord で確認してください。",
       "notify.sending": "送信中…",
       "notify.offline": "サーバーに接続できませんでした。しばらくしてからもう一度お試しください。",
       "notify.ok_email": "登録ありがとうございます。始まったら {email} にお知らせします。",
@@ -33,7 +32,6 @@
       "shop.offline": "決済ページに接続できませんでした。もう一度お試しください。"
     },
     "de": {
-      "gate.wrong": "Nicht ganz. Das Passwort findest du im Discord.",
       "notify.sending": "Wird gesendet…",
       "notify.offline": "Der Server ist nicht erreichbar. Bitte versuch es später noch einmal.",
       "notify.ok_email": "Du stehst auf der Liste. Ich schreibe an {email}, sobald es losgeht.",
@@ -51,16 +49,6 @@
     }
   },
   "attr": [
-    {
-      "en": "placeholder=\"enter the phrase\"",
-      "ja": "placeholder=\"合言葉を入力\"",
-      "de": "placeholder=\"Passwort eingeben\""
-    },
-    {
-      "en": "aria-label=\"Access phrase\"",
-      "ja": "aria-label=\"合言葉\"",
-      "de": "aria-label=\"Passwort\""
-    },
     {
       "en": "aria-label=\"Email address\"",
       "ja": "aria-label=\"メールアドレス\"",
@@ -123,21 +111,6 @@
     }
   ],
   "text": [
-    {
-      "en": "first batch · spring 2027",
-      "ja": "第一弾 · 2027年春",
-      "de": "erste Serie · Frühjahr 2027"
-    },
-    {
-      "en": "Enter",
-      "ja": "入る",
-      "de": "Weiter"
-    },
-    {
-      "en": "No phrase yet? It's shared in the Discord when you join the beta.",
-      "ja": "合言葉は、ベータ版に参加すると Discord で共有されます。",
-      "de": "Noch kein Passwort? Du bekommst es im Discord, wenn du der Beta beitrittst."
-    },
     {
       "en": "Privacy",
       "ja": "プライバシー",

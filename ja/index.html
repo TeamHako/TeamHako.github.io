@@ -96,7 +96,6 @@
   </script>
   <script>
     window.HAKO_STRINGS = {
-  "gate.wrong": "違うようです。合言葉は Discord で確認してください。",
   "notify.sending": "送信中…",
   "notify.offline": "サーバーに接続できませんでした。しばらくしてからもう一度お試しください。",
   "notify.ok_email": "登録ありがとうございます。始まったら {email} にお知らせします。",
@@ -116,45 +115,6 @@
 </head>
 
 <body>
-
-  <!-- ============================================================ -->
-  <!-- ACCESS GATE — hype gate (NOT real security). Must be the     -->
-  <!-- first thing in <body> so it covers the whole page.           -->
-  <!-- ============================================================ -->
-  <div class="gate" id="accessGate">
-    <div class="gate-inner">
-      <div class="gate-mark">箱</div>
-      <p class="gate-kana">合言葉を</p>
-      <h1 class="gate-title">hako</h1>
-      <p class="gate-tagline">第一弾 · 2027年春</p>
-
-      <form class="gate-form" id="gateForm" autocomplete="off">
-        <input
-          type="password"
-          id="gateInput"
-          class="gate-input"
-          placeholder="合言葉を入力"
-          aria-label="合言葉"
-          autocomplete="off"
-          autofocus
-        />
-        <button type="submit" class="gate-btn">入る</button>
-      </form>
-
-      <p class="gate-error" id="gateError" aria-live="polite"></p>
-
-      <p class="gate-help">
-        合言葉は、ベータ版に参加すると Discord で共有されます。
-      </p>
-
-      <div class="gate-links">
-        <a href="https://youtube.com/@jareddesu" target="_blank" rel="noopener">YouTube ↗</a>
-        <a href="#" target="_blank" rel="noopener" id="gateDiscord" data-link="discord">Discord ↗</a>
-        <a href="../privacy.html" id="gatePrivacy">プライバシー</a>
-        <a href="../terms.html" id="gateTerms">利用規約</a>
-      </div>
-    </div>
-  </div>
 
   <!-- Decorative background character — sits behind everything -->
   <div class="bg-character" aria-hidden="true">箱</div>
