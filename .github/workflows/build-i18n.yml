@@ -1,0 +1,39 @@
+# Regenerates ja/index.html and de/index.html whenever index.html or the
+# translations change, so editing the English page on GitHub is enough.
+# Untranslated text shows up as warnings in the run log.
+name: Build Japanese & German pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'tools/i18n.json'
+      - 'tools/build-i18n.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-i18n
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Build
+        run: python3 tools/build-i18n.py 2>&1 | sed 's/^\[\(..\)\] not found/::warning::[\1] not found/'
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- ja de; then echo "already up to date"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ja de
+          git commit -m "Rebuild Japanese and German pages"
+          git push
