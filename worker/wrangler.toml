@@ -13,7 +13,11 @@ PREORDERS_OPEN = "false"
 SITE_URL = "https://www.hakoshop.com"
 ALLOWED_ORIGINS = "https://www.hakoshop.com,https://hakoshop.com"
 # Shipping in US cents by destination; "*" is everywhere else.
-SHIPPING_CENTS = '{"US": 1500, "CA": 3500, "MX": 3500, "*": 5500}'
+# Estimates for one boxed unit (~2.5 kg / 6 lb, ~30x30x15 cm) from Texas at
+# discounted USPS rates (Ground Advantage in the US, Priority Mail International
+# abroad, both tracked and insured). Replace with real quotes once a packed unit
+# is weighed.
+SHIPPING_CENTS = '{"US": 1500, "CA": 4500, "MX": 4500, "*": 6900}'
 
 # Secrets (never in this file): set with
 #   npx wrangler secret put STRIPE_SECRET_KEY

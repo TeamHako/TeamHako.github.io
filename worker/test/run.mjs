@@ -81,11 +81,11 @@ try {
   assert.equal((await r.json()).url, "https://checkout.stripe.test/cs_test_1");
   const c1 = calls.find((c) => c.url === "/v1/checkout/sessions").params;
   assert.equal(c1["shipping_address_collection[allowed_countries][0]"], "JP");
-  assert.equal(c1["shipping_options[0][shipping_rate_data][fixed_amount][amount]"], "5500");
+  assert.equal(c1["shipping_options[0][shipping_rate_data][fixed_amount][amount]"], "6900");
   assert.equal(c1["line_items[0][price]"], "price_test");
   assert.match(c1.success_url, /thanks\.html\?session_id=\{CHECKOUT_SESSION_ID\}$/);
   assert.equal(calls[0].auth, "Bearer sk_test_x");
-  console.log("ok checkout JP: shipping 5500, country locked");
+  console.log("ok checkout JP: shipping 6900, country locked");
 
   r = await post("/checkout", { country: "US" });
   assert.equal(r.status, 200);
