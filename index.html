@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>hako · an ambient Anki companion</title>
 
-  <meta name="description" content="A handmade ambient device that shows your Anki progress on your desk. Made by @jareddesu in small batches. Drops spring 2027." />
+  <meta name="description" content="A handmade wooden box that shows your Anki progress on your desk. 25 numbered Founder Edition units, spring 2027. Made by @jareddesu." />
 
   <meta property="og:title" content="hako" />
-  <meta property="og:description" content="An ambient Anki companion. Handmade. Small batches. Drops spring 2027." />
+  <meta property="og:description" content="An ambient Anki companion. Hand-joined wood, 25 numbered Founder Edition units, spring 2027." />
   <meta property="og:type" content="website" />
 
   <!-- Favicons -->
@@ -35,6 +35,27 @@
   <script>
     window.SIGNUP_COUNT = 6;       // update this with the real number
     window.MIN_TO_SHOW = 50;       // counter stays hidden until we hit this
+  </script>
+
+  <!-- =====================================================
+       FOUNDER EDITION CONFIG
+       PREORDER_URL: paste the Stripe Payment Link here when
+       pre-orders open. While it's empty, the button says
+       "Pre-orders open spring 2027" and points to the waitlist.
+       FOUNDER_SOLD: update as orders come in (until the live
+       counter is wired up).
+       ===================================================== -->
+  <script>
+    window.FOUNDER_PRICE = "$279";
+    window.FOUNDER_TOTAL = 25;
+    window.FOUNDER_SOLD = 0;
+    window.PREORDER_URL = "";
+
+    // Social links. Leave one empty and its links are hidden.
+    window.LINKS = {
+      discord: "",   // SWAP: Discord invite, e.g. "https://discord.gg/xxxx"
+      twitter: "",   // SWAP: e.g. "https://x.com/jareddesu"
+    };
   </script>
 </head>
 
@@ -72,9 +93,9 @@
 
       <div class="gate-links">
         <a href="https://youtube.com/@jareddesu" target="_blank" rel="noopener">YouTube ↗</a>
-        <a href="#" target="_blank" rel="noopener" id="gateDiscord">Discord ↗</a>
-        <a href="#" id="gatePrivacy">Privacy</a>
-        <a href="#" id="gateTerms">Terms</a>
+        <a href="#" target="_blank" rel="noopener" id="gateDiscord" data-link="discord">Discord ↗</a>
+        <a href="privacy.html" id="gatePrivacy">Privacy</a>
+        <a href="terms.html" id="gateTerms">Terms</a>
       </div>
     </div>
   </div>
@@ -93,9 +114,10 @@
 
     <nav class="nav-links">
       <a href="#what">What it is</a>
+      <a href="#how">How it works</a>
+      <a href="#founders">Founder Edition</a>
       <a href="#process">Process</a>
       <a href="#maker">Maker</a>
-      <a href="#testers">Testers</a>
       <a href="#faq">FAQ</a>
     </nav>
 
@@ -114,9 +136,10 @@
   <!-- Mobile slide-down menu -->
   <div class="mobile-nav" id="mobileNav">
     <a href="#what">What it is</a>
+    <a href="#how">How it works</a>
+    <a href="#founders">Founder Edition</a>
     <a href="#process">Process</a>
     <a href="#maker">Maker</a>
-    <a href="#testers">Testers</a>
     <a href="#faq">FAQ</a>
     <a href="#notify" class="btn-cta-small">Notify me</a>
   </div>
@@ -138,19 +161,20 @@
       </p>
 
       <div class="hero-cta reveal">
-        <a href="#notify" class="btn-primary">Notify me when it drops</a>
+        <a href="#founders" class="btn-primary">Founder Edition &middot; <span data-founder-price>$279</span></a>
         <a href="#what" class="btn-link">Learn more <span class="arrow">→</span></a>
       </div>
 
       <p class="hero-tagline reveal">
         <span class="kanji-mark">第一弾</span>
-        First batch &middot; <strong>spring 2027</strong> &middot; ~25 units
+        First batch &middot; <strong>spring 2027</strong> &middot; 25 numbered units
       </p>
     </div>
 
     <div class="hero-device reveal">
       <div class="device-frame">
-        <img src="assets/images/hako-device.png" alt="hako device" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');" />
+        <!-- SWAP: hero photo or render of the finished box -->
+        <img src="assets/images/hako-device.jpg" alt="hako on a desk" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');" />
         <div class="device-placeholder-grid">
           <span>箱</span>
         </div>
@@ -220,12 +244,93 @@
   </section>
 
   <!-- ============================================================ -->
+  <!-- HOW IT WORKS                                                 -->
+  <!-- ============================================================ -->
+  <section id="how" class="section section-how">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="label-mark">二</span>
+        <span class="label-text">How it works</span>
+      </div>
+
+      <h2 class="reveal">Plug it in. Five minutes later, it's yours.</h2>
+      <p class="section-sub reveal">No app to download, no account to make. Everything stays on your own Wi-Fi.</p>
+
+      <ol class="how-steps">
+        <li class="how-step reveal">
+          <span class="how-num">1</span>
+          <h3>Plug it in</h3>
+          <p>hako opens its own setup network and shows a QR code.</p>
+        </li>
+        <li class="how-step reveal">
+          <span class="how-num">2</span>
+          <h3>Connect with your phone</h3>
+          <p>Scan the code, or tap your phone on the box. Pick your Wi-Fi and type the password. Time zone and language are set for you.</p>
+        </li>
+        <li class="how-step reveal">
+          <span class="how-num">3</span>
+          <h3>Add the hako add-on to Anki</h3>
+          <p>In Anki, <em>Tools &rarr; Add-ons &rarr; Get Add-ons</em>, code <code>1077082455</code>. Click <strong>Allow</strong> when hako asks.</p>
+        </li>
+        <li class="how-step reveal">
+          <span class="how-num">4</span>
+          <h3>Study as usual</h3>
+          <p>Your reviews show up on the box while Anki is open. Updates install themselves overnight.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- FOUNDER EDITION                                              -->
+  <!-- ============================================================ -->
+  <section id="founders" class="section section-founders">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="label-mark">三</span>
+        <span class="label-text">Founder Edition</span>
+      </div>
+
+      <div class="founder-layout">
+        <div class="founder-photo reveal">
+          <!-- SWAP: close-up of the burned-in "Founder Edition · 01/25" mark -->
+          <div class="photo-slot" data-label="Photo: burned-in founder mark and number">
+            <img src="assets/images/founder/engraving.jpg" alt="Founder Edition mark and number burned into the wood" loading="lazy" onerror="this.parentElement.classList.add('missing'); this.remove();" />
+          </div>
+        </div>
+
+        <div class="founder-info reveal">
+          <p class="kanji-mark">初版</p>
+          <h2>25 numbered boxes.<br/>One batch. By hand.</h2>
+          <p class="founder-price"><span data-founder-price>$279</span> <span class="founder-price-note">+ shipping, worldwide</span></p>
+
+          <ul class="founder-list">
+            <li>Hardwood box with hand-cut Japanese joinery, no screws or nails in the case</li>
+            <li>“Founder Edition” and your number, 01&ndash;25, burned into the wood</li>
+            <li>Signed by me, with a handwritten note</li>
+            <li>Power adapter for your country, quick-start card in English, Japanese or German</li>
+            <li>Software updates for as long as hako exists, and a 1-year warranty</li>
+          </ul>
+
+          <div class="founder-counter" id="founderCounter">
+            <div class="founder-bar"><span id="founderBarFill"></span></div>
+            <p><strong id="founderLeft">25</strong> of <span id="founderTotal">25</span> left</p>
+          </div>
+
+          <a href="#notify" class="btn-primary founder-cta" id="founderCta">Pre-orders open spring 2027</a>
+          <p class="founder-meta">Ships about 6&ndash;8 weeks after you order. Full refund any time before your box ships. <a href="shipping.html">Shipping &amp; returns</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
   <!-- PROCESS / CRAFT                                              -->
   <!-- ============================================================ -->
   <section id="process" class="section section-process">
     <div class="section-inner">
       <div class="section-label reveal">
-        <span class="label-mark">二</span>
+        <span class="label-mark">四</span>
         <span class="label-text">Process</span>
       </div>
 
@@ -234,13 +339,16 @@
       <div class="process-grid">
         <div class="process-step reveal">
           <div class="process-photo">
-            <img src="assets/images/process/assembly-01.jpg" alt="Assembling a hako enclosure by hand" loading="lazy" />
+            <!-- SWAP: the joinery being cut or fitted -->
+            <div class="photo-slot" data-label="Photo: cutting the joinery">
+              <img src="assets/images/process/joinery.jpg" alt="Cutting the joinery for a hako box by hand" loading="lazy" onerror="this.parentElement.classList.add('missing'); this.remove();" />
+            </div>
           </div>
           <p class="step-num">手作り</p>
           <h3>Handmade enclosure</h3>
           <p>
-            Each case is cut from baltic birch plywood and assembled in my workshop.
-            Visible joinery. Soft natural finish. No glossy polish &mdash; just the wood.
+            Each box is cut from solid hardwood and held together with Japanese joinery,
+            fitted by hand in my workshop. No screws, no nails. A soft natural oil finish &mdash; just the wood.
           </p>
         </div>
 
@@ -251,9 +359,8 @@
           <p class="step-num">電子</p>
           <h3>Real components</h3>
           <p>
-            A Raspberry Pi Zero W drives a 64×64 RGB LED matrix. Inside, the same
-            software that runs the desktop preview &mdash; built and refined over months
-            with the testing community.
+            A Raspberry Pi 3 A+ drives a 64×64 RGB LED matrix, with a knob, a shake sensor
+            and an NFC tag for tap-to-open. Every unit is burned in and self-tested before it ships.
           </p>
         </div>
 
@@ -261,8 +368,8 @@
           <p class="step-num">少量</p>
           <h3>Small batches, by design</h3>
           <p>
-            First batch is ~25 units. I'd rather make 25 well than 250 hastily.
-            If you miss this batch, the next is planned for late 2026.
+            The first batch is 25 units. I'd rather make 25 well than 250 hastily.
+            If you miss it, join the waitlist: a larger run on Kickstarter comes next.
           </p>
         </div>
       </div>
@@ -275,7 +382,7 @@
   <section id="maker" class="section section-maker">
     <div class="section-inner maker-layout">
       <div class="section-label reveal">
-        <span class="label-mark">三</span>
+        <span class="label-mark">五</span>
         <span class="label-text">Maker</span>
       </div>
 
@@ -294,8 +401,8 @@
           </p>
           <div class="maker-links">
             <a href="https://youtube.com/@jareddesu" target="_blank" rel="noopener" class="maker-link">YouTube ↗</a>
-            <a href="#" class="maker-link">Discord ↗</a>
-            <a href="#" class="maker-link">Twitter ↗</a>
+            <a href="#" class="maker-link" target="_blank" rel="noopener" data-link="discord">Discord ↗</a>
+            <a href="#" class="maker-link" target="_blank" rel="noopener" data-link="twitter">Twitter ↗</a>
           </div>
         </div>
 
@@ -314,7 +421,7 @@
   <section id="testers" class="section section-testers">
     <div class="section-inner">
       <div class="section-label reveal">
-        <span class="label-mark">四</span>
+        <span class="label-mark">六</span>
         <span class="label-text">Testers</span>
       </div>
 
@@ -365,8 +472,8 @@
         <p class="kanji-mark large">第一弾</p>
         <h2>First batch drops spring 2027.</h2>
         <p class="notify-sub">
-          About 25 units. Handmade. Then a few months of quiet before batch two.
-          Drop your email and I'll send one note when pre-orders open &mdash; not before, not after.
+          25 numbered Founder Edition units, then a larger run on Kickstarter.
+          Drop your email and I'll write when pre-orders open, and when the Kickstarter launches. Nothing else.
         </p>
 
         <form class="notify-form" id="notifyForm">
@@ -388,7 +495,7 @@
         </form>
 
         <p class="notify-meta">
-          One email when it's ready. No newsletter, no drip campaigns, no resale to anyone, ever.
+          Two emails at most. No newsletter, no drip campaigns, no resale to anyone, ever.
         </p>
 
         <!-- Live signup counter — appears once SIGNUP_COUNT >= MIN_TO_SHOW -->
@@ -406,7 +513,7 @@
   <section id="faq" class="section section-faq">
     <div class="section-inner">
       <div class="section-label reveal">
-        <span class="label-mark">五</span>
+        <span class="label-mark">七</span>
         <span class="label-text">FAQ</span>
       </div>
 
@@ -430,7 +537,7 @@
             <span class="faq-icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-answer">
-            <p>Via the free AnkiConnect addon. hako talks to your local Anki Desktop over Wi-Fi. As long as Anki is open on your computer, hako stays in sync. The device polls roughly every 30 seconds — fast enough to feel live, slow enough to never interrupt.</p>
+            <p>Through the free hako add-on for Anki (code <code>1077082455</code>). hako finds Anki on your Wi-Fi by itself, and Anki asks you once to allow it. It can only read your stats &mdash; it can't change your collection. Works with Anki on Windows, Mac and Linux while Anki is open. Already use AnkiConnect? That works too.</p>
           </div>
         </div>
 
@@ -440,7 +547,7 @@
             <span class="faq-icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-answer">
-            <p>The first-batch price will be announced closer to launch. It will reflect the actual cost of small-batch handmade hardware, not the cheapest possible mass-produced version.</p>
+            <p>The Founder Edition is <span data-founder-price>$279</span> plus shipping. That's what 25 hand-joined, hand-assembled and individually tested units actually cost to make. The Kickstarter run will use a production enclosure and be priced lower.</p>
           </div>
         </div>
 
@@ -450,7 +557,7 @@
             <span class="faq-icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-answer">
-            <p>Yes. The desktop preview app runs on Mac and Windows and shows exactly what the physical device shows. If you join the Discord, you can try the beta now and shape what ships in spring 2027.</p>
+            <p>Yes. The free desktop app for Mac and Windows shows exactly what the box shows. Join the Discord to try it now.</p>
           </div>
         </div>
 
@@ -460,7 +567,7 @@
             <span class="faq-icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-answer">
-            <p>Yes. It works with any Anki deck. The bundled font has full Latin and Japanese kana/kanji coverage, plus optional Unifont for wider script support. Korean, Mandarin, Cyrillic, and most European languages render correctly.</p>
+            <p>Yes &mdash; it works with any Anki deck, whether that's Japanese, a language you're learning, or Step 1. Menus and setup come in 12 languages, including English, 日本語, Deutsch, Español, Français, Português, Русский and 中文.</p>
           </div>
         </div>
 
@@ -470,7 +577,26 @@
             <span class="faq-icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-answer">
-            <p>Plan is yes, late 2026 onward — but each batch is small by design. If you miss one, you'll be able to join a waitlist for the next.</p>
+            <p>Yes. After the Founder Edition, a larger run goes to Kickstarter. Join the waitlist and you'll hear when it launches.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-text">Do you ship to my country?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, worldwide, with tracking and a power adapter for your country. Shipping is calculated at checkout. Outside the US, your country may charge import tax or VAT on delivery; where we can collect it at checkout (for example in the EU), we do. See <a href="shipping.html">shipping &amp; returns</a>.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-text">What if I change my mind, or it breaks?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>You can cancel for a full refund any time before your box ships, and return it within 30 days of delivery. Every hako has a 1-year warranty: if it stops working, I'll repair or replace it.</p>
           </div>
         </div>
       </div>
@@ -494,6 +620,7 @@
         <div class="footer-col">
           <p class="footer-heading">The thing</p>
           <a href="#what">What it is</a>
+          <a href="#founders">Founder Edition</a>
           <a href="#process">Process</a>
           <a href="#notify">Notify me</a>
         </div>
@@ -502,13 +629,14 @@
           <p class="footer-heading">The maker</p>
           <a href="#maker">About</a>
           <a href="https://youtube.com/@jareddesu" target="_blank" rel="noopener">YouTube ↗</a>
-          <a href="#" target="_blank" rel="noopener">Discord ↗</a>
+          <a href="#" target="_blank" rel="noopener" data-link="discord">Discord ↗</a>
         </div>
 
         <div class="footer-col">
           <p class="footer-heading">Boring stuff</p>
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="shipping.html">Shipping &amp; returns</a>
           <a href="mailto:hello@hakoshop.com">Email</a>
         </div>
       </div>

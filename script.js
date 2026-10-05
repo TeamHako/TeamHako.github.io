@@ -336,3 +336,52 @@
   );
   observer.observe(counter);
 })();
+
+// ============================================================
+// FOUNDER EDITION — price, units left, pre-order button.
+// Configured in <head> (FOUNDER_PRICE, FOUNDER_TOTAL,
+// FOUNDER_SOLD, PREORDER_URL).
+// ============================================================
+(function() {
+  const price = window.FOUNDER_PRICE || "$279";
+  document.querySelectorAll("[data-founder-price]").forEach((el) => {
+    el.textContent = price;
+  });
+
+  const total = Number(window.FOUNDER_TOTAL) || 25;
+  const sold = Math.min(Math.max(Number(window.FOUNDER_SOLD) || 0, 0), total);
+  const left = total - sold;
+
+  const leftEl = document.getElementById("founderLeft");
+  const totalEl = document.getElementById("founderTotal");
+  const fill = document.getElementById("founderBarFill");
+  if (leftEl) leftEl.textContent = left;
+  if (totalEl) totalEl.textContent = total;
+  if (fill) fill.style.width = `${(sold / total) * 100}%`;
+
+  const cta = document.getElementById("founderCta");
+  if (!cta) return;
+  if (left === 0) {
+    cta.textContent = "Sold out · join the Kickstarter waitlist";
+    cta.setAttribute("href", "#notify");
+  } else if (window.PREORDER_URL) {
+    cta.textContent = `Pre-order · ${price}`;
+    cta.setAttribute("href", window.PREORDER_URL);
+    cta.setAttribute("rel", "noopener");
+  }
+})();
+
+// ============================================================
+// SOCIAL LINKS — set from window.LINKS; hidden while empty.
+// ============================================================
+(function() {
+  const links = window.LINKS || {};
+  document.querySelectorAll("[data-link]").forEach((el) => {
+    const url = links[el.dataset.link];
+    if (url) {
+      el.setAttribute("href", url);
+    } else {
+      el.style.display = "none";
+    }
+  });
+})();

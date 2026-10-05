@@ -1929,3 +1929,186 @@ body.gate-locked { overflow: hidden; }
   .gate-form { flex-direction: column; }
   .gate-input, .gate-btn { width: 100%; }
 }
+/* ============================================================
+   PHOTO SLOTS — show a labelled placeholder until the image
+   file exists (the <img> removes itself on error).
+   ============================================================ */
+.photo-slot {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--surface-soft);
+}
+.photo-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.photo-slot.missing {
+  display: grid;
+  place-items: center;
+  border: 1.5px dashed var(--border);
+  padding: 24px;
+}
+.photo-slot.missing::after {
+  content: attr(data-label);
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   HOW IT WORKS
+   ============================================================ */
+.how-steps {
+  list-style: none;
+  padding: 0;
+  margin: 48px 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.how-step {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: var(--shadow-soft);
+}
+.how-num {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent-faint);
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.how-step h3 {
+  font-size: 18px;
+  margin: 0 0 8px;
+}
+.how-step p {
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+.how-step code,
+.faq-answer code {
+  font-size: 0.92em;
+  background: var(--bg-deep);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+@media (max-width: 960px) {
+  .how-steps { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  .how-steps { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   FOUNDER EDITION
+   ============================================================ */
+.founder-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+  margin-top: 32px;
+}
+.founder-info h2 {
+  margin: 8px 0 16px;
+}
+.founder-price {
+  font-family: "Shippori Mincho", serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 20px;
+}
+.founder-price-note {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.founder-list {
+  margin: 0 0 28px;
+  padding-left: 20px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+.founder-list li { margin-bottom: 6px; }
+.founder-list li::marker { color: var(--accent); }
+.founder-counter { margin-bottom: 20px; }
+.founder-counter p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+.founder-counter strong { color: var(--ink); }
+.founder-bar {
+  height: 8px;
+  border-radius: 99px;
+  background: var(--bg-deep);
+  overflow: hidden;
+}
+.founder-bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transition: width 0.6s ease;
+}
+.founder-meta {
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.founder-meta a { color: var(--accent); }
+@media (max-width: 900px) {
+  .founder-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+/* ============================================================
+   POLICY PAGES (privacy, terms, shipping)
+   ============================================================ */
+.policy {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 120px 16px 80px;
+  color: var(--ink-soft);
+  line-height: 1.75;
+}
+.policy h1 {
+  font-family: "Shippori Mincho", serif;
+  color: var(--ink);
+  font-size: 40px;
+  margin: 0 0 8px;
+}
+.policy h2 {
+  font-family: "Shippori Mincho", serif;
+  color: var(--ink);
+  font-size: 22px;
+  margin: 40px 0 8px;
+}
+.policy .policy-date { color: var(--muted); font-size: 14px; }
+.policy a { color: var(--accent); }
+.policy-back {
+  display: inline-block;
+  margin-bottom: 32px;
+  color: var(--muted);
+  text-decoration: none;
+}
