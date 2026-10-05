@@ -197,9 +197,9 @@
       "de": "Eine kleine Holzbox,<br/>die weiß, wie es<br/>mit dem Lernen läuft."
     },
     {
-      "en": "hako lives on your desk and shows your daily Anki progress on a 64×64 LED matrix. No notifications, no dopamine loop &mdash; just a quiet presence that knows what's due.",
-      "ja": "hakoは机の上で、その日のAnkiの進み具合を64×64のLEDに映し出します。通知も、ドーパミンを煽る仕掛けもありません。今日やるべき復習を、静かに知らせてくれる存在です。",
-      "de": "hako steht auf deinem Schreibtisch und zeigt deinen Anki-Fortschritt des Tages auf einer 64×64-LED-Matrix. Keine Benachrichtigungen, keine Dopamin-Schleife &mdash; nur eine ruhige Präsenz, die weiß, was fällig ist."
+      "en": "hako sits on your desk and shows how many Anki reviews you have left on a 64×64 LED screen. It never sends notifications.",
+      "ja": "hakoは机の上で、Ankiの残りの復習数を64×64のLEDに表示します。通知は一切送りません。",
+      "de": "hako steht auf deinem Schreibtisch und zeigt auf einem 64×64-LED-Display, wie viele Anki-Wiederholungen noch übrig sind. Benachrichtigungen schickt es nie."
     },
     {
       "en": "Founder Edition &middot; <span data-founder-price>$279</span>",
@@ -232,24 +232,24 @@
       "de": "Deine Wiederholungen auf einen Blick."
     },
     {
-      "en": "Today's load, at a glance",
-      "ja": "今日の量を、ひと目で",
-      "de": "Das Pensum von heute auf einen Blick"
+      "en": "What's due today",
+      "ja": "今日の残り",
+      "de": "Was heute fällig ist"
     },
     {
-      "en": "How many cards are due. How many you've done. Time remaining. One number, one color, no notification dread.",
-      "ja": "残りのカード数、終えた数、あとどれくらいかかるか。数字ひとつと色ひとつ。通知に追われることはありません。",
-      "de": "Wie viele Karten fällig sind. Wie viele du geschafft hast. Wie lange es noch dauert. Eine Zahl, eine Farbe, kein Benachrichtigungsstress."
+      "en": "How many cards are left, how long they'll take, and how many you've done. The number turns green as you catch up.",
+      "ja": "残りのカード数、かかりそうな時間、終えた数を表示します。追いつくにつれて数字が緑に変わります。",
+      "de": "Wie viele Karten noch übrig sind, wie lange sie dauern und wie viele du geschafft hast. Die Zahl wird grün, wenn du aufholst."
     },
     {
-      "en": "A study companion, not a coach",
-      "ja": "コーチではなく、勉強仲間",
-      "de": "Ein Lernbegleiter, kein Coach"
+      "en": "A little study pet",
+      "ja": "小さな勉強ペット",
+      "de": "Ein kleines Lern-Haustier"
     },
     {
-      "en": "A small chibi mood-shifts with your workload. Behind on reviews, it looks worried. Caught up, it rests easy. No streaks, no shame.",
-      "ja": "小さなキャラクターが、復習の量に合わせて表情を変えます。遅れていれば心配そうに、追いつけばのんびりと。連続記録も、罪悪感もありません。",
-      "de": "Ein kleiner Chibi ändert seine Stimmung mit deinem Pensum. Hängst du hinterher, schaut er besorgt. Bist du durch, entspannt er sich. Keine Streaks, kein schlechtes Gewissen."
+      "en": "It gets nervous when reviews pile up and relaxes once you're caught up. It doesn't track streaks.",
+      "ja": "復習がたまると不安そうになり、追いつくとのんびりします。連続記録はつけません。",
+      "de": "Es wird nervös, wenn sich Wiederholungen stapeln, und entspannt sich, sobald du aufgeholt hast. Streaks zählt es nicht."
     },
     {
       "en": "Cards you've recently added",
@@ -257,29 +257,29 @@
       "de": "Deine zuletzt hinzugefügten Karten"
     },
     {
-      "en": "A rotating window into your newest additions, random samples, or anything tagged. Quiet revision while you work on other things.",
-      "ja": "新しく追加したカード、ランダムなカード、タグ付きのカードを順番に表示します。ほかの作業をしながら、さりげなく復習できます。",
-      "de": "Ein wechselnder Blick auf deine neuesten Karten, Zufallsstichproben oder alles mit einem bestimmten Tag. Leise Wiederholung, während du an etwas anderem arbeitest."
+      "en": "Cycles through your newest cards, random ones, or a tag you pick, so you see a few words while you're doing something else.",
+      "ja": "最新のカード、ランダムなカード、選んだタグのカードを順番に表示します。ほかのことをしながら、いくつかの単語が目に入ります。",
+      "de": "Zeigt nacheinander deine neuesten Karten, zufällige oder die mit einem Tag deiner Wahl, damit du nebenbei ein paar Wörter siehst."
     },
     {
-      "en": "Six weeks of history",
-      "ja": "6週間の記録",
-      "de": "Sechs Wochen Verlauf"
+      "en": "Six weeks of reviews",
+      "ja": "6週間の復習",
+      "de": "Sechs Wochen Wiederholungen"
     },
     {
-      "en": "A heatmap of your past reviews. Retention windows. Card health. Enough context to feel your progress without obsessing over it.",
-      "ja": "過去の復習のヒートマップ、定着率、カードの状態。進歩は実感できるけれど、数字にとらわれすぎない程度の情報です。",
-      "de": "Eine Heatmap deiner Wiederholungen, Behaltensquoten, Kartenzustand. Genug, um deinen Fortschritt zu spüren, ohne dich darin zu verlieren."
+      "en": "A heatmap of the last six weeks, your retention, and how many cards are mature, young or new.",
+      "ja": "直近6週間のヒートマップ、定着率、そして成熟・若い・新規のカードの数を表示します。",
+      "de": "Eine Heatmap der letzten sechs Wochen, deine Behaltensquote und wie viele Karten ausgereift, jung oder neu sind."
     },
     {
-      "en": "Plug it in. Five minutes later, it's yours.",
-      "ja": "電源を入れれば、5分で使い始められます。",
-      "de": "Einstecken. Fünf Minuten später gehört es dir."
+      "en": "Setup takes about five minutes.",
+      "ja": "設定は5分ほどで終わります。",
+      "de": "Die Einrichtung dauert etwa fünf Minuten."
     },
     {
-      "en": "No app to download, no account to make. Everything stays on your own Wi-Fi.",
-      "ja": "アプリのダウンロードもアカウント登録も不要。データはすべてご自宅のWi-Fiの中にとどまります。",
-      "de": "Keine App, kein Konto. Alles bleibt in deinem eigenen WLAN."
+      "en": "You don't need an app or an account, and your study data stays on your Wi-Fi.",
+      "ja": "アプリもアカウントも不要で、学習データはご自宅のWi-Fiの外に出ません。",
+      "de": "Du brauchst keine App und kein Konto, und deine Lerndaten bleiben in deinem WLAN."
     },
     {
       "en": "Plug it in",
@@ -492,9 +492,9 @@
       "de": "Handgefertigtes Gehäuse"
     },
     {
-      "en": "Each box is cut from solid hardwood and held together with Japanese joinery, fitted by hand in my workshop. No screws, no nails. A soft natural oil finish &mdash; just the wood.",
-      "ja": "ひとつひとつの箱は無垢材から切り出し、日本の木組みで、工房で手作業で組み上げます。ネジも釘も使いません。仕上げは自然なオイルだけ。木そのものの風合いです。",
-      "de": "Jede Box wird aus Massivholz geschnitten und mit japanischen Holzverbindungen von Hand in meiner Werkstatt zusammengefügt. Keine Schrauben, keine Nägel. Ein sanftes, natürliches Öl-Finish &mdash; einfach Holz."
+      "en": "I cut each box from solid hardwood, join it by hand without screws or nails, and finish it with oil.",
+      "ja": "箱はひとつずつ無垢材から切り出し、ネジや釘を使わずに手で組み、オイルで仕上げています。",
+      "de": "Ich schneide jede Box aus Massivholz, füge sie ohne Schrauben oder Nägel von Hand zusammen und öle sie zum Schluss."
     },
     {
       "en": "Real components",
@@ -512,9 +512,9 @@
       "de": "Kleine Serien, mit Absicht"
     },
     {
-      "en": "The first batch is 25 units. I'd rather make 25 well than 250 hastily. If you miss it, join the waitlist: a larger run on Kickstarter comes next.",
-      "ja": "最初のロットは25台です。250台を急いで作るより、25台を丁寧に作りたいと思っています。逃してしまった方は、ウェイティングリストへどうぞ。次はKickstarterでより多くの台数を製作します。",
-      "de": "Die erste Serie umfasst 25 Stück. Lieber 25 gut als 250 überhastet. Wenn du sie verpasst, trag dich in die Warteliste ein: Als Nächstes kommt eine größere Serie auf Kickstarter."
+      "en": "The first batch is 25 because that's how many I can build well by hand. After that, a bigger run goes to Kickstarter.",
+      "ja": "第一弾が25台なのは、手作業できちんと作れるのがその数だからです。その後、より多くの台数をKickstarterで製作します。",
+      "de": "Die erste Serie hat 25 Stück, weil ich so viele gut von Hand bauen kann. Danach kommt eine größere Serie auf Kickstarter."
     },
     {
       "en": "Made by Jared.",
@@ -557,9 +557,9 @@
       "de": "25 nummerierte Geräte der Founder Edition, danach eine größere Serie auf Kickstarter. Trag deine E-Mail ein, und ich schreibe dir, wenn die Vorbestellung öffnet und wenn die Kickstarter-Kampagne startet. Sonst nichts."
     },
     {
-      "en": "Two emails at most. No newsletter, no drip campaigns, no resale to anyone, ever.",
-      "ja": "メールは最大2通。ニュースレターも、定期配信も、第三者への提供も一切ありません。",
-      "de": "Höchstens zwei E-Mails. Kein Newsletter, keine Drip-Kampagnen, keine Weitergabe an Dritte, niemals."
+      "en": "I'll email you twice at most: when pre-orders open and when the Kickstarter launches. I won't share your address.",
+      "ja": "メールは最大2回、予約開始時とKickstarter開始時だけです。メールアドレスを第三者に渡すことはありません。",
+      "de": "Ich schreibe dir höchstens zweimal: wenn die Vorbestellung öffnet und wenn die Kickstarter-Kampagne startet. Deine Adresse gebe ich nicht weiter."
     },
     {
       "en": "already on the list",
@@ -697,9 +697,9 @@
       "de": "Was in der Box steckt"
     },
     {
-      "en": "No screens to tap, no buttons to learn. One knob, a shake sensor, and an NFC chip hidden just under the wood.",
-      "ja": "タッチする画面も、覚えるボタンもありません。ノブがひとつと振動センサー、そして木のすぐ下に隠れたNFCチップだけです。",
-      "de": "Kein Touchscreen, keine Tasten zum Lernen. Ein Drehknopf, ein Schüttelsensor und ein NFC-Chip, versteckt direkt unter dem Holz."
+      "en": "It has one knob, a shake sensor, and an NFC chip under the wood that you tap your phone on.",
+      "ja": "ノブがひとつと振動センサー、そしてスマホをかざすためのNFCチップが木の下に入っています。",
+      "de": "Es hat einen Drehknopf, einen Schüttelsensor und einen NFC-Chip unter dem Holz, an den du dein Handy hältst."
     },
     {
       "en": "64×64 LED panel",

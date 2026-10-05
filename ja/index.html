@@ -180,7 +180,7 @@
         勉強の様子を<br/>そっと見守る<br/>小さな木の箱。
       </h1>
       <p class="hero-sub reveal">
-        hakoは机の上で、その日のAnkiの進み具合を64×64のLEDに映し出します。通知も、ドーパミンを煽る仕掛けもありません。今日やるべき復習を、静かに知らせてくれる存在です。
+        hakoは机の上で、Ankiの残りの復習数を64×64のLEDに表示します。通知は一切送りません。
       </p>
 
       <div class="hero-cta reveal">
@@ -239,9 +239,9 @@
           <div class="what-screen">
             <img src="../assets/images/panel/ja/today.webp" alt="hakoの「今日」画面" width="384" height="384" loading="lazy" />
           </div>
-          <h3>今日の量を、ひと目で</h3>
+          <h3>今日の残り</h3>
           <p>
-            残りのカード数、終えた数、あとどれくらいかかるか。数字ひとつと色ひとつ。通知に追われることはありません。
+            残りのカード数、かかりそうな時間、終えた数を表示します。追いつくにつれて数字が緑に変わります。
           </p>
         </div>
 
@@ -250,9 +250,9 @@
           <div class="what-screen">
             <img src="../assets/images/panel/ja/pet.webp" alt="hakoのペット画面" width="384" height="384" loading="lazy" />
           </div>
-          <h3>コーチではなく、勉強仲間</h3>
+          <h3>小さな勉強ペット</h3>
           <p>
-            小さなキャラクターが、復習の量に合わせて表情を変えます。遅れていれば心配そうに、追いつけばのんびりと。連続記録も、罪悪感もありません。
+            復習がたまると不安そうになり、追いつくとのんびりします。連続記録はつけません。
           </p>
         </div>
 
@@ -263,7 +263,7 @@
           </div>
           <h3>最近追加したカード</h3>
           <p>
-            新しく追加したカード、ランダムなカード、タグ付きのカードを順番に表示します。ほかの作業をしながら、さりげなく復習できます。
+            最新のカード、ランダムなカード、選んだタグのカードを順番に表示します。ほかのことをしながら、いくつかの単語が目に入ります。
           </p>
         </div>
 
@@ -272,9 +272,9 @@
           <div class="what-screen">
             <img src="../assets/images/panel/ja/heatmap.webp" alt="hakoの6週間ヒートマップ画面" width="384" height="384" loading="lazy" />
           </div>
-          <h3>6週間の記録</h3>
+          <h3>6週間の復習</h3>
           <p>
-            過去の復習のヒートマップ、定着率、カードの状態。進歩は実感できるけれど、数字にとらわれすぎない程度の情報です。
+            直近6週間のヒートマップ、定着率、そして成熟・若い・新規のカードの数を表示します。
           </p>
         </div>
       </div>
@@ -291,8 +291,8 @@
         <span class="label-text">使い方</span>
       </div>
 
-      <h2 class="reveal">電源を入れれば、5分で使い始められます。</h2>
-      <p class="section-sub reveal">アプリのダウンロードもアカウント登録も不要。データはすべてご自宅のWi-Fiの中にとどまります。</p>
+      <h2 class="reveal">設定は5分ほどで終わります。</h2>
+      <p class="section-sub reveal">アプリもアカウントも不要で、学習データはご自宅のWi-Fiの外に出ません。</p>
 
       <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
         <defs>
@@ -473,7 +473,7 @@
           <p class="step-num">手作り</p>
           <h3>手作りのケース</h3>
           <p>
-            ひとつひとつの箱は無垢材から切り出し、日本の木組みで、工房で手作業で組み上げます。ネジも釘も使いません。仕上げは自然なオイルだけ。木そのものの風合いです。
+            箱はひとつずつ無垢材から切り出し、ネジや釘を使わずに手で組み、オイルで仕上げています。
           </p>
         </div>
 
@@ -492,14 +492,14 @@
           <p class="step-num">少量</p>
           <h3>あえて少量生産</h3>
           <p>
-            最初のロットは25台です。250台を急いで作るより、25台を丁寧に作りたいと思っています。逃してしまった方は、ウェイティングリストへどうぞ。次はKickstarterでより多くの台数を製作します。
+            第一弾が25台なのは、手作業できちんと作れるのがその数だからです。その後、より多くの台数をKickstarterで製作します。
           </p>
         </div>
       </div>
 
       <div class="inside reveal">
         <h3>箱の中身</h3>
-        <p class="edition-sub">タッチする画面も、覚えるボタンもありません。ノブがひとつと振動センサー、そして木のすぐ下に隠れたNFCチップだけです。</p>
+        <p class="edition-sub">ノブがひとつと振動センサー、そしてスマホをかざすためのNFCチップが木の下に入っています。</p>
         <div class="inside-layout">
           <svg class="inside-art" viewBox="0 0 640 330" role="img" aria-label="hakoの内部構造：LEDパネル、Raspberry Pi、NFCチップ、振動センサー、ノブ、電源">
             <g class="ill-waves">
@@ -667,7 +667,7 @@
         </form>
 
         <p class="notify-meta">
-          メールは最大2通。ニュースレターも、定期配信も、第三者への提供も一切ありません。
+          メールは最大2回、予約開始時とKickstarter開始時だけです。メールアドレスを第三者に渡すことはありません。
         </p>
 
         <!-- Live signup counter — appears once SIGNUP_COUNT >= MIN_TO_SHOW -->
