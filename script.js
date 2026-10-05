@@ -513,3 +513,19 @@ async function liveShop(cta, price) {
     });
   });
 })();
+
+// ============================================================
+// TESTER AVATARS — show the initial when a photo is missing
+// ============================================================
+(function() {
+  document.querySelectorAll(".tester-avatar img").forEach((img) => {
+    const fallback = () => {
+      const box = img.parentElement;
+      const handle = (img.getAttribute("alt") || "?").replace(/^@/, "");
+      box.classList.add("initial");
+      box.textContent = handle.charAt(0).toUpperCase();
+    };
+    if (img.complete && img.naturalWidth === 0) fallback();
+    else img.addEventListener("error", fallback);
+  });
+})();

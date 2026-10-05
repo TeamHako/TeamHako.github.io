@@ -2641,3 +2641,20 @@ body.gate-locked { overflow: hidden; }
 
 /* An element with the hidden attribute stays hidden even when a rule sets display */
 .founder-country[hidden] { display: none; }
+
+/* Photos not added yet: hide the slot instead of showing a placeholder.
+   (Drop the file in place and it appears.) */
+.founder-photo:has(.photo-slot.missing),
+.process-photo:has(.photo-slot.missing) { display: none; }
+.founder-layout:has(.photo-slot.missing) { grid-template-columns: minmax(0, 720px); }
+
+/* Tester without a photo: their initial instead of a broken image */
+.tester-avatar.initial {
+  display: grid;
+  place-items: center;
+  background: var(--accent-faint);
+  color: var(--accent);
+  font-family: "Shippori Mincho", serif;
+  font-size: 28px;
+  font-weight: 700;
+}
