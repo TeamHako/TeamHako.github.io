@@ -32,6 +32,10 @@ jobs:
       STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}  # optional until the webhook exists
       STRIPE_PRICE_ID: ${{ vars.STRIPE_PRICE_ID }}                 # repo variable, not a secret
       PREORDERS_OPEN: ${{ vars.PREORDERS_OPEN }}                   # repo variable: "true" opens checkout
+      # Test shop (Stripe test mode), deployed only when its key exists
+      STRIPE_TEST_SECRET_KEY: ${{ secrets.STRIPE_TEST_SECRET_KEY }}
+      STRIPE_TEST_WEBHOOK_SECRET: ${{ secrets.STRIPE_TEST_WEBHOOK_SECRET }}
+      STRIPE_TEST_PRICE_ID: ${{ vars.STRIPE_TEST_PRICE_ID }}
     steps:
       - name: Check out
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
@@ -44,9 +48,16 @@ jobs:
           done
           [ "$missing" = 0 ] || exit 1
           case "$STRIPE_SECRET_KEY" in
-            ""|sk_*|rk_*) ;;
-            *) echo "::error::STRIPE_SECRET_KEY should start with rk_ (restricted key) or sk_"; exit 1 ;;
+            ""|sk_live_*|rk_live_*) ;;
+            *) echo "::error::STRIPE_SECRET_KEY should be a live key (rk_live_...). Test keys go in STRIPE_TEST_SECRET_KEY"; exit 1 ;;
           esac
+          case "$STRIPE_TEST_SECRET_KEY" in
+            ""|sk_test_*|rk_test_*) ;;
+            *) echo "::error::STRIPE_TEST_SECRET_KEY should be a test key (rk_test_...)"; exit 1 ;;
+          esac
+          if [ -n "$STRIPE_TEST_SECRET_KEY" ] && [ -z "$STRIPE_TEST_PRICE_ID" ]; then
+            echo "::error::Set the repo variable STRIPE_TEST_PRICE_ID (the test-mode price) for the test shop"; exit 1
+          fi
 
       - name: Install
         run: npm ci --no-audit --no-fund
@@ -74,3 +85,17 @@ jobs:
         run: |
           if [ -n "$STRIPE_SECRET_KEY" ]; then printf '%s' "$STRIPE_SECRET_KEY" | npx wrangler secret put STRIPE_SECRET_KEY; fi
           if [ -n "$STRIPE_WEBHOOK_SECRET" ]; then printf '%s' "$STRIPE_WEBHOOK_SECRET" | npx wrangler secret put STRIPE_WEBHOOK_SECRET; fi
+
+      - name: Deploy the test shop
+        if: env.STRIPE_TEST_SECRET_KEY != ''
+        run: |
+          npx wrangler deploy --env test --var "STRIPE_PRICE_ID:$STRIPE_TEST_PRICE_ID" | tee deploy-test.log
+          printf '%s' "$STRIPE_TEST_SECRET_KEY" | npx wrangler secret put STRIPE_SECRET_KEY --env test
+          if [ -n "$STRIPE_TEST_WEBHOOK_SECRET" ]; then printf '%s' "$STRIPE_TEST_WEBHOOK_SECRET" | npx wrangler secret put STRIPE_WEBHOOK_SECRET --env test; fi
+          url="$(grep -oE 'https://[a-z0-9.-]+\.workers\.dev' deploy-test.log | head -1)"
+          {
+            echo ""
+            echo "### Test shop deployed"
+            echo ""
+            echo "URL: ${url:-see the log above}. Try it at https://www.hakoshop.com/?shop=test"
+          } >> "$GITHUB_STEP_SUMMARY"

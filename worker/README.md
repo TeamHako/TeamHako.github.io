@@ -52,8 +52,21 @@ dashboard). Test mode has its own keys and its own price ID.
 9. **Turn off the old Payment Link** (Stripe → Payment Links → ⋯ → Deactivate). It
    bypasses the 25-unit limit and the founder numbers.
 
-To test a purchase, set the variable `PREORDERS_OPEN` to `true`, run the workflow, and
-buy with card `4242 4242 4242 4242`. Then set it back to `false`.
+## Test shop
+
+A second Worker, `hako-shop-test`, runs on Stripe **test mode** with its own counter and
+is always open. Open **https://www.hakoshop.com/?shop=test** and pay with card
+`4242 4242 4242 4242` (any future date, any CVC). Nothing is charged, and the real shop
+isn't affected.
+
+Setup, with the Stripe dashboard switched to **test mode**:
+1. Create the *hako — Founder Edition* product; add its price ID as the repo
+   **variable** `STRIPE_TEST_PRICE_ID`.
+2. Create a restricted key (Checkout Sessions: Write, Payment Intents: Write); add it as
+   the repo **secret** `STRIPE_TEST_SECRET_KEY` (`rk_test_...`).
+3. Run the workflow. Add a webhook endpoint
+   `https://hako-shop-test.<you>.workers.dev/webhook` (same two events), put its signing
+   secret in `STRIPE_TEST_WEBHOOK_SECRET`, and run the workflow again.
 
 **Going live:** in Stripe's live mode, repeat steps 4, 5 and 7 (live price ID, `rk_live_`
 key, live webhook secret), replace the GitHub secrets and variable, and run the workflow.

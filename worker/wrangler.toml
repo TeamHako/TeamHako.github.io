@@ -30,3 +30,24 @@ class_name = "Founders"
 [[migrations]]
 tag = "v1"
 new_sqlite_classes = ["Founders"]
+
+# ---------------------------------------------------------------------------
+# Test shop: Stripe test mode, its own counter, always open. Deployed as
+# "hako-shop-test" by the workflow when the STRIPE_TEST_* secrets exist.
+# Open it with https://www.hakoshop.com/?shop=test
+# ---------------------------------------------------------------------------
+[env.test]
+name = "hako-shop-test"
+
+[env.test.vars]
+STRIPE_PRICE_ID = "price_REPLACE_ME"   # overridden by the STRIPE_TEST_PRICE_ID repo variable
+FOUNDER_TOTAL = "25"
+PREORDERS_OPEN = "true"
+SITE_URL = "https://www.hakoshop.com"
+SITE_QUERY = "shop=test"
+ALLOWED_ORIGINS = "https://www.hakoshop.com,https://hakoshop.com"
+SHIPPING_CENTS = '{"US": 1500, "CA": 4500, "MX": 4500, "*": 6900}'
+
+[[env.test.durable_objects.bindings]]
+name = "FOUNDERS"
+class_name = "Founders"

@@ -54,6 +54,10 @@
     // The shop Worker (worker/README.md). When set, the counter is live and
     // the button opens checkout with shipping for the buyer's country.
     window.SHOP_API = "https://hako-shop.jared-65b.workers.dev";
+    // ?shop=test uses the test shop (Stripe test mode, card 4242 4242 4242 4242)
+    if (/[?&]shop=test\b/.test(location.search)) {
+      window.SHOP_API = "https://hako-shop-test.jared-65b.workers.dev";
+    }
 
     // Social links. Leave one empty and its links are hidden.
     window.LINKS = {

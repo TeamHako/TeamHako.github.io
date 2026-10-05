@@ -17,6 +17,10 @@
     } catch (e) {}
     // Keep in sync with SHOP_API in index.html
     window.SHOP_API = "https://hako-shop.jared-65b.workers.dev";
+    // ?shop=test uses the test shop (Stripe test mode, card 4242 4242 4242 4242)
+    if (/[?&]shop=test\b/.test(location.search)) {
+      window.SHOP_API = "https://hako-shop-test.jared-65b.workers.dev";
+    }
   </script>
 </head>
 <body>

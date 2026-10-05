@@ -238,6 +238,8 @@ async function handleCheckout(request, env, cors) {
   }
 
   const site = env.SITE_URL.replace(/\/$/, "");
+  // The test shop adds "shop=test" so the site keeps talking to it after checkout
+  const q = env.SITE_QUERY || "";
   const cents = shippingCents(env, country);
   let session;
   try {
@@ -259,8 +261,8 @@ async function handleCheckout(request, env, cors) {
       expires_at: String(Math.floor(Date.now() / 1000) + RESERVE_SECONDS),
       "metadata[edition]": "founder",
       "payment_intent_data[metadata][edition]": "founder",
-      success_url: `${site}/thanks.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${site}/#founders`,
+      success_url: `${site}/thanks.html?session_id={CHECKOUT_SESSION_ID}${q ? `&${q}` : ""}`,
+      cancel_url: `${site}/${q ? `?${q}` : ""}#founders`,
     });
   } catch (e) {
     await founders(env, { op: "release", sessionId: holdId });
