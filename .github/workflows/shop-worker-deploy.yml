@@ -30,12 +30,12 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}          # optional until checkout is used
       STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}  # optional until the webhook exists
-      STRIPE_PRICE_ID: ${{ vars.STRIPE_PRICE_ID }}                 # repo variable, not a secret
+      STRIPE_PRICE_ID: ${{ vars.STRIPE_PRICE_ID || secrets.STRIPE_PRICE_ID }}  # not secret; variable or secret both work
       PREORDERS_OPEN: ${{ vars.PREORDERS_OPEN }}                   # repo variable: "true" opens checkout
       # Test shop (Stripe test mode), deployed only when its key exists
       STRIPE_TEST_SECRET_KEY: ${{ secrets.STRIPE_TEST_SECRET_KEY }}
       STRIPE_TEST_WEBHOOK_SECRET: ${{ secrets.STRIPE_TEST_WEBHOOK_SECRET }}
-      STRIPE_TEST_PRICE_ID: ${{ vars.STRIPE_TEST_PRICE_ID }}
+      STRIPE_TEST_PRICE_ID: ${{ vars.STRIPE_TEST_PRICE_ID || secrets.STRIPE_TEST_PRICE_ID }}
     steps:
       - name: Check out
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
