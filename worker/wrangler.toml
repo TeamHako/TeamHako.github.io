@@ -6,7 +6,7 @@ compatibility_date = "2026-09-01"
 
 [vars]
 # The Stripe price of the Founder Edition product (price_...). Not a secret.
-STRIPE_PRICE_ID = "price_REPLACE_ME"
+STRIPE_PRICE_ID = "price_1UNDXnLMHRqh1JEk0ziMrJ5H"
 FOUNDER_TOTAL = "25"
 # "true" when pre-orders open. Until then /checkout refuses.
 PREORDERS_OPEN = "false"
