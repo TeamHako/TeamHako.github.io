@@ -1,0 +1,28 @@
+# hako shop Worker: Founder Edition checkout, units-left counter, founder numbers.
+# Deploy: see README.md in this folder.
+name = "hako-shop"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+[vars]
+# The Stripe price of the Founder Edition product (price_...). Not a secret.
+STRIPE_PRICE_ID = "price_REPLACE_ME"
+FOUNDER_TOTAL = "25"
+# "true" when pre-orders open. Until then /checkout refuses.
+PREORDERS_OPEN = "false"
+SITE_URL = "https://www.hakoshop.com"
+ALLOWED_ORIGINS = "https://www.hakoshop.com,https://hakoshop.com"
+# Shipping in US cents by destination; "*" is everywhere else.
+SHIPPING_CENTS = '{"US": 1500, "CA": 3500, "MX": 3500, "*": 5500}'
+
+# Secrets (never in this file): set with
+#   npx wrangler secret put STRIPE_SECRET_KEY
+#   npx wrangler secret put STRIPE_WEBHOOK_SECRET
+
+[[durable_objects.bindings]]
+name = "FOUNDERS"
+class_name = "Founders"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Founders"]

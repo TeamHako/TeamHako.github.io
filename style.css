@@ -2112,3 +2112,39 @@ body.gate-locked { overflow: hidden; }
   color: var(--muted);
   text-decoration: none;
 }
+
+.founder-country {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+.founder-country select {
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  max-width: 100%;
+}
+.founder-ship { color: var(--muted); }
+.founder-error {
+  color: var(--accent);
+  font-size: 14px;
+  margin: 10px 0 0;
+  min-height: 1em;
+}
+.founder-cta.is-busy { opacity: 0.6; pointer-events: none; }
+.thanks-number {
+  font-family: "Shippori Mincho", serif;
+  font-size: 72px;
+  color: var(--accent);
+  margin: 16px 0;
+  line-height: 1;
+}
+
+.policy p { margin: 0 0 16px; }

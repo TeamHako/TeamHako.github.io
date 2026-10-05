@@ -361,6 +361,10 @@
 
   const cta = document.getElementById("founderCta");
   if (!cta) return;
+  if (window.SHOP_API) {
+    liveShop(cta, price);
+    return;
+  }
   if (left === 0) {
     cta.textContent = "Sold out · join the Kickstarter waitlist";
     cta.setAttribute("href", "#notify");
@@ -385,3 +389,97 @@
     }
   });
 })();
+
+// ============================================================
+// LIVE SHOP — talks to the shop Worker (window.SHOP_API):
+// live counter, country picker with shipping, Stripe checkout.
+// ============================================================
+async function liveShop(cta, price) {
+  const api = window.SHOP_API.replace(/\/$/, "");
+  const picker = document.getElementById("founderCountry");
+  const select = document.getElementById("countrySelect");
+  const shipEl = document.getElementById("founderShip");
+  const errorEl = document.getElementById("founderError");
+  const lang = document.documentElement.lang || "en";
+
+  function setCounter(total, sold) {
+    const left = Math.max(total - sold, 0);
+    const leftEl = document.getElementById("founderLeft");
+    const totalEl = document.getElementById("founderTotal");
+    const fill = document.getElementById("founderBarFill");
+    if (leftEl) leftEl.textContent = left;
+    if (totalEl) totalEl.textContent = total;
+    if (fill) fill.style.width = `${(sold / total) * 100}%`;
+  }
+
+  let status;
+  try {
+    status = await (await fetch(`${api}/status`)).json();
+  } catch (e) {
+    return; // keep the static fallback
+  }
+  setCounter(status.total, status.sold);
+
+  if (status.left === 0) {
+    cta.textContent = "Sold out · join the Kickstarter waitlist";
+    cta.setAttribute("href", "#notify");
+    return;
+  }
+  if (!status.open) return; // "Pre-orders open spring 2027"
+
+  // Country picker, names in the visitor's language, guessed from the browser
+  let names;
+  try {
+    names = new Intl.DisplayNames([navigator.language || lang, "en"], { type: "region" });
+  } catch (e) {
+    names = { of: (c) => c };
+  }
+  const options = status.countries
+    .map((code) => ({ code, name: names.of(code) || code }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+  select.innerHTML = options.map((o) => `<option value="${o.code}">${o.name}</option>`).join("");
+  const guess = (navigator.language || "").split("-")[1];
+  select.value = status.countries.includes(guess) ? guess : "US";
+
+  function money(cents) {
+    return new Intl.NumberFormat(navigator.language || "en", { style: "currency", currency: "USD" })
+      .format(cents / 100);
+  }
+  function showShipping() {
+    const cents = status.shipping[select.value] ?? status.shipping["*"] ?? 0;
+    shipEl.textContent = `+ ${money(cents)} shipping`;
+  }
+  select.addEventListener("change", showShipping);
+  showShipping();
+  picker.hidden = false;
+
+  cta.textContent = `Pre-order · ${price}`;
+  cta.setAttribute("href", "#");
+  cta.addEventListener("click", async (e) => {
+    e.preventDefault();
+    errorEl.textContent = "";
+    cta.classList.add("is-busy");
+    cta.textContent = "Opening checkout…";
+    try {
+      const r = await fetch(`${api}/checkout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ country: select.value }),
+      });
+      const data = await r.json();
+      if (data.url) {
+        window.location.href = data.url;
+        return;
+      }
+      errorEl.textContent = {
+        all_held: "The last boxes are in other people's checkouts right now. Try again in 30 minutes.",
+        sold_out: "Sold out — join the waitlist for the Kickstarter.",
+        not_open: "Pre-orders aren't open yet.",
+      }[data.error] || "Something went wrong. Please try again.";
+    } catch (err) {
+      errorEl.textContent = "Couldn't reach checkout. Please try again.";
+    }
+    cta.classList.remove("is-busy");
+    cta.textContent = `Pre-order · ${price}`;
+  });
+}

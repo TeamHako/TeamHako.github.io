@@ -1,0 +1,4 @@
+# GitHub Pages (Jekyll): don't publish the shop Worker's source or tooling.
+exclude:
+  - worker/
+  - README.md

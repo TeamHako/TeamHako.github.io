@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Thank you · hako</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    try {
+      var t = localStorage.getItem("hako-theme");
+      if (t) document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+    // Keep in sync with SHOP_API in index.html
+    window.SHOP_API = "";
+  </script>
+</head>
+<body>
+  <main class="policy">
+    <a class="policy-back" href="./">&larr; hako</a>
+    <h1>Thank you.</h1>
+    <p id="numberIntro">Your order is in. You're Founder Edition</p>
+    <p class="thanks-number" id="founderNumber">&hellip;</p>
+    <p>I'll start on your box soon and email you when it ships, about 6&ndash;8 weeks from now. Stripe has sent your receipt.</p>
+    <p>Questions or changes? Reply to the receipt or email <a href="mailto:hello@hakoshop.com">hello@hakoshop.com</a>. You can cancel for a full refund any time before your box ships.</p>
+    <p>&mdash; Jared</p>
+  </main>
+  <script>
+    (async function () {
+      const el = document.getElementById("founderNumber");
+      const id = new URLSearchParams(location.search).get("session_id");
+      const api = (window.SHOP_API || "").replace(/\/$/, "");
+      function hideNumber() {
+        document.getElementById("numberIntro").textContent = "Your order is in. Your founder number will be in your shipping email.";
+        el.remove();
+      }
+      if (!id || !api) return hideNumber();
+      for (let i = 0; i < 6; i++) {
+        try {
+          const data = await (await fetch(`${api}/order?session_id=${encodeURIComponent(id)}`)).json();
+          if (data.number) {
+            el.textContent = `No. ${String(data.number).padStart(2, "0")}`;
+            return;
+          }
+        } catch (e) {}
+        await new Promise((r) => setTimeout(r, 2000));
+      }
+      hideNumber();
+    })();
+  </script>
+</body>
+</html>
