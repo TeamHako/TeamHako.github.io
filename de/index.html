@@ -110,12 +110,52 @@
   "shop.sold_out": "Ausverkauft — trag dich in die Kickstarter-Warteliste ein.",
   "shop.not_open": "Die Vorbestellung ist noch nicht geöffnet.",
   "shop.offline": "Die Kasse ist nicht erreichbar. Bitte versuch es noch einmal.",
-  "notify.bad_email": "Diese E-Mail-Adresse sieht nicht richtig aus."
+  "notify.bad_email": "Diese E-Mail-Adresse sieht nicht richtig aus.",
+  "gate.wrong": "Nicht ganz. Das Passwort findest du im Discord."
 };
   </script>
 </head>
 
 <body>
+
+  <!-- ============================================================ -->
+  <!-- ACCESS GATE — hype gate (NOT real security). Must be the     -->
+  <!-- first thing in <body> so it covers the whole page.           -->
+  <!-- ============================================================ -->
+  <div class="gate" id="accessGate">
+    <div class="gate-inner">
+      <div class="gate-mark">箱</div>
+      <p class="gate-kana">合言葉を</p>
+      <h1 class="gate-title">hako</h1>
+      <p class="gate-tagline">erste Serie · Frühjahr 2027</p>
+
+      <form class="gate-form" id="gateForm" autocomplete="off">
+        <input
+          type="password"
+          id="gateInput"
+          class="gate-input"
+          placeholder="Passwort eingeben"
+          aria-label="Passwort"
+          autocomplete="off"
+          autofocus
+        />
+        <button type="submit" class="gate-btn">Weiter</button>
+      </form>
+
+      <p class="gate-error" id="gateError" aria-live="polite"></p>
+
+      <p class="gate-help">
+        Noch kein Passwort? Du bekommst es im Discord, wenn du der Beta beitrittst.
+      </p>
+
+      <div class="gate-links">
+        <a href="https://youtube.com/@jareddesu" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="#" target="_blank" rel="noopener" id="gateDiscord" data-link="discord">Discord ↗</a>
+        <a href="../privacy.html" id="gatePrivacy">Datenschutz</a>
+        <a href="../terms.html" id="gateTerms">AGB</a>
+      </div>
+    </div>
+  </div>
 
   <!-- Decorative background character — sits behind everything -->
   <div class="bg-character" aria-hidden="true">箱</div>

@@ -30,7 +30,8 @@
       "shop.sold_out": "完売しました。Kickstarterのウェイティングリストにご登録ください。",
       "shop.not_open": "予約受付はまだ始まっていません。",
       "shop.offline": "決済ページに接続できませんでした。もう一度お試しください。",
-      "notify.bad_email": "メールアドレスが正しくないようです。"
+      "notify.bad_email": "メールアドレスが正しくないようです。",
+      "gate.wrong": "違うようです。合言葉は Discord で確認してください。"
     },
     "de": {
       "notify.sending": "Wird gesendet…",
@@ -47,7 +48,8 @@
       "shop.sold_out": "Ausverkauft — trag dich in die Kickstarter-Warteliste ein.",
       "shop.not_open": "Die Vorbestellung ist noch nicht geöffnet.",
       "shop.offline": "Die Kasse ist nicht erreichbar. Bitte versuch es noch einmal.",
-      "notify.bad_email": "Diese E-Mail-Adresse sieht nicht richtig aus."
+      "notify.bad_email": "Diese E-Mail-Adresse sieht nicht richtig aus.",
+      "gate.wrong": "Nicht ganz. Das Passwort findest du im Discord."
     }
   },
   "attr": [
@@ -140,6 +142,16 @@
       "en": "aria-label=\"Cutaway of the hako box showing the LED panel, Raspberry Pi, NFC chip, shake sensor, knob and power\"",
       "ja": "aria-label=\"hakoの内部構造：LEDパネル、Raspberry Pi、NFCチップ、振動センサー、ノブ、電源\"",
       "de": "aria-label=\"Schnitt durch die hako-Box: LED-Panel, Raspberry Pi, NFC-Chip, Schüttelsensor, Drehknopf und Stromversorgung\""
+    },
+    {
+      "en": "placeholder=\"enter the phrase\"",
+      "ja": "placeholder=\"合言葉を入力\"",
+      "de": "placeholder=\"Passwort eingeben\""
+    },
+    {
+      "en": "aria-label=\"Access phrase\"",
+      "ja": "aria-label=\"合言葉\"",
+      "de": "aria-label=\"Passwort\""
     }
   ],
   "text": [
@@ -762,6 +774,21 @@
       "en": "one adapter, made for your country",
       "ja": "お住まいの国に合ったアダプターひとつ",
       "de": "ein Netzteil, passend für dein Land"
+    },
+    {
+      "en": "first batch · spring 2027",
+      "ja": "第一弾 · 2027年春",
+      "de": "erste Serie · Frühjahr 2027"
+    },
+    {
+      "en": "Enter",
+      "ja": "入る",
+      "de": "Weiter"
+    },
+    {
+      "en": "No phrase yet? It's shared in the Discord when you join the beta.",
+      "ja": "合言葉は、ベータ版に参加すると Discord で共有されます。",
+      "de": "Noch kein Passwort? Du bekommst es im Discord, wenn du der Beta beitrittst."
     }
   ]
 }
