@@ -410,13 +410,44 @@ async function startViewer(manifest) {
   const backRise = HD * Math.tan(TILT);             // the back stands this much shorter
   const hako = new THREE.Group();
   hako.userData.pick = 'hako';
-  const walnut = solid(0x5b3d29, 0.55);
+  // Oiled walnut: a photo-scanned veneer (manifest.hako.wood) with its normal
+  // and roughness maps under a light clear coat, like an oil finish. Without
+  // the textures it falls back to a plain walnut brown.
+  const wood = (manifest.hako || {}).wood || null;
+  const woodTex = url => { const t = loadTex(url); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t; };
+  const walnut = wood ? new THREE.MeshPhysicalMaterial({
+    map: woodTex(wood.color), normalMap: woodTex(wood.normal), roughnessMap: woodTex(wood.rough),
+    normalScale: new THREE.Vector2(0.7, 0.7), roughness: 0.85, metalness: 0,
+    clearcoat: 0.35, clearcoatRoughness: 0.45 }) : solid(0x5b3d29, 0.55);
+  if (wood) [walnut.normalMap, walnut.roughnessMap].forEach(t => { t.encoding = THREE.LinearEncoding; });
+  // Grain follows each board: left-right on the top, bottom, front and back,
+  // up-down on the sides, as in a box-jointed case. Box-project UVs in mm.
+  function woodUVs(geo, tile) {
+    geo = geo.index ? geo.toNonIndexed() : geo;
+    const pos = geo.attributes.position, uv = new Float32Array(pos.count * 2);
+    const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3(), n = new THREE.Vector3();
+    for (let i = 0; i < pos.count; i += 3) {
+      a.fromBufferAttribute(pos, i); b.fromBufferAttribute(pos, i + 1); c.fromBufferAttribute(pos, i + 2);
+      n.subVectors(c, b).cross(new THREE.Vector3().subVectors(a, b)).normalize();
+      const ax = Math.abs(n.x), ay = Math.abs(n.y), az = Math.abs(n.z);
+      for (let k = 0; k < 3; k++) {
+        const p = [a, b, c][k];
+        const [u, v] = ax >= ay && ax >= az ? [p.y, p.z]            // sides: grain runs up
+                     : ay >= az ? [p.x, p.z]                        // top and bottom
+                     : [p.x, p.y];                                  // front and back
+        uv[(i + k) * 2] = (u + 500) / tile[0]; uv[(i + k) * 2 + 1] = (v + 500) / tile[1];
+      }
+    }
+    geo.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
+    geo.computeVertexNormals();
+    return geo;
+  }
   const profile = new THREE.Shape();                // side view: x toward the back, y up
   profile.moveTo(-HD / 2, -HW / 2); profile.lineTo(HD / 2, -HW / 2 + backRise);
   profile.lineTo(HD / 2, HW / 2); profile.lineTo(-HD / 2, HW / 2); profile.lineTo(-HD / 2, -HW / 2);
   const bodyGeo = new THREE.ExtrudeGeometry(profile, { depth: HW, bevelEnabled: false });
   bodyGeo.rotateY(Math.PI / 2); bodyGeo.translate(-HW / 2, 0, 0);
-  hako.add(mesh(bodyGeo, walnut));
+  hako.add(mesh(wood ? woodUVs(bodyGeo, wood.size || [1000, 1000]) : bodyGeo, walnut));
   const screenTex = manifest.screens.map(u => loadTex(u));
   const screenMat = slot('screen', 'hako screen', new THREE.MeshStandardMaterial({
     map: screenTex[0], emissive: 0xffffff, emissiveMap: screenTex[0], emissiveIntensity: 0.3, roughness: 0.4 }));
@@ -504,7 +535,7 @@ async function startViewer(manifest) {
   usb.position.set(0, -78, -HD / 2 - 0.05);
   hako.add(usb);
   // the tap mark on top, over the NFC tag
-  const BURN = '#2B1A10';
+  const BURN = '#120A05';                         // laser char on oiled walnut
   const tapCanvas = document.createElement('canvas'); tapCanvas.width = tapCanvas.height = 256;
   { const g = tapCanvas.getContext('2d');
     g.strokeStyle = BURN; g.lineWidth = 12; g.lineCap = 'round';
