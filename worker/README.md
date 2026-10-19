@@ -86,3 +86,11 @@ Until then the site shows the live counter but checkout stays closed.
 - **Refunds:** refund in Stripe as normal. The unit isn't put back on sale automatically
   (so numbers stay unique); to sell it again, raise `FOUNDER_TOTAL` in `wrangler.toml` by 1 and push.
 - **Test locally:** `npm test` runs the Worker against a fake Stripe.
+
+## Launch plan sync
+
+`POST /plan` keeps the ticks for hakoshop.com/plan in sync between devices. The page
+encrypts them with a key derived from the plan password before sending, so the Worker
+only stores ciphertext, and it only answers the token whose SHA-256 is `PLAN_KEY_HASH`
+in `wrangler.toml`. `tools/build-plan.mjs` prints that hash; it changes only when the
+plan password does.

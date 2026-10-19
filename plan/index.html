@@ -126,7 +126,10 @@
     .late-tag { font: 500 11px var(--mono); color: var(--shu); }
 
     footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 13px; }
-    footer textarea { width: 100%; min-height: 70px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: 12px var(--mono); padding: 10px; }
+    footer .sync { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; }
+    footer .sync i { width: 8px; height: 8px; border-radius: 50%; background: var(--led-off); box-shadow: 0 0 0 1px var(--line); }
+    footer .sync.on i { background: var(--ok); box-shadow: 0 0 6px var(--ok); }
+    footer .sync + .muted { flex-basis: 100%; }
     .toast { position: fixed; left: 50%; bottom: max(20px, env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 140%);
       background: var(--ink); color: var(--bg); padding: 12px 18px; border-radius: 12px; font-size: 14px; transition: transform .35s;
       display: flex; gap: 10px; align-items: center; z-index: 5; max-width: calc(100% - 32px); }
@@ -207,14 +210,8 @@
       </section>
 
       <footer>
-        <span class="muted">Ticks are saved in this browser. To carry them to another device, copy your progress code and paste it there.</span>
-        <button class="btn ghost" id="exportBtn" type="button">Copy progress code</button>
-        <button class="btn ghost" id="importBtn" type="button">Paste a progress code</button>
-        <div id="importBox" hidden style="width:100%;display:flex;flex-direction:column;gap:8px">
-          <textarea id="importText" placeholder="Paste a progress code here" aria-label="Progress code"></textarea>
-          <div style="display:flex;gap:8px"><button class="btn" id="importGo" type="button">Load it</button>
-          <span class="muted" id="importMsg" style="align-self:center"></span></div>
-        </div>
+        <span class="sync" id="syncState"><i></i><span id="syncText">Saved in this browser</span></span>
+        <span class="muted">Ticks sync to every device you open this page on. They're encrypted with the plan password before they leave the browser.</span>
       </footer>
     </div>
   </div>
@@ -225,14 +222,21 @@
     const $ = id => document.getElementById(id);
     const STORE = "hako-plan-v1";
     const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
-    let plan = null, done = {}, filter = "all", hideDone = false;
+    const API = "https://hako-shop.jared-65b.workers.dev/plan";
+    let plan = null, done = {}, at = {}, filter = "all", hideDone = false;
+    const sync = { token: "", key: null, rev: 0, busy: false, again: false, timer: 0, ok: false };
 
     async function unlock(pass) {
       const vault = await (await fetch("vault.json", { cache: "no-store" })).json();
-      const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pass), "PBKDF2", false, ["deriveKey"]);
+      const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pass), "PBKDF2", false, ["deriveKey", "deriveBits"]);
       const key = await crypto.subtle.deriveKey({ name: "PBKDF2", salt: b64(vault.salt), iterations: vault.iterations, hash: "SHA-256" },
         base, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
       const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64(vault.iv) }, key, b64(vault.data));
+      // Sync token + progress key (tools/build-plan.mjs explains the scheme)
+      const bits = new Uint8Array(await crypto.subtle.deriveBits(
+        { name: "PBKDF2", salt: new TextEncoder().encode("hako-plan-sync-v1"), iterations: 200000, hash: "SHA-256" }, base, 512));
+      sync.token = [...bits.slice(0, 32)].map(b => b.toString(16).padStart(2, "0")).join("");
+      sync.key = await crypto.subtle.importKey("raw", bits.slice(32), "AES-GCM", false, ["encrypt", "decrypt"]);
       return JSON.parse(new TextDecoder().decode(plain));
     }
     async function open(pass, quiet) {
@@ -250,10 +254,73 @@
     try { const saved = sessionStorage.getItem("hako-plan-pass"); if (saved) open(saved, true); } catch (e) {}
 
     // ---- progress -------------------------------------------------------------
+    // done[id] is the tick; at[id] when it last changed (ms), so merging two
+    // devices keeps the newer change per task, unticks included.
     function load() {
-      try { done = JSON.parse(localStorage.getItem(STORE) || "{}").done || {}; } catch (e) { done = {}; }
+      try { const s = JSON.parse(localStorage.getItem(STORE) || "{}"); done = s.done || {}; at = s.at || {}; }
+      catch (e) { done = {}; at = {}; }
     }
-    function save() { try { localStorage.setItem(STORE, JSON.stringify({ done })); } catch (e) {} }
+    function save() { try { localStorage.setItem(STORE, JSON.stringify({ done, at })); } catch (e) {} }
+
+    // ---- sync through the shop Worker ------------------------------------------
+    const enc = s => btoa(String.fromCharCode(...s));
+    async function seal(obj) {
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const data = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv }, sync.key,
+        new TextEncoder().encode(JSON.stringify(obj))));
+      return enc(iv) + "." + enc(data);
+    }
+    async function unseal(blob) {
+      if (!blob) return { done: {}, at: {} };
+      const [iv, data] = blob.split(".").map(b64);
+      return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name: "AES-GCM", iv }, sync.key, data)));
+    }
+    async function call(body) {
+      const r = await fetch(API, { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: sync.token, ...body }) });
+      if (r.status !== 200 && r.status !== 409) throw new Error("sync " + r.status);
+      return r.json();
+    }
+    function merge(remote) {
+      let changed = false;
+      for (const id of Object.keys(remote.done || {})) {
+        const t = (remote.at || {})[id] || 0;
+        if (!(id in done) || t > (at[id] || 0)) {
+          if (done[id] !== remote.done[id]) changed = true;
+          done[id] = remote.done[id]; at[id] = t;
+        }
+      }
+      return changed;
+    }
+    const same = remote => Object.keys({ ...done, ...remote.done }).every(id =>
+      done[id] === (remote.done || {})[id] && (at[id] || 0) === ((remote.at || {})[id] || 0));
+    function syncState(ok, text) {
+      sync.ok = ok; $("syncState").classList.toggle("on", ok); $("syncText").textContent = text;
+    }
+    async function syncNow() {
+      if (!sync.token) return;
+      if (sync.busy) { sync.again = true; return; }
+      sync.busy = true;
+      try {
+        let r = await call({ op: "get" });
+        for (let tries = 0; tries < 4; tries++) {
+          const remote = await unseal(r.blob);
+          if (merge(remote)) { save(); render(); }
+          if (same(remote)) break;
+          r = await call({ op: "put", rev: r.rev, blob: await seal({ done, at }) });
+          if (r.ok) break;          // otherwise r holds the newer copy: merge again
+        }
+        syncState(true, "Synced across your devices");
+      } catch (e) {
+        syncState(false, "Offline: saved in this browser, will sync later");
+      }
+      sync.busy = false;
+      if (sync.again) { sync.again = false; syncNow(); }
+    }
+    function syncSoon() { clearTimeout(sync.timer); sync.timer = setTimeout(syncNow, 600); }
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) syncNow(); });
+    setInterval(() => { if (!document.hidden) syncNow(); }, 60000);
+
     const isDone = t => (t.id in done) ? !!done[t.id] : !!t.done;
     const xpEarned = () => plan.tasks.reduce((s, t) => s + (isDone(t) ? t.xp : 0), 0);
     function levelFor(xp) {
@@ -277,8 +344,8 @@
       const t = plan.tasks.find(x => x.id === id);
       const beforeXp = xpEarned(), beforeLevel = levelFor(beforeXp).i;
       const beforeBadges = plan.badges.filter(badgeGot).map(b => b.id);
-      done[id] = !isDone(t);
-      save();
+      done[id] = !isDone(t); at[id] = Date.now();
+      save(); syncSoon();
       const lv = levelFor(xpEarned());
       const newBadge = plan.badges.find(b => badgeGot(b) && !beforeBadges.includes(b.id));
       if (lv.i > beforeLevel) toast(`Level up: ${lv.cur.title} ${lv.cur.jp}`);
@@ -294,6 +361,7 @@
       $("updated").textContent = "Plan updated " + fmt(plan.updated);
       $("leds").innerHTML = "<i></i>".repeat(32);
       render();
+      syncNow();
     }
 
     function render() {
@@ -373,20 +441,6 @@
       $("phases").querySelectorAll("[data-id]").forEach(b => b.addEventListener("click", () => toggle(b.dataset.id)));
     }
 
-    // ---- moving progress between devices ---------------------------------------
-    $("exportBtn").addEventListener("click", async () => {
-      const code = btoa(JSON.stringify(done));
-      try { await navigator.clipboard.writeText(code); toast("Progress code copied"); }
-      catch (e) { $("importBox").hidden = false; $("importText").value = code; $("importText").select(); $("importMsg").textContent = "Copy the code above."; }
-    });
-    $("importBtn").addEventListener("click", () => { $("importBox").hidden = false; $("importText").value = ""; $("importText").focus(); });
-    $("importGo").addEventListener("click", () => {
-      try {
-        const d = JSON.parse(atob($("importText").value.trim()));
-        if (typeof d !== "object" || Array.isArray(d)) throw 0;
-        done = d; save(); render(); $("importMsg").textContent = "Loaded."; toast("Progress loaded");
-      } catch (e) { $("importMsg").textContent = "That code doesn't look right."; }
-    });
   })();
   </script>
 </body>

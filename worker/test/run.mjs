@@ -7,6 +7,8 @@ import assert from "node:assert/strict";
 
 const STRIPE_PORT = 8971, WORKER_PORT = 8972, WHSEC = "whsec_test";
 const W = `http://127.0.0.1:${WORKER_PORT}`;
+const PLAN_TOKEN = "ab".repeat(32);
+const PLAN_HASH = crypto.createHash("sha256").update(PLAN_TOKEN).digest("hex");
 
 // --- fake Stripe -----------------------------------------------------------
 const sessions = {};
@@ -36,7 +38,8 @@ await new Promise((r) => stripe.listen(STRIPE_PORT, "127.0.0.1", r));
 // --- Worker under wrangler dev ----------------------------------------------
 const vars = { STRIPE_API_BASE: `http://127.0.0.1:${STRIPE_PORT}`, PREORDERS_OPEN: "true",
                FOUNDER_TOTAL: "2", STRIPE_PRICE_ID: "price_test", STRIPE_SECRET_KEY: "sk_test_x",
-               STRIPE_WEBHOOK_SECRET: WHSEC, SIGNUPS_TOKEN: "tok_test_123" };
+               STRIPE_WEBHOOK_SECRET: WHSEC, SIGNUPS_TOKEN: "tok_test_123",
+               PLAN_KEY_HASH: PLAN_HASH };
 const args = ["wrangler", "dev", "--port", String(WORKER_PORT), "--ip", "127.0.0.1",
               "--persist-to", `/tmp/hako-shop-test-${process.pid}`];
 for (const [k, v] of Object.entries(vars)) args.push("--var", `${k}:${v}`);
@@ -141,6 +144,22 @@ try {
   assert.match(lines[1], /^"ada@example.com","20\d\d-.*","ja",""$/);
   assert.match(lines[2], /^"'=cmd@evil.com",.*"en",""$/, "formula defused, unknown lang -> en");
   console.log("ok waitlist: dedupe, validation, origin check, honeypot, private CSV export");
+
+  // --- plan sync ---
+  assert.equal((await post("/plan", { op: "get", token: PLAN_TOKEN })).status, 403, "no Origin -> refused");
+  assert.equal((await post("/plan", { op: "get", token: "cd".repeat(32) }, O)).status, 404, "wrong token");
+  assert.equal((await post("/plan", { op: "get", token: "x" }, O)).status, 404);
+  assert.deepEqual(await (await post("/plan", { op: "get", token: PLAN_TOKEN }, O)).json(), { rev: 0, blob: "" });
+  r = await post("/plan", { op: "put", token: PLAN_TOKEN, rev: 0, blob: "one" }, O);
+  assert.deepEqual(await r.json(), { ok: true, rev: 1 });
+  r = await post("/plan", { op: "put", token: PLAN_TOKEN, rev: 0, blob: "stale" }, O);
+  assert.equal(r.status, 409);
+  assert.deepEqual(await r.json(), { ok: false, rev: 1, blob: "one" }, "stale rev gets the current copy back");
+  assert.equal((await post("/plan", { op: "put", token: PLAN_TOKEN, rev: 1, blob: "x".repeat(200001) }, O)).status, 400);
+  r = await post("/plan", { op: "put", token: PLAN_TOKEN, rev: 1, blob: "two" }, O);
+  assert.deepEqual(await r.json(), { ok: true, rev: 2 });
+  assert.deepEqual(await (await post("/plan", { op: "get", token: PLAN_TOKEN }, O)).json(), { rev: 2, blob: "two" });
+  console.log("ok plan sync: token check, origin check, compare-and-swap, size limit");
 
   s = await (await get("/status")).json();
   assert.deepEqual([s.sold, s.left], [2, 0]);

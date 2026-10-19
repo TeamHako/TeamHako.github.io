@@ -7,6 +7,7 @@
  *   POST /webhook                Stripe events: checkout.session.completed / .expired
  *   POST /signup {email, lang}   waitlist sign-up from the website (one row per email)
  *   GET  /signups.csv?token=...  the waitlist as CSV (Google Sheets: =IMPORTDATA(url))
+ *   POST /plan {op, token, ...}  ticks for hakoshop.com/plan, synced between devices
  *
  * One Durable Object ("Founders") holds the count, so two people can never
  * buy the 25th unit. A unit is reserved while its checkout is open (Stripe
@@ -142,6 +143,22 @@ export class Founders {
       return Response.json({ rows });
     }
 
+    // --- launch plan ticks (its own instance, see planStore()) ---
+    if (op === "plan_get") {
+      const saved = (await this.storage.get("plan")) || { rev: 0, blob: "" };
+      return Response.json(saved);
+    }
+
+    if (op === "plan_put") {
+      // Compare-and-swap, so two devices can't overwrite each other's ticks:
+      // a stale rev gets the current copy back to merge with.
+      const saved = (await this.storage.get("plan")) || { rev: 0, blob: "" };
+      if (info.rev !== saved.rev) return Response.json({ ok: false, ...saved });
+      const next = { rev: saved.rev + 1, blob: info.blob };
+      await this.storage.put("plan", next);
+      return Response.json({ ok: true, rev: next.rev });
+    }
+
     if (op === "lookup") {
       const sale = data.sales[sessionId];
       return Response.json(sale ? { number: sale.number } : {});
@@ -159,6 +176,18 @@ function waitlist(env, body) {
   return stub
     .fetch("https://waitlist/", { method: "POST", body: JSON.stringify(body) })
     .then((r) => r.json());
+}
+
+function planStore(env, body) {
+  const stub = env.FOUNDERS.get(env.FOUNDERS.idFromName("plan"));
+  return stub
+    .fetch("https://plan/", { method: "POST", body: JSON.stringify(body) })
+    .then((r) => r.json());
+}
+
+async function sha256hex(s) {
+  const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
+  return [...new Uint8Array(d)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -364,6 +393,35 @@ async function handleSignup(request, env, cors) {
   return json({ ok: true, new: r.new }, 200, cors);
 }
 
+// The plan page derives a sync token from its password (PBKDF2) and encrypts
+// its ticks before sending them, so this only ever holds ciphertext. Only the
+// token whose SHA-256 is PLAN_KEY_HASH gets in; anything else is "not found".
+const PLAN_BLOB_MAX = 200_000;
+async function handlePlan(request, env, cors) {
+  if (!cors["Access-Control-Allow-Origin"]) return json({ error: "origin" }, 403, cors);
+  let data;
+  try {
+    data = await request.json();
+  } catch {
+    return json({ error: "bad_request" }, 400, cors);
+  }
+  const token = String(data.token || "");
+  if (!env.PLAN_KEY_HASH || !/^[0-9a-f]{64}$/.test(token) ||
+      !safeEqual(await sha256hex(token), env.PLAN_KEY_HASH)) {
+    return json({ error: "not_found" }, 404, cors);
+  }
+  if (data.op === "get") return json(await planStore(env, { op: "plan_get" }), 200, cors);
+  if (data.op === "put") {
+    const blob = data.blob;
+    if (typeof blob !== "string" || blob.length > PLAN_BLOB_MAX || !Number.isInteger(data.rev)) {
+      return json({ error: "bad_request" }, 400, cors);
+    }
+    const r = await planStore(env, { op: "plan_put", info: { blob, rev: data.rev } });
+    return json(r, r.ok ? 200 : 409, cors);
+  }
+  return json({ error: "bad_request" }, 400, cors);
+}
+
 async function handleSignupsCsv(url, env) {
   if (!env.SIGNUPS_TOKEN || !safeEqual(url.searchParams.get("token") || "", env.SIGNUPS_TOKEN)) {
     return new Response("not found", { status: 404 });
@@ -413,6 +471,7 @@ export default {
       if (url.pathname === "/order" && request.method === "GET") return await handleOrder(url, env, cors);
       if (url.pathname === "/webhook" && request.method === "POST") return await handleWebhook(request, env);
       if (url.pathname === "/signup" && request.method === "POST") return await handleSignup(request, env, cors);
+      if (url.pathname === "/plan" && request.method === "POST") return await handlePlan(request, env, cors);
       if (url.pathname === "/signups.csv" && request.method === "GET") return await handleSignupsCsv(url, env);
     } catch (e) {
       console.error(e);

@@ -18,6 +18,9 @@ ALLOWED_ORIGINS = "https://www.hakoshop.com,https://hakoshop.com"
 # abroad, both tracked and insured). Replace with real quotes once a packed unit
 # is weighed.
 SHIPPING_CENTS = '{"US": 1500, "CA": 4500, "MX": 4500, "*": 6900}'
+# hakoshop.com/plan tick sync: SHA-256 of the token the page derives from the
+# plan password (printed by tools/build-plan.mjs). Not a secret.
+PLAN_KEY_HASH = "363001a25b6750add57e1538b06e80ee2a3f4cc46ca238e4376248c1987c20f7"
 
 # Secrets (never in this file): set with
 #   npx wrangler secret put STRIPE_SECRET_KEY
