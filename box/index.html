@@ -403,8 +403,8 @@ async function startViewer(manifest) {
   scene.add(base);
 
   // --- hako itself ----------------------------------------------------------
-  // Built standing, as it sits on a desk: screen on the front (+z), knob and
-  // USB-C port on the right (+x), the NFC tag under the top. The bottom is cut
+  // Built standing, as it sits on a desk: screen on the front (+z), knob on
+  // the right (+x), USB-C low on the back, the NFC tag under the top. The bottom is cut
   // at TILT so the face leans back toward you; in the box it lies screen-up.
   const HW = 220, HD = 60, TILT = THREE.MathUtils.degToRad(9);
   const backRise = HD * Math.tan(TILT);             // the back stands this much shorter
@@ -436,7 +436,7 @@ async function startViewer(manifest) {
   knob.rotation.z = -Math.PI / 2;                   // pointing out of the right side
   knob.position.set(HW / 2, 55, 0);
   hako.add(knob);
-  // USB-C, lower right side
+  // USB-C, low and centred on the back, so the cable runs straight off the desk
   const usbShape = new THREE.Shape();
   { const w = 9, h = 3.4, r = 1.6, x = -w / 2, y = -h / 2;
     usbShape.moveTo(x + r, y); usbShape.lineTo(x + w - r, y); usbShape.quadraticCurveTo(x + w, y, x + w, y + r);
@@ -444,8 +444,8 @@ async function startViewer(manifest) {
     usbShape.lineTo(x + r, y + h); usbShape.quadraticCurveTo(x, y + h, x, y + h - r);
     usbShape.lineTo(x, y + r); usbShape.quadraticCurveTo(x, y, x + r, y); }
   const usb = mesh(new THREE.ShapeGeometry(usbShape), solid(0x111010, 0.6), false);
-  usb.rotation.y = Math.PI / 2;
-  usb.position.set(HW / 2 + 0.05, -80, 0);
+  usb.rotation.y = Math.PI;
+  usb.position.set(0, -78, -HD / 2 - 0.05);
   hako.add(usb);
   // the tap mark on top, over the NFC tag
   const BURN = '#2B1A10';
@@ -469,10 +469,11 @@ async function startViewer(manifest) {
   const along = new THREE.Vector3(0, -backRise, HD).normalize();           // back → front, along the bottom
   const out = new THREE.Vector3().crossVectors(new THREE.Vector3(1, 0, 0), along);
   engraving.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3(1, 0, 0), along, out));
+  // left-justified: this far (mm) from the left edge as you face the screen
+  const INSET = engr.engravingInset ?? 4;
   function sizeEngraving([w, h]) {
-    // its real size in mm, left-justified 12 mm in from the left edge as you look at the bottom
-    engraving.scale.set(w, h, 1);
-    engraving.position.set(-HW / 2 + 12 + w / 2, -HW / 2 + backRise / 2, 0).addScaledVector(out, 0.1);
+    engraving.scale.set(w, h, 1);                    // its real size in mm
+    engraving.position.set(-HW / 2 + INSET + w / 2, -HW / 2 + backRise / 2, 0).addScaledVector(out, 0.1);
   }
   sizeEngraving(engr.engravingSize || [100, 41]);
   hako.add(engraving);
