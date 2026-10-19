@@ -177,6 +177,11 @@ async function startViewer(manifest) {
   const backdrop = new THREE.Mesh(new THREE.PlaneGeometry(20000, 20000), backdropMat);
   backdrop.position.z = -3000; backdrop.renderOrder = -1;
   camera.add(backdrop);
+  // What you hold is drawn in a second pass on layer 1, after the depth buffer is cleared,
+  // so the box can never cover it however close the camera gets.
+  backdrop.layers.set(1);
+  scene.traverse(o => { if (o.isLight) o.layers.enableAll(); });
+  function setLayer(o, n) { o.traverse(c => c.layers.set(n)); }
 
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(4000, 4000), new THREE.ShadowMaterial({ opacity: 0.16 }));
   ground.rotation.x = -Math.PI / 2;
@@ -874,6 +879,7 @@ async function startViewer(manifest) {
   // --- taps vs drags -----------------------------------------------------------
   const el = renderer.domElement;
   const raycaster = new THREE.Raycaster();
+  raycaster.layers.enableAll();               // held things live on layer 1
   const ndc = new THREE.Vector2();
   function hit(e) {
     const r = el.getBoundingClientRect();
@@ -1048,7 +1054,19 @@ async function startViewer(manifest) {
     } else {
       controls.update(dt);
     }
-    renderer.render(scene, camera);
+    Object.entries(objects).forEach(([k, o]) => setLayer(o, k === held ? 1 : 0));
+    peelables.forEach(g => { if (g.parent !== stickers) setLayer(g, 0); });   // stuck to the box
+    if (held || backdrop.visible) {
+      renderer.autoClear = false;
+      renderer.clear();
+      camera.layers.set(0); renderer.render(scene, camera);
+      renderer.clearDepth();
+      camera.layers.set(1); renderer.render(scene, camera);
+      camera.layers.set(0);
+      renderer.autoClear = true;
+    } else {
+      renderer.render(scene, camera);
+    }
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
