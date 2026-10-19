@@ -447,7 +447,80 @@ async function startViewer(manifest) {
   profile.lineTo(HD / 2, HW / 2); profile.lineTo(-HD / 2, HW / 2); profile.lineTo(-HD / 2, -HW / 2);
   const bodyGeo = new THREE.ExtrudeGeometry(profile, { depth: HW, bevelEnabled: false });
   bodyGeo.rotateY(Math.PI / 2); bodyGeo.translate(-HW / 2, 0, 0);
-  hako.add(mesh(wood ? woodUVs(bodyGeo, wood.size || [1000, 1000]) : bodyGeo, walnut));
+  // The case is built from its boards (all STOCK thick except the 6 mm front
+  // and back panels), so the vents and the USB-C opening are real holes you
+  // can see into: top and slanted bottom between two full-profile sides, the
+  // front panel behind the screen, and the removable back panel.
+  const STOCK_ = 11, PANEL = 6, TILE = wood ? (wood.size || [1000, 1000]) : null;
+  const board = geo => mesh(wood ? woodUVs(geo, TILE) : geo, walnut);
+  function slotPath(cx, cy, len, wid, angle) {      // a rounded slot, as a hole in a Shape
+    const r = wid / 2, h = len / 2 - r, c = Math.cos(angle), sn = Math.sin(angle), p = new THREE.Path();
+    const P = (u, v) => [cx + u * c - v * sn, cy + u * sn + v * c];
+    const pts = [];
+    for (let k = 0; k <= 12; k++) { const a = -Math.PI / 2 + Math.PI * k / 12; pts.push(P(h + r * Math.cos(a), r * Math.sin(a))); }
+    for (let k = 0; k <= 12; k++) { const a = Math.PI / 2 + Math.PI * k / 12; pts.push(P(-h + r * Math.cos(a), r * Math.sin(a))); }
+    p.moveTo(...pts[0]); pts.slice(1).forEach(q => p.lineTo(...q)); p.closePath();
+    return p;
+  }
+  function rectShape(x0, y0, x1, y1) {
+    const sh = new THREE.Shape(); sh.moveTo(x0, y0); sh.lineTo(x1, y0); sh.lineTo(x1, y1); sh.lineTo(x0, y1); sh.lineTo(x0, y0);
+    return sh;
+  }
+  const inX = HW / 2 - STOCK_;                       // inner faces of the side boards
+  // sides: the full trapezoid profile, STOCK thick
+  [-1, 1].forEach(side => {
+    const g = new THREE.ExtrudeGeometry(profile, { depth: STOCK_, bevelEnabled: false });
+    g.rotateY(Math.PI / 2); g.translate(side < 0 ? -HW / 2 : inX, 0, 0);
+    hako.add(board(g));
+  });
+  // top, with five thin vent slots along the back edge (behind the tap mark)
+  { const sh = rectShape(-inX, -HD / 2, inX, HD / 2);   // shape y = -z
+    for (let i = 0; i < 5; i++) sh.holes.push(slotPath(0, 20.5 - i * 3.6, 120, 2.4, 0));
+    const g = new THREE.ExtrudeGeometry(sh, { depth: STOCK_, bevelEnabled: false, curveSegments: 8 });
+    g.rotateX(-Math.PI / 2); g.translate(0, HW / 2 - STOCK_, 0);
+    hako.add(board(g)); }
+  // bottom: the slanted board between the sides
+  { const bp = new THREE.Shape();
+    bp.moveTo(-HD / 2, -HW / 2); bp.lineTo(HD / 2, -HW / 2 + backRise);
+    bp.lineTo(HD / 2, -HW / 2 + backRise + STOCK_); bp.lineTo(-HD / 2, -HW / 2 + STOCK_); bp.lineTo(-HD / 2, -HW / 2);
+    const g = new THREE.ExtrudeGeometry(bp, { depth: 2 * inX, bevelEnabled: false });
+    g.rotateY(Math.PI / 2); g.translate(-inX, 0, 0);
+    hako.add(board(g)); }
+  const innerTop = HW / 2 - STOCK_, innerBotFront = -HW / 2 + STOCK_, innerBotBack = -HW / 2 + backRise + STOCK_;
+  // front panel, behind the screen
+  { const g = new THREE.BoxGeometry(2 * inX, innerTop - innerBotFront, PANEL);
+    g.translate(0, (innerTop + innerBotFront) / 2, HD / 2 - PANEL / 2);
+    hako.add(board(g)); }
+  // back panel: the diagonal vent band and the USB-C opening
+  const USB_Y = -80;
+  { const sh = rectShape(-inX, innerBotBack, inX, innerTop);
+    for (let i = 0; i < 13; i++) sh.holes.push(slotPath(66 - i * 11, 56, 62, 6, -Math.PI / 4));   // rising to the right, seen from behind
+    const r = 2.2, w = 13, h = 7, o = new THREE.Path();                     // the port's opening in the wood
+    o.moveTo(-w / 2 + r, USB_Y - h / 2); o.lineTo(w / 2 - r, USB_Y - h / 2); o.quadraticCurveTo(w / 2, USB_Y - h / 2, w / 2, USB_Y - h / 2 + r);
+    o.lineTo(w / 2, USB_Y + h / 2 - r); o.quadraticCurveTo(w / 2, USB_Y + h / 2, w / 2 - r, USB_Y + h / 2);
+    o.lineTo(-w / 2 + r, USB_Y + h / 2); o.quadraticCurveTo(-w / 2, USB_Y + h / 2, -w / 2, USB_Y + h / 2 - r);
+    o.lineTo(-w / 2, USB_Y - h / 2 + r); o.quadraticCurveTo(-w / 2, USB_Y - h / 2, -w / 2 + r, USB_Y - h / 2);
+    sh.holes.push(o);
+    const g = new THREE.ExtrudeGeometry(sh, { depth: PANEL, bevelEnabled: false, curveSegments: 8 });
+    g.translate(0, 0, -HD / 2);
+    hako.add(board(g)); }
+  // inside: dark, with the Pi and the back of the LED panel where the vents look in.
+  // Unlit colours, as if in the case's own shadow.
+  const dim = c => new THREE.MeshBasicMaterial({ color: new THREE.Color(c).convertSRGBToLinear() });
+  { const cavity = mesh(new THREE.BoxGeometry(2 * inX - 0.2, innerTop - innerBotFront - 0.2, HD - 2 * PANEL - 0.2),
+      new THREE.MeshBasicMaterial({ color: new THREE.Color(0x0a0806).convertSRGBToLinear(), side: THREE.BackSide }), false);
+    cavity.position.set(0, (innerTop + innerBotFront) / 2, 0);
+    hako.add(cavity);
+    const ledBack = mesh(new THREE.BoxGeometry(192, 192, 1.6), dim(0x0b0c0d), false);   // the panel's PCB
+    ledBack.position.set(0, 0, HD / 2 - PANEL - 6);
+    hako.add(ledBack);
+    const pi = new THREE.Group();                    // Raspberry Pi 3 A+, 65 x 56 mm
+    pi.add(mesh(new THREE.BoxGeometry(65, 56, 1.4), dim(0x0f2c1a), false));
+    const chip = mesh(new THREE.BoxGeometry(14, 14, 1.2), dim(0x0a0a0a), false); chip.position.set(-6, 4, 1.3);
+    const hdr = mesh(new THREE.BoxGeometry(51, 5, 8.5), dim(0x050505), false); hdr.position.set(0, 23, 4.3);
+    pi.add(chip, hdr);
+    pi.position.set(-10, 50, -HD / 2 + PANEL + 9); pi.rotation.y = Math.PI;
+    hako.add(pi); }
   const screenTex = manifest.screens.map(u => loadTex(u));
   const screenMat = slot('screen', 'hako screen', new THREE.MeshStandardMaterial({
     map: screenTex[0], emissive: 0xffffff, emissiveMap: screenTex[0], emissiveIntensity: 0.3, roughness: 0.4 }));
@@ -510,27 +583,6 @@ async function startViewer(manifest) {
         hako.add(line);
       });
   }
-  // Vents: a band of diagonal slots in the upper back panel, and a row of
-  // thin slots along the back edge of the top.
-  function ventSlot(len, wid) {
-    const r = wid / 2, sh = new THREE.Shape();
-    sh.moveTo(-len / 2 + r, -r); sh.lineTo(len / 2 - r, -r); sh.absarc(len / 2 - r, 0, r, -Math.PI / 2, Math.PI / 2, false);
-    sh.lineTo(-len / 2 + r, r); sh.absarc(-len / 2 + r, 0, r, Math.PI / 2, Math.PI * 1.5, false);
-    return new THREE.ShapeGeometry(sh, 6);
-  }
-  const ventMat = new THREE.MeshStandardMaterial({ color: 0x0a0604, roughness: 1, polygonOffset: true, polygonOffsetFactor: -1 });
-  for (let i = 0; i < 13; i++) {                     // back: 45°, rising to the right as you face the back
-    const v = mesh(ventSlot(62, 6), ventMat, false);
-    v.rotation.set(0, Math.PI, Math.PI / 4);
-    v.position.set(-66 + i * 11, 56, -HD / 2 - 0.07);
-    hako.add(v);
-  }
-  for (let i = 0; i < 5; i++) {                      // top, near the back edge, clear of the NFC tag
-    const v = mesh(ventSlot(120, 2.4), ventMat, false);
-    v.rotation.x = -Math.PI / 2;
-    v.position.set(0, HW / 2 + 0.07, -HD / 2 + STOCK / 2 + 2 + i * 3.6 + 2);
-    hako.add(v);
-  }
   // founder units: "Founder Edition · 07/25" and 箱 engraved on the back panel
   const backC = document.createElement('canvas'); backC.width = 1200; backC.height = 600;
   const backTex = new THREE.CanvasTexture(backC); backTex.encoding = THREE.sRGBEncoding;
@@ -572,17 +624,37 @@ async function startViewer(manifest) {
   knob.rotation.z = -Math.PI / 2;                   // pointing out of the right side
   knob.position.set(HW / 2, 55, 0);
   hako.add(knob);
-  // USB-C, low and centred on the back, so the cable runs straight off the desk
-  const usbShape = new THREE.Shape();
-  { const w = 9, h = 3.4, r = 1.6, x = -w / 2, y = -h / 2;
-    usbShape.moveTo(x + r, y); usbShape.lineTo(x + w - r, y); usbShape.quadraticCurveTo(x + w, y, x + w, y + r);
-    usbShape.lineTo(x + w, y + h - r); usbShape.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-    usbShape.lineTo(x + r, y + h); usbShape.quadraticCurveTo(x, y + h, x, y + h - r);
-    usbShape.lineTo(x, y + r); usbShape.quadraticCurveTo(x, y, x + r, y); }
-  const usb = mesh(new THREE.ShapeGeometry(usbShape), solid(0x111010, 0.6), false);   // below the founder engraving
-  usb.rotation.y = Math.PI;
-  usb.position.set(0, -80, -HD / 2 - 0.05);
-  hako.add(usb);
+  // USB-C, low and centred on the back, so the cable runs straight off the desk:
+  // a stainless shell set 1.5 mm into the opening, the black tongue with its
+  // gold contacts inside
+  { const rr = (w, h, r) => { const sh = new THREE.Shape(), x = -w / 2, y = -h / 2;
+      sh.moveTo(x + r, y); sh.lineTo(x + w - r, y); sh.quadraticCurveTo(x + w, y, x + w, y + r);
+      sh.lineTo(x + w, y + h - r); sh.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      sh.lineTo(x + r, y + h); sh.quadraticCurveTo(x, y + h, x, y + h - r);
+      sh.lineTo(x, y + r); sh.quadraticCurveTo(x, y, x + r, y); return sh; };
+    const shellShape = rr(8.94, 3.26, 1.6);
+    shellShape.holes.push(rr(8.34, 2.66, 1.3));
+    const steel = new THREE.MeshStandardMaterial({ color: 0xc9ccd0, metalness: 0.95, roughness: 0.25 });
+    const shell = mesh(new THREE.ExtrudeGeometry(shellShape, { depth: 7, bevelEnabled: false, curveSegments: 10 }), steel, false);
+    shell.position.set(0, USB_Y, -HD / 2 + 1.5);
+    const back = mesh(new THREE.ShapeGeometry(rr(8.34, 2.66, 1.3)),
+      new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 1, side: THREE.DoubleSide }), false);
+    back.position.set(0, USB_Y, -HD / 2 + 7);
+    const tongue = mesh(new THREE.BoxGeometry(6.6, 0.7, 5), solid(0x101010, 0.5), false);
+    tongue.position.set(0, USB_Y, -HD / 2 + 5);
+    const gold = new THREE.MeshStandardMaterial({ color: 0xd4a848, metalness: 0.9, roughness: 0.3 });
+    const pins = new THREE.Group();
+    for (let k = 0; k < 12; k++) {
+      const pin = mesh(new THREE.BoxGeometry(0.25, 0.72, 2.2), gold, false);
+      pin.position.set(-2.75 + k * 0.5, 0, -1.2);
+      pins.add(pin);
+    }
+    pins.position.copy(tongue.position);
+    // a dark bevel round the opening, where the router's chamfer bit cut it
+    const chamfer = mesh(new THREE.ShapeGeometry((() => { const o = rr(15, 9, 3); o.holes.push(rr(13, 7, 2.2)); return o; })()),
+      new THREE.MeshStandardMaterial({ color: 0x2a1a10, roughness: 0.9, transparent: true, opacity: 0.55, depthWrite: false }), false);
+    chamfer.rotation.y = Math.PI; chamfer.position.set(0, USB_Y, -HD / 2 - 0.05);
+    hako.add(shell, back, tongue, pins, chamfer); }
   // the tap mark on top, over the NFC tag
   const BURN = '#120A05';                         // laser char on oiled walnut
   const tapCanvas = document.createElement('canvas'); tapCanvas.width = tapCanvas.height = 256;
@@ -968,7 +1040,6 @@ async function startViewer(manifest) {
   function zoomAt(factor, cx, cy) {         // keep the point under (cx, cy) still
     if (!held) return;
     const z1 = Math.max(1, Math.min(4, zoom * factor));
-    if (SOLID[held]) { zoom = z1; pan.set(0, 0); updateHeldBar(); return; }
     const r = el.getBoundingClientRect(), mm = viewMm();
     const c = new THREE.Vector2(((cx ?? r.left + r.width / 2) - r.left - r.width / 2) * mm, -((cy ?? r.top + r.height / 2) - r.top - r.height / 2) * mm);
     const X = c.clone().sub(pan).divideScalar(zoom);
