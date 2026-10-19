@@ -457,7 +457,7 @@ async function startViewer(manifest) {
   // Box joints (組み接ぎ) at the four corners where the top, bottom and side
   // boards meet: STOCK-thick boards, FINGERS fingers front to back. On each
   // face of a corner, every other finger shows the other board's end grain.
-  const STOCK = 11, FINGERS = 5;
+  const STOCK = 11, FINGERS = 7;
   function fingerTexture(length, endFirst) {
     const c = document.createElement('canvas'); c.width = 512; c.height = Math.round(512 * STOCK / length);
     const g = c.getContext('2d'), f = c.width / FINGERS;
@@ -510,16 +510,65 @@ async function startViewer(manifest) {
         hako.add(line);
       });
   }
+  // Vents: a band of diagonal slots in the upper back panel, and a row of
+  // thin slots along the back edge of the top.
+  function ventSlot(len, wid) {
+    const r = wid / 2, sh = new THREE.Shape();
+    sh.moveTo(-len / 2 + r, -r); sh.lineTo(len / 2 - r, -r); sh.absarc(len / 2 - r, 0, r, -Math.PI / 2, Math.PI / 2, false);
+    sh.lineTo(-len / 2 + r, r); sh.absarc(-len / 2 + r, 0, r, Math.PI / 2, Math.PI * 1.5, false);
+    return new THREE.ShapeGeometry(sh, 6);
+  }
+  const ventMat = new THREE.MeshStandardMaterial({ color: 0x0a0604, roughness: 1, polygonOffset: true, polygonOffsetFactor: -1 });
+  for (let i = 0; i < 13; i++) {                     // back: 45°, rising to the right as you face the back
+    const v = mesh(ventSlot(62, 6), ventMat, false);
+    v.rotation.set(0, Math.PI, Math.PI / 4);
+    v.position.set(-66 + i * 11, 56, -HD / 2 - 0.07);
+    hako.add(v);
+  }
+  for (let i = 0; i < 5; i++) {                      // top, near the back edge, clear of the NFC tag
+    const v = mesh(ventSlot(120, 2.4), ventMat, false);
+    v.rotation.x = -Math.PI / 2;
+    v.position.set(0, HW / 2 + 0.07, -HD / 2 + STOCK / 2 + 2 + i * 3.6 + 2);
+    hako.add(v);
+  }
+  // founder units: "Founder Edition · 07/25" and 箱 engraved on the back panel
+  const backC = document.createElement('canvas'); backC.width = 1200; backC.height = 600;
+  const backTex = new THREE.CanvasTexture(backC); backTex.encoding = THREE.sRGBEncoding;
+  const backEngraving = mesh(new THREE.PlaneGeometry(120, 60),
+    new THREE.MeshStandardMaterial({ map: backTex, transparent: true, depthWrite: false, roughness: 0.9,
+      polygonOffset: true, polygonOffsetFactor: -2 }), false);
+  backEngraving.rotation.y = Math.PI;
+  backEngraving.position.set(0, -15, -HD / 2 - 0.08);
+  hako.add(backEngraving);
+  async function drawBackEngraving() {
+    await fontsReady;
+    await document.fonts.load('700 76px "Zen Old Mincho"').catch(() => {});
+    const g = backC.getContext('2d'), u = manifest.unit || {};
+    g.clearRect(0, 0, 1200, 600);
+    g.fillStyle = BURN; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.font = '700 76px "Zen Old Mincho", serif';
+    g.fillText('Founder Edition · ' + (u.number || '01') + '/' + (u.total || 25), 600, 150);
+    g.font = '700 150px "Zen Old Mincho", serif';
+    g.fillText('箱', 600, 400);
+    backTex.needsUpdate = true;
+  }
   // the knob (EC11 encoder), upper right side
-  const metal = new THREE.MeshStandardMaterial({ color: 0xb9b4ab, metalness: 0.75, roughness: 0.32 });
+  // dark gunmetal, knurled round the side, a plain machined face
+  const knurl = document.createElement('canvas'); knurl.width = 256; knurl.height = 64;
+  { const g = knurl.getContext('2d'); g.fillStyle = '#808080'; g.fillRect(0, 0, 256, 64);
+    g.strokeStyle = '#1a1a1a'; g.lineWidth = 2;
+    for (let x = -64; x < 320; x += 8) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x + 32, 64); g.stroke();
+                                         g.beginPath(); g.moveTo(x + 32, 0); g.lineTo(x, 64); g.stroke(); } }
+  const knurlTex = new THREE.CanvasTexture(knurl); knurlTex.wrapS = knurlTex.wrapT = THREE.RepeatWrapping; knurlTex.repeat.set(3, 1);
+  const gunmetal = new THREE.MeshStandardMaterial({ color: 0x3a3a3c, metalness: 0.85, roughness: 0.38,
+    bumpMap: knurlTex, bumpScale: 0.6 });
+  const face = new THREE.MeshStandardMaterial({ color: 0x4a4a4d, metalness: 0.9, roughness: 0.22 });
   const knob = new THREE.Group();
-  const cap = mesh(new THREE.CylinderGeometry(8.5, 8.5, 11, 40), metal);
+  const cap = mesh(new THREE.CylinderGeometry(12, 12, 11, 48, 1, false), [gunmetal, face, face]);
   cap.position.y = 6.5;
-  const collar = mesh(new THREE.CylinderGeometry(5, 5, 1.5, 24), solid(0x1d1c1a, 0.5));
+  const collar = mesh(new THREE.CylinderGeometry(6, 6, 1.5, 24), solid(0x1d1c1a, 0.5));
   collar.position.y = 0.75;
-  const tick = mesh(new THREE.BoxGeometry(1.2, 0.6, 5), solid(0x1d1c1a, 0.5), false);
-  tick.position.set(0, 12.1, 4);
-  knob.add(cap, collar, tick);
+  knob.add(cap, collar);
   knob.rotation.z = -Math.PI / 2;                   // pointing out of the right side
   knob.position.set(HW / 2, 55, 0);
   hako.add(knob);
@@ -530,9 +579,9 @@ async function startViewer(manifest) {
     usbShape.lineTo(x + w, y + h - r); usbShape.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
     usbShape.lineTo(x + r, y + h); usbShape.quadraticCurveTo(x, y + h, x, y + h - r);
     usbShape.lineTo(x, y + r); usbShape.quadraticCurveTo(x, y, x + r, y); }
-  const usb = mesh(new THREE.ShapeGeometry(usbShape), solid(0x111010, 0.6), false);
+  const usb = mesh(new THREE.ShapeGeometry(usbShape), solid(0x111010, 0.6), false);   // below the founder engraving
   usb.rotation.y = Math.PI;
-  usb.position.set(0, -78, -HD / 2 - 0.05);
+  usb.position.set(0, -80, -HD / 2 - 0.05);
   hako.add(usb);
   // the tap mark on top, over the NFC tag
   const BURN = '#120A05';                         // laser char on oiled walnut
@@ -545,7 +594,7 @@ async function startViewer(manifest) {
   const tapMark = mesh(new THREE.PlaneGeometry(22, 22),
     new THREE.MeshStandardMaterial({ map: tapTex, transparent: true, opacity: 0.85, depthWrite: false, roughness: 0.9 }), false);
   tapMark.rotation.x = -Math.PI / 2; tapMark.rotation.z = Math.PI / 2;
-  tapMark.position.set(0, HW / 2 + 0.05, 0);
+  tapMark.position.set(0, HW / 2 + 0.05, 8);         // forward of the top vents
   hako.add(tapMark);
   // the laser engraving on the bottom: serial and regulatory label (make-labels.py --regulatory)
   const engr = manifest.hako || {};
@@ -564,6 +613,7 @@ async function startViewer(manifest) {
   }
   sizeEngraving(engr.engravingSize || [100, 41]);
   hako.add(engraving);
+  drawBackEngraving();
   base.add(hako);
 
   // --- what's under hako: power supply, cable, cleaning cloth ---------------
@@ -1203,6 +1253,7 @@ async function startViewer(manifest) {
     cardName = e.cardName || 'the card';
     if (e.bottom) bottomC.set(e.bottom);
     if (e.card) cardC.set(e.card);
+    backEngraving.visible = name === 'founder';
     if (e.engraving) {
       engraveMat.map = coverTex[e.engraving] || (coverTex[e.engraving] = loadTex(e.engraving));
       engraveMat.needsUpdate = true;
