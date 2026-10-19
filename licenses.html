@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open-source licenses · hako</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    try {
+      var t = localStorage.getItem("hako-theme");
+      if (t) document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <main class="policy">
+    <a class="policy-back" href="./">&larr; hako</a>
+    <h1>Open-source licenses</h1>
+    <p class="policy-date">Last updated October 2026</p>
+
+    <p>hako's software is built on free and open-source work. Thank you to everyone below. Each component keeps its own license; the full texts come with the software on the device and are available on request.</p>
+
+    <h2>On the device</h2>
+    <ul>
+      <li><strong>Raspberry Pi OS</strong> (based on Debian): many free-software licenses, including the GNU GPL. Source: raspberrypi.com and debian.org.</li>
+      <li><strong>rpi-rgb-led-matrix</strong> by Henner Zeller, which drives the LED panel: GNU GPL v2. We'll send you the complete corresponding source code, including our build settings, on request for at least three years after we last ship hako: email <a href="mailto:hello@hakoshop.com">hello@hakoshop.com</a>.</li>
+      <li><strong>Python libraries:</strong> Flask and Werkzeug (BSD-3-Clause), Requests (Apache 2.0), Pillow (MIT-CMU), qrcode (BSD), cryptography (Apache 2.0 / BSD), NumPy (BSD-3-Clause), gpiozero (BSD-3-Clause), mpu6050-raspberrypi (MIT).</li>
+      <li><strong>Alpine.js</strong>, used by the settings page: MIT.</li>
+    </ul>
+
+    <h2>Fonts on the screen</h2>
+    <ul>
+      <li><strong>Misaki Gothic</strong> and <strong>k8x12</strong> by Num Kadoma: free to use, copy and redistribute, including commercially.</li>
+      <li><strong>GNU Unifont</strong>: SIL Open Font License 1.1, and GNU GPL v2+ with the font embedding exception.</li>
+      <li><strong>Fusion Pixel</strong> by TakWolf: SIL Open Font License 1.1.</li>
+    </ul>
+
+    <h2>Printed materials</h2>
+    <ul>
+      <li><strong>Zen Old Mincho</strong> and <strong>Zen Kaku Gothic New</strong>: SIL Open Font License 1.1.</li>
+    </ul>
+
+    <p>Anki is a trademark of its owner. hako is an independent product and isn't affiliated with or endorsed by Anki. Raspberry Pi is a trademark of Raspberry Pi Ltd.</p>
+
+  </main>
+</body>
+</html>

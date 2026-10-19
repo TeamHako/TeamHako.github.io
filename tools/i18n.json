@@ -346,9 +346,9 @@
       "de": "Mit dem Handy verbinden"
     },
     {
-      "en": "Scan the code, or tap your phone on the box. Pick your Wi-Fi and type the password. Time zone and language are set for you.",
-      "ja": "コードを読み取るか、スマホを箱にかざします。Wi-Fiを選んでパスワードを入力するだけ。タイムゾーンと言語は自動で設定されます。",
-      "de": "Scanne den Code oder halte dein Handy an die Box. Wähle dein WLAN und gib das Passwort ein. Zeitzone und Sprache werden automatisch eingestellt."
+      "en": "Scan the code, or tap your phone on the top of the box. Pick your Wi-Fi and type the password. Time zone and language are set for you.",
+      "ja": "コードを読み取るか、スマホを箱の上面にかざします。Wi-Fiを選んでパスワードを入力するだけ。タイムゾーンと言語は自動で設定されます。",
+      "de": "Scanne den Code oder halte dein Handy oben auf die Box. Wähle dein WLAN und gib das Passwort ein. Zeitzone und Sprache werden automatisch eingestellt."
     },
     {
       "en": "Add the hako add-on to Anki",
@@ -731,9 +731,9 @@
       "de": "Was in der Box steckt"
     },
     {
-      "en": "It has one knob, a shake sensor, and an NFC chip under the wood that you tap your phone on.",
-      "ja": "ノブがひとつと振動センサー、そしてスマホをかざすためのNFCチップが木の下に入っています。",
-      "de": "Es hat einen Drehknopf, einen Schüttelsensor und einen NFC-Chip unter dem Holz, an den du dein Handy hältst."
+      "en": "It has one knob, a shake sensor, and an NFC chip under the top of the box that you tap your phone on.",
+      "ja": "ノブがひとつと振動センサー、そしてスマホをかざすためのNFCチップが箱の上面の木の下に入っています。",
+      "de": "Es hat einen Drehknopf, einen Schüttelsensor und einen NFC-Chip unter der Oberseite, an den du dein Handy hältst."
     },
     {
       "en": "64×64 LED panel",
@@ -756,14 +756,14 @@
       "de": "steuert hako und aktualisiert sich nachts von selbst"
     },
     {
-      "en": "NFC chip, just under the wood",
-      "ja": "木のすぐ下のNFCチップ",
-      "de": "NFC-Chip, direkt unter dem Holz"
+      "en": "NFC chip, just under the top",
+      "ja": "上面の木のすぐ下のNFCチップ",
+      "de": "NFC-Chip, direkt unter der Oberseite"
     },
     {
-      "en": "tap your phone here to set up Wi-Fi or open hako's web page",
-      "ja": "ここにスマホをかざすと、Wi-Fiの設定やhakoの設定ページが開きます",
-      "de": "Handy hier antippen, um das WLAN einzurichten oder hakos Webseite zu öffnen"
+      "en": "tap your phone on the top of the box to set up Wi-Fi or open hako's web page",
+      "ja": "箱の上面にスマホをかざすと、Wi-Fiの設定やhakoの設定ページが開きます",
+      "de": "Handy oben an die Box halten, um das WLAN einzurichten oder hakos Webseite zu öffnen"
     },
     {
       "en": "Shake sensor",
@@ -901,9 +901,9 @@
       "de": "Antippen und verbinden"
     },
     {
-      "en": "Tap your phone on the box to open its settings. No app to install and no IP addresses to type. Prefer the camera? It shows a QR code too.",
-      "ja": "スマホを箱にかざすだけで設定が開きます。アプリのインストールもIPアドレスの入力も不要。カメラ派ならQRコードも表示できます。",
-      "de": "Halte dein Handy an die Box, und die Einstellungen öffnen sich. Keine App, keine IP-Adressen. Lieber mit der Kamera? Ein QR-Code geht auch."
+      "en": "Tap your phone on the top of the box to open its settings. No app to install and no IP addresses to type. Prefer the camera? It shows a QR code too.",
+      "ja": "スマホを箱の上面にかざすだけで設定が開きます。アプリのインストールもIPアドレスの入力も不要。カメラ派ならQRコードも表示できます。",
+      "de": "Halte dein Handy oben auf die Box, und die Einstellungen öffnen sich. Keine App, keine IP-Adressen. Lieber mit der Kamera? Ein QR-Code geht auch."
     },
     {
       "en": "Pong on the knob",
@@ -994,6 +994,16 @@
       "en": "Yes. It's small enough for a bag and runs on its included power adapter. Join a new Wi-Fi network from your phone and hako finds Anki again on its own. On café or hotel Wi-Fi that keeps devices apart, it suggests your laptop's hotspot instead.",
       "ja": "はい。かばんに入る大きさで、付属の電源アダプターで動きます。スマホから新しいWi-Fiにつなぐと、hakoが自動で Anki を見つけ直します。端末同士がつながらないカフェやホテルのWi-Fiでは、ノートPCのテザリングを提案します。",
       "de": "Ja. Sie passt in eine Tasche und läuft mit dem mitgelieferten Netzteil. Verbinde sie per Handy mit einem neuen WLAN, und hako findet Anki von selbst wieder. In Café- oder Hotel-WLANs, die Geräte voneinander trennen, schlägt sie den Hotspot deines Laptops vor."
+    },
+    {
+      "en": "Compliance",
+      "ja": "法令・認証",
+      "de": "Konformität"
+    },
+    {
+      "en": "Open-source licenses",
+      "ja": "オープンソースライセンス",
+      "de": "Open-Source-Lizenzen"
     }
   ]
 }
