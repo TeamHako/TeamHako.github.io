@@ -137,7 +137,7 @@
     <button id="viewBottom" type="button">Bottom</button>
     <button id="spinBtn" type="button" aria-pressed="false">Spin</button>
   </div>
-  <p class="hint" id="hint">Drag to turn the box, pinch or scroll to zoom. Tap the lid to open it, then tap the booklet, the signed card, the stickers or hako itself.</p>
+  <p class="hint" id="hint">Drag to turn the box, pinch or scroll to zoom. Tap the lid to open it, then tap the booklet, the signed card, the stickers or hako itself. Under hako: the power supply, cable and cleaning cloth.</p>
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -360,8 +360,34 @@ async function startViewer(manifest) {
     wall.position.set(x, BH / 2, z);
     base.add(wall);
   });
-  const foam = mesh(new THREE.BoxGeometry(BW - 2 * T, 40, BW - 2 * T), solid(0x2b2925, 1));
-  foam.position.y = T + 20;
+  // foam: a solid 10 mm floor, then a 30 mm layer with pockets for the accessories under hako
+  const foamMat = solid(0x2b2925, 1);
+  const FI = (BW - 2 * T) / 2, FOAM_TOP = T + 40;
+  const foamFloor = mesh(new THREE.BoxGeometry(2 * FI, 10, 2 * FI), foamMat);
+  foamFloor.position.y = T + 5;
+  base.add(foamFloor);
+  const POCKETS = {                          // x, z (base coords, back half so they show past the front wall)
+    brick: { x: -82, z: -48, w: 50, d: 50, floor: 2 },
+    cable: { x: -4, z: -48, r: 39, floor: 18 },
+    cloth: { x: 76, z: -48, w: 84, d: 84, floor: 24 }
+  };
+  const foamShape = new THREE.Shape();
+  foamShape.moveTo(-FI, -FI); foamShape.lineTo(FI, -FI); foamShape.lineTo(FI, FI); foamShape.lineTo(-FI, FI); foamShape.lineTo(-FI, -FI);
+  Object.values(POCKETS).forEach(pk => {      // shape y = -world z (the shape is turned to lie flat)
+    const h = new THREE.Path();
+    if (pk.r) h.absarc(pk.x, -pk.z, pk.r, 0, Math.PI * 2, true);
+    else { const x0 = pk.x - pk.w / 2, y0 = -pk.z - pk.d / 2; h.moveTo(x0, y0); h.lineTo(x0, y0 + pk.d); h.lineTo(x0 + pk.w, y0 + pk.d); h.lineTo(x0 + pk.w, y0); h.lineTo(x0, y0); }
+    foamShape.holes.push(h);
+    if (pk.floor > 2) {                       // shallower pockets: a foam riser so the item sits near the top
+      const riser = mesh(pk.r ? new THREE.CylinderGeometry(pk.r, pk.r, pk.floor, 48) : new THREE.BoxGeometry(pk.w, pk.floor, pk.d), foamMat);
+      riser.position.set(pk.x, T + 10 + pk.floor / 2, pk.z);
+      base.add(riser);
+    }
+  });
+  const foamGeo = new THREE.ExtrudeGeometry(foamShape, { depth: 30, bevelEnabled: false, curveSegments: 40 });
+  foamGeo.rotateX(-Math.PI / 2);
+  const foam = mesh(foamGeo, foamMat);
+  foam.position.y = T + 10;
   base.add(foam);
   scene.add(base);
 
@@ -376,6 +402,106 @@ async function startViewer(manifest) {
   screen.rotation.x = -Math.PI / 2; screen.position.y = 30.1;
   hako.add(screen);
   base.add(hako);
+
+  // --- what's under hako: power supply, cable, cleaning cloth ---------------
+  // Each is built "facing you" (+z) like the paper items, and lies down in its pocket.
+  function canvasTex(w, h, draw) {
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    draw(c.getContext('2d'), w, h);
+    const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = maxAniso; return t;
+  }
+  function roundedRect(w, h, r) {
+    const s = new THREE.Shape(), x = -w / 2, y = -h / 2;
+    s.moveTo(x + r, y); s.lineTo(x + w - r, y); s.quadraticCurveTo(x + w, y, x + w, y + r);
+    s.lineTo(x + w, y + h - r); s.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    s.lineTo(x + r, y + h); s.quadraticCurveTo(x, y + h, x, y + h - r);
+    s.lineTo(x, y + r); s.quadraticCurveTo(x, y, x + r, y);
+    return s;
+  }
+  const plastic = new THREE.MeshStandardMaterial({ color: 0xEDE9E1, roughness: 0.48, metalness: 0 });
+  const darkSlot = solid(0x1d1c1a, 0.6);
+
+  // USB-C power supply, 5 V ⎓ 3 A: 46 × 46 × 28 mm, folding US prongs
+  const BRICK = [46, 46, 28];
+  const brick = new THREE.Group();
+  brick.userData.pick = 'brick';
+  const brickGeo = new THREE.ExtrudeGeometry(roundedRect(42, 42, 6), { depth: 24, bevelEnabled: true, bevelThickness: 2, bevelSize: 2, bevelSegments: 4, curveSegments: 10 });
+  brickGeo.translate(0, 0, -12);
+  brick.add(mesh(brickGeo, plastic));
+  const brickFace = mesh(new THREE.PlaneGeometry(36, 36), new THREE.MeshStandardMaterial({ roughness: 0.5, transparent: true,
+    map: canvasTex(512, 512, (g, w, h) => {
+      g.fillStyle = '#8f897f'; g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.font = '84px "Zen Old Mincho", serif'; g.fillText('hako', w / 2, h * 0.44);
+      g.font = '30px "Zen Kaku Gothic New", sans-serif'; g.fillText('5V ⎓ 3A  ·  USB-C', w / 2, h * 0.66);
+    }) }), false);
+  brickFace.position.z = 14.05;
+  const port = mesh(new THREE.ShapeGeometry(roundedRect(9, 3.4, 1.6)), darkSlot, false);
+  port.rotation.x = -Math.PI / 2; port.position.set(0, 23.05, 0);   // on the top edge
+  const prongBack = mesh(new THREE.PlaneGeometry(36, 36), new THREE.MeshStandardMaterial({ roughness: 0.5, transparent: true,
+    map: canvasTex(512, 512, (g, w, h) => {
+      g.fillStyle = '#1d1c1a';                // two folded prongs in their recess
+      [w * 0.36, w * 0.64].forEach(x => { g.beginPath(); g.roundRect ? g.roundRect(x - 14, h * 0.2, 28, h * 0.52, 8) : g.rect(x - 14, h * 0.2, 28, h * 0.52); g.fill(); });
+      g.fillStyle = '#c9c4ba'; [w * 0.36, w * 0.64].forEach(x => g.fillRect(x - 6, h * 0.24, 12, h * 0.42));
+      g.fillStyle = '#9a948a'; g.textAlign = 'center'; g.font = '22px "Zen Kaku Gothic New", sans-serif';
+      g.fillText('INPUT 100–240V~ 50/60Hz', w / 2, h * 0.84);
+    }) }), false);
+  prongBack.position.z = -14.05; prongBack.rotation.y = Math.PI;
+  brick.add(brickFace, port, prongBack);
+
+  // USB-C cable, coiled, with a paper band
+  const cable = new THREE.Group();
+  cable.userData.pick = 'cable';
+  const cableMat = new THREE.MeshStandardMaterial({ color: 0xE6E1D7, roughness: 0.62 });
+  for (let i = 0; i < 7; i++) {
+    const loop = mesh(new THREE.TorusGeometry(29 + (i % 3) * 1.3, 1.8, 10, 72), cableMat);
+    loop.position.set(Math.sin(i * 2.1) * 0.9, Math.cos(i * 1.7) * 0.9, ((i % 3) - 1) * 2.4 + (i > 3 ? 0.8 : -0.8));
+    loop.rotation.set(Math.sin(i) * 0.04, Math.cos(i * 1.3) * 0.04, i);
+    cable.add(loop);
+  }
+  const band = mesh(new THREE.BoxGeometry(11, 12, 12), new THREE.MeshStandardMaterial({ roughness: 0.85,
+    map: canvasTex(128, 128, (g, w, h) => {
+      g.fillStyle = '#E2D6BF'; g.fillRect(0, 0, w, h);
+      g.fillStyle = '#B3312B'; g.fillRect(w / 2 - 20, h / 2 - 20, 40, 40);
+      g.fillStyle = '#F7F1E6'; g.font = '30px "Zen Old Mincho", serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.fillText('箱', w / 2, h / 2 + 2);
+    }) }));
+  band.position.set(30.3, 0, 0);
+  cable.add(band);
+  [[-7, 1, 0.22], [7, -1, -0.3]].forEach(([x, y, rz]) => {   // the two ends, tucked into the coil
+    const plug = new THREE.Group();
+    plug.add(mesh(new THREE.BoxGeometry(10, 22, 6.5), cableMat));
+    const tip = mesh(new THREE.BoxGeometry(8.4, 7, 2.6), new THREE.MeshStandardMaterial({ color: 0xbfc2c4, roughness: 0.3, metalness: 0.8 }));
+    tip.position.y = 14.5;
+    const lead = mesh(new THREE.CylinderGeometry(1.8, 1.8, 16, 10), cableMat);
+    lead.position.y = -19;
+    plug.add(tip, lead);
+    plug.position.set(x, y, 1); plug.rotation.z = rz;
+    cable.add(plug);
+  });
+
+  // microfiber cleaning cloth, folded to 80 × 80 mm, indigo with a woven tag
+  const CLOTH = 80;
+  const cloth = new THREE.Group();
+  cloth.userData.pick = 'cloth';
+  function weave(g, w, h) {
+    g.fillStyle = '#2E3D5A'; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < w; i += 3) { g.fillStyle = i % 6 ? 'rgba(255,255,255,0.025)' : 'rgba(0,0,0,0.06)'; g.fillRect(i, 0, 1, h); g.fillRect(0, i, w, 1); }
+  }
+  const clothFront = mesh(new THREE.PlaneGeometry(CLOTH, CLOTH), new THREE.MeshStandardMaterial({ roughness: 1,
+    map: canvasTex(640, 640, (g, w, h) => {
+      weave(g, w, h);
+      const fold = g.createLinearGradient(0, h * 0.46, 0, h * 0.54);   // the fold across the middle
+      fold.addColorStop(0, 'rgba(0,0,0,0)'); fold.addColorStop(0.5, 'rgba(0,0,0,0.22)'); fold.addColorStop(1, 'rgba(255,255,255,0.04)');
+      g.fillStyle = fold; g.fillRect(0, h * 0.46, w, h * 0.08);
+      g.fillStyle = '#ECE5D7'; g.fillRect(w * 0.66, h * 0.78, w * 0.24, h * 0.1);   // woven tag
+      g.fillStyle = '#2E3D5A'; g.font = '40px "Zen Old Mincho", serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.fillText('hako 箱', w * 0.78, h * 0.832);
+    }) }), false);
+  clothFront.position.z = 2.05;
+  const clothBack = mesh(new THREE.PlaneGeometry(CLOTH, CLOTH), new THREE.MeshStandardMaterial({ roughness: 1, map: canvasTex(320, 320, weave) }), false);
+  clothBack.position.z = -2.05; clothBack.rotation.y = Math.PI;
+  const clothBody = mesh(new THREE.BoxGeometry(CLOTH, CLOTH, 4), solid(0x2E3D5A, 1));
+  cloth.add(clothBody, clothFront, clothBack);
 
   // --- the booklet: sheets hinged on a spine at x = 0 ------------------------
   const PAGE = 120;
@@ -513,7 +639,10 @@ async function startViewer(manifest) {
     hako: { parent: 'base', pos: new THREE.Vector3(0, 72, 0), quat: new THREE.Quaternion() },
     stickers: flatPose('base', -55, 102.6, -20, 0.15, 0),
     card: flatPose('base', -40, 103.3, 55, -0.2, 0),
-    booklet: flatPose('base', 45, 104.2, 35, -0.08, PAGE / 2)
+    booklet: flatPose('base', 45, 104.2, 35, -0.08, PAGE / 2),
+    brick: flatPose('base', POCKETS.brick.x, T + 10 + POCKETS.brick.floor + BRICK[2] / 2, POCKETS.brick.z, 0, 0),
+    cable: flatPose('base', POCKETS.cable.x, T + 10 + POCKETS.cable.floor + 6, POCKETS.cable.z, 0.3, 0),
+    cloth: flatPose('base', POCKETS.cloth.x, T + 10 + POCKETS.cloth.floor + 2, POCKETS.cloth.z, 0, 0)
   };
   const tableSpots = {
     hako: { parent: 'scene', pos: new THREE.Vector3(-390, 110, 40),
@@ -522,10 +651,10 @@ async function startViewer(manifest) {
     card: flatPose('scene', 300, 0.6, -120, -0.15, 0),
     booklet: flatPose('scene', 330, 1.5, 70, 0.12, PAGE / 2)
   };
-  const objects = { hako, booklet, card, stickers };
+  const objects = { hako, booklet, card, stickers, brick, cable, cloth };
   const parents = { base, scene };
   function place(o, p) { parents[p.parent].add(o); o.position.copy(p.pos); o.quaternion.copy(p.quat); }
-  ['booklet', 'card', 'stickers', 'hako'].forEach(k => place(objects[k], homes[k]));
+  ['booklet', 'card', 'stickers', 'hako', 'brick', 'cable', 'cloth'].forEach(k => place(objects[k], homes[k]));
 
   // --- tweens ---------------------------------------------------------------
   const tweens = new Map();
@@ -575,7 +704,7 @@ async function startViewer(manifest) {
     viewTop: { pos: [0, 760, 40], target: [0, 58, 0] },
     viewBottom: { pos: [60, -620, 260], target: [0, 40, 0] },
     viewOpen: { pos: [430, 480, 820], target: [0, 70, -110] },
-    viewTable: { pos: [60, 640, 1180], target: [0, 50, 0] }
+    viewTable: { pos: [40, 980, 900], target: [0, 30, -10] }
   };
   function goTo(name) {
     const v = views[name];
@@ -592,7 +721,9 @@ async function startViewer(manifest) {
   let heldFlip = false;
   let zoom = 1;
   const pan = new THREE.Vector2();          // in mm as seen at the un-zoomed holding distance
-  const holdSize = { booklet: [PAGE * 2, PAGE], card: [CARD_W, CARD_H], stickers: [ST_W, ST_H] };
+  const holdSize = { booklet: [PAGE * 2, PAGE], card: [CARD_W, CARD_H], stickers: [ST_W, ST_H],
+    brick: [BRICK[0] * 1.3, BRICK[1] * 1.3], cable: [80, 80], cloth: [CLOTH, CLOTH] };
+  const SOLID = { brick: true, cable: true };     // tilted a little in hand so you see they're 3D
   function holdDist(name) {
     const [w, h] = holdSize[name];
     const vf = THREE.MathUtils.degToRad(camera.fov) / 2;
@@ -601,7 +732,9 @@ async function startViewer(manifest) {
   function holdPose(name) {
     const [, h] = holdSize[name];
     const ox = name === 'booklet' ? (spread === 0 ? -PAGE / 2 : spread === nSheets ? PAGE / 2 : 0) : 0;
-    const q = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, heldFlip ? Math.PI : 0, 0));
+    const q = SOLID[name]
+      ? new THREE.Quaternion().setFromEuler(new THREE.Euler(0.42, (heldFlip ? Math.PI : 0) - 0.5, 0, 'XYZ'))
+      : new THREE.Quaternion().setFromEuler(new THREE.Euler(0, heldFlip ? Math.PI : 0, 0));
     return { pos: new THREE.Vector3(ox + pan.x / zoom, h * 0.08 + pan.y / zoom, -holdDist(name) / zoom), quat: q };
   }
   function viewMm() {                       // mm per screen pixel at the un-zoomed holding distance
@@ -640,7 +773,7 @@ async function startViewer(manifest) {
     if (name === 'booklet') { spread = 0; sheets.forEach(s => s.userData.target = 0); stackSheets(); }
     if (name === 'stickers') peelables.forEach(g => { if (g.userData.peel) { g.userData.peel = null; flatten(g); } });
     zoom = 1; pan.set(0, 0);
-    const p = hakoOut ? tableSpots[name] : homes[name];
+    const p = (hakoOut && tableSpots[name]) || homes[name];
     moveTo(objects[name], parents[p.parent], p.pos, p.quat, 0.9, 40);
     updateHeldBar();
   }
@@ -652,7 +785,7 @@ async function startViewer(manifest) {
     spread = next;
     stackSheets(); reHold(); updateHeldBar();
   }
-  const restHint = 'Drag to turn the box, pinch or scroll to zoom. Tap the lid to open it, then tap the booklet, the signed card, the stickers or hako itself.';
+  const restHint = 'Drag to turn the box, pinch or scroll to zoom. Tap the lid to open it, then tap the booklet, the signed card, the stickers or hako itself. Under hako: the power supply, cable and cleaning cloth.';
   function updateHeldBar() {
     $('heldBar').hidden = !held;
     const isBook = held === 'booklet';
@@ -746,7 +879,7 @@ async function startViewer(manifest) {
     const r = el.getBoundingClientRect();
     ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     raycaster.setFromCamera(ndc, camera);
-    const hits = raycaster.intersectObjects([lid, base, hako, booklet, card, stickers], true);
+    const hits = raycaster.intersectObjects([lid, base, hako, booklet, card, stickers, brick, cable, cloth], true);
     if (!hits.length) return null;
     let o = hits[0].object;
     while (o && !o.userData.pick) o = o.parent;
