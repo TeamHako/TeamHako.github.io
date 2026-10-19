@@ -24,7 +24,7 @@ function T(key, fallback, vars) {
 // ============================================================
 (function() {
   const GATE_HASH =
-    "9084bb947c414a201d727de0982159afccff5b614f8566c1b51f0ebf610aab8a"; // hako2027
+    "9084bb947c414a201d727de0982159afccff5b614f8566c1b51f0ebf610aab8a";
   const STORAGE_KEY = "hako-gate-ok";
 
   const gate = document.getElementById("accessGate");

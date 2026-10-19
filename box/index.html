@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>hako box</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;500&family=Homemade+Apple&display=swap">
+<style>
+  /* Layout: one studio stage, the box in the middle, quiet controls underneath. Single light look by choice. */
+  :root {
+    --paper: #EEE9DF;
+    --stage: #E6E0D4;
+    --ink: #1E1B18;
+    --muted: #625A51;
+    --shu: #B3312B;
+    --line: #D3CABB;
+    --display: 'Zen Old Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    --body: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif;
+    color-scheme: light;
+  }
+  html, body { height: 100%; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 20px 28px;
+    box-sizing: border-box;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+  header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; }
+  h1 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 28px; letter-spacing: 0.12em; }
+  h1 span { color: var(--shu); margin-right: 10px; }
+  .spec { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .stage {
+    position: relative; width: 100%; height: min(70vh, 640px); min-height: 360px;
+    background: radial-gradient(ellipse at 50% 38%, #F4F0E8 0%, var(--stage) 70%);
+    border: 1px solid var(--line); border-radius: 14px; overflow: hidden; touch-action: none;
+  }
+  .stage canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+  .stage canvas.pointy { cursor: pointer; }
+  .loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--muted); }
+  .loading[hidden] { display: none; }
+  .held {
+    position: absolute; left: 50%; transform: translateX(-50%); bottom: 14px;
+    display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px;
+    background: rgba(30, 27, 24, 0.82); color: #F2EDE3; border-radius: 999px; padding: 6px;
+    max-width: calc(100% - 24px); box-sizing: border-box;
+  }
+  .held[hidden] { display: none; }
+  .held button { color: #F2EDE3; border-color: rgba(242, 237, 227, 0.28); }
+  .held button:hover { border-color: #F2EDE3; }
+  .held button[hidden] { display: none; }
+  .held .count { font-size: 13px; padding: 0 8px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .held .count[hidden] { display: none; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .controls .sep { width: 1px; height: 24px; background: var(--line); margin: 0 4px; }
+  button {
+    font: 500 14px/1 var(--body); color: var(--ink); background: transparent;
+    border: 1px solid var(--line); border-radius: 999px; padding: 11px 16px; min-height: 44px; cursor: pointer;
+  }
+  button:hover { border-color: var(--muted); }
+  button:disabled { opacity: 0.45; cursor: default; }
+  button:focus-visible { outline: 2px solid var(--shu); outline-offset: 2px; }
+  button.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  button[aria-pressed="true"] { border-color: var(--ink); background: #E3DCCF; }
+  .hint { margin: 0; font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+  details.swap { border-top: 1px solid var(--line); padding-top: 12px; font-size: 13px; }
+  details.swap summary { cursor: pointer; font-weight: 500; min-height: 32px; display: flex; align-items: center; }
+  .swap-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .swap-row label { color: var(--muted); }
+  select, input[type="file"] { font: 14px var(--body); color: var(--ink); max-width: 100%; }
+  select { min-height: 40px; border: 1px solid var(--line); border-radius: 8px; background: #F6F2EA; padding: 0 10px; }
+  .swap p { margin: 10px 0 0; color: var(--muted); line-height: 1.6; max-width: 70ch; }
+
+  .gate { max-width: 420px; margin: 8vh auto 0; display: flex; flex-direction: column; gap: 16px; }
+  .gate[hidden], .viewer[hidden] { display: none; }
+  .gate .mark { width: 56px; height: 56px; border-radius: 8px; background: var(--shu); color: #F7F1E6;
+    display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 34px; }
+  .gate h1 { font-size: 30px; }
+  .gate p { margin: 0; color: var(--muted); line-height: 1.6; }
+  .gate form { display: flex; flex-wrap: wrap; gap: 10px; }
+  .gate label { width: 100%; font-size: 13px; color: var(--muted); }
+  .gate input { flex: 1 1 200px; min-height: 44px; border: 1px solid var(--line); border-radius: 999px;
+    padding: 0 18px; font: 15px var(--body); color: var(--ink); background: #F6F2EA; }
+  .gate input:focus-visible { outline: 2px solid var(--shu); outline-offset: 2px; }
+  .gate .error { min-height: 20px; color: var(--shu); font-size: 13px; }
+
+  body { margin: 0; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap gate" id="gate">
+  <div class="mark" aria-hidden="true">箱</div>
+  <h1>hako box</h1>
+  <p>The packaging, before it's printed. Enter the tester password to open it.</p>
+  <form id="gateForm" autocomplete="off">
+    <label for="gatePass">Tester password</label>
+    <input id="gatePass" type="password" autocomplete="current-password" required>
+    <button class="primary" id="gateBtn" type="submit">Open</button>
+  </form>
+  <div class="error" id="gateError" aria-live="polite"></div>
+</div>
+
+<div class="viewer" id="viewer" hidden>
+<div class="wrap">
+  <header>
+    <h1><span>箱</span>hako box</h1>
+    <div class="spec">Lid and base · outside 256 × 256 × 116 mm · hako 220 × 220 × 60 mm inside</div>
+  </header>
+
+  <div class="stage" id="stage">
+    <div class="loading" id="loading">Loading the box…</div>
+    <div class="held" id="heldBar" hidden>
+      <button id="prevBtn" type="button">‹ Back</button>
+      <span class="count" id="pageCount"></span>
+      <button id="nextBtn" type="button">Next ›</button>
+      <button id="turnBtn" type="button">Turn over</button>
+      <button id="unpeelBtn" type="button">Re-stick all</button>
+      <button id="zoomOutBtn" type="button" aria-label="Zoom out">−</button>
+      <button id="zoomInBtn" type="button" aria-label="Zoom in">+</button>
+      <button id="putBtn" type="button">Put it back</button>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="primary" id="openBtn" type="button">Open the lid</button>
+    <button id="hakoBtn" type="button" disabled>Take hako out</button>
+    <span class="sep" aria-hidden="true"></span>
+    <button id="viewAngle" type="button">Three-quarter</button>
+    <button id="viewFront" type="button">Front</button>
+    <button id="viewTop" type="button">Top</button>
+    <button id="viewBottom" type="button">Bottom</button>
+    <button id="spinBtn" type="button" aria-pressed="false">Spin</button>
+  </div>
+  <p class="hint" id="hint">Drag to turn the box, pinch or scroll to zoom. Tap the lid to open it, then tap the booklet, the signed card, the stickers or hako itself.</p>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+async function startViewer(manifest) {
+  const stage = document.getElementById('stage');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = id => document.getElementById(id);
+
+
+  // --- renderer, scene, camera --------------------------------------------
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  stage.prepend(renderer.domElement);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(32, 1, 10, 6000);
+  scene.add(camera);                       // held items ride along with the camera
+
+  scene.add(new THREE.HemisphereLight(0xfffaf0, 0xcfc5b4, 0.62));
+  const key = new THREE.DirectionalLight(0xffffff, 0.55);
+  key.position.set(260, 520, 340);
+  key.castShadow = true;
+  key.shadow.mapSize.set(2048, 2048);
+  Object.assign(key.shadow.camera, { left: -620, right: 620, top: 520, bottom: -520, near: 50, far: 1800 });
+  key.shadow.bias = -0.0004;
+  scene.add(key);
+  const fill = new THREE.DirectionalLight(0xfff4e6, 0.25);
+  fill.position.set(-380, 160, -120);
+  scene.add(fill);
+  camera.add(new THREE.PointLight(0xffffff, 0.12, 0, 2));   // keeps held things readable
+  // a soft paper backdrop that fades in behind whatever you're holding
+  const backdropMat = new THREE.MeshBasicMaterial({ color: 0xEEE9DF, transparent: true, opacity: 0, depthWrite: false });
+  const backdrop = new THREE.Mesh(new THREE.PlaneGeometry(20000, 20000), backdropMat);
+  backdrop.position.z = -3000; backdrop.renderOrder = -1;
+  camera.add(backdrop);
+
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(4000, 4000), new THREE.ShadowMaterial({ opacity: 0.16 }));
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.y = -0.4;
+  ground.receiveShadow = true;
+  scene.add(ground);
+
+  // --- textures (all from manifest.json, all swappable) -------------------
+  const loader = new THREE.TextureLoader();
+  const maxAniso = renderer.capabilities.getMaxAnisotropy();
+  let pending = 0;
+  function done() { if (--pending === 0) $('loading').hidden = true; }
+  function loadTex(url) {
+    pending++;
+    const t = loader.load(url, done, undefined,
+      () => { $('loading').textContent = 'Some artwork did not load (' + url + '). Refresh to try again.'; });
+    t.encoding = THREE.sRGBEncoding;
+    t.anisotropy = maxAniso;
+    return t;
+  }
+  const printed = t => new THREE.MeshStandardMaterial({ map: t, roughness: 0.82, metalness: 0 });
+  const solid = (c, r) => new THREE.MeshStandardMaterial({ color: c, roughness: r == null ? 0.9 : r, metalness: 0 });
+  function mesh(geo, mat, shadow) {
+    const m = new THREE.Mesh(geo, mat);
+    m.castShadow = shadow !== false;
+    m.receiveShadow = true;
+    return m;
+  }
+  const slots = {};                         // slot name -> { label, mats, custom? }
+  function slot(name, label, mat) {
+    slots[name] = slots[name] || { label, mats: [] };
+    slots[name].mats.push(mat);
+    return mat;
+  }
+  function plainTexture(color, mark) {      // a quiet back for the card and the sticker sheet
+    const c = document.createElement('canvas'); c.width = 512; c.height = 320;
+    const g = c.getContext('2d');
+    g.fillStyle = color; g.fillRect(0, 0, c.width, c.height);
+    if (mark) {
+      g.fillStyle = '#B3312B'; g.fillRect(c.width / 2 - 22, c.height / 2 - 22, 44, 44);
+      g.fillStyle = '#F7F1E6'; g.font = '30px "Zen Old Mincho", serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.fillText('箱', c.width / 2, c.height / 2 + 2);
+    }
+    const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; return t;
+  }
+
+  // --- handwriting and the hanko (unit details from manifest.unit) ---------
+  const unit = manifest.unit || {};
+  const INK = '#23324f';
+  const fontsReady = Promise.all([
+    document.fonts.load('64px "Homemade Apple"'), document.fonts.load('700 100px "Zen Old Mincho"')
+  ]).catch(() => {});
+  let sigImg = null;
+  const composers = [];
+  function composed(w, h, url) {            // printed artwork + whatever gets written or stamped on it
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = maxAniso;
+    const api = { tex: t, img: null, extras: () => {} };
+    api.draw = async () => {
+      if (!api.img) return;
+      const g = c.getContext('2d');
+      g.drawImage(api.img, 0, 0, w, h);
+      await fontsReady;
+      api.extras(g, w, h);
+      t.needsUpdate = true;
+    };
+    api.set = u => {
+      pending++;
+      const im = new Image();
+      im.onload = () => { api.img = im; api.draw(); done(); };
+      im.onerror = () => { $('loading').textContent = 'Some artwork did not load (' + u + '). Refresh to try again.'; };
+      im.src = u;
+    };
+    api.set(url);
+    composers.push(api);
+    return api;
+  }
+  if (unit.signatureImage) {
+    const im = new Image();
+    im.onload = () => { sigImg = im; composers.forEach(c => c.draw()); };
+    im.src = unit.signatureImage;
+  }
+  function writeSignature(g, x, y, size) {
+    if (sigImg) {
+      const hh = size * 1.7, ww = hh * sigImg.width / sigImg.height;
+      g.drawImage(sigImg, x, y - hh * 0.78, ww, hh);
+    } else if (unit.signature) {
+      g.font = size + 'px "Homemade Apple", cursive'; g.textAlign = 'left'; g.fillStyle = INK;
+      g.fillText(unit.signature, x, y);
+    }
+  }
+  function writeNumber(g, cx, y, size) {
+    if (!unit.number) return;
+    g.font = size + 'px "Homemade Apple", cursive'; g.textAlign = 'center'; g.fillStyle = INK;
+    g.fillText(unit.number, cx, y);
+    g.textAlign = 'left';
+  }
+  function stampHanko(g, cx, cy, size, rot) {
+    if (!unit.hanko) return;
+    // a square seal, white character cut out of vermilion, inked a little unevenly
+    const c = document.createElement('canvas'); c.width = c.height = Math.ceil(size * 1.2);
+    const s = c.getContext('2d');
+    s.translate(c.width / 2, c.height / 2);
+    s.fillStyle = '#C23A2E';
+    const r = size * 0.08, hs = size / 2;
+    s.beginPath();
+    s.moveTo(-hs + r, -hs); s.arcTo(hs, -hs, hs, hs, r); s.arcTo(hs, hs, -hs, hs, r); s.arcTo(-hs, hs, -hs, -hs, r); s.arcTo(-hs, -hs, hs, -hs, r);
+    s.fill();
+    s.globalCompositeOperation = 'destination-out';
+    s.lineWidth = size * 0.035; s.strokeStyle = '#000';
+    s.strokeRect(-hs * 0.84, -hs * 0.84, hs * 1.68, hs * 1.68);
+    const chars = String(unit.hanko);
+    s.font = '700 ' + (size * (chars.length > 1 ? 0.48 : 0.72)) + 'px "Zen Old Mincho", serif';
+    s.textAlign = 'center'; s.textBaseline = 'middle';
+    if (chars.length > 1) { s.fillText(chars[0], 0, -size * 0.2); s.fillText(chars.slice(1), 0, size * 0.22); }
+    else s.fillText(chars, 0, size * 0.04);
+    let seed = 7;
+    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    for (let i = 0; i < 260; i++) {           // uneven ink
+      s.beginPath();
+      s.arc((rnd() - 0.5) * size, (rnd() - 0.5) * size, rnd() * size * 0.018 + 0.5, 0, Math.PI * 2);
+      s.fill();
+    }
+    g.save();
+    g.translate(cx, cy); g.rotate(rot); g.globalAlpha = 0.9;
+    g.drawImage(c, -c.width / 2, -c.height / 2);
+    g.restore();
+  }
+
+  // --- the lid: full telescope, open at the bottom -------------------------
+  const W = 256, H = 116, T = 2.2;
+  const lid = new THREE.Group();
+  lid.userData.pick = 'lid';
+  const lidInner = solid(0x24211d);
+  const topBoard = mesh(new THREE.BoxGeometry(W, T, W), lidInner);
+  topBoard.position.y = H - T / 2;
+  lid.add(topBoard);
+  const top = mesh(new THREE.PlaneGeometry(W, W), slot('lid', 'Lid (top)', printed(loadTex(manifest.faces.lid))), false);
+  top.rotation.x = -Math.PI / 2; top.position.y = H + 0.05;
+  lid.add(top);
+  const inside = mesh(new THREE.PlaneGeometry(W - 2 * T, W - 2 * T), slot('inside', 'Inside the lid', printed(loadTex(manifest.faces.inside))), false);
+  inside.rotation.x = Math.PI / 2; inside.position.y = H - T - 0.05;
+  lid.add(inside);
+  [
+    { t: 'front', label: 'Front', pos: [0, W / 2], ry: 0 },
+    { t: 'back', label: 'Back', pos: [0, -W / 2], ry: Math.PI },
+    { t: 'right', label: 'Right side', pos: [W / 2, 0], ry: Math.PI / 2 },
+    { t: 'left', label: 'Left side', pos: [-W / 2, 0], ry: -Math.PI / 2 }
+  ].forEach(w => {
+    const g = new THREE.Group();
+    g.rotation.y = w.ry;
+    g.position.set(w.pos[0], 0, w.pos[1]);
+    const board = mesh(new THREE.BoxGeometry(W, H - T, T), lidInner);
+    board.position.set(0, (H - T) / 2, -T / 2);
+    const face = mesh(new THREE.PlaneGeometry(W, H), slot(w.t, w.label, printed(loadTex(manifest.faces[w.t]))), false);
+    face.position.set(0, H / 2, 0.05);
+    g.add(board, face);
+    lid.add(g);
+  });
+  scene.add(lid);
+
+  // --- the base and its insert ---------------------------------------------
+  const BW = 250, BH = 112;
+  const base = new THREE.Group();
+  const kinari = solid(0xECE5D7);
+  const floor = mesh(new THREE.BoxGeometry(BW, T, BW), kinari);
+  floor.position.y = T / 2;
+  base.add(floor);
+  const bottomC = composed(1200, 1200, manifest.faces.bottom);
+  bottomC.extras = (g, w, h) => {
+    writeNumber(g, 0.335 * w, 0.222 * h, 0.06 * w);
+    writeSignature(g, 0.11 * w, 0.52 * h, 0.042 * w);
+    stampHanko(g, 0.859 * w, 0.846 * h, 0.0583 * w, -0.05);   // 15 mm on a 256 mm bottom
+  };
+  slots.bottom = { label: 'Bottom', mats: [], custom: url => bottomC.set(url) };
+  const bottom = mesh(new THREE.PlaneGeometry(BW + 6, BW + 6), printed(bottomC.tex), false);
+  bottom.rotation.x = Math.PI / 2; bottom.position.y = -0.1;
+  base.add(bottom);
+  [[0, BW / 2 - T / 2, BW, T], [0, -BW / 2 + T / 2, BW, T], [BW / 2 - T / 2, 0, T, BW], [-BW / 2 + T / 2, 0, T, BW]].forEach(([x, z, w, d]) => {
+    const wall = mesh(new THREE.BoxGeometry(w, BH, d), kinari);
+    wall.position.set(x, BH / 2, z);
+    base.add(wall);
+  });
+  const foam = mesh(new THREE.BoxGeometry(BW - 2 * T, 40, BW - 2 * T), solid(0x2b2925, 1));
+  foam.position.y = T + 20;
+  base.add(foam);
+  scene.add(base);
+
+  // --- hako itself ----------------------------------------------------------
+  const hako = new THREE.Group();
+  hako.userData.pick = 'hako';
+  hako.add(mesh(new THREE.BoxGeometry(220, 60, 220), solid(0x5b3d29, 0.55)));
+  const screenTex = manifest.screens.map(u => loadTex(u));
+  const screenMat = slot('screen', 'hako screen', new THREE.MeshStandardMaterial({
+    map: screenTex[0], emissive: 0xffffff, emissiveMap: screenTex[0], emissiveIntensity: 0.3, roughness: 0.4 }));
+  const screen = mesh(new THREE.PlaneGeometry(190, 190), screenMat, false);
+  screen.rotation.x = -Math.PI / 2; screen.position.y = 30.1;
+  hako.add(screen);
+  base.add(hako);
+
+  // --- the booklet: sheets hinged on a spine at x = 0 ------------------------
+  const PAGE = 120;
+  const booklet = new THREE.Group();
+  booklet.userData.pick = 'booklet';
+  const sheets = [];
+  const pageUrls = manifest.pamphlet;
+  const nSheets = Math.ceil(pageUrls.length / 2);
+  const blank = plainTexture('#F2EDE3', false);
+  for (let i = 0; i < nSheets; i++) {
+    const s = new THREE.Group();
+    const fMat = slot('page' + (2 * i + 1), 'Booklet page ' + (2 * i + 1), printed(loadTex(pageUrls[2 * i])));
+    const bUrl = pageUrls[2 * i + 1];
+    const bMat = bUrl ? slot('page' + (2 * i + 2), 'Booklet page ' + (2 * i + 2), printed(loadTex(bUrl))) : printed(blank);
+    const front = mesh(new THREE.PlaneGeometry(PAGE, PAGE), fMat, false);
+    front.position.set(PAGE / 2, 0, 0.15);
+    const back = mesh(new THREE.PlaneGeometry(PAGE, PAGE), bMat, false);
+    back.position.set(PAGE / 2, 0, -0.15); back.rotation.y = Math.PI;
+    const paper = mesh(new THREE.BoxGeometry(PAGE, PAGE, 0.25), kinari);
+    paper.position.set(PAGE / 2, 0, 0);
+    s.add(paper, front, back);
+    s.userData = { angle: 0, target: 0 };
+    sheets.push(s);
+    booklet.add(s);
+  }
+  const backCover = mesh(new THREE.BoxGeometry(PAGE, PAGE, 0.6), kinari);
+  backCover.position.set(PAGE / 2, 0, -0.6);
+  booklet.add(backCover);
+  let spread = 0;                           // how many sheets are turned
+  function stackSheets() {
+    sheets.forEach((s, i) => { s.position.z = s.userData.target ? (i * 0.5) : ((nSheets - 1 - i) * 0.5); });
+  }
+  stackSheets();
+
+  // --- the signed founder card ---------------------------------------------
+  const CARD_W = 120, CARD_H = 75;
+  const card = new THREE.Group();
+  card.userData.pick = 'card';
+  const cardC = composed(1200, 750, manifest.card);
+  cardC.extras = (g, w, h) => {
+    writeNumber(g, 0.798 * w, 0.155 * h, 0.038 * w);
+    writeSignature(g, 0.1 * w, 0.81 * h, 0.053 * w);
+    stampHanko(g, 0.8625 * w, 0.74 * h, 0.12 * w, 0.04);   // 15 mm on a 120 mm card
+  };
+  slots.card = { label: 'Founder card', mats: [], custom: url => cardC.set(url) };
+  const cardTex = cardC.tex;
+  const cardFront = mesh(new THREE.PlaneGeometry(CARD_W, CARD_H), printed(cardTex), false);
+  cardFront.position.z = 0.3;
+  const cardBack = mesh(new THREE.PlaneGeometry(CARD_W, CARD_H), printed(plainTexture('#F2EDE3', true)), false);
+  cardBack.position.z = -0.3; cardBack.rotation.y = Math.PI;
+  card.add(mesh(new THREE.BoxGeometry(CARD_W, CARD_H, 0.5), kinari), cardFront, cardBack);
+
+  // --- the sticker sheet: a backing plus separate die-cut stickers you can peel ---
+  const sheetCfg = manifest.stickerSheet;
+  const [ST_W, ST_H] = sheetCfg.size;
+  const stickers = new THREE.Group();
+  stickers.userData.pick = 'stickers';
+  const stFront = mesh(new THREE.PlaneGeometry(ST_W, ST_H), slot('stickers', 'Sticker sheet backing', printed(loadTex(sheetCfg.backing))), false);
+  stFront.position.z = 0.2;
+  const stBack = mesh(new THREE.PlaneGeometry(ST_W, ST_H), printed(plainTexture('#ECE7DD', false)), false);
+  stBack.position.z = -0.2; stBack.rotation.y = Math.PI;
+  stickers.add(mesh(new THREE.BoxGeometry(ST_W, ST_H, 0.3), solid(0xECE7DD)), stFront, stBack);
+  const SEG = 22, CURL_R = 2.6;
+  const peelables = sheetCfg.stickers.map((st, i) => {
+    const geo = new THREE.PlaneGeometry(st.w, st.h, SEG, SEG);
+    const front = slot('sticker' + (i + 1), 'Sticker ' + (i + 1), new THREE.MeshStandardMaterial({
+      map: loadTex(st.src), transparent: true, alphaTest: 0.4, roughness: 0.8, side: THREE.FrontSide }));
+    const back = new THREE.MeshStandardMaterial({ map: loadTex(st.back), transparent: true, alphaTest: 0.4, roughness: 0.9, side: THREE.BackSide });
+    const g = new THREE.Group();
+    const mf = new THREE.Mesh(geo, front), mb = new THREE.Mesh(geo, back);
+    mf.castShadow = mb.castShadow = true;
+    mf.userData.sticker = mb.userData.sticker = i;
+    g.add(mf, mb);
+    g.userData = { geo, flat: geo.attributes.position.array.slice(), w: st.w, h: st.h,
+      home: new THREE.Vector3(st.x, st.y, 0.45 + i * 0.02), peeled: false, peel: null };
+    g.position.copy(g.userData.home);
+    stickers.add(g);
+    return g;
+  });
+  // Page-curl: the part behind the peel line wraps round a small cylinder and folds back on top.
+  function curl(g, u, L) {
+    const pos = g.userData.geo.attributes.position, f = g.userData.flat, r = CURL_R;
+    for (let k = 0; k < pos.count; k++) {
+      const x = f[3 * k], y = f[3 * k + 1];
+      const sAlong = x * u.x + y * u.y, t = -x * u.y + y * u.x;
+      let s2 = sAlong, z = 0;
+      const a = L - sAlong;
+      if (a > 0) {
+        if (a < Math.PI * r) { s2 = L - r * Math.sin(a / r); z = r * (1 - Math.cos(a / r)); }
+        else { s2 = L + (a - Math.PI * r); z = 2 * r; }
+      }
+      pos.setXYZ(k, s2 * u.x - t * u.y, s2 * u.y + t * u.x, z);
+    }
+    pos.needsUpdate = true;
+    g.userData.geo.computeVertexNormals();
+  }
+  function flatten(g) {
+    g.userData.geo.attributes.position.array.set(g.userData.flat);
+    g.userData.geo.attributes.position.needsUpdate = true;
+    g.userData.geo.computeVertexNormals();
+  }
+  const extent = (g, u) => (Math.abs(u.x) * g.userData.w + Math.abs(u.y) * g.userData.h) / 2;
+  // peeled stickers end up on the front of the box
+  const wallSpots = [[-78, 74, -0.12], [-16, 46, 0.08], [44, 80, -0.05], [88, 44, 0.14], [-64, 30, 0.1], [12, 92, -0.15], [72, 22, 0.06]];
+  let wallCount = 0;
+  function stickToWall(g) {
+    const [x, y, rz] = wallSpots[wallCount % wallSpots.length];
+    wallCount++;
+    flatten(g);
+    g.userData.peeled = true; g.userData.peel = null;
+    moveTo(g, base, new THREE.Vector3(x, y, BW / 2 + 0.3 + wallCount * 0.03),
+      new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, rz)), 0.75, 40);
+    updateHeldBar();
+  }
+  function unpeelAll() {
+    wallCount = 0;
+    peelables.forEach(g => {
+      if (!g.userData.peeled && !g.userData.peel) return;
+      g.userData.peeled = false; g.userData.peel = null;
+      flatten(g);
+      moveTo(g, stickers, g.userData.home, new THREE.Quaternion(), 0.8, 30);
+    });
+    updateHeldBar();
+  }
+
+  // --- where everything rests ----------------------------------------------
+  // Flat items are built standing (facing +z); lying down = turn -90° about x.
+  function flatPose(parent, cx, y, cz, yaw, offsetX) {
+    const q = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, yaw, 0))
+      .multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0)));
+    const off = new THREE.Vector3(offsetX, 0, 0).applyQuaternion(q);   // the booklet's centre is half a page from its spine
+    return { parent, pos: new THREE.Vector3(cx - off.x, y, cz - off.z), quat: q };
+  }
+  const homes = {
+    hako: { parent: 'base', pos: new THREE.Vector3(0, 72, 0), quat: new THREE.Quaternion() },
+    stickers: flatPose('base', -55, 102.6, -20, 0.15, 0),
+    card: flatPose('base', -40, 103.3, 55, -0.2, 0),
+    booklet: flatPose('base', 45, 104.2, 35, -0.08, PAGE / 2)
+  };
+  const tableSpots = {
+    hako: { parent: 'scene', pos: new THREE.Vector3(-390, 110, 40),
+      quat: new THREE.Quaternion().setFromEuler(new THREE.Euler(Math.PI / 2, 0.3, 0, 'YXZ')) },
+    stickers: flatPose('scene', 420, 0.5, -70, 0.25, 0),
+    card: flatPose('scene', 300, 0.6, -120, -0.15, 0),
+    booklet: flatPose('scene', 330, 1.5, 70, 0.12, PAGE / 2)
+  };
+  const objects = { hako, booklet, card, stickers };
+  const parents = { base, scene };
+  function place(o, p) { parents[p.parent].add(o); o.position.copy(p.pos); o.quaternion.copy(p.quat); }
+  ['booklet', 'card', 'stickers', 'hako'].forEach(k => place(objects[k], homes[k]));
+
+  // --- tweens ---------------------------------------------------------------
+  const tweens = new Map();
+  const ease = x => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  const clamp01 = x => Math.max(0, Math.min(1, x));
+  function moveTo(obj, parentObj, pos, quat, dur, arc) {
+    parentObj.attach(obj);                  // keep it where it is in the world, change who carries it
+    if (reduce) { obj.position.copy(pos); obj.quaternion.copy(quat); tweens.delete(obj); return; }
+    tweens.set(obj, { p0: obj.position.clone(), q0: obj.quaternion.clone(), p1: pos.clone(), q1: quat.clone(), t: 0, dur: dur || 0.8, arc: arc || 0 });
+  }
+  function stepTweens(dt) {
+    tweens.forEach((tw, obj) => {
+      tw.t = Math.min(1, tw.t + dt / tw.dur);
+      const k = ease(tw.t);
+      obj.position.lerpVectors(tw.p0, tw.p1, k);
+      obj.position.y += Math.sin(Math.PI * k) * tw.arc;
+      obj.quaternion.copy(tw.q0).slerp(tw.q1, k);
+      if (tw.t >= 1) tweens.delete(obj);
+    });
+  }
+
+  // --- orbit (drag) and zoom -------------------------------------------------
+  const controls = {
+    target: new THREE.Vector3(), autoRotate: false, minDistance: 260, maxDistance: 1700,
+    theta: 0, phi: 1, radius: 800, vTheta: 0, vPhi: 0,
+    sync() {
+      const o = camera.position.clone().sub(this.target);
+      this.radius = o.length();
+      this.theta = Math.atan2(o.x, o.z);
+      this.phi = Math.acos(Math.max(-1, Math.min(1, o.y / this.radius)));
+    },
+    update(dt) {
+      if (this.autoRotate) this.theta += dt * 0.35;
+      this.theta += this.vTheta; this.phi += this.vPhi;
+      this.vTheta *= 0.88; this.vPhi *= 0.88;
+      this.phi = Math.max(0.05, Math.min(Math.PI - 0.05, this.phi));
+      this.radius = Math.max(this.minDistance, Math.min(this.maxDistance, this.radius));
+      const r = this.radius, sp = Math.sin(this.phi);
+      camera.position.set(this.target.x + r * sp * Math.sin(this.theta), this.target.y + r * Math.cos(this.phi), this.target.z + r * sp * Math.cos(this.theta));
+      camera.lookAt(this.target);
+    }
+  };
+  let camAnim = null;
+  const views = {
+    viewAngle: { pos: [470, 330, 560], target: [0, 50, 0] },
+    viewFront: { pos: [0, 90, 720], target: [0, 58, 0] },
+    viewTop: { pos: [0, 760, 40], target: [0, 58, 0] },
+    viewBottom: { pos: [60, -620, 260], target: [0, 40, 0] },
+    viewOpen: { pos: [430, 480, 820], target: [0, 70, -110] },
+    viewTable: { pos: [60, 640, 1180], target: [0, 50, 0] }
+  };
+  function goTo(name) {
+    const v = views[name];
+    const to = { pos: new THREE.Vector3(...v.pos), target: new THREE.Vector3(...v.target) };
+    if (reduce) { camera.position.copy(to.pos); controls.target.copy(to.target); controls.sync(); return; }
+    camAnim = { from: { pos: camera.position.clone(), target: controls.target.clone() }, to, t: 0 };
+  }
+  camera.position.set(...views.viewAngle.pos);
+  controls.target.set(...views.viewAngle.target);
+  controls.sync();
+
+  // --- picking things up ------------------------------------------------------
+  let held = null;                          // 'booklet' | 'card' | 'stickers'
+  let heldFlip = false;
+  let zoom = 1;
+  const pan = new THREE.Vector2();          // in mm as seen at the un-zoomed holding distance
+  const holdSize = { booklet: [PAGE * 2, PAGE], card: [CARD_W, CARD_H], stickers: [ST_W, ST_H] };
+  function holdDist(name) {
+    const [w, h] = holdSize[name];
+    const vf = THREE.MathUtils.degToRad(camera.fov) / 2;
+    return Math.max((h * 1.4) / 2 / Math.tan(vf), (w * 1.15) / 2 / (Math.tan(vf) * camera.aspect));
+  }
+  function holdPose(name) {
+    const [, h] = holdSize[name];
+    const ox = name === 'booklet' ? (spread === 0 ? -PAGE / 2 : spread === nSheets ? PAGE / 2 : 0) : 0;
+    const q = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, heldFlip ? Math.PI : 0, 0));
+    return { pos: new THREE.Vector3(ox + pan.x / zoom, h * 0.08 + pan.y / zoom, -holdDist(name) / zoom), quat: q };
+  }
+  function viewMm() {                       // mm per screen pixel at the un-zoomed holding distance
+    const vf = THREE.MathUtils.degToRad(camera.fov) / 2;
+    return 2 * holdDist(held) * Math.tan(vf) / stage.clientHeight;
+  }
+  function clampPan() {
+    const [w, h] = holdSize[held];
+    const mx = w * (zoom - 1) / 2 + (held === 'booklet' ? PAGE / 2 * (zoom - 1) : 0), my = h * (zoom - 1) / 2;
+    pan.x = Math.max(-mx, Math.min(mx, pan.x));
+    pan.y = Math.max(-my, Math.min(my, pan.y));
+  }
+  function zoomAt(factor, cx, cy) {         // keep the point under (cx, cy) still
+    if (!held) return;
+    const z1 = Math.max(1, Math.min(4, zoom * factor));
+    const r = el.getBoundingClientRect(), mm = viewMm();
+    const c = new THREE.Vector2(((cx ?? r.left + r.width / 2) - r.left - r.width / 2) * mm, -((cy ?? r.top + r.height / 2) - r.top - r.height / 2) * mm);
+    const X = c.clone().sub(pan).divideScalar(zoom);
+    pan.copy(c.sub(X.multiplyScalar(z1)));
+    zoom = z1;
+    clampPan();
+    updateHeldBar();
+  }
+  function pickUp(name) {
+    if (held === name) return;
+    if (held) putBack();
+    held = name; heldFlip = false; zoom = 1; pan.set(0, 0);
+    controls.autoRotate = false; $('spinBtn').setAttribute('aria-pressed', 'false');
+    const p = holdPose(name);
+    moveTo(objects[name], camera, p.pos, p.quat, 0.9);
+    updateHeldBar();
+  }
+  function putBack() {
+    if (!held) return;
+    const name = held; held = null;
+    if (name === 'booklet') { spread = 0; sheets.forEach(s => s.userData.target = 0); stackSheets(); }
+    if (name === 'stickers') peelables.forEach(g => { if (g.userData.peel) { g.userData.peel = null; flatten(g); } });
+    zoom = 1; pan.set(0, 0);
+    const p = hakoOut ? tableSpots[name] : homes[name];
+    moveTo(objects[name], parents[p.parent], p.pos, p.quat, 0.9, 40);
+    updateHeldBar();
+  }
+  function reHold() { /* the frame loop follows holdPose() */ }
+  function turnPage(dir) {
+    const next = Math.max(0, Math.min(nSheets, spread + dir));
+    if (next === spread) return;
+    if (dir > 0) sheets[spread].userData.target = 1; else sheets[next].userData.target = 0;
+    spread = next;
+    stackSheets(); reHold(); updateHeldBar();
+  }
+  const restHint = 'Drag to turn the box, pinch or scroll to zoom. Tap the lid to open it, then tap the booklet, the signed card, the stickers or hako itself.';
+  function updateHeldBar() {
+    $('heldBar').hidden = !held;
+    const isBook = held === 'booklet';
+    $('prevBtn').hidden = !isBook; $('nextBtn').hidden = !isBook; $('pageCount').hidden = !isBook;
+    $('turnBtn').hidden = !held || isBook;
+    $('unpeelBtn').hidden = !(held === 'stickers' && peelables.some(g => g.userData.peeled));
+    $('zoomInBtn').disabled = zoom >= 3.99; $('zoomOutBtn').disabled = zoom <= 1.01;
+    if (isBook) {
+      const n = pageUrls.length;
+      const shown = [spread === 0 ? 0 : 2 * spread, spread === nSheets ? 0 : 2 * spread + 1].filter(v => v && v <= n);
+      $('pageCount').textContent = spread === 0 ? 'Cover' : (shown.length > 1 ? 'Pages ' + shown.join('–') : 'Page ' + shown[0]) + ' of ' + n;
+      $('prevBtn').disabled = spread === 0; $('nextBtn').disabled = spread === nSheets;
+    }
+    $('hint').textContent = held
+      ? (isBook ? 'Tap the right page to turn forward, the left page to go back. Pinch or scroll to zoom in, drag to look around. Tap outside to put it back.'
+        : held === 'stickers' ? 'Swipe across a sticker to peel it off; it sticks to the front of the box. Pinch or scroll to zoom. Tap the sheet to turn it over, or outside to put it back.'
+        : 'Tap it to turn it over. Pinch or scroll to zoom in, drag to look around. Tap outside to put it back.')
+      : restHint;
+  }
+  $('prevBtn').addEventListener('click', () => turnPage(-1));
+  $('nextBtn').addEventListener('click', () => turnPage(1));
+  $('turnBtn').addEventListener('click', () => { heldFlip = !heldFlip; reHold(); });
+  $('putBtn').addEventListener('click', putBack);
+  $('zoomInBtn').addEventListener('click', () => zoomAt(1.5));
+  $('zoomOutBtn').addEventListener('click', () => zoomAt(1 / 1.5));
+  $('unpeelBtn').addEventListener('click', unpeelAll);
+  window.addEventListener('keydown', e => {
+    if (!held) return;
+    if (e.key === 'Escape') putBack();
+    if (held === 'booklet' && e.key === 'ArrowRight') turnPage(1);
+    if (held === 'booklet' && e.key === 'ArrowLeft') turnPage(-1);
+  });
+
+  // --- the lid ----------------------------------------------------------------
+  const OPEN_ROT = -1.9;                    // tipped back so the inside print faces you
+  lid.rotation.x = OPEN_ROT;
+  lid.updateMatrixWorld(true);
+  const bb = new THREE.Box3().setFromObject(lid);
+  const openPos = new THREE.Vector3(0, -bb.min.y + 0.5, -BW / 2 - 18 - bb.max.z);
+  lid.rotation.x = 0;
+  let lidT = 0, lidTarget = 0;
+  function poseLid(t) {
+    const a = ease(clamp01(t / 0.35)), b = ease(clamp01((t - 0.35) / 0.65));
+    const lift = new THREE.Vector3(0, (H + 70) * a, 0);
+    lid.position.copy(b > 0 ? lift.lerp(openPos, b) : lift);
+    lid.rotation.x = OPEN_ROT * b;
+  }
+  let hakoOut = false;
+  function setLid(open) {
+    if (open === !!lidTarget) return;
+    if (!open) { if (held) putBack(); if (hakoOut) setHako(false); }
+    lidTarget = open ? 1 : 0;
+    $('openBtn').textContent = open ? 'Close the lid' : 'Open the lid';
+    $('hakoBtn').disabled = !open;
+    if (reduce) { lidT = lidTarget; poseLid(lidT); }
+    goTo(open ? 'viewOpen' : 'viewAngle');
+  }
+  $('openBtn').addEventListener('click', () => setLid(!lidTarget));
+
+  // --- taking hako out --------------------------------------------------------
+  function setHako(out) {
+    if (out === hakoOut) return;
+    if (held) putBack();
+    hakoOut = out;
+    const spot = out ? tableSpots.hako : homes.hako;
+    setTimeout(() => moveTo(hako, parents[spot.parent], spot.pos, spot.quat, 1.2, 140), out ? 350 : 0);
+    // what rests on hako is set down on the table first, and goes back on top after
+    ['booklet', 'card', 'stickers'].forEach((k, i) => {
+      const p = out ? tableSpots[k] : homes[k];
+      setTimeout(() => moveTo(objects[k], parents[p.parent], p.pos, p.quat, 1.0, 90), out ? i * 90 : 1100 + i * 120);
+    });
+    $('hakoBtn').textContent = out ? 'Put hako back' : 'Take hako out';
+    goTo(out ? 'viewTable' : 'viewOpen');
+    if (!out) { screenMat.map = screenMat.emissiveMap = screenTex[0]; screenMat.needsUpdate = true; screenIdx = 0; }
+  }
+  $('hakoBtn').addEventListener('click', () => setHako(!hakoOut));
+  let screenIdx = 0, screenClock = 0;
+
+  ['viewAngle', 'viewFront', 'viewTop', 'viewBottom'].forEach(id => $(id).addEventListener('click', () => { if (held) putBack(); goTo(id); }));
+  $('spinBtn').addEventListener('click', () => {
+    if (held) putBack();
+    controls.autoRotate = !controls.autoRotate;
+    $('spinBtn').setAttribute('aria-pressed', String(controls.autoRotate));
+  });
+
+  // --- taps vs drags -----------------------------------------------------------
+  const el = renderer.domElement;
+  const raycaster = new THREE.Raycaster();
+  const ndc = new THREE.Vector2();
+  function hit(e) {
+    const r = el.getBoundingClientRect();
+    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    raycaster.setFromCamera(ndc, camera);
+    const hits = raycaster.intersectObjects([lid, base, hako, booklet, card, stickers], true);
+    if (!hits.length) return null;
+    let o = hits[0].object;
+    while (o && !o.userData.pick) o = o.parent;
+    return o ? { name: o.userData.pick, point: hits[0].point } : null;
+  }
+  function onTap(e) {
+    const h = hit(e);
+    if (held) {
+      if (!h || h.name !== held) { putBack(); return; }
+      if (held === 'booklet') turnPage(booklet.worldToLocal(h.point.clone()).x >= 0 ? 1 : -1);
+      else { heldFlip = !heldFlip; reHold(); }
+      return;
+    }
+    if (!h) return;
+    if (h.name === 'lid') { setLid(!lidTarget); return; }
+    if (!lidTarget) return;
+    if (h.name === 'hako') { setHako(!hakoOut); return; }
+    pickUp(h.name);
+  }
+  const pointers = new Map();
+  let pinchDist = 0, downAt = null, peelGrab = null;
+  function stickerUnder(e) {
+    const r = el.getBoundingClientRect();
+    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    raycaster.setFromCamera(ndc, camera);
+    const h = raycaster.intersectObjects(peelables, true).find(x => x.object.userData.sticker !== undefined);
+    if (!h) return null;
+    const g = peelables[h.object.userData.sticker];
+    return g.userData.peeled || g.parent !== stickers ? null : g;
+  }
+  el.addEventListener('pointerdown', e => {
+    el.setPointerCapture(e.pointerId);
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    downAt = pointers.size === 1 ? { x: e.clientX, y: e.clientY, t: performance.now() } : null;
+    peelGrab = null;
+    if (pointers.size === 1 && held === 'stickers' && !heldFlip && !tweens.has(stickers)) {
+      const g = stickerUnder(e);
+      if (g) peelGrab = { g, x: e.clientX, y: e.clientY, u: null };
+    }
+  });
+  el.addEventListener('pointermove', e => {
+    const p = pointers.get(e.pointerId);
+    if (!p) {
+      if (e.pointerType === 'mouse') {
+        const h = hit(e);
+        el.classList.toggle('pointy', !!(held || (h && (h.name === 'lid' || lidTarget))));
+      }
+      return;
+    }
+    if (downAt && Math.hypot(e.clientX - downAt.x, e.clientY - downAt.y) > 6) downAt = null;
+    if (peelGrab && pointers.size === 1) {          // peeling a sticker
+      const g = peelGrab.g;
+      const mm = viewMm() / zoom;
+      const d = new THREE.Vector2((e.clientX - peelGrab.x) * mm, -(e.clientY - peelGrab.y) * mm);
+      if (!peelGrab.u && d.length() > 1.5) {
+        peelGrab.u = d.clone().normalize();
+        g.userData.peel = { u: peelGrab.u, L: -extent(g, peelGrab.u), target: null };
+      }
+      if (peelGrab.u) {
+        const ext = extent(g, peelGrab.u);
+        g.userData.peel.L = -ext + Math.max(0, d.dot(peelGrab.u)) * 0.55;
+        curl(g, peelGrab.u, g.userData.peel.L);
+      }
+    } else if (held && pointers.size === 1 && !downAt) {   // looking around a zoomed item
+      const mm = viewMm();
+      pan.x += (e.clientX - p.x) * mm; pan.y -= (e.clientY - p.y) * mm;
+      clampPan();
+    } else if (held && pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      const d = Math.hypot(a.x - b.x, a.y - b.y);
+      if (pinchDist) zoomAt(d / pinchDist, (a.x + b.x) / 2, (a.y + b.y) / 2);
+      pinchDist = d;
+    } else if (pointers.size === 1 && !downAt) {
+      camAnim = null;
+      controls.vTheta = -(e.clientX - p.x) * 0.006;
+      controls.vPhi = -(e.clientY - p.y) * 0.006;
+    } else if (pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      const d = Math.hypot(a.x - b.x, a.y - b.y);
+      if (pinchDist) controls.radius *= pinchDist / Math.max(1, d);
+      pinchDist = d;
+    }
+    p.x = e.clientX; p.y = e.clientY;
+  });
+  function releasePeel() {
+    if (!peelGrab) return false;
+    const g = peelGrab.g, pl = g.userData.peel;
+    const started = !!peelGrab.u;
+    peelGrab = null;
+    if (!started || !pl) return false;
+    const ext = extent(g, pl.u);
+    const progress = (pl.L + ext) / (2 * ext);
+    pl.target = progress > 0.35 ? ext + Math.PI * CURL_R + 12 : -ext;   // finish the peel, or lay it back down
+    return true;
+  }
+  el.addEventListener('pointerup', e => {
+    pointers.delete(e.pointerId); pinchDist = 0;
+    const peeled = releasePeel();
+    if (!peeled && downAt && performance.now() - downAt.t < 600) onTap(e);
+    downAt = null;
+  });
+  el.addEventListener('pointercancel', e => { pointers.delete(e.pointerId); pinchDist = 0; downAt = null; releasePeel(); });
+  el.addEventListener('wheel', e => {
+    e.preventDefault();
+    if (held) { zoomAt(Math.exp(-e.deltaY * 0.0015), e.clientX, e.clientY); return; }
+    controls.radius *= Math.exp(e.deltaY * 0.0012); camAnim = null;
+  }, { passive: false });
+
+  // --- size + loop ---------------------------------------------------------
+  function resize() {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.fov = w < 520 ? 42 : 32;
+    camera.updateProjectionMatrix();
+    reHold();
+  }
+  new ResizeObserver(resize).observe(stage);
+  resize();
+
+  let last = performance.now();
+  function frame(now) {
+    const dt = Math.min(0.05, (now - last) / 1000);
+    last = now;
+    if (lidT !== lidTarget) {
+      lidT = lidTarget > lidT ? Math.min(lidTarget, lidT + dt / 1.6) : Math.max(lidTarget, lidT - dt / 1.6);
+      poseLid(lidT);
+    }
+    sheets.forEach(s => {                    // page turns
+      const goal = s.userData.target ? -Math.PI : 0;
+      s.userData.angle = reduce ? goal : s.userData.angle + (goal - s.userData.angle) * Math.min(1, dt * 7);
+      s.rotation.y = s.userData.angle;
+    });
+    stepTweens(dt);
+    if (held && !tweens.has(objects[held])) {        // follow zoom, pan and turning over
+      const p = holdPose(held), o = objects[held];
+      o.position.lerp(p.pos, reduce ? 1 : Math.min(1, dt * 12));
+      o.quaternion.slerp(p.quat, reduce ? 1 : Math.min(1, dt * 9));
+      backdrop.position.z = p.pos.z - 60;
+    }
+    peelables.forEach(g => {                          // a released peel finishes or settles back
+      const pl = g.userData.peel;
+      if (!pl || pl.target === null) return;
+      pl.L += (pl.target - pl.L) * Math.min(1, dt * 9);
+      curl(g, pl.u, pl.L);
+      if (Math.abs(pl.target - pl.L) < 0.6) {
+        if (pl.target > 0) stickToWall(g); else { g.userData.peel = null; flatten(g); }
+      }
+    });
+    backdropMat.opacity += ((held ? 0.88 : 0) - backdropMat.opacity) * Math.min(1, dt * 6);
+    backdrop.visible = backdropMat.opacity > 0.01;
+    if (hakoOut && screenTex.length > 1) {   // hako shows its friends while it's out
+      screenClock += dt;
+      if (screenClock > 2.6) {
+        screenClock = 0; screenIdx = (screenIdx + 1) % screenTex.length;
+        screenMat.map = screenMat.emissiveMap = screenTex[screenIdx]; screenMat.needsUpdate = true;
+      }
+    }
+    if (camAnim) {
+      camAnim.t = Math.min(1, camAnim.t + dt / 0.9);
+      const k = ease(camAnim.t);
+      camera.position.lerpVectors(camAnim.from.pos, camAnim.to.pos, k);
+      controls.target.lerpVectors(camAnim.from.target, camAnim.to.target, k);
+      camera.lookAt(controls.target);
+      if (camAnim.t >= 1) { camAnim = null; controls.sync(); }
+    } else {
+      controls.update(dt);
+    }
+    renderer.render(scene, camera);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+
+// --- the gate: the artwork is encrypted (tools/build-box.mjs); the password unlocks it here
+(function () {
+  const $ = id => document.getElementById(id);
+  const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+  async function unlock(pass, onProgress) {
+    const meta = await (await fetch('meta.json', { cache: 'no-store' })).json();
+    const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pass), 'PBKDF2', false, ['deriveKey']);
+    const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: b64(meta.salt), iterations: meta.iterations, hash: 'SHA-256' },
+      base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+    const open = async id => {
+      const buf = new Uint8Array(await (await fetch('d/' + id + '.bin')).arrayBuffer());
+      return crypto.subtle.decrypt({ name: 'AES-GCM', iv: buf.slice(0, 12) }, key, buf.slice(12));
+    };
+    let index;
+    try { index = JSON.parse(new TextDecoder().decode(await open(meta.index))); }
+    catch (e) { throw new Error('wrong'); }
+    const urls = {}, entries = Object.entries(index.files);
+    let doneCount = 0;
+    await Promise.all(entries.map(async ([path, f]) => {
+      urls[path] = URL.createObjectURL(new Blob([await open(f.id)], { type: f.type }));
+      onProgress(++doneCount / entries.length);
+    }));
+    const rewrite = v => typeof v === 'string' ? (urls[v] || v)
+      : Array.isArray(v) ? v.map(rewrite)
+      : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, rewrite(x)])) : v;
+    return rewrite(index.manifest);
+  }
+  async function attempt(pass, quiet) {
+    $('gateBtn').disabled = true;
+    $('gateError').textContent = quiet ? '' : 'Unlocking…';
+    try {
+      const manifest = await unlock(pass, p => { $('gateError').textContent = 'Unlocking… ' + Math.round(p * 100) + '%'; });
+      try { sessionStorage.setItem('hako-box-pass', pass); } catch (e) { /* private window */ }
+      $('gate').hidden = true;
+      $('viewer').hidden = false;
+      startViewer(manifest);
+    } catch (e) {
+      $('gateBtn').disabled = false;
+      $('gateError').textContent = quiet ? '' : (e.message === 'wrong'
+        ? 'That password didn\'t work. Check with Jared for the tester password.'
+        : 'The box didn\'t load. Check your connection and try again.');
+      if (!quiet) $('gatePass').select();
+    }
+  }
+  $('gateForm').addEventListener('submit', e => { e.preventDefault(); attempt($('gatePass').value, false); });
+  let saved = null;
+  try { saved = sessionStorage.getItem('hako-box-pass'); } catch (e) { /* private window */ }
+  if (saved) attempt(saved, true);
+  else $('gatePass').focus();
+})();
+
+</script>
+</body>
+</html>
