@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Road to launch · hako</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
+  <script>
+    try { var t = localStorage.getItem("hako-theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+  </script>
+  <style>
+    :root {
+      --bg: #F2EDE3; --surface: #FBF8F2; --ink: #1E1B18; --muted: #6B635A; --line: #DDD5C7;
+      --shu: #B3312B; --shu-soft: #F1DCD6; --gold: #B07A1E; --ok: #3E7B4F; --led-off: #E2DACB;
+      --display: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+      --body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, monospace;
+    }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+      --bg: #15120F; --surface: #1F1B17; --ink: #EEE7DA; --muted: #A69C8E; --line: #3A332B;
+      --shu: #E0574F; --shu-soft: #3B1F1B; --gold: #D9A441; --ok: #6FB383; --led-off: #2C2621; color-scheme: dark; } }
+    :root[data-theme="dark"] {
+      --bg: #15120F; --surface: #1F1B17; --ink: #EEE7DA; --muted: #A69C8E; --line: #3A332B;
+      --shu: #E0574F; --shu-soft: #3B1F1B; --gold: #D9A441; --ok: #6FB383; --led-off: #2C2621; color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.55 var(--body); }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 28px max(16px, env(safe-area-inset-right, 0px)) 64px max(16px, env(safe-area-inset-left, 0px)); }
+    h1, h2, h3 { font-family: var(--display); font-weight: 700; margin: 0; text-wrap: balance; }
+    .mark { width: 34px; height: 34px; border-radius: 4px; background: var(--shu); color: #F7F1E6; display: inline-flex;
+      align-items: center; justify-content: center; font-family: var(--display); font-size: 21px; flex-shrink: 0; }
+    .muted { color: var(--muted); }
+    .label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+    button { font: inherit; cursor: pointer; }
+    [hidden] { display: none !important; }
+
+    /* gate */
+    .gate { max-width: 400px; margin: 14vh auto 0; display: flex; flex-direction: column; gap: 14px; }
+    .gate h1 { font-size: 30px; }
+    .gate form { display: flex; gap: 8px; flex-wrap: wrap; }
+    .gate input { flex: 1 1 200px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 999px;
+      background: var(--surface); color: var(--ink); font: inherit; }
+    .gate button, .btn { min-height: 44px; padding: 0 20px; border-radius: 999px; border: 1px solid var(--ink);
+      background: var(--ink); color: var(--bg); font-weight: 500; }
+    .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+    .err { color: var(--shu); font-size: 14px; min-height: 20px; }
+
+    /* header + stats */
+    header { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+    header h1 { font-size: 26px; letter-spacing: 0.04em; }
+    header .sub { font-size: 13px; }
+    .stats { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 12px; }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; min-width: 0; }
+    .level-title { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin: 4px 0 10px; }
+    .level-title h2 { font-size: 24px; }
+    .level-title .jp { font-family: var(--display); color: var(--shu); font-size: 18px; }
+    .leds { display: grid; grid-template-columns: repeat(32, 1fr); gap: 3px; }
+    .leds i { aspect-ratio: 1; border-radius: 50%; background: var(--led-off); }
+    .leds i.on { background: var(--shu); box-shadow: 0 0 6px color-mix(in srgb, var(--shu) 55%, transparent); }
+    .xp-line { display: flex; justify-content: space-between; font: 500 12px var(--mono); color: var(--muted); margin-top: 8px; }
+    .big { font: 700 40px/1 var(--display); margin: 6px 0 4px; font-variant-numeric: tabular-nums; }
+    .big small { font-size: 18px; color: var(--muted); }
+
+    /* milestones + timeline */
+    section { margin-top: 30px; }
+    section > h3 { font-size: 19px; margin-bottom: 12px; display: flex; align-items: baseline; gap: 10px; }
+    section > h3 .label { font-family: var(--body); }
+    .miles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+    .mile { padding: 12px 14px; }
+    .mile .days { font: 700 22px var(--display); font-variant-numeric: tabular-nums; }
+    .mile .when { font-size: 12px; color: var(--muted); }
+    .mile.past .days { color: var(--ok); }
+    .timeline { overflow-x: auto; padding-bottom: 6px; }
+    .track { position: relative; min-width: 720px; display: flex; gap: 4px; padding-top: 22px; }
+    .seg { position: relative; height: 54px; border-radius: 8px; background: var(--surface); border: 1px solid var(--line); overflow: hidden;
+      padding: 6px 8px; font-size: 11.5px; line-height: 1.25; cursor: pointer; text-align: left; color: var(--ink); }
+    .seg .fill { position: absolute; inset: 0 auto 0 0; background: color-mix(in srgb, var(--ok) 22%, transparent); }
+    .seg b { position: relative; display: block; font-family: var(--display); font-size: 13px; }
+    .seg span { position: relative; color: var(--muted); }
+    .today { position: absolute; top: 0; bottom: -4px; width: 2px; background: var(--shu); }
+    .today::before { content: "today"; position: absolute; top: 0; left: 4px; font: 500 11px var(--mono); color: var(--shu); }
+
+    /* badges */
+    .badges { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+    .badge { display: flex; gap: 10px; align-items: center; padding: 10px 12px; }
+    .badge .seal { width: 40px; height: 40px; border-radius: 6px; display: flex; align-items: center; justify-content: center;
+      font: 700 15px var(--display); border: 1.5px dashed var(--line); color: var(--muted); flex-shrink: 0; }
+    .badge.got .seal { background: var(--shu); border: 0; color: #F7F1E6; transform: rotate(-4deg); }
+    .badge b { display: block; font-size: 13.5px; }
+    .badge small { color: var(--muted); font-size: 11.5px; line-height: 1.3; display: block; }
+
+    /* filters */
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .chip { display: inline-flex; align-items: center; gap: 6px; min-height: 34px; padding: 0 12px; border-radius: 999px;
+      border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 13px; }
+    .chip .k { font-family: var(--display); color: var(--shu); }
+    .chip .n { font: 500 11px var(--mono); color: var(--muted); }
+    .chip[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+    .toggle { margin-left: auto; display: inline-flex; gap: 8px; align-items: center; font-size: 13px; color: var(--muted); }
+
+    /* phases + tasks */
+    .phase { margin-top: 26px; }
+    .phase-head { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+    .phase-head .pj { font: 700 22px var(--display); color: var(--shu); width: 44px; flex-shrink: 0; line-height: 1.1; }
+    .phase-head h3 { font-size: 19px; }
+    .phase-head .meta { font-size: 12.5px; color: var(--muted); }
+    .bar { height: 6px; border-radius: 3px; background: var(--led-off); overflow: hidden; margin-top: 6px; max-width: 280px; }
+    .bar i { display: block; height: 100%; background: var(--ok); transition: width .4s; }
+    .tasks { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+    .task { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 10px; align-items: start;
+      background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+    .task.done { opacity: 0.6; }
+    .task.done .t { text-decoration: line-through; text-decoration-color: var(--muted); }
+    .task.late { border-color: color-mix(in srgb, var(--shu) 50%, var(--line)); }
+    .check { width: 26px; height: 26px; border-radius: 6px; border: 1.5px solid var(--muted); background: transparent;
+      display: flex; align-items: center; justify-content: center; padding: 0; color: transparent; margin-top: 1px; }
+    .task.done .check { background: var(--shu); border-color: var(--shu); color: #F7F1E6; }
+    .t { font-weight: 500; }
+    .d { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .tags { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+    .xp { font: 500 12px var(--mono); padding: 2px 8px; border-radius: 999px; background: var(--shu-soft); color: var(--shu); white-space: nowrap; }
+    .cat { font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+    .late-tag { font: 500 11px var(--mono); color: var(--shu); }
+
+    footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 13px; }
+    footer textarea { width: 100%; min-height: 70px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: 12px var(--mono); padding: 10px; }
+    .toast { position: fixed; left: 50%; bottom: max(20px, env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 140%);
+      background: var(--ink); color: var(--bg); padding: 12px 18px; border-radius: 12px; font-size: 14px; transition: transform .35s;
+      display: flex; gap: 10px; align-items: center; z-index: 5; max-width: calc(100% - 32px); }
+    .toast.show { transform: translate(-50%, 0); }
+    .toast .mark { width: 26px; height: 26px; font-size: 15px; }
+
+    @media (max-width: 720px) {
+      .stats { grid-template-columns: 1fr 1fr; }
+      .stats .card:first-child { grid-column: 1 / -1; }
+      .miles { grid-template-columns: 1fr 1fr; }
+      .task { grid-template-columns: 30px minmax(0, 1fr); }
+      .tags { grid-column: 2; justify-content: flex-start; }
+      .toggle { margin-left: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { .toast, .bar i { transition: none; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="gate" id="gate">
+      <span class="mark">箱</span>
+      <h1>Road to launch</h1>
+      <p class="muted" style="margin:0">Everything left to do before hako goes live. For Jared and the team.</p>
+      <form id="gateForm">
+        <input id="gatePass" type="password" autocomplete="current-password" placeholder="Password" aria-label="Password" required />
+        <button type="submit" id="gateBtn">Open</button>
+      </form>
+      <div class="err" id="gateErr" role="alert"></div>
+    </div>
+
+    <div id="app" hidden>
+      <header>
+        <span class="mark">箱</span>
+        <div>
+          <h1>Road to launch</h1>
+          <div class="sub muted" id="updated"></div>
+        </div>
+      </header>
+
+      <div class="stats">
+        <div class="card">
+          <div class="label">Level <span id="levelNum"></span></div>
+          <div class="level-title"><h2 id="levelName"></h2><span class="jp" id="levelJp"></span></div>
+          <div class="leds" id="leds" aria-hidden="true"></div>
+          <div class="xp-line"><span id="xpNow"></span><span id="xpNext"></span></div>
+        </div>
+        <div class="card">
+          <div class="label">Done</div>
+          <div class="big" id="pct"></div>
+          <div class="muted" id="counts" style="font-size:13px"></div>
+        </div>
+        <div class="card">
+          <div class="label">Next up</div>
+          <div class="big" id="nextDays"></div>
+          <div class="muted" id="nextName" style="font-size:13px"></div>
+        </div>
+      </div>
+
+      <section>
+        <h3>Milestones</h3>
+        <div class="miles" id="miles"></div>
+      </section>
+
+      <section>
+        <h3>Timeline <span class="label">tap a phase to jump to it</span></h3>
+        <div class="timeline"><div class="track" id="track"></div></div>
+      </section>
+
+      <section>
+        <h3>Badges <span class="label" id="badgeCount"></span></h3>
+        <div class="badges" id="badges"></div>
+      </section>
+
+      <section>
+        <h3>Quests</h3>
+        <div class="filters" id="filters"></div>
+        <div id="phases"></div>
+      </section>
+
+      <footer>
+        <span class="muted">Ticks are saved in this browser. To carry them to another device, copy your progress code and paste it there.</span>
+        <button class="btn ghost" id="exportBtn" type="button">Copy progress code</button>
+        <button class="btn ghost" id="importBtn" type="button">Paste a progress code</button>
+        <div id="importBox" hidden style="width:100%;display:flex;flex-direction:column;gap:8px">
+          <textarea id="importText" placeholder="Paste a progress code here" aria-label="Progress code"></textarea>
+          <div style="display:flex;gap:8px"><button class="btn" id="importGo" type="button">Load it</button>
+          <span class="muted" id="importMsg" style="align-self:center"></span></div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"><span class="mark">箱</span><span id="toastText"></span></div>
+
+  <script>
+  (function () {
+    const $ = id => document.getElementById(id);
+    const STORE = "hako-plan-v1";
+    const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+    let plan = null, done = {}, filter = "all", hideDone = false;
+
+    async function unlock(pass) {
+      const vault = await (await fetch("vault.json", { cache: "no-store" })).json();
+      const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pass), "PBKDF2", false, ["deriveKey"]);
+      const key = await crypto.subtle.deriveKey({ name: "PBKDF2", salt: b64(vault.salt), iterations: vault.iterations, hash: "SHA-256" },
+        base, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+      const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64(vault.iv) }, key, b64(vault.data));
+      return JSON.parse(new TextDecoder().decode(plain));
+    }
+    async function open(pass, quiet) {
+      $("gateBtn").disabled = true; $("gateErr").textContent = quiet ? "" : "Opening…";
+      try {
+        plan = await unlock(pass);
+        try { sessionStorage.setItem("hako-plan-pass", pass); } catch (e) {}
+        start();
+      } catch (e) {
+        $("gateErr").textContent = quiet ? "" : "That password didn't work.";
+        $("gateBtn").disabled = false;
+      }
+    }
+    $("gateForm").addEventListener("submit", e => { e.preventDefault(); open($("gatePass").value); });
+    try { const saved = sessionStorage.getItem("hako-plan-pass"); if (saved) open(saved, true); } catch (e) {}
+
+    // ---- progress -------------------------------------------------------------
+    function load() {
+      try { done = JSON.parse(localStorage.getItem(STORE) || "{}").done || {}; } catch (e) { done = {}; }
+    }
+    function save() { try { localStorage.setItem(STORE, JSON.stringify({ done })); } catch (e) {} }
+    const isDone = t => (t.id in done) ? !!done[t.id] : !!t.done;
+    const xpEarned = () => plan.tasks.reduce((s, t) => s + (isDone(t) ? t.xp : 0), 0);
+    function levelFor(xp) {
+      let i = 0; plan.levels.forEach((l, k) => { if (xp >= l.xp) i = k; });
+      return { i, cur: plan.levels[i], next: plan.levels[i + 1] || null };
+    }
+    const badgeGot = b => b.needs.every(id => { const t = plan.tasks.find(x => x.id === id); return t && isDone(t); });
+    const day = s => new Date(s + "T12:00:00");
+    const daysTo = s => Math.ceil((day(s) - new Date()) / 86400000);
+    const fmt = s => day(s).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+    const fmtShort = s => day(s).toLocaleDateString(undefined, { month: "short", year: "numeric" });
+
+    function toast(text) {
+      $("toastText").textContent = text;
+      $("toast").classList.add("show");
+      clearTimeout(toast.timer);
+      toast.timer = setTimeout(() => $("toast").classList.remove("show"), 2800);
+    }
+
+    function toggle(id) {
+      const t = plan.tasks.find(x => x.id === id);
+      const beforeXp = xpEarned(), beforeLevel = levelFor(beforeXp).i;
+      const beforeBadges = plan.badges.filter(badgeGot).map(b => b.id);
+      done[id] = !isDone(t);
+      save();
+      const lv = levelFor(xpEarned());
+      const newBadge = plan.badges.find(b => badgeGot(b) && !beforeBadges.includes(b.id));
+      if (lv.i > beforeLevel) toast(`Level up: ${lv.cur.title} ${lv.cur.jp}`);
+      else if (newBadge) toast(`Badge: ${newBadge.name} ${newBadge.jp}`);
+      else if (done[id]) toast(`+${t.xp} XP · ${t.title}`);
+      render();
+    }
+
+    // ---- render ---------------------------------------------------------------
+    function start() {
+      load();
+      $("gate").hidden = true; $("app").hidden = false;
+      $("updated").textContent = "Plan updated " + fmt(plan.updated);
+      $("leds").innerHTML = "<i></i>".repeat(32);
+      render();
+    }
+
+    function render() {
+      const xp = xpEarned(), lv = levelFor(xp), total = plan.tasks.length;
+      const nDone = plan.tasks.filter(isDone).length;
+      const totalXp = plan.tasks.reduce((s, t) => s + t.xp, 0);
+      $("levelNum").textContent = lv.i + 1 + " of " + plan.levels.length;
+      $("levelName").textContent = lv.cur.title; $("levelJp").textContent = lv.cur.jp;
+      const span = lv.next ? lv.next.xp - lv.cur.xp : 1, into = lv.next ? xp - lv.cur.xp : 1;
+      const lit = Math.round(32 * Math.min(1, into / span));
+      [...$("leds").children].forEach((d, i) => d.classList.toggle("on", i < lit));
+      $("xpNow").textContent = xp + " XP";
+      $("xpNext").textContent = lv.next ? (lv.next.xp - xp) + " to " + lv.next.title : "max level";
+      $("pct").innerHTML = Math.round(100 * xp / totalXp) + "<small>%</small>";
+      $("counts").textContent = `${nDone} of ${total} quests · ${xp} of ${totalXp} XP`;
+
+      const upcoming = plan.milestones.filter(m => daysTo(m.date) >= 0);
+      const nx = upcoming[0];
+      $("nextDays").innerHTML = nx ? daysTo(nx.date) + "<small> days</small>" : "—";
+      $("nextName").textContent = nx ? nx.name + " · " + fmt(nx.date) : "All milestones passed";
+      $("miles").innerHTML = plan.milestones.map(m => {
+        const d = daysTo(m.date);
+        return `<div class="card mile ${d < 0 ? "past" : ""}"><div class="label">${m.name}</div>
+          <div class="days">${d < 0 ? "done" : d + " days"}</div><div class="when">${fmt(m.date)}</div></div>`;
+      }).join("");
+
+      // timeline, with segment widths by duration
+      const t0 = day(plan.phases[0].start), t1 = day(plan.phases[plan.phases.length - 1].end);
+      const span_ = t1 - t0, now = new Date();
+      $("track").innerHTML = plan.phases.map(p => {
+        const tasks = plan.tasks.filter(t => t.phase === p.id);
+        const f = tasks.length ? tasks.filter(isDone).length / tasks.length : 0;
+        const w = (day(p.end) - day(p.start)) / span_;
+        return `<button class="seg" style="flex:${w.toFixed(4)}" data-jump="${p.id}" type="button"><i class="fill" style="width:${(f * 100).toFixed(0)}%"></i>
+          <b>${p.jp} ${p.title}</b><span>${fmtShort(p.start)}</span></button>`;
+      }).join("") + (now > t0 && now < t1 ? `<i class="today" style="left:${(100 * (now - t0) / span_).toFixed(2)}%"></i>` : "");
+      $("track").querySelectorAll("[data-jump]").forEach(b => b.addEventListener("click",
+        () => document.getElementById("ph-" + b.dataset.jump).scrollIntoView({ behavior: "smooth", block: "start" })));
+
+      const got = plan.badges.filter(badgeGot).length;
+      $("badgeCount").textContent = `${got} of ${plan.badges.length}`;
+      $("badges").innerHTML = plan.badges.map(b => `<div class="card badge ${badgeGot(b) ? "got" : ""}">
+        <span class="seal">${b.jp}</span><div><b>${b.name}</b><small>${b.desc}</small></div></div>`).join("");
+
+      // category filters
+      const cats = [{ id: "all", name: "Everything", mark: "全" }, ...plan.categories];
+      $("filters").innerHTML = cats.map(c => {
+        const ts = plan.tasks.filter(t => c.id === "all" || t.cat === c.id);
+        return `<button class="chip" type="button" data-cat="${c.id}" aria-pressed="${filter === c.id}">
+          <span class="k">${c.mark}</span>${c.name}<span class="n">${ts.filter(isDone).length}/${ts.length}</span></button>`;
+      }).join("") + `<label class="toggle"><input type="checkbox" id="hideDone" ${hideDone ? "checked" : ""}> Hide done</label>`;
+      $("filters").querySelectorAll("[data-cat]").forEach(b => b.addEventListener("click", () => { filter = b.dataset.cat; render(); }));
+      $("hideDone").addEventListener("change", e => { hideDone = e.target.checked; render(); });
+
+      const catName = Object.fromEntries(plan.categories.map(c => [c.id, c]));
+      $("phases").innerHTML = plan.phases.map(p => {
+        const all = plan.tasks.filter(t => t.phase === p.id);
+        const shown = all.filter(t => (filter === "all" || t.cat === filter) && !(hideDone && isDone(t)));
+        const f = all.length ? all.filter(isDone).length / all.length : 0;
+        const late = day(p.end) < now;
+        const items = shown.map(t => {
+          const d = isDone(t), c = catName[t.cat];
+          return `<li class="task ${d ? "done" : ""} ${late && !d ? "late" : ""}">
+            <button class="check" type="button" data-id="${t.id}" aria-pressed="${d}" aria-label="${d ? "Mark not done" : "Mark done"}: ${t.title}">✓</button>
+            <div><div class="t">${t.title}</div>${t.detail ? `<div class="d">${t.detail}</div>` : ""}</div>
+            <div class="tags">${late && !d ? '<span class="late-tag">overdue</span>' : ""}<span class="cat">${c.mark} ${c.name}</span><span class="xp">+${t.xp}</span></div>
+          </li>`;
+        }).join("");
+        return `<div class="phase" id="ph-${p.id}">
+          <div class="phase-head"><div class="pj">${p.jp}</div><div style="flex:1;min-width:0">
+            <h3>${p.title}</h3>
+            <div class="meta">${fmt(p.start)} – ${fmt(p.end)} · ${p.goal} · ${all.filter(isDone).length}/${all.length} done</div>
+            <div class="bar"><i style="width:${(f * 100).toFixed(0)}%"></i></div></div></div>
+          ${items ? `<ul class="tasks">${items}</ul>` : `<p class="muted" style="font-size:13px;margin:0 0 0 56px">Nothing here with this filter.</p>`}
+        </div>`;
+      }).join("");
+      $("phases").querySelectorAll("[data-id]").forEach(b => b.addEventListener("click", () => toggle(b.dataset.id)));
+    }
+
+    // ---- moving progress between devices ---------------------------------------
+    $("exportBtn").addEventListener("click", async () => {
+      const code = btoa(JSON.stringify(done));
+      try { await navigator.clipboard.writeText(code); toast("Progress code copied"); }
+      catch (e) { $("importBox").hidden = false; $("importText").value = code; $("importText").select(); $("importMsg").textContent = "Copy the code above."; }
+    });
+    $("importBtn").addEventListener("click", () => { $("importBox").hidden = false; $("importText").value = ""; $("importText").focus(); });
+    $("importGo").addEventListener("click", () => {
+      try {
+        const d = JSON.parse(atob($("importText").value.trim()));
+        if (typeof d !== "object" || Array.isArray(d)) throw 0;
+        done = d; save(); render(); $("importMsg").textContent = "Loaded."; toast("Progress loaded");
+      } catch (e) { $("importMsg").textContent = "That code doesn't look right."; }
+    });
+  })();
+  </script>
+</body>
+</html>
