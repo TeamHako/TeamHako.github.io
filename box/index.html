@@ -723,12 +723,40 @@ async function startViewer(manifest) {
   const port = mesh(new THREE.ShapeGeometry(roundedRect(9, 3.4, 1.6)), darkSlot, false);
   port.rotation.x = -Math.PI / 2; port.position.set(0, 23.05, 0);   // on the top edge
   const prongBack = mesh(new THREE.PlaneGeometry(36, 36), new THREE.MeshStandardMaterial({ roughness: 0.5, transparent: true,
-    map: canvasTex(512, 512, (g, w, h) => {
-      g.fillStyle = '#1d1c1a';                // two folded prongs in their recess
-      [w * 0.36, w * 0.64].forEach(x => { g.beginPath(); g.roundRect ? g.roundRect(x - 14, h * 0.2, 28, h * 0.52, 8) : g.rect(x - 14, h * 0.2, 28, h * 0.52); g.fill(); });
-      g.fillStyle = '#c9c4ba'; [w * 0.36, w * 0.64].forEach(x => g.fillRect(x - 6, h * 0.24, 12, h * 0.42));
-      g.fillStyle = '#9a948a'; g.textAlign = 'center'; g.font = '22px "Zen Kaku Gothic New", sans-serif';
-      g.fillText('INPUT 100–240V~ 50/60Hz', w / 2, h * 0.84);
+    map: canvasTex(1024, 1024, (g, w, h) => {
+      // the regulatory side: folding prongs in their recess, ringed by the
+      // small print a wall adapter has to carry, in moulded-in grey
+      g.fillStyle = '#1d1c1a';
+      [w * 0.38, w * 0.62].forEach(x => { g.beginPath(); g.roundRect ? g.roundRect(x - 26, h * 0.27, 52, h * 0.36, 14) : g.rect(x - 26, h * 0.27, 52, h * 0.36); g.fill(); });
+      g.fillStyle = '#c9c4ba'; [w * 0.38, w * 0.62].forEach(x => g.fillRect(x - 11, h * 0.3, 22, h * 0.3));
+      const ink = '#8f897f', sans = '"Zen Kaku Gothic New", sans-serif';
+      g.fillStyle = ink; g.strokeStyle = ink; g.textAlign = 'center'; g.textBaseline = 'middle';
+      const line = (text, y, px = 30, weight = 400) => { g.font = `${weight} ${px}px ${sans}`; g.fillText(text, w / 2, h * y); };
+      line('hako USB-C power adapter', 0.1, 38, 700);
+      line('Model HK-PA15U  ·  I.T.E. power supply', 0.155);
+      line('For indoor use only', 0.2);
+      line('INPUT: 100–240V~  50/60Hz  0.4A', 0.69, 32);
+      line('OUTPUT: 5.0V ⎓ 3.0A  15.0W', 0.735, 32);
+      // marks: class II (double insulated), indoor use, efficiency level VI, FCC, WEEE
+      const my = h * 0.81, ms = 40;
+      g.lineWidth = 3.5;
+      let x = w / 2 - 190;
+      g.strokeRect(x - ms / 2, my - ms / 2, ms, ms); g.strokeRect(x - ms / 4, my - ms / 4, ms / 2, ms / 2);
+      x += 95;                                          // a house: for indoor use
+      g.beginPath(); g.moveTo(x - 20, my - 2); g.lineTo(x, my - 22); g.lineTo(x + 20, my - 2);
+      g.moveTo(x - 14, my - 8); g.lineTo(x - 14, my + 20); g.lineTo(x + 14, my + 20); g.lineTo(x + 14, my - 8); g.stroke();
+      x += 95;
+      g.beginPath(); g.arc(x, my, 22, 0, Math.PI * 2); g.stroke();
+      g.font = `700 24px ${sans}`; g.fillText('VI', x, my + 1);
+      x += 95;
+      g.font = `700 30px ${sans}`; g.fillText('FCC', x, my + 1);
+      x += 95;                                          // crossed-out wheelie bin
+      g.beginPath(); g.moveTo(x - 13, my - 14); g.lineTo(x - 10, my + 18); g.lineTo(x + 10, my + 18); g.lineTo(x + 13, my - 14); g.closePath();
+      g.moveTo(x - 17, my - 18); g.lineTo(x + 17, my - 18);
+      g.moveTo(x - 22, my - 24); g.lineTo(x + 22, my + 24); g.moveTo(x + 22, my - 24); g.lineTo(x - 22, my + 24); g.stroke();
+      line('Listed I.T.E.  ·  file no. pending  ·  Made in China', 0.875, 26);
+      line('This device complies with part 15 of the FCC rules.', 0.915, 22);
+      line('Team hako  ·  Dallas, TX  ·  hakoshop.com', 0.95, 22);
     }) }), false);
   prongBack.position.z = -14.05; prongBack.rotation.y = Math.PI;
   brick.add(brickFace, port, prongBack);
