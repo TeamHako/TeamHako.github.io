@@ -1004,6 +1004,16 @@
       "en": "Open-source licenses",
       "ja": "オープンソースライセンス",
       "de": "Open-Source-Lizenzen"
+    },
+    {
+      "en": "© 2026 hako · made in",
+      "ja": "© 2026 hako · Jaredが",
+      "de": "© 2026 hako · gemacht mit"
+    },
+    {
+      "en": "by Jared",
+      "ja": "で手作り",
+      "de": "von Jared"
     }
   ]
 }

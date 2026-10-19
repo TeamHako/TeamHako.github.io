@@ -18,6 +18,7 @@ import html
 import json
 import re
 import sys
+from html.parser import HTMLParser
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parent.parent
@@ -76,6 +77,50 @@ def build(lang: str, source: str, tr: dict) -> tuple[str, list[str]]:
     return page, missing
 
 
+class _Text(HTMLParser):
+    """Visible text runs of a page (no script/style/code)."""
+    SKIP = {"script", "style", "code", "pre", "svg"}
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.depth, self.runs = 0, []
+
+    def handle_starttag(self, tag, attrs):
+        if tag in self.SKIP:
+            self.depth += 1
+
+    def handle_endtag(self, tag):
+        if tag in self.SKIP:
+            self.depth = max(0, self.depth - 1)
+
+    def handle_data(self, data):
+        text = " ".join(data.split())
+        if not self.depth and len(re.findall(r"[A-Za-z]{2,}", text)) >= 2:
+            self.runs.append(text)
+
+
+def text_runs(page: str) -> list[str]:
+    p = _Text()
+    p.feed(page)
+    return p.runs
+
+
+def still_english(source: str, page: str) -> list[str]:
+    """English sentences copied through unchanged: new copy on index.html
+    that has no entry in i18n.json yet (or brand names, which are fine)."""
+    en = set(text_runs(source))
+    seen, out = set(), []
+    for run in text_runs(page):
+        if run in en and run not in seen and run not in KEEP_ENGLISH:
+            seen.add(run)
+            out.append(run)
+    return out
+
+
+# Text that is meant to stay English on every page
+KEEP_ENGLISH = {"Founder Edition", "Founder Edition ·"}
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true", help="exit 1 if the pages are out of date")
@@ -88,6 +133,8 @@ def main() -> None:
         page, missing = build(lang, source, tr)
         for m in missing:
             print(f"[{lang}] not found in index.html (update tools/i18n.json): {m}", file=sys.stderr)
+        for run in still_english(source, page):
+            print(f"[{lang}] still English (add it to tools/i18n.json): {run[:90]}", file=sys.stderr)
         out = SITE / lang / "index.html"
         if args.check:
             if not out.exists() or out.read_text(encoding="utf-8") != page:

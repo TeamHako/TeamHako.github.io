@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Source code · hako</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <script>
+    try {
+      var t = localStorage.getItem("hako-theme");
+      if (t) document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <main class="policy">
+    <a class="policy-back" href="../licenses.html">&larr; Open-source licenses</a>
+    <h1>Source code</h1>
+    <p class="policy-date">Last updated October 2026</p>
+
+    <p>The GNU GPL v2 covers one part of hako's software: the LED panel driver. Here is its complete corresponding source, exactly as built into every hako.</p>
+
+    <h2>rpi-rgb-led-matrix</h2>
+    <p>By Henner Zeller. Upstream commit <code>14464b3</code> (October 10, 2026), unmodified.</p>
+    <ul>
+      <li><a href="rpi-rgb-led-matrix/rpi-rgb-led-matrix-14464b3.tar.gz">rpi-rgb-led-matrix-14464b3.tar.gz</a> (8.4 MB). SHA-256 <code style="word-break:break-all">7c322e7d0d2df56fb2ad62a26673f3d75d60eed64ced6f42d4d8242fea1db8f9</code></li>
+      <li><a href="rpi-rgb-led-matrix/BUILD.txt">How we build and run it</a></li>
+      <li><a href="rpi-rgb-led-matrix/COPYING.txt">GNU General Public License v2</a></li>
+    </ul>
+
+    <p>These files stay here for at least three years after we last ship hako. If they're ever missing, email <a href="mailto:hello@hakoshop.com">hello@hakoshop.com</a> and we'll send them to you.</p>
+  </main>
+</body>
+</html>

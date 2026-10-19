@@ -1,6 +1,7 @@
 # Regenerates ja/index.html and de/index.html whenever index.html or the
 # translations change, so editing the English page on GitHub is enough.
-# Untranslated text shows up as warnings in the run log.
+# Untranslated text (new English copy with no entry in tools/i18n.json, and
+# translations whose English is gone) shows up as warnings on the run.
 name: Build Japanese & German pages
 
 on:
@@ -27,7 +28,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Build
-        run: python3 tools/build-i18n.py 2>&1 | sed 's/^\[\(..\)\] not found/::warning::[\1] not found/'
+        run: python3 tools/build-i18n.py 2>&1 | sed -E 's/^\[(..)\] (not found|still English)/::warning::[\1] \2/'
 
       - name: Commit if changed
         run: |
