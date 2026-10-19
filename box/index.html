@@ -526,7 +526,7 @@ async function startViewer(manifest) {
   const out = new THREE.Vector3().crossVectors(new THREE.Vector3(1, 0, 0), along);
   engraving.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3(1, 0, 0), along, out));
   // left-justified: this far (mm) from the left edge as you face the screen
-  const INSET = engr.engravingInset ?? 4;
+  const INSET = engr.engravingInset ?? 14;            // just past the corner joint (STOCK)
   function sizeEngraving([w, h]) {
     engraving.scale.set(w, h, 1);                    // its real size in mm
     engraving.position.set(-HW / 2 + INSET + w / 2, -HW / 2 + backRise / 2, 0).addScaledVector(out, 0.1);
