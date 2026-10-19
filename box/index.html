@@ -423,6 +423,62 @@ async function startViewer(manifest) {
   const screen = mesh(new THREE.PlaneGeometry(190, 190), screenMat, false);
   screen.position.z = HD / 2 + 0.1;
   hako.add(screen);
+  // Box joints (組み接ぎ) at the four corners where the top, bottom and side
+  // boards meet: STOCK-thick boards, FINGERS fingers front to back. On each
+  // face of a corner, every other finger shows the other board's end grain.
+  const STOCK = 11, FINGERS = 5;
+  function fingerTexture(length, endFirst) {
+    const c = document.createElement('canvas'); c.width = 512; c.height = Math.round(512 * STOCK / length);
+    const g = c.getContext('2d'), f = c.width / FINGERS;
+    for (let k = 0; k < FINGERS; k++) {
+      if ((k % 2 === 0) !== endFirst) continue;
+      const x = k * f;
+      g.fillStyle = '#2E1C11'; g.fillRect(x, 0, f, c.height);              // end grain: darker…
+      g.strokeStyle = 'rgba(120, 82, 54, 0.45)'; g.lineWidth = 1.2;         // …with growth rings
+      for (let r = 6; r < f * 1.6; r += 5) { g.beginPath(); g.arc(x + f * 0.3, c.height * 1.9, r, 0, Math.PI * 2); g.stroke(); }
+      g.strokeStyle = 'rgba(15, 9, 5, 0.85)'; g.lineWidth = 2; g.strokeRect(x + 1, 1, f - 2, c.height - 2);   // glue line
+    }
+    const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = maxAniso; return t;
+  }
+  const decal = map => new THREE.MeshStandardMaterial({ map, transparent: true, depthWrite: false, roughness: 0.8,
+    polygonOffset: true, polygonOffsetFactor: -1 });
+  // a STOCK-wide strip along an edge: `along` = front → back, `normal` = out of the face,
+  // `inward` = from the edge into the face
+  function jointStrip(edgeMid, along, normal, inward, length, endFirst) {
+    const m = mesh(new THREE.PlaneGeometry(length, STOCK), decal(fingerTexture(length, endFirst)), false);
+    const yAxis = new THREE.Vector3().crossVectors(normal, along);
+    m.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(along, yAxis, normal));
+    m.position.copy(edgeMid).addScaledVector(inward, STOCK / 2).addScaledVector(normal, 0.06);
+    hako.add(m);
+  }
+  {
+    const V = (x, y, z) => new THREE.Vector3(x, y, z);
+    const back = V(0, 0, -1);
+    const slope = V(0, backRise, -HD).normalize();                         // along the bottom, front → back
+    const slopeLen = Math.hypot(HD, backRise);
+    const bottomOut = new THREE.Vector3().crossVectors(V(1, 0, 0), slope.clone().negate());
+    const bottomMid = y => V(0, -HW / 2 + backRise / 2, 0);
+    [-1, 1].forEach(side => {                                              // left (-1) and right (+1)
+      const x = side * HW / 2;
+      // top corner: the top board's face, and the side board's face
+      jointStrip(V(x, HW / 2, 0), back, V(0, 1, 0), V(-side, 0, 0), HD, true);
+      jointStrip(V(x, HW / 2, 0), back, V(side, 0, 0), V(0, -1, 0), HD, false);
+      // bottom corner, along the slanted bottom
+      const edge = bottomMid().setX(x);
+      const upSide = new THREE.Vector3().crossVectors(V(side, 0, 0), slope).multiplyScalar(-side).normalize();
+      jointStrip(edge, slope, bottomOut, V(-side, 0, 0), slopeLen, true);
+      jointStrip(edge, slope, V(side, 0, 0), upSide.y > 0 ? upSide : upSide.negate(), slopeLen, false);
+    });
+    // the removable back panel, set in a rabbet STOCK in from the edges
+    const seam = solid(0x24160d, 0.8);
+    const top = HW / 2 - STOCK, bot = -HW / 2 + backRise + STOCK, xs = HW / 2 - STOCK;
+    [[0, top, 2 * xs, 0.8], [0, bot, 2 * xs, 0.8], [-xs, (top + bot) / 2, 0.8, top - bot], [xs, (top + bot) / 2, 0.8, top - bot]]
+      .forEach(([cx, cy, w, h]) => {
+        const line = mesh(new THREE.PlaneGeometry(w, h), seam, false);
+        line.rotation.y = Math.PI; line.position.set(cx, cy, -HD / 2 - 0.06);
+        hako.add(line);
+      });
+  }
   // the knob (EC11 encoder), upper right side
   const metal = new THREE.MeshStandardMaterial({ color: 0xb9b4ab, metalness: 0.75, roughness: 0.32 });
   const knob = new THREE.Group();
