@@ -23,5 +23,7 @@ Placeholders show a dashed box with a label until the file exists. Drop in:
   images in the cards and setup steps) are rendered from the device's own code. In the
   hako-device repo: `python3 deploy/build-web-demo.py <site>/assets/demo` and
   `python3 deploy/build-web-images.py <site>/assets/images/panel`.
+- `assets/images/live/` (animated pets, Pong, the unlock party, clock and tap screens)
+  comes from `python3 deploy/build-web-pets.py <site>/assets/images/live` in the hako repo.
 - `ja/` and `de/` are generated: edit `index.html` and `tools/i18n.json`; a GitHub
   Action rebuilds them (or run `python3 tools/build-i18n.py`).

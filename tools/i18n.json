@@ -152,6 +152,46 @@
       "en": "aria-label=\"Access phrase\"",
       "ja": "aria-label=\"合言葉\"",
       "de": "aria-label=\"Passwort\""
+    },
+    {
+      "en": "alt=\"The classic hako pet, a little green chibi, dancing\"",
+      "ja": "alt=\"hakoのクラシックペット、踊る緑のちび\"",
+      "de": "alt=\"Das klassische hako-Haustier, ein kleiner grüner Chibi, tanzt\""
+    },
+    {
+      "en": "alt=\"Mochi, a squishy rice cake, squishing and hopping\"",
+      "ja": "alt=\"むにっと跳ねるおもち\"",
+      "de": "alt=\"Mochi, ein weicher Reiskuchen, quetscht sich und hüpft\""
+    },
+    {
+      "en": "alt=\"Onigiri, a rice ball with nori, sticking its tongue out\"",
+      "ja": "alt=\"舌をぺろっと出すのりつきおにぎり\"",
+      "de": "alt=\"Onigiri, ein Reisball mit Nori, streckt die Zunge raus\""
+    },
+    {
+      "en": "alt=\"Kao, a big kawaii face, winking and sneezing\"",
+      "ja": "alt=\"ウインクしてくしゃみする大きな顔、かお\"",
+      "de": "alt=\"Kao, ein großes Kawaii-Gesicht, zwinkert und niest\""
+    },
+    {
+      "en": "alt=\"hako celebrating a new friend with confetti\"",
+      "ja": "alt=\"紙吹雪で新しいなかまを祝うhako\"",
+      "de": "alt=\"hako feiert einen neuen Freund mit Konfetti\""
+    },
+    {
+      "en": "alt=\"hako clock screen with the weather\"",
+      "ja": "alt=\"天気つきのhako時計画面\"",
+      "de": "alt=\"hako-Uhrbildschirm mit Wetter\""
+    },
+    {
+      "en": "alt=\"hako asking you to tap your phone\"",
+      "ja": "alt=\"スマホをかざすよう案内するhako\"",
+      "de": "alt=\"hako bittet dich, dein Handy anzuhalten\""
+    },
+    {
+      "en": "alt=\"A game of Pong on the hako panel\"",
+      "ja": "alt=\"hakoのパネルで遊ぶポン\"",
+      "de": "alt=\"Eine Runde Pong auf dem hako-Panel\""
     }
   ],
   "text": [
@@ -259,11 +299,6 @@
       "en": "A little study pet",
       "ja": "小さな勉強ペット",
       "de": "Ein kleines Lern-Haustier"
-    },
-    {
-      "en": "It gets nervous when reviews pile up and relaxes once you're caught up. It doesn't track streaks.",
-      "ja": "復習がたまると不安そうになり、追いつくとのんびりします。連続記録はつけません。",
-      "de": "Es wird nervös, wenn sich Wiederholungen stapeln, und entspannt sich, sobald du aufgeholt hast. Streaks zählt es nicht."
     },
     {
       "en": "Cards you've recently added",
@@ -516,11 +551,6 @@
       "de": "Echte Bauteile"
     },
     {
-      "en": "A Raspberry Pi 3 A+ drives a 64×64 RGB LED matrix, with a knob, a shake sensor and an NFC tag for tap-to-open. Every unit is burned in and self-tested before it ships.",
-      "ja": "Raspberry Pi 3 A+ が64×64のRGB LEDマトリクスを動かし、ノブ、振動センサー、スマホをかざすだけで開けるNFCタグを備えています。出荷前に全台で慣らし運転とセルフテストを行います。",
-      "de": "Ein Raspberry Pi 3 A+ steuert eine 64×64-RGB-LED-Matrix, dazu ein Drehknopf, ein Schüttelsensor und ein NFC-Tag zum Antippen. Jedes Gerät läuft vor dem Versand ein und testet sich selbst."
-    },
-    {
       "en": "Small batches, by design",
       "ja": "あえて少量生産",
       "de": "Kleine Serien, mit Absicht"
@@ -596,11 +626,6 @@
       "de": "Was macht hako eigentlich?"
     },
     {
-      "en": "It sits on your desk and shows your Anki progress on a 64×64 LED matrix. Six screens you can switch between — today's queue, card health, a six-week heatmap, a study-pet chibi, recent or random card review, and retention percentages. It's ambient, not interactive: there's no touchscreen, no notifications, no app to open.",
-      "ja": "机の上に置いて、Ankiの進み具合を64×64のLEDマトリクスに表示します。今日の復習、カードの状態、6週間のヒートマップ、勉強ペット、最近またはランダムなカード、定着率の6つの画面を切り替えられます。眺めるためのもので、タッチ操作も通知も、開くアプリもありません。",
-      "de": "hako steht auf deinem Schreibtisch und zeigt deinen Anki-Fortschritt auf einer 64×64-LED-Matrix. Sechs Bildschirme zum Durchschalten — heutige Wiederholungen, Kartenzustand, eine Sechs-Wochen-Heatmap, ein Lern-Haustier, neueste oder zufällige Karten und Behaltensquoten. Es ist zum Anschauen da: kein Touchscreen, keine Benachrichtigungen, keine App."
-    },
-    {
       "en": "How does it connect to Anki?",
       "ja": "Ankiとはどうやって接続しますか？",
       "de": "Wie verbindet es sich mit Anki?"
@@ -624,11 +649,6 @@
       "en": "Can I try it without buying the hardware?",
       "ja": "本体を買わずに試せますか？",
       "de": "Kann ich es ausprobieren, ohne die Hardware zu kaufen?"
-    },
-    {
-      "en": "Yes. The free desktop app for Mac and Windows shows exactly what the box shows. Join the Discord to try it now, or try the demo at the top of this page.",
-      "ja": "はい。MacとWindows向けの無料デスクトップアプリで、箱と同じ表示を見られます。今すぐ試したい方はDiscordにご参加いただくか、このページ上部のデモをお試しください。",
-      "de": "Ja. Die kostenlose Desktop-App für Mac und Windows zeigt genau das, was die Box zeigt. Tritt dem Discord bei, um sie jetzt auszuprobieren, oder probier die Demo oben auf dieser Seite."
     },
     {
       "en": "Does it support languages besides Japanese?",
@@ -789,6 +809,191 @@
       "en": "No phrase yet? It's shared in the Discord when you join the beta.",
       "ja": "合言葉は、ベータ版に参加すると Discord で共有されます。",
       "de": "Noch kein Passwort? Du bekommst es im Discord, wenn du der Beta beitrittst."
+    },
+    {
+      "en": "Friends",
+      "ja": "なかま",
+      "de": "Freunde"
+    },
+    {
+      "en": "Keep studying. New friends move in.",
+      "ja": "続けるほど、なかまが増える。",
+      "de": "Lern weiter. Neue Freunde ziehen ein."
+    },
+    {
+      "en": "Every hako starts with one study buddy. Hit a milestone and another one moves in, with its own face, its own moods and a few hundred little reactions. They blink, look around, sneeze, nod off at night and cheer when your reviews hit zero.",
+      "ja": "hakoは最初、ひとりの勉強仲間と一緒に届きます。目標を達成するたびに新しいなかまが仲間入り。それぞれに顔があり、気分があり、たくさんの小さなリアクションがあります。まばたきしたり、きょろきょろしたり、くしゃみをしたり、夜はうとうとしたり、復習がゼロになると大喜びします。",
+      "de": "Jede hako startet mit einem Lernbuddy. Erreichst du einen Meilenstein, zieht ein neuer ein – mit eigenem Gesicht, eigenen Launen und hunderten kleinen Reaktionen. Sie blinzeln, schauen sich um, niesen, nicken nachts ein und jubeln, wenn deine Wiederholungen auf null fallen."
+    },
+    {
+      "en": "Chibi",
+      "ja": "ちび",
+      "de": "Chibi"
+    },
+    {
+      "en": "From day one",
+      "ja": "最初から",
+      "de": "Von Anfang an"
+    },
+    {
+      "en": "Mochi",
+      "ja": "もち",
+      "de": "Mochi"
+    },
+    {
+      "en": "7-day streak",
+      "ja": "7日連続",
+      "de": "7 Tage in Folge"
+    },
+    {
+      "en": "Onigiri",
+      "ja": "おにぎり",
+      "de": "Onigiri"
+    },
+    {
+      "en": "1,000 reviews",
+      "ja": "1,000回の復習",
+      "de": "1.000 Wiederholungen"
+    },
+    {
+      "en": "Kao",
+      "ja": "かお",
+      "de": "Kao"
+    },
+    {
+      "en": "30-day streak",
+      "ja": "30日連続",
+      "de": "30 Tage in Folge"
+    },
+    {
+      "en": "A little party for every milestone.",
+      "ja": "目標を達成するたびに、小さなお祝い。",
+      "de": "Eine kleine Party für jeden Meilenstein."
+    },
+    {
+      "en": "When you earn a new friend, hako throws confetti and introduces them. Your pet reacts to your day as well: a bounce for each review, a cheer when you finish, a double take when a pile of cards comes due, a yawn on the first look of the morning. Give the box a shake and see what happens.",
+      "ja": "新しいなかまが来ると、hakoは紙吹雪で紹介してくれます。ペットはあなたの一日にも反応します。復習するたびにぴょんと跳ね、終わると大喜び。カードがどっと増えると二度見して、朝いちばんにはあくび。箱を振ってみると…？",
+      "de": "Wenn du einen neuen Freund verdienst, wirft hako Konfetti und stellt ihn vor. Dein Haustier reagiert auch auf deinen Tag: ein Hüpfer bei jeder Wiederholung, Jubel, wenn du fertig bist, ein zweiter Blick, wenn ein Stapel Karten fällig wird, ein Gähnen beim ersten Blick am Morgen. Schüttel die Box mal und schau, was passiert."
+    },
+    {
+      "en": "Little extras",
+      "ja": "おまけ機能",
+      "de": "Kleine Extras"
+    },
+    {
+      "en": "More than a review counter.",
+      "ja": "復習カウンター以上のもの。",
+      "de": "Mehr als ein Wiederholungszähler."
+    },
+    {
+      "en": "Clock and weather",
+      "ja": "時計と天気",
+      "de": "Uhr und Wetter"
+    },
+    {
+      "en": "Pick your city and hako shows the time, today's high and low, and the weather, in your own time zone.",
+      "ja": "都市を選ぶと、その地域の時刻と今日の最高・最低気温、天気を表示します。",
+      "de": "Wähl deine Stadt, und hako zeigt die Uhrzeit, die heutige Höchst- und Tiefsttemperatur und das Wetter – in deiner Zeitzone."
+    },
+    {
+      "en": "Tap to connect",
+      "ja": "タッチでつながる",
+      "de": "Antippen und verbinden"
+    },
+    {
+      "en": "Tap your phone on the box to open its settings. No app to install and no IP addresses to type. Prefer the camera? It shows a QR code too.",
+      "ja": "スマホを箱にかざすだけで設定が開きます。アプリのインストールもIPアドレスの入力も不要。カメラ派ならQRコードも表示できます。",
+      "de": "Halte dein Handy an die Box, und die Einstellungen öffnen sich. Keine App, keine IP-Adressen. Lieber mit der Kamera? Ein QR-Code geht auch."
+    },
+    {
+      "en": "Pong on the knob",
+      "ja": "ノブでポン",
+      "de": "Pong am Drehknopf"
+    },
+    {
+      "en": "A quick game between reviews: you turn the knob, a bot plays the other side. First to five.",
+      "ja": "復習の合間にちょっと一勝負。ノブを回してボットと対戦、5点先取です。",
+      "de": "Eine schnelle Runde zwischen den Wiederholungen: Du drehst den Knopf, ein Bot spielt die andere Seite. Wer zuerst fünf hat, gewinnt."
+    },
+    {
+      "en": "Travel friendly",
+      "ja": "持ち運びも気軽に",
+      "de": "Reisefreundlich"
+    },
+    {
+      "en": "Take it to a café, the library or a friend's place. hako remembers where Anki lives on every Wi-Fi network, finds it again on its own, and tells you when to use your laptop's hotspot.",
+      "ja": "カフェや図書館、友だちの家にも。hakoはWi-Fiごとに Anki の場所を覚えていて、自動で見つけ直します。必要なときはノートPCのテザリングを使うよう教えてくれます。",
+      "de": "Nimm sie mit ins Café, in die Bibliothek oder zu Freunden. hako merkt sich, wo Anki in jedem WLAN läuft, findet es von selbst wieder und sagt dir, wann du den Hotspot deines Laptops nutzen solltest."
+    },
+    {
+      "en": "Set up from your phone",
+      "ja": "スマホで設定",
+      "de": "Einrichtung per Handy"
+    },
+    {
+      "en": "Choose screens, your pet, brightness, units and which deck it shows from a simple settings page. Everything stays on your own network.",
+      "ja": "表示する画面、ペット、明るさ、単位、デッキをシンプルな設定ページで選べます。すべて自宅のネットワーク内で完結します。",
+      "de": "Wähle Bildschirme, dein Haustier, Helligkeit, Einheiten und das angezeigte Deck auf einer einfachen Einstellungsseite. Alles bleibt in deinem eigenen Netzwerk."
+    },
+    {
+      "en": "Keeps getting better",
+      "ja": "どんどん良くなる",
+      "de": "Wird immer besser"
+    },
+    {
+      "en": "New pets, screens and fixes arrive as signed updates while you sleep. There's a free desktop app for Windows, Mac and Linux too.",
+      "ja": "新しいペットや画面、修正は、寝ている間に署名付きアップデートで届きます。Windows・Mac・Linux 用の無料デスクトップアプリもあります。",
+      "de": "Neue Haustiere, Bildschirme und Fehlerbehebungen kommen als signierte Updates, während du schläfst. Dazu gibt es eine kostenlose Desktop-App für Windows, Mac und Linux."
+    },
+    {
+      "en": "It gets nervous when reviews pile up and relaxes once you're caught up. Keep a streak going and new friends move in.",
+      "ja": "復習がたまるとそわそわし、追いつくとほっとします。連続記録を続けると、新しいなかまがやってきます。",
+      "de": "Es wird nervös, wenn sich Wiederholungen stapeln, und entspannt sich, wenn du aufgeholt hast. Bleib dran, und neue Freunde ziehen ein."
+    },
+    {
+      "en": "A 64×64 RGB LED panel, a knob, a shake sensor and an NFC tag for tap-to-connect, on one custom circuit board with no loose wires. Every unit is burned in and self-tested before it ships.",
+      "ja": "64×64のRGB LEDパネル、ノブ、振動センサー、タッチ接続用のNFCタグを、配線のない専用基板ひとつにまとめました。出荷前に全台エージングと自己診断を行います。",
+      "de": "Ein 64×64-RGB-LED-Panel, ein Drehknopf, ein Schüttelsensor und ein NFC-Tag zum Verbinden per Antippen – auf einer eigenen Platine ohne lose Kabel. Jedes Gerät wird vor dem Versand eingebrannt und selbst getestet."
+    },
+    {
+      "en": "It sits on your desk and shows your Anki progress on a 64×64 LED panel: today's queue, card health, a six-week heatmap, your study pet, recent or random cards, retention, and a clock with the weather. Turn the knob to look around or play Pong. There's no touchscreen, no notifications and no app to open.",
+      "ja": "机の上に置くだけで、64×64のLEDパネルに Anki の進み具合を表示します。今日の復習、カードの状態、6週間のヒートマップ、勉強ペット、最近またはランダムなカード、定着率、天気つきの時計。ノブを回して画面を切り替えたり、ポンで遊んだり。タッチスクリーンも通知も、開くアプリもありません。",
+      "de": "Sie steht auf deinem Schreibtisch und zeigt deinen Anki-Fortschritt auf einem 64×64-LED-Panel: die heutige Warteschlange, Kartenzustand, eine Sechs-Wochen-Heatmap, dein Lernhaustier, neue oder zufällige Karten, Behaltensquote und eine Uhr mit Wetter. Dreh den Knopf zum Umschauen oder für eine Runde Pong. Kein Touchscreen, keine Benachrichtigungen, keine App."
+    },
+    {
+      "en": "Yes. The",
+      "ja": "はい。",
+      "de": "Ja. Die"
+    },
+    {
+      "en": "free desktop app",
+      "ja": "無料のデスクトップアプリ",
+      "de": "kostenlose Desktop-App"
+    },
+    {
+      "en": "for Windows, Mac and Linux shows exactly what the box shows, pets included. Or try the demo at the top of this page.",
+      "ja": "（Windows・Mac・Linux）で、箱と同じ画面をペットごと楽しめます。このページ上部のデモも試せます。",
+      "de": "für Windows, Mac und Linux zeigt genau das, was die Box zeigt, Haustiere inklusive. Oder probier die Demo oben auf dieser Seite."
+    },
+    {
+      "en": "How do I unlock the other pets?",
+      "ja": "ほかのペットはどうやって増やすの？",
+      "de": "Wie schalte ich die anderen Haustiere frei?"
+    },
+    {
+      "en": "Just study. Mochi moves in after a 7-day streak, Onigiri after 1,000 reviews and Kao after a 30-day streak. Once a friend moves in, they stay, even if a streak breaks. Switch between them with the knob or from your phone.",
+      "ja": "勉強を続けるだけ。7日連続でもち、1,000回の復習でおにぎり、30日連続でかおがやってきます。一度来たなかまは、連続記録が途切れてもずっと一緒。ノブやスマホで切り替えられます。",
+      "de": "Einfach lernen. Mochi zieht nach 7 Tagen in Folge ein, Onigiri nach 1.000 Wiederholungen und Kao nach 30 Tagen in Folge. Wer einmal eingezogen ist, bleibt – auch wenn eine Serie reißt. Wechseln kannst du mit dem Knopf oder per Handy."
+    },
+    {
+      "en": "Can I take it with me?",
+      "ja": "持ち歩けますか？",
+      "de": "Kann ich sie mitnehmen?"
+    },
+    {
+      "en": "Yes. It's small enough for a bag and runs on its included power adapter. Join a new Wi-Fi network from your phone and hako finds Anki again on its own. On café or hotel Wi-Fi that keeps devices apart, it suggests your laptop's hotspot instead.",
+      "ja": "はい。かばんに入る大きさで、付属の電源アダプターで動きます。スマホから新しいWi-Fiにつなぐと、hakoが自動で Anki を見つけ直します。端末同士がつながらないカフェやホテルのWi-Fiでは、ノートPCのテザリングを提案します。",
+      "de": "Ja. Sie passt in eine Tasche und läuft mit dem mitgelieferten Netzteil. Verbinde sie per Handy mit einem neuen WLAN, und hako findet Anki von selbst wieder. In Café- oder Hotel-WLANs, die Geräte voneinander trennen, schlägt sie den Hotspot deines Laptops vor."
     }
   ]
 }
