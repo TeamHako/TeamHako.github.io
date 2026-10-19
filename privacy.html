@@ -27,6 +27,7 @@
     <h2>The hako device</h2>
     <p>Your Anki data stays on your own network. The box reads your study stats from Anki on your computer and shows them; it doesn't send them anywhere. hako has no account and no analytics.</p>
     <p>About every 6 hours, the box checks <code>jareddesu.com</code> for software updates. Like any website visit, that request includes your network's IP address. Nothing else is sent.</p>
+    <p>On the same schedule, and when it joins a new network, the box asks Cloudflare (<code>cloudflare.com/cdn-cgi/trace</code>) which country its internet connection is in, so its Wi-Fi uses only the radio channels allowed there. That request also carries your IP address and nothing else, and hako keeps only the country.</p>
 
     <h2>The waitlist</h2>
     <p>If you join the waitlist, I keep your email address only to tell you when pre-orders open and when the Kickstarter launches. It's stored on hako's own server (Cloudflare) together with the date, the language of the page you signed up on, and your country as seen by Cloudflare, so I know which languages and countries to plan for. A copy of each signup is emailed to me through Web3Forms. Ask and I'll delete it.</p>
