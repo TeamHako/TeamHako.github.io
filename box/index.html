@@ -465,13 +465,16 @@ async function startViewer(manifest) {
   const engraveMat = new THREE.MeshStandardMaterial({ transparent: true, depthWrite: false, roughness: 0.9,
     polygonOffset: true, polygonOffsetFactor: -2 });
   if (engr.engraving) engraveMat.map = loadTex(engr.engraving);
-  const [EW, EH] = engr.engravingSize || [61, 56];
-  const engraving = mesh(new THREE.PlaneGeometry(EW, EH), engraveMat, false);
-  { // lay it on the slanted bottom, text reading from the back edge toward the front
-    const along = new THREE.Vector3(0, -backRise, HD).normalize();          // back → front, along the bottom
-    const out = new THREE.Vector3().crossVectors(new THREE.Vector3(1, 0, 0), along);
-    engraving.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3(1, 0, 0), along, out));
-    engraving.position.set(0, -HW / 2 + backRise / 2, 0).addScaledVector(out, 0.1); }
+  const engraving = mesh(new THREE.PlaneGeometry(1, 1), engraveMat, false);
+  const along = new THREE.Vector3(0, -backRise, HD).normalize();           // back → front, along the bottom
+  const out = new THREE.Vector3().crossVectors(new THREE.Vector3(1, 0, 0), along);
+  engraving.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3(1, 0, 0), along, out));
+  function sizeEngraving([w, h]) {
+    // its real size in mm, left-justified 12 mm in from the left edge as you look at the bottom
+    engraving.scale.set(w, h, 1);
+    engraving.position.set(-HW / 2 + 12 + w / 2, -HW / 2 + backRise / 2, 0).addScaledVector(out, 0.1);
+  }
+  sizeEngraving(engr.engravingSize || [100, 41]);
   hako.add(engraving);
   base.add(hako);
 
@@ -1115,6 +1118,7 @@ async function startViewer(manifest) {
     if (e.engraving) {
       engraveMat.map = coverTex[e.engraving] || (coverTex[e.engraving] = loadTex(e.engraving));
       engraveMat.needsUpdate = true;
+      if (e.engravingSize) sizeEngraving(e.engravingSize);
     }
     if (e.cover && slots.page1) {
       const t = coverTex[e.cover] || (coverTex[e.cover] = loadTex(e.cover));
