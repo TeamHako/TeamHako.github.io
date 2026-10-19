@@ -1158,6 +1158,30 @@ h6,
   border-color: var(--accent);
 }
 
+.notify-form .notify-opt {
+  flex-basis: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: left;
+
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.notify-form .notify-opt input {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin: 1px 0 0;
+  padding: 0;
+
+  accent-color: var(--accent);
+}
+
 .notify-meta {
   margin: 0 auto;
 

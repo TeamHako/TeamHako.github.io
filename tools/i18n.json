@@ -596,14 +596,14 @@
       "de": "Die erste Serie erscheint im Frühjahr 2027."
     },
     {
-      "en": "25 numbered Founder Edition units, then a larger run on Kickstarter. Drop your email and I'll write when pre-orders open, and when the Kickstarter launches. Nothing else.",
-      "ja": "番号入りのファウンダーエディション25台の後は、Kickstarterでより多くの台数を製作します。メールアドレスをご登録いただければ、予約開始時とKickstarter開始時にだけお知らせします。それ以外は送りません。",
-      "de": "25 nummerierte Geräte der Founder Edition, danach eine größere Serie auf Kickstarter. Trag deine E-Mail ein, und ich schreibe dir, wenn die Vorbestellung öffnet und wenn die Kickstarter-Kampagne startet. Sonst nichts."
+      "en": "25 numbered Founder Edition units, then a larger run on Kickstarter. Drop your email and I'll write when pre-orders open, and when the Kickstarter launches. Nothing else, unless you ask for the devlog.",
+      "ja": "番号入りのファウンダーエディション25台の後は、Kickstarterでより多くの台数を製作します。メールアドレスをご登録いただければ、予約開始時とKickstarter開始時にだけお知らせします。それ以外は送りません（開発日記をご希望の方を除きます）。",
+      "de": "25 nummerierte Geräte der Founder Edition, danach eine größere Serie auf Kickstarter. Trag deine E-Mail ein, und ich schreibe dir, wenn die Vorbestellung öffnet und wenn die Kickstarter-Kampagne startet. Sonst nichts, außer du möchtest das Devlog."
     },
     {
-      "en": "I'll email you twice at most: when pre-orders open and when the Kickstarter launches. I won't share your address.",
-      "ja": "メールは最大2回、予約開始時とKickstarter開始時だけです。メールアドレスを第三者に渡すことはありません。",
-      "de": "Ich schreibe dir höchstens zweimal: wenn die Vorbestellung öffnet und wenn die Kickstarter-Kampagne startet. Deine Adresse gebe ich nicht weiter."
+      "en": "Otherwise I'll email you twice at most: when pre-orders open and when the Kickstarter launches. Unsubscribe any time. I won't share your address.",
+      "ja": "チェックしない場合、メールは最大2回、予約開始時とKickstarter開始時だけです。配信はいつでも停止できます。メールアドレスを第三者に渡すことはありません。",
+      "de": "Sonst schreibe ich dir höchstens zweimal: wenn die Vorbestellung öffnet und wenn die Kickstarter-Kampagne startet. Abmelden geht jederzeit. Deine Adresse gebe ich nicht weiter."
     },
     {
       "en": "already on the list",
@@ -1014,6 +1014,11 @@
       "en": "by Jared",
       "ja": "で手作り",
       "de": "von Jared"
+    },
+    {
+      "en": "Also send me the monthly devlog: progress, photos and a peek at new pets.",
+      "ja": "月に一度の開発日記も受け取る（進み具合、写真、新しいペットの先行公開）",
+      "de": "Schick mir auch das monatliche Devlog: Fortschritt, Fotos und ein Blick auf neue Haustiere."
     }
   ]
 }

@@ -118,7 +118,11 @@ export class Founders {
     if (op === "signup") {
       const key = `signup:${info.email}`;
       const existing = await this.storage.get(key);
-      if (existing) return Response.json({ ok: true, new: false });
+      if (existing) {
+        // Signing up again with the devlog box ticked opts in (never out)
+        if (info.devlog && !existing.devlog) await this.storage.put(key, { ...existing, devlog: true });
+        return Response.json({ ok: true, new: false });
+      }
       const count = ((await this.storage.get("signup_count")) || 0) + 1;
       await this.storage.put({ [key]: { ...info, at: new Date().toISOString() }, signup_count: count });
       return Response.json({ ok: true, new: true, count });
@@ -389,7 +393,8 @@ async function handleSignup(request, env, cors) {
   if (email.length > 254 || !EMAIL_RE.test(email)) return json({ error: "bad_email" }, 400, cors);
   const lang = ["en", "ja", "de"].includes(data.lang) ? data.lang : "en";
   const country = String(request.headers.get("CF-IPCountry") || "").slice(0, 2);
-  const r = await waitlist(env, { op: "signup", info: { email, lang, country } });
+  const devlog = data.devlog === true;
+  const r = await waitlist(env, { op: "signup", info: { email, lang, country, devlog } });
   return json({ ok: true, new: r.new }, 200, cors);
 }
 
@@ -427,8 +432,8 @@ async function handleSignupsCsv(url, env) {
     return new Response("not found", { status: 404 });
   }
   const { rows } = await waitlist(env, { op: "signups" });
-  const lines = [["email", "joined (UTC)", "page language", "country"].map(csvCell).join(",")];
-  for (const r of rows) lines.push([r.email, r.at, r.lang, r.country].map(csvCell).join(","));
+  const lines = [["email", "joined (UTC)", "page language", "country", "devlog"].map(csvCell).join(",")];
+  for (const r of rows) lines.push([r.email, r.at, r.lang, r.country, r.devlog ? "yes" : ""].map(csvCell).join(","));
   return new Response(lines.join("\n") + "\n", {
     headers: { "Content-Type": "text/csv; charset=utf-8", "Cache-Control": "no-store" },
   });

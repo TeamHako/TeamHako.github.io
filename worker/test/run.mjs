@@ -128,8 +128,9 @@ try {
   const O = { Origin: "https://www.hakoshop.com" };
   r = await post("/signup", { email: " Ada@Example.com ", lang: "ja" }, O);
   assert.deepEqual(await r.json(), { ok: true, new: true });
-  r = await post("/signup", { email: "ada@example.com", lang: "en" }, O);
+  r = await post("/signup", { email: "ada@example.com", lang: "en", devlog: true }, O);
   assert.deepEqual(await r.json(), { ok: true, new: false }, "same email (any case) is one row");
+  await post("/signup", { email: "ada@example.com", devlog: false }, O);   // can't opt out this way
   await post("/signup", { email: "=cmd@evil.com", lang: "xx" }, O);
   assert.equal((await post("/signup", { email: "not-an-email" }, O)).status, 400);
   assert.equal((await post("/signup", { email: "bob@example.com" })).status, 403, "no Origin -> refused");
@@ -140,9 +141,9 @@ try {
   const csv = await (await get("/signups.csv?token=tok_test_123")).text();
   const lines = csv.trim().split("\n");
   assert.equal(lines.length, 3, csv);
-  assert.match(lines[0], /^"email","joined \(UTC\)","page language","country"$/);
-  assert.match(lines[1], /^"ada@example.com","20\d\d-.*","ja",""$/);
-  assert.match(lines[2], /^"'=cmd@evil.com",.*"en",""$/, "formula defused, unknown lang -> en");
+  assert.match(lines[0], /^"email","joined \(UTC\)","page language","country","devlog"$/);
+  assert.match(lines[1], /^"ada@example.com","20\d\d-.*","ja","","yes"$/, "devlog opt-in on a repeat signup sticks");
+  assert.match(lines[2], /^"'=cmd@evil.com",.*"en","",""$/, "formula defused, unknown lang -> en");
   console.log("ok waitlist: dedupe, validation, origin check, honeypot, private CSV export");
 
   // --- plan sync ---

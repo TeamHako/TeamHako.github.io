@@ -240,7 +240,7 @@ function T(key, fallback, vars) {
       ? fetch(window.SHOP_API.replace(/\/$/, "") + "/signup", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, lang, botcheck: payload.botcheck || "" }),
+          body: JSON.stringify({ email, lang, devlog: !!payload.devlog, botcheck: payload.botcheck || "" }),
         }).then(async (r) => {
           if (r.status === 400) throw new Error("bad_email");
           return r.ok && (await r.json()).ok;

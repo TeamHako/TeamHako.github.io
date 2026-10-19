@@ -790,7 +790,7 @@
         <p class="kanji-mark large">第一弾</p>
         <h2>第一弾は2027年春に登場します。</h2>
         <p class="notify-sub">
-          番号入りのファウンダーエディション25台の後は、Kickstarterでより多くの台数を製作します。メールアドレスをご登録いただければ、予約開始時とKickstarter開始時にだけお知らせします。それ以外は送りません。
+          番号入りのファウンダーエディション25台の後は、Kickstarterでより多くの台数を製作します。メールアドレスをご登録いただければ、予約開始時とKickstarter開始時にだけお知らせします。それ以外は送りません（開発日記をご希望の方を除きます）。
         </p>
 
         <form class="notify-form" id="notifyForm">
@@ -806,13 +806,14 @@
             aria-label="メールアドレス"
           />
           <button type="submit" class="btn-primary">通知を受け取る</button>
+          <label class="notify-opt"><input type="checkbox" name="devlog" value="1" /> <span>月に一度の開発日記も受け取る（進み具合、写真、新しいペットの先行公開）</span></label>
         
           <!-- Honeypot: bots fill this; humans don't -->
           <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
         </form>
 
         <p class="notify-meta">
-          メールは最大2回、予約開始時とKickstarter開始時だけです。メールアドレスを第三者に渡すことはありません。
+          チェックしない場合、メールは最大2回、予約開始時とKickstarter開始時だけです。配信はいつでも停止できます。メールアドレスを第三者に渡すことはありません。
         </p>
 
         <!-- Live signup counter — appears once SIGNUP_COUNT >= MIN_TO_SHOW -->
