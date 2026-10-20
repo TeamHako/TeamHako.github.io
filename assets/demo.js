@@ -425,10 +425,11 @@
       this.queue.push(card); // the sample deck is small: cards come round again
       if (grade !== "again") state.remaining = Math.max(0, state.remaining - 1);
       this.showing = false;
-      // show the effect on the panel
-      this.displays.forEach((d) => {
-        if (!d.autoplay) d.show(state.remaining === 0 ? "pet" : "today");
-      });
+      // The panel's screens update live, so stay on whichever one is showing;
+      // only finishing the deck switches to the pet, to see it celebrate
+      if (state.remaining === 0) {
+        this.displays.forEach((d) => { if (!d.autoplay) d.show("pet"); });
+      }
       this.el.classList.remove("pulse");
       void this.el.offsetWidth;
       this.el.classList.add("pulse");

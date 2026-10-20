@@ -88,7 +88,7 @@ def build(spec: dict, home: str) -> str:
     for lang in ("", "ja/", "de/"):
         page = page.replace(f'<a href="/{lang}" hreflang=', f'<a href="/{lang}{path}" hreflang=')
     # only the home page has the interactive demo
-    page = page.replace('  <script src="assets/demo.js" defer></script>\n', "")
+    page = re.sub(r'  <script src="assets/demo\.js[^"]*" defer></script>\n', "", page)
 
     page = prefix_links(page, "../" * path.count("/"))
     return page.replace("<!DOCTYPE html>\n", "<!DOCTYPE html>\n" + BANNER.format(name=spec["source"]), 1)
