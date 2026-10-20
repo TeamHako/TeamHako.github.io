@@ -2813,3 +2813,55 @@ body.gate-locked { overflow: hidden; }
   .friend { padding: 14px 14px 16px; }
   .friend-name { font-size: 18px; }
 }
+
+/* ============================================================
+   PHOTOS of the v2 prototype (in place of rendered screens)
+   ============================================================ */
+.what-screen:has(.proto-tag),
+.feature-photo {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.what-screen img[src*="/photos/"],
+.feature-photo img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  image-rendering: auto;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 14px;
+  background: #0a0908;
+  box-shadow: 0 10px 24px rgba(28, 24, 20, 0.22);
+}
+
+.feature-photo {
+  max-width: 220px;
+  margin-bottom: 20px;
+}
+
+.proto-tag {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(20, 17, 14, 0.72);
+  color: #f2ede3;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.proto-note {
+  margin-top: -8px;
+}

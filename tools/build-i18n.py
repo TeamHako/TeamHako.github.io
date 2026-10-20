@@ -57,6 +57,11 @@ def build(lang: str, source: str, tr: dict) -> tuple[str, list[str]]:
 
     # Panel images are rendered per language (hako repo: deploy/build-web-images.py)
     page = page.replace("assets/images/panel/en/", f"assets/images/panel/{lang}/")
+    # Photos of the device: the shot with that language on the screen where
+    # there is one (assets/images/photos/<lang>/), else the English one
+    page = re.sub(r"assets/images/photos/en/([\w.-]+)",
+                  lambda m: f"assets/images/photos/{lang}/{m.group(1)}"
+                  if (SITE / "assets/images/photos" / lang / m.group(1)).exists() else m.group(0), page)
 
     for entry in tr["attr"]:
         if entry["en"] not in page:

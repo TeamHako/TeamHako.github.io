@@ -84,19 +84,19 @@
       "de": "data-label=\"Foto: die Holzverbindungen werden geschnitten\""
     },
     {
-      "en": "alt=\"hako today screen\"",
-      "ja": "alt=\"hakoの「今日」画面\"",
-      "de": "alt=\"hako-Bildschirm „Heute“\""
+      "en": "alt=\"hako on a desk showing what's due today\"",
+      "ja": "alt=\"今日の復習を表示する机の上のhako\"",
+      "de": "alt=\"hako auf dem Schreibtisch mit den heute fälligen Karten\""
     },
     {
-      "en": "alt=\"hako study pet screen\"",
-      "ja": "alt=\"hakoのペット画面\"",
-      "de": "alt=\"hako-Bildschirm mit dem Lern-Haustier\""
+      "en": "alt=\"hako's study pet with sparkly eyes, on the v2 prototype\"",
+      "ja": "alt=\"試作2号機でキラキラ目のペット\"",
+      "de": "alt=\"Das Lern-Haustier mit Glitzeraugen auf dem Prototyp v2\""
     },
     {
-      "en": "alt=\"hako six-week heatmap screen\"",
-      "ja": "alt=\"hakoの6週間ヒートマップ画面\"",
-      "de": "alt=\"hako-Bildschirm mit der Sechs-Wochen-Heatmap\""
+      "en": "alt=\"hako showing six weeks of reviews as a heatmap\"",
+      "ja": "alt=\"6週間の復習をヒートマップで表示するhako\"",
+      "de": "alt=\"hako zeigt sechs Wochen Wiederholungen als Heatmap\""
     },
     {
       "en": "alt=\"Founder Edition mark and number burned into the wood\"",
@@ -114,9 +114,9 @@
       "de": "alt=\"Die Elektronik im Inneren von hako\""
     },
     {
-      "en": "alt=\"hako cards screen\"",
-      "ja": "alt=\"hakoのカード画面\"",
-      "de": "alt=\"hako-Bildschirm mit deinen Karten\""
+      "en": "alt=\"hako showing a recently added card\"",
+      "ja": "alt=\"最近追加したカードを表示するhako\"",
+      "de": "alt=\"hako zeigt eine kürzlich hinzugefügte Karte\""
     },
     {
       "en": "aria-label=\"Plugging in hako: its screen shows the setup network to join\"",
@@ -179,9 +179,9 @@
       "de": "alt=\"hako feiert einen neuen Freund mit Konfetti\""
     },
     {
-      "en": "alt=\"hako clock screen with the weather\"",
-      "ja": "alt=\"天気つきのhako時計画面\"",
-      "de": "alt=\"hako-Uhrbildschirm mit Wetter\""
+      "en": "alt=\"hako showing the time and the weather\"",
+      "ja": "alt=\"時刻と天気を表示するhako\"",
+      "de": "alt=\"hako zeigt Uhrzeit und Wetter\""
     },
     {
       "en": "alt=\"hako asking you to tap your phone\"",
@@ -189,9 +189,9 @@
       "de": "alt=\"hako bittet dich, dein Handy anzuhalten\""
     },
     {
-      "en": "alt=\"A game of Pong on the hako panel\"",
-      "ja": "alt=\"hakoのパネルで遊ぶポン\"",
-      "de": "alt=\"Eine Runde Pong auf dem hako-Panel\""
+      "en": "alt=\"A game of Pong on hako\"",
+      "ja": "alt=\"hakoで遊ぶポン\"",
+      "de": "alt=\"Eine Runde Pong auf hako\""
     }
   ],
   "text": [
@@ -1019,6 +1019,16 @@
       "en": "Also send me the monthly devlog: progress, photos and a peek at new pets.",
       "ja": "月に一度の開発日記も受け取る（進み具合、写真、新しいペットの先行公開）",
       "de": "Schick mir auch das monatliche Devlog: Fortschritt, Fotos und ein Blick auf neue Haustiere."
+    },
+    {
+      "en": "Photographed on the v2 prototype. The hand-cut walnut enclosure is still in progress.",
+      "ja": "写真は試作2号機です。手作りのウォールナットのケースは製作中です。",
+      "de": "Fotografiert am Prototyp v2. Das handgefertigte Walnussgehäuse ist noch in Arbeit."
+    },
+    {
+      "en": "Prototype v2",
+      "ja": "試作2号機",
+      "de": "Prototyp v2"
     }
   ]
 }
