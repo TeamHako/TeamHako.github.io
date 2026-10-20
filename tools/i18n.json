@@ -219,9 +219,9 @@
       "de": "alt=\"Illustration einer grauen Filztasche für hako mit Lederriemen\""
     },
     {
-      "en": "alt=\"Illustration of a walnut block with three keys: again, good and undo\"",
-      "ja": "alt=\"3つのキー(もう一度・正解・元に戻す)が付いたウォールナットのブロックのイメージ図\"",
-      "de": "alt=\"Illustration eines Walnussblocks mit drei Tasten: Nochmal, Gut und Rückgängig\""
+      "en": "alt=\"Concept render of mikko: a walnut block with three walnut keys marked ✕, ○ and ↺\"",
+      "ja": "alt=\"みっこのコンセプト画像:✕・○・↺のウォールナットキーが3つ付いたウォールナットのブロック\"",
+      "de": "alt=\"Konzept-Rendering von mikko: ein Walnussblock mit drei Walnusstasten mit ✕, ○ und ↺\""
     }
   ],
   "text": [
@@ -1206,9 +1206,9 @@
       "de": "Als Nächstes"
     },
     {
-      "en": "Three keys in a block of walnut, made for reviewing. Wireless, built for Anki and Migaku: Again, Good and Undo out of the box, and you can remap all three. Lean back, keep your hand on the keys and get through the pile.",
-      "ja": "ウォールナットの塊に、キーが3つ。復習のためだけに作りました。ワイヤレスで、AnkiとMigakuに対応。最初は「もう一度」「正解」「元に戻す」、3つとも好きに割り当て直せます。背もたれに寄りかかって、手はキーの上に。今日の山を片づけましょう。",
-      "de": "Drei Tasten in einem Block aus Walnuss, gemacht fürs Wiederholen. Kabellos, für Anki und Migaku: ab Werk Nochmal, Gut und Rückgängig – alle drei frei belegbar. Lehn dich zurück, die Hand auf den Tasten, und arbeite den Stapel ab."
+      "en": "Three walnut keys in a block of walnut, made for reviewing in Anki and Migaku: Again, Good and Undo out of the box, and you can remap all three. A switch on the front picks Bluetooth, USB-C cable or the 2.4 GHz receiver. No power switch: it sleeps when you stop and wakes on the first press.",
+      "ja": "ウォールナットの塊に、ウォールナットのキーが3つ。AnkiとMigakuの復習のために作りました。最初は「もう一度」「正解」「元に戻す」、3つとも好きに割り当て直せます。前面のスイッチでBluetooth・USB-Cケーブル・2.4GHzレシーバーを切り替え。電源スイッチはありません。手を止めると眠り、最初のひと押しで目を覚まします。",
+      "de": "Drei Walnusstasten in einem Block aus Walnuss, gemacht fürs Wiederholen in Anki und Migaku: ab Werk Nochmal, Gut und Rückgängig – alle drei frei belegbar. Ein Schalter vorne wählt Bluetooth, USB-C-Kabel oder den 2,4-GHz-Empfänger. Kein Ein-/Ausschalter: Es schläft, wenn du aufhörst, und wacht beim ersten Tastendruck auf."
     },
     {
       "en": "Tell me when it's ready",
@@ -1224,6 +1224,11 @@
       "en": "mikko: みっ from みっつ, “three,” plus こ, a small, friendly ending. It rhymes with hako.",
       "ja": "みっこ:「みっつ」の「みっ」に、親しみをこめた「こ」。hakoと韻を踏んでいます。",
       "de": "mikko: みっ von みっつ („drei“) plus こ, eine kleine, freundliche Endung. Und es reimt sich auf hako."
+    },
+    {
+      "en": "Concept render",
+      "ja": "コンセプト画像",
+      "de": "Konzept-Rendering"
     }
   ]
 }

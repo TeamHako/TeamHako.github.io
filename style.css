@@ -3239,6 +3239,15 @@ body.gate-locked { overflow: hidden; }
 }
 
 .product-media.is-light img { object-fit: contain; padding: 6% 8%; }
+/* a render on its own studio backdrop: show all of it and feather its edges
+   into a matching backdrop, so the card can be any shape without cropping */
+.product-media.is-render { background: #f4f1e9; }
+.product-media.is-render img {
+  object-fit: contain;
+  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 72%, transparent 100%);
+          mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 72%, transparent 100%);
+}
+.product-next .product-media.is-render { flex-basis: 50%; }
 .product-main .product-media { aspect-ratio: 1 / 0.82; }
 .product-main .product-media img { object-position: 50% 40%; }
 .product:hover .product-media img { transform: scale(1.03); }
