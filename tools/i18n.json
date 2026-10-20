@@ -1206,16 +1206,6 @@
       "de": "Als Nächstes"
     },
     {
-      "en": "hako keys",
-      "ja": "hakoキー",
-      "de": "hako keys"
-    },
-    {
-      "en": "working name",
-      "ja": "仮称",
-      "de": "Arbeitstitel"
-    },
-    {
       "en": "Three keys in a block of walnut, made for reviewing. Wireless, built for Anki and Migaku: Again, Good and Undo out of the box, and you can remap all three. Lean back, keep your hand on the keys and get through the pile.",
       "ja": "ウォールナットの塊に、キーが3つ。復習のためだけに作りました。ワイヤレスで、AnkiとMigakuに対応。最初は「もう一度」「正解」「元に戻す」、3つとも好きに割り当て直せます。背もたれに寄りかかって、手はキーの上に。今日の山を片づけましょう。",
       "de": "Drei Tasten in einem Block aus Walnuss, gemacht fürs Wiederholen. Kabellos, für Anki und Migaku: ab Werk Nochmal, Gut und Rückgängig – alle drei frei belegbar. Lehn dich zurück, die Hand auf den Tasten, und arbeite den Stapel ab."
@@ -1224,6 +1214,16 @@
       "en": "Tell me when it's ready",
       "ja": "完成したら知らせてほしい",
       "de": "Sag mir Bescheid, wenn es so weit ist"
+    },
+    {
+      "en": "mikko",
+      "ja": "みっこ",
+      "de": "mikko"
+    },
+    {
+      "en": "mikko: みっ from みっつ, “three,” plus こ, a small, friendly ending. It rhymes with hako.",
+      "ja": "みっこ:「みっつ」の「みっ」に、親しみをこめた「こ」。hakoと韻を踏んでいます。",
+      "de": "mikko: みっ von みっつ („drei“) plus こ, eine kleine, freundliche Endung. Und es reimt sich auf hako."
     }
   ]
 }

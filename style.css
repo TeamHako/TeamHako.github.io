@@ -3287,15 +3287,21 @@ body.gate-locked { overflow: hidden; }
 .product-main .product-name { font-size: clamp(2rem, 3.2vw, 2.6rem); }
 
 .product-name small {
-  font: 400 12px/1 "IBM Plex Sans", sans-serif;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font: 400 14px/1 "IBM Plex Sans", sans-serif;
+  letter-spacing: 0.02em;
   color: var(--muted);
 }
 
 .product-kanji {
   font-family: "Shippori Mincho", serif;
   color: var(--accent);
+}
+
+.product-note {
+  margin-top: -4px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
 }
 
 .product-desc {
