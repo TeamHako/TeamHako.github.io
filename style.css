@@ -3222,6 +3222,7 @@ body.gate-locked { overflow: hidden; }
 .product-media {
   position: relative;
   display: block;
+  flex-shrink: 0;                 /* keep 4:3 when the cards in a row stretch */
   aspect-ratio: 4 / 3;
   overflow: hidden;
   background: #0d0b09;
