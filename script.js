@@ -545,3 +545,99 @@ async function liveShop(cta, price) {
     else img.addEventListener("error", fallback);
   });
 })();
+
+// ============================================================
+// HERO: "Fuel your ___ studies." The subject rolls through the
+// headline's data-words ([word, small reading above it]); the bar
+// along the stage lists them all, with a progress underline.
+// ============================================================
+(function () {
+  const h = document.querySelector(".headline[data-words]");
+  if (!h) return;
+  let words;
+  try { words = JSON.parse(h.dataset.words); } catch (e) { return; }
+  if (!words.length) return;
+
+  const slot = h.querySelector(".hl-slot");
+  const stroke = h.querySelector(".hl-stroke");
+  const bar = document.querySelector("[data-subjects]");
+  const nEl = document.querySelector("[data-subject-n]");
+  const totalEl = document.querySelector("[data-subject-total]");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const MS = reduce ? 3800 : 2800;
+  const pad = n => String(n).padStart(2, "0");
+  let i = 0, timer = null, hovering = false, visible = true;
+
+  // Screen readers get the whole sentence once; the rolling word is decoration
+  const before = h.querySelector(".hl-a").textContent.trim();
+  const after = h.querySelector(".hl-b").textContent.trim();
+  h.setAttribute("aria-label", [before, words.map(w => w[0]).join(", "), after].filter(Boolean).join(" "));
+  h.querySelector(".hl-word").setAttribute("aria-hidden", "true");
+
+  function fill(el, w) {
+    el.querySelector(".hl-ruby").textContent = w[1] || "";
+    el.querySelector(".hl-text").textContent = w[0];
+  }
+
+  const buttons = words.map((w, k) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "subject";
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", k === 0 ? "true" : "false");
+    b.textContent = w[0];
+    b.addEventListener("click", () => { go(k); schedule(); });
+    bar && bar.appendChild(b);
+    return b;
+  });
+  if (bar) bar.style.setProperty("--subject-ms", MS + "ms");
+  if (totalEl) totalEl.textContent = pad(words.length);
+
+  function drawStroke() {
+    if (!stroke) return;
+    stroke.classList.remove("draw");
+    void stroke.offsetWidth;                       // restart the animation
+    stroke.classList.add("draw");
+  }
+
+  function go(k) {
+    i = (k + words.length) % words.length;
+    const old = slot.querySelector(".hl-item.is-in");
+    const el = document.createElement("span");
+    el.className = "hl-item";
+    el.innerHTML = '<span class="hl-ruby"></span><span class="hl-text"></span>';
+    fill(el, words[i]);
+    slot.appendChild(el);
+    void el.offsetWidth;                           // start below, then slide in
+    el.classList.add("is-in");
+    if (old) {
+      old.classList.remove("is-in");
+      old.classList.add("is-out");
+      setTimeout(() => old.remove(), 800);
+    }
+    buttons.forEach((b, k2) => b.setAttribute("aria-selected", k2 === i ? "true" : "false"));
+    if (nEl) nEl.textContent = pad(i + 1);
+    drawStroke();
+  }
+
+  function schedule() {
+    clearTimeout(timer);
+    const running = !hovering && visible && !document.hidden;
+    if (bar) bar.classList.toggle("paused", !running);
+    if (running) timer = setTimeout(() => { go(i + 1); schedule(); }, MS);
+  }
+
+  // the first subject, in this page's language, without a slide
+  fill(slot.querySelector(".hl-item"), words[0]);
+  drawStroke();
+
+  // pause while you're reading the list, while the tab is hidden, or once scrolled past
+  [h, bar].forEach(el => el && el.addEventListener("mouseenter", () => { hovering = true; schedule(); }));
+  [h, bar].forEach(el => el && el.addEventListener("mouseleave", () => { hovering = false; schedule(); }));
+  document.addEventListener("visibilitychange", schedule);
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(entries => { visible = entries[0].isIntersecting; schedule(); })
+      .observe(document.querySelector(".stage") || h);
+  }
+  schedule();
+})();

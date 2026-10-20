@@ -214,33 +214,61 @@
   </div>
 
   <!-- ============================================================ -->
-  <!-- HERO                                                         -->
+  <!-- HERO — the stage                                             -->
+  <!-- "Fuel your ___ studies." The subject rolls through data-words  -->
+  <!-- (pairs: [word, reading shown small above it, furigana-style]). -->
   <!-- ============================================================ -->
-  <section class="hero">
-    <div class="hero-content">
-      <p class="eyebrow reveal">Ankiのための、静かな相棒</p>
-      <h1 class="reveal">
-        勉強の様子を<br/>そっと見守る<br/>小さな木の箱。
-      </h1>
-      <p class="hero-sub reveal">
-        hakoは机の上で、Ankiの残りの復習数を64×64のLEDに表示します。通知は一切送りません。
-      </p>
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="stage">
+      <div class="stage-grid" aria-hidden="true"></div>
+      <p class="stage-vert" aria-hidden="true">勉強の相棒</p>
 
-      <div class="hero-cta reveal">
-        <a href="#founders" class="btn-primary">ファウンダーエディション &middot; <span data-founder-price>$279</span></a>
-        <a href="#try" class="btn-link">試してみる <span class="arrow">→</span></a>
+      <div class="stage-copy">
+        <p class="stage-eyebrow reveal"><span class="kanji-mark">箱</span><span>Ankiのための、静かな相棒</span></p>
+        <h1 id="heroTitle" class="headline reveal" data-words='[["日本語","Japanese"],["医学部","Med School"],["ロシア語","Russian"],["語学","Language"],["大学","College"],["仕事","Work"],["韓国語","Korean"],["司法試験","Bar Exam"]]'>
+          <span class="hl-line hl-a">がんばる</span>
+          <span class="hl-word" aria-live="off"><span class="hl-slot"><span class="hl-item is-in"><span class="hl-ruby">日本語</span><span class="hl-text">Japanese</span></span></span><span class="hl-stroke" aria-hidden="true"></span></span>
+          <span class="hl-line hl-b">の勉強に、相棒を。</span>
+        </h1>
+        <p class="hero-sub reveal">勉強の様子をそっと見守る、小さな木の箱。</p>
+
+        <div class="hero-cta reveal">
+          <a href="#founders" class="btn-primary">ファウンダーエディション &middot; <span data-founder-price>$279</span></a>
+          <a href="#try" class="btn-link">試してみる <span class="arrow">→</span></a>
+        </div>
+
+        <p class="hero-tagline reveal">
+          <span class="kanji-mark">第一弾</span>
+          第一弾 &middot; <strong>2027年春</strong> &middot; 番号入り限定25台
+        </p>
       </div>
 
-      <p class="hero-tagline reveal">
-        <span class="kanji-mark">第一弾</span>
-        第一弾 &middot; <strong>2027年春</strong> &middot; 番号入り限定25台
-      </p>
+      <div class="stage-device reveal">
+        <!-- Live panel: frames rendered by the device's own code (assets/demo.js) -->
+        <div class="hako-display" data-hako-display data-autoplay></div>
+        <div class="stage-floor" aria-hidden="true"></div>
+        <ul class="callouts" aria-hidden="true">
+          <li class="callout c-led"><b>64 × 64</b><span>LED · 4,096ドット</span></li>
+          <li class="callout c-knob"><b>ノブ</b><span>回す · 押す</span></li>
+          <li class="callout c-wood"><b>ウォールナット</b><span>組み接ぎ</span></li>
+          <li class="callout c-tap"><b>タッチ</b><span>上面 · NFC</span></li>
+        </ul>
+      </div>
+
+      <div class="stage-bar">
+        <span class="stage-count" aria-hidden="true"><b data-subject-n>01</b> / <span data-subject-total>08</span></span>
+        <div class="subjects" role="tablist" aria-label="科目" data-subjects></div>
+      </div>
     </div>
 
-    <div class="hero-device reveal">
-      <!-- Live panel: frames rendered by the device's own code (assets/demo.js).
-           SWAP: once photos exist, a photo can sit alongside or replace this. -->
-      <div class="hako-display" data-hako-display data-autoplay></div>
+    <div class="advantage reveal">
+      <p class="adv-label">hakoのこだわり</p>
+      <ul class="adv-list">
+        <li><span class="adv-k">手作り</span><span>ウォールナットで一台ずつ</span></li>
+        <li><span class="adv-k">静か</span><span>通知は一切なし</span></li>
+        <li><span class="adv-k">連動</span><span>Ankiの進み具合と連動</span></li>
+      </ul>
+      <p class="adv-text">hakoは机の上で、Ankiの残りの復習数を64×64のLEDに表示します。通知は一切送りません。</p>
     </div>
   </section>
 

@@ -193,35 +193,61 @@
   </div>
 
   <!-- ============================================================ -->
-  <!-- HERO                                                         -->
+  <!-- HERO — the stage                                             -->
+  <!-- "Fuel your ___ studies." The subject rolls through data-words  -->
+  <!-- (pairs: [word, reading shown small above it, furigana-style]). -->
   <!-- ============================================================ -->
-  <section class="hero">
-    <div class="hero-content">
-      <p class="eyebrow reveal">an ambient Anki companion</p>
-      <h1 class="reveal">
-        A small wooden box<br/>
-        that knows how<br/>
-        your studies are going.
-      </h1>
-      <p class="hero-sub reveal">
-        hako sits on your desk and shows how many Anki reviews you have left on a 64×64 LED screen. It never sends notifications.
-      </p>
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="stage">
+      <div class="stage-grid" aria-hidden="true"></div>
+      <p class="stage-vert" aria-hidden="true">勉強の相棒</p>
 
-      <div class="hero-cta reveal">
-        <a href="#founders" class="btn-primary">Founder Edition &middot; <span data-founder-price>$279</span></a>
-        <a href="#try" class="btn-link">Try it <span class="arrow">→</span></a>
+      <div class="stage-copy">
+        <p class="stage-eyebrow reveal"><span class="kanji-mark">箱</span><span>an ambient Anki companion</span></p>
+        <h1 id="heroTitle" class="headline reveal" data-words='[["Japanese","日本語"],["Med School","医学部"],["Russian","ロシア語"],["Language","語学"],["College","大学"],["Work","仕事"],["Korean","韓国語"],["Bar Exam","司法試験"]]'>
+          <span class="hl-line hl-a">Fuel your</span>
+          <span class="hl-word" aria-live="off"><span class="hl-slot"><span class="hl-item is-in"><span class="hl-ruby">日本語</span><span class="hl-text">Japanese</span></span></span><span class="hl-stroke" aria-hidden="true"></span></span>
+          <span class="hl-line hl-b">studies.</span>
+        </h1>
+        <p class="hero-sub reveal">A small wooden box that knows how your studies are going.</p>
+
+        <div class="hero-cta reveal">
+          <a href="#founders" class="btn-primary">Founder Edition &middot; <span data-founder-price>$279</span></a>
+          <a href="#try" class="btn-link">Try it <span class="arrow">→</span></a>
+        </div>
+
+        <p class="hero-tagline reveal">
+          <span class="kanji-mark">第一弾</span>
+          First batch &middot; <strong>spring 2027</strong> &middot; 25 numbered units
+        </p>
       </div>
 
-      <p class="hero-tagline reveal">
-        <span class="kanji-mark">第一弾</span>
-        First batch &middot; <strong>spring 2027</strong> &middot; 25 numbered units
-      </p>
+      <div class="stage-device reveal">
+        <!-- Live panel: frames rendered by the device's own code (assets/demo.js) -->
+        <div class="hako-display" data-hako-display data-autoplay></div>
+        <div class="stage-floor" aria-hidden="true"></div>
+        <ul class="callouts" aria-hidden="true">
+          <li class="callout c-led"><b>64 × 64</b><span>LED · 4,096 dots</span></li>
+          <li class="callout c-knob"><b>Knob</b><span>turn · press</span></li>
+          <li class="callout c-wood"><b>Walnut</b><span>組み接ぎ box joints</span></li>
+          <li class="callout c-tap"><b>Tap</b><span>the top · NFC</span></li>
+        </ul>
+      </div>
+
+      <div class="stage-bar">
+        <span class="stage-count" aria-hidden="true"><b data-subject-n>01</b> / <span data-subject-total>08</span></span>
+        <div class="subjects" role="tablist" aria-label="Subjects" data-subjects></div>
+      </div>
     </div>
 
-    <div class="hero-device reveal">
-      <!-- Live panel: frames rendered by the device's own code (assets/demo.js).
-           SWAP: once photos exist, a photo can sit alongside or replace this. -->
-      <div class="hako-display" data-hako-display data-autoplay></div>
+    <div class="advantage reveal">
+      <p class="adv-label">The hako way</p>
+      <ul class="adv-list">
+        <li><span class="adv-k">手作り</span><span>Handmade in walnut</span></li>
+        <li><span class="adv-k">静か</span><span>Never sends notifications</span></li>
+        <li><span class="adv-k">連動</span><span>Follows your Anki queue</span></li>
+      </ul>
+      <p class="adv-text">hako sits on your desk and shows how many Anki reviews you have left on a 64×64 LED screen. It never sends notifications.</p>
     </div>
   </section>
 

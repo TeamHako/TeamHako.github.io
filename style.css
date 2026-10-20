@@ -511,60 +511,215 @@ h6,
    HERO
    ============================================================ */
 
+/* ============================================================
+   HERO — the stage: "Fuel your ___ studies."
+   ============================================================ */
+
+:root,
+:root[data-theme="light"] {
+  --stage-top:    #ebe6dc;
+  --stage-bottom: #f6f3ec;
+  --stage-glow:   rgba(255, 246, 228, 0.95);
+  --stage-line:   rgba(28, 24, 20, 0.06);
+  --stage-floor:  rgba(60, 40, 20, 0.28);
+  --stage-ink:    #1c1814;
+  --stage-muted:  #7c7466;
+}
+
+:root[data-theme="dark"] {
+  --stage-top:    #0c0c0e;
+  --stage-bottom: #16130f;
+  --stage-glow:   rgba(92, 118, 170, 0.22);
+  --stage-line:   rgba(244, 237, 224, 0.05);
+  --stage-floor:  rgba(0, 0, 0, 0.7);
+  --stage-ink:    #f4ede0;
+  --stage-muted:  #9a9080;
+}
+
 .hero {
   position: relative;
   z-index: 1;
+  padding: 92px 20px 0;
+}
 
-  min-height: 100vh;
+.stage {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  min-height: min(calc(100vh - 112px), 860px);
 
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+  column-gap: 48px;
 
-  gap: 80px;
+  padding: 72px 6% 0 8%;
+
+  border-radius: 28px;
+  border: 1px solid var(--border-soft);
+
+  background:
+    radial-gradient(60% 70% at 72% 46%, var(--stage-glow), transparent 70%),
+    linear-gradient(180deg, var(--stage-top), var(--stage-bottom));
+
+  color: var(--stage-ink);
+}
+
+/* a faint technical grid, like the LED panel's own */
+.stage-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background-image:
+    linear-gradient(var(--stage-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--stage-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+
+  -webkit-mask-image: radial-gradient(80% 80% at 70% 45%, #000 30%, transparent 80%);
+          mask-image: radial-gradient(80% 80% at 70% 45%, #000 30%, transparent 80%);
+}
+
+.stage-vert {
+  position: absolute;
+  left: 2.4%;
+  top: 72px;
+
+  writing-mode: vertical-rl;
+  font-family: "Shippori Mincho", serif;
+  font-size: 15px;
+  letter-spacing: 0.5em;
+
+  color: var(--accent);
+  opacity: 0.85;
+}
+
+.stage-copy {
+  align-self: center;
+  min-width: 0;
+  padding: 24px 0 40px;
+}
+
+.stage-eyebrow {
+  display: flex;
   align-items: center;
+  gap: 12px;
+  margin-bottom: 36px;
 
-  padding: 140px 8% 80px;
-
-  overflow: hidden;
-}
-
-.hero-content {
-  max-width: 640px;
-}
-
-.eyebrow {
-  margin-bottom: 28px;
-
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
+
+  color: var(--stage-muted);
+}
+
+.stage-eyebrow .kanji-mark { font-size: 20px; letter-spacing: 0; }
+
+/* -- the headline: tracked sans around a rolling Mincho subject -- */
+.headline {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 28px;
+}
+
+.hl-line {
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  font-size: clamp(1.1rem, 2.1vw, 1.9rem);
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  line-height: 1.2;
+
+  color: var(--stage-ink);
+}
+
+.hl-word {
+  position: relative;
+  display: block;
+  margin: 0.2em 0 0.32em;
+}
+
+.hl-slot {
+  position: relative;
+  display: block;
+  overflow: hidden;
+
+  /* the reading (0.17em, line-height 1.4) above a 1.04 word, plus a little air */
+  height: 1.42em;
+
+  font-size: clamp(3rem, 6.4vw, 6.6rem);
+}
+
+.hl-item {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  transform: translateY(105%);
+  opacity: 0;
+  transition: transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease;
+}
+
+.hl-item.is-in  { transform: translateY(0); opacity: 1; }
+.hl-item.is-out { transform: translateY(-28%); opacity: 0; transition-duration: 0.5s, 0.22s; }
+
+.hl-ruby {
+  font-family: "Shippori Mincho", serif;
+  font-size: max(0.17em, 11px);
+  letter-spacing: 0.3em;
+  line-height: 1.4;
+  white-space: nowrap;
+
+  color: var(--stage-muted);
+}
+
+.hl-text {
+  font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
 
   color: var(--accent);
 }
 
-.hero h1 {
-  margin-bottom: 32px;
+/* a brush-stroke underline that draws in with each subject */
+.hl-stroke {
+  display: block;
+  width: min(220px, 40%);
+  height: 4px;
+  margin-top: 0.1em;
+  border-radius: 2px;
 
-  font-size: clamp(2.2rem, 4.6vw, 4.2rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  font-weight: 500;
+  background: var(--accent);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
 
-  color: var(--ink);
+.hl-stroke.draw { animation: hl-draw 0.9s cubic-bezier(0.3, 0.7, 0.2, 1) 0.15s forwards; }
 
-  word-break: break-word;
+@keyframes hl-draw {
+  from { transform: scaleX(0); opacity: 1; }
+  to   { transform: scaleX(1); opacity: 1; }
 }
 
 .hero-sub {
-  margin-bottom: 40px;
+  margin-bottom: 36px;
+  max-width: 460px;
 
-  max-width: 520px;
+  font-family: "Shippori Mincho", serif;
+  font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+  line-height: 1.6;
 
-  font-size: 17px;
-  line-height: 1.7;
-
-  color: var(--muted);
+  color: var(--stage-ink);
+  opacity: 0.8;
 }
 
 .hero-cta {
@@ -572,8 +727,7 @@ h6,
   align-items: center;
   flex-wrap: wrap;
   gap: 24px;
-
-  margin-bottom: 48px;
+  margin-bottom: 40px;
 }
 
 .hero-tagline {
@@ -585,12 +739,294 @@ h6,
   font-size: 13px;
   letter-spacing: 0.02em;
 
+  color: var(--stage-muted);
+}
+
+.hero-tagline strong { color: var(--stage-ink); font-weight: 500; }
+
+/* -- the device on its floor, with labelled details -- */
+.stage-device {
+  position: relative;
+  align-self: center;
+  justify-self: center;
+
+  width: 100%;
+  max-width: 470px;
+  padding: 40px 0 72px;
+}
+
+.stage-device .hako-display {
+  position: relative;
+  z-index: 1;
+  max-width: 470px;
+}
+
+/* standing on the stage: a soft contact shadow right under the box */
+.stage-device .hako-box {
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.18),
+    0 34px 46px -22px var(--stage-floor),
+    0 60px 90px -40px var(--stage-floor);
+}
+
+.stage-floor { display: none; }
+
+.callouts {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: none;
+}
+
+.callout {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  white-space: nowrap;
+
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--stage-muted);
+}
+
+.callout b {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--stage-ink);
+}
+
+/* a leader line from the label to the point it names */
+.callout::before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+.callout::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  background: var(--stage-bottom);
+}
+
+.c-led  { top: 18%; right: calc(100% + 18px); text-align: right; align-items: flex-end; }
+.c-led::before  { left: calc(100% + 8px); width: 74px; }
+.c-led::after   { left: calc(100% + 82px); }
+
+.c-wood { top: 74%; right: calc(100% + 18px); text-align: right; align-items: flex-end; }
+.c-wood::before { left: calc(100% + 8px); width: 48px; }
+.c-wood::after  { left: calc(100% + 56px); }
+
+.c-knob { top: 44%; left: calc(100% + 34px); }
+.c-knob::before { right: calc(100% + 8px); width: 22px; }
+.c-knob::after  { right: calc(100% + 30px); }
+
+.c-tap  { top: 9%; left: calc(100% + 34px); }
+.c-tap::before  { right: calc(100% + 8px); width: 22px; }
+.c-tap::after   { right: calc(100% + 30px); }
+
+/* -- the subject bar along the bottom of the stage -- */
+.stage-bar {
+  grid-column: 1 / -1;
+
+  display: flex;
+  align-items: center;
+  gap: 28px;
+
+  margin: 0 -6% 0 -8%;
+  padding: 18px 6% 22px 8%;
+
+  border-top: 1px solid var(--stage-line);
+}
+
+.stage-count {
+  flex: none;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--stage-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.stage-count b { color: var(--stage-ink); font-weight: 600; }
+
+.subjects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 26px;
+  min-width: 0;
+}
+
+.subject {
+  position: relative;
+  padding: 6px 0 9px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+
+  font: 500 12px/1 "IBM Plex Sans", sans-serif;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+
+  color: var(--stage-muted);
+  transition: color 0.3s ease;
+}
+
+.subject:hover,
+.subject:focus-visible { color: var(--stage-ink); }
+.subject:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 2px; }
+
+.subject[aria-selected="true"] { color: var(--stage-ink); }
+
+/* the active subject's underline fills while it's on stage */
+.subject::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--accent);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+.subject[aria-selected="true"]::after { animation: subject-fill var(--subject-ms, 2800ms) linear forwards; }
+.subjects.paused .subject[aria-selected="true"]::after { animation: none; transform: scaleX(1); }
+
+@keyframes subject-fill { to { transform: scaleX(1); } }
+
+/* -- below the stage: the hako way -- */
+.advantage {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: center;
+  gap: 40px;
+
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 56px 4% 40px;
+}
+
+.adv-label {
+  padding-right: 40px;
+  border-right: 2px solid var(--accent);
+
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  white-space: nowrap;
+
   color: var(--muted);
 }
 
-.hero-tagline strong {
-  color: var(--ink);
-  font-weight: 500;
+.adv-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.adv-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  color: var(--ink-soft);
+}
+
+.adv-k {
+  min-width: 3.2em;
+  font-family: "Shippori Mincho", serif;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  text-transform: none;
+  color: var(--accent);
+}
+
+.adv-text {
+  max-width: 460px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+@media (max-width: 1180px) {
+  .callouts { display: none; }
+}
+
+@media (max-width: 960px) {
+  .hero { padding: 80px 12px 0; }
+
+  .stage {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    padding: 40px 24px 0;
+    min-height: 0;
+    border-radius: 22px;
+  }
+
+  .stage-vert { display: none; }
+  .stage-copy { padding: 8px 0 8px; }
+  .stage-eyebrow { margin-bottom: 24px; }
+  .stage-device { max-width: 320px; padding: 8px 0 56px; }
+  .stage-device .hako-display { max-width: 320px; }
+
+  .stage-bar {
+    margin: 0 -24px;
+    padding: 14px 24px 18px;
+    gap: 16px;
+  }
+
+  .subjects {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent);
+            mask-image: linear-gradient(90deg, #000 85%, transparent);
+  }
+
+  .subjects::-webkit-scrollbar { display: none; }
+  .subject { flex: none; }
+
+  .advantage {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 40px 12px 16px;
+  }
+
+  .adv-label { padding: 0 0 0 14px; border-right: 0; border-left: 2px solid var(--accent); }
+}
+
+@media (max-width: 520px) {
+  .hl-line { letter-spacing: 0.24em; }
+  .hl-slot { font-size: clamp(2.5rem, 13vw, 3.4rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hl-item, .hl-item.is-out { transform: none; transition: opacity 0.4s ease; }
+  .hl-stroke.draw { animation: none; transform: scaleX(1); }
+  .subject[aria-selected="true"]::after { animation: none; transform: scaleX(1); }
 }
 
 .kanji-mark {
@@ -1486,24 +1922,8 @@ h6,
     display: flex;
   }
 
-  .hero {
-    grid-template-columns: 1fr;
-
-    gap: 56px;
-
-    padding: 120px 24px 60px;
-  }
-
-  .hero-device {
-    order: -1;
-  }
-
   .device-frame {
     max-width: 280px;
-  }
-
-  .hero h1 {
-    font-size: clamp(1.8rem, 7vw, 2.6rem);
   }
 
   .hero-cta {

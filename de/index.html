@@ -214,33 +214,61 @@
   </div>
 
   <!-- ============================================================ -->
-  <!-- HERO                                                         -->
+  <!-- HERO — the stage                                             -->
+  <!-- "Fuel your ___ studies." The subject rolls through data-words  -->
+  <!-- (pairs: [word, reading shown small above it, furigana-style]). -->
   <!-- ============================================================ -->
-  <section class="hero">
-    <div class="hero-content">
-      <p class="eyebrow reveal">ein stiller Begleiter für Anki</p>
-      <h1 class="reveal">
-        Eine kleine Holzbox,<br/>die weiß, wie es<br/>mit dem Lernen läuft.
-      </h1>
-      <p class="hero-sub reveal">
-        hako steht auf deinem Schreibtisch und zeigt auf einem 64×64-LED-Display, wie viele Anki-Wiederholungen noch übrig sind. Benachrichtigungen schickt es nie.
-      </p>
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="stage">
+      <div class="stage-grid" aria-hidden="true"></div>
+      <p class="stage-vert" aria-hidden="true">勉強の相棒</p>
 
-      <div class="hero-cta reveal">
-        <a href="#founders" class="btn-primary">Founder Edition &middot; <span data-founder-price>$279</span></a>
-        <a href="#try" class="btn-link">Ausprobieren <span class="arrow">→</span></a>
+      <div class="stage-copy">
+        <p class="stage-eyebrow reveal"><span class="kanji-mark">箱</span><span>ein stiller Begleiter für Anki</span></p>
+        <h1 id="heroTitle" class="headline reveal" data-words='[["Japanisch","日本語"],["Medizin","医学部"],["Russisch","ロシア語"],["Sprachen","語学"],["die Uni","大学"],["den Job","仕事"],["Koreanisch","韓国語"],["Jura","司法試験"]]'>
+          <span class="hl-line hl-a">Mehr Schwung für</span>
+          <span class="hl-word" aria-live="off"><span class="hl-slot"><span class="hl-item is-in"><span class="hl-ruby">日本語</span><span class="hl-text">Japanese</span></span></span><span class="hl-stroke" aria-hidden="true"></span></span>
+          <span class="hl-line hl-b">– jeden Tag.</span>
+        </h1>
+        <p class="hero-sub reveal">Eine kleine Holzbox, die weiß, wie es mit dem Lernen läuft.</p>
+
+        <div class="hero-cta reveal">
+          <a href="#founders" class="btn-primary">Founder Edition &middot; <span data-founder-price>$279</span></a>
+          <a href="#try" class="btn-link">Ausprobieren <span class="arrow">→</span></a>
+        </div>
+
+        <p class="hero-tagline reveal">
+          <span class="kanji-mark">第一弾</span>
+          Erste Serie &middot; <strong>Frühjahr 2027</strong> &middot; 25 nummerierte Stück
+        </p>
       </div>
 
-      <p class="hero-tagline reveal">
-        <span class="kanji-mark">第一弾</span>
-        Erste Serie &middot; <strong>Frühjahr 2027</strong> &middot; 25 nummerierte Stück
-      </p>
+      <div class="stage-device reveal">
+        <!-- Live panel: frames rendered by the device's own code (assets/demo.js) -->
+        <div class="hako-display" data-hako-display data-autoplay></div>
+        <div class="stage-floor" aria-hidden="true"></div>
+        <ul class="callouts" aria-hidden="true">
+          <li class="callout c-led"><b>64 × 64</b><span>LED · 4.096 Punkte</span></li>
+          <li class="callout c-knob"><b>Knopf</b><span>drehen · drücken</span></li>
+          <li class="callout c-wood"><b>Walnuss</b><span>組み接ぎ Fingerzinken</span></li>
+          <li class="callout c-tap"><b>Tippen</b><span>oben · NFC</span></li>
+        </ul>
+      </div>
+
+      <div class="stage-bar">
+        <span class="stage-count" aria-hidden="true"><b data-subject-n>01</b> / <span data-subject-total>08</span></span>
+        <div class="subjects" role="tablist" aria-label="Fächer" data-subjects></div>
+      </div>
     </div>
 
-    <div class="hero-device reveal">
-      <!-- Live panel: frames rendered by the device's own code (assets/demo.js).
-           SWAP: once photos exist, a photo can sit alongside or replace this. -->
-      <div class="hako-display" data-hako-display data-autoplay></div>
+    <div class="advantage reveal">
+      <p class="adv-label">So ist hako</p>
+      <ul class="adv-list">
+        <li><span class="adv-k">手作り</span><span>Handgemacht aus Walnuss</span></li>
+        <li><span class="adv-k">静か</span><span>Schickt nie Benachrichtigungen</span></li>
+        <li><span class="adv-k">連動</span><span>Folgt deiner Anki-Warteschlange</span></li>
+      </ul>
+      <p class="adv-text">hako steht auf deinem Schreibtisch und zeigt auf einem 64×64-LED-Display, wie viele Anki-Wiederholungen noch übrig sind. Benachrichtigungen schickt es nie.</p>
     </div>
   </section>
 
@@ -696,7 +724,7 @@
             <li><strong>Raspberry Pi und Matrix-Treiber</strong> <span>steuert hako und aktualisiert sich nachts von selbst</span></li>
             <li><strong>NFC-Chip, direkt unter der Oberseite</strong> <span>Handy oben an die Box halten, um das WLAN einzurichten oder hakos Webseite zu öffnen</span></li>
             <li><strong>Schüttelsensor</strong> <span>leicht schütteln zeigt den nächsten Bildschirm</span></li>
-            <li><strong>Drehknopf</strong> <span>drehen wechselt den Bildschirm, drücken aktualisiert, halten öffnet das Menü</span></li>
+            <li><strong>Knopf</strong> <span>drehen wechselt den Bildschirm, drücken aktualisiert, halten öffnet das Menü</span></li>
             <li><strong>Strom</strong> <span>ein Netzteil, passend für dein Land</span></li>
           </ol>
         </div>

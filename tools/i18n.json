@@ -192,6 +192,16 @@
       "en": "alt=\"A game of Pong on hako\"",
       "ja": "alt=\"hakoで遊ぶポン\"",
       "de": "alt=\"Eine Runde Pong auf hako\""
+    },
+    {
+      "en": "data-words='[[\"Japanese\",\"日本語\"],[\"Med School\",\"医学部\"],[\"Russian\",\"ロシア語\"],[\"Language\",\"語学\"],[\"College\",\"大学\"],[\"Work\",\"仕事\"],[\"Korean\",\"韓国語\"],[\"Bar Exam\",\"司法試験\"]]'",
+      "ja": "data-words='[[\"日本語\",\"Japanese\"],[\"医学部\",\"Med School\"],[\"ロシア語\",\"Russian\"],[\"語学\",\"Language\"],[\"大学\",\"College\"],[\"仕事\",\"Work\"],[\"韓国語\",\"Korean\"],[\"司法試験\",\"Bar Exam\"]]'",
+      "de": "data-words='[[\"Japanisch\",\"日本語\"],[\"Medizin\",\"医学部\"],[\"Russisch\",\"ロシア語\"],[\"Sprachen\",\"語学\"],[\"die Uni\",\"大学\"],[\"den Job\",\"仕事\"],[\"Koreanisch\",\"韓国語\"],[\"Jura\",\"司法試験\"]]'"
+    },
+    {
+      "en": "aria-label=\"Subjects\"",
+      "ja": "aria-label=\"科目\"",
+      "de": "aria-label=\"Fächer\""
     }
   ],
   "text": [
@@ -244,11 +254,6 @@
       "en": "an ambient Anki companion",
       "ja": "Ankiのための、静かな相棒",
       "de": "ein stiller Begleiter für Anki"
-    },
-    {
-      "en": "A small wooden box<br/> that knows how<br/> your studies are going.",
-      "ja": "勉強の様子を<br/>そっと見守る<br/>小さな木の箱。",
-      "de": "Eine kleine Holzbox,<br/>die weiß, wie es<br/>mit dem Lernen läuft."
     },
     {
       "en": "hako sits on your desk and shows how many Anki reviews you have left on a 64×64 LED screen. It never sends notifications.",
@@ -778,7 +783,7 @@
     {
       "en": "Knob",
       "ja": "ノブ",
-      "de": "Drehknopf"
+      "de": "Knopf"
     },
     {
       "en": "turn to change screens, press to refresh, hold for the menu",
@@ -1029,6 +1034,71 @@
       "en": "Prototype v2",
       "ja": "試作2号機",
       "de": "Prototyp v2"
+    },
+    {
+      "en": "Fuel your",
+      "ja": "がんばる",
+      "de": "Mehr Schwung für"
+    },
+    {
+      "en": "studies.",
+      "ja": "の勉強に、相棒を。",
+      "de": "– jeden Tag."
+    },
+    {
+      "en": "A small wooden box that knows how your studies are going.",
+      "ja": "勉強の様子をそっと見守る、小さな木の箱。",
+      "de": "Eine kleine Holzbox, die weiß, wie es mit dem Lernen läuft."
+    },
+    {
+      "en": "LED · 4,096 dots",
+      "ja": "LED · 4,096ドット",
+      "de": "LED · 4.096 Punkte"
+    },
+    {
+      "en": "turn · press",
+      "ja": "回す · 押す",
+      "de": "drehen · drücken"
+    },
+    {
+      "en": "Walnut",
+      "ja": "ウォールナット",
+      "de": "Walnuss"
+    },
+    {
+      "en": "組み接ぎ box joints",
+      "ja": "組み接ぎ",
+      "de": "組み接ぎ Fingerzinken"
+    },
+    {
+      "en": "Tap",
+      "ja": "タッチ",
+      "de": "Tippen"
+    },
+    {
+      "en": "the top · NFC",
+      "ja": "上面 · NFC",
+      "de": "oben · NFC"
+    },
+    {
+      "en": "The hako way",
+      "ja": "hakoのこだわり",
+      "de": "So ist hako"
+    },
+    {
+      "en": "Handmade in walnut",
+      "ja": "ウォールナットで一台ずつ",
+      "de": "Handgemacht aus Walnuss"
+    },
+    {
+      "en": "Never sends notifications",
+      "ja": "通知は一切なし",
+      "de": "Schickt nie Benachrichtigungen"
+    },
+    {
+      "en": "Follows your Anki queue",
+      "ja": "Ankiの進み具合と連動",
+      "de": "Folgt deiner Anki-Warteschlange"
     }
   ]
 }
