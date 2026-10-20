@@ -539,17 +539,17 @@ h6,
 
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 1fr;
   column-gap: 48px;
 
-  padding: 72px 6% 0 8%;
+  padding: 72px 6% 64px 8%;
 
   border-radius: 28px;
   background: rgb(var(--stage-shade));
   color: var(--stage-ink);
 }
 
-/* the photos (or a video) behind everything, crossfading per subject */
+/* the photos (or a video) behind everything, slowly crossfading on their own clock */
 .stage-media {
   position: absolute;
   inset: 0;
@@ -566,8 +566,8 @@ h6,
   object-position: 62% 48%;
 
   opacity: 0;
-  transform: scale(1.08);
-  transition: opacity 1.4s ease, transform 9s cubic-bezier(0.2, 0.6, 0.3, 1);
+  transform: scale(1.06);
+  transition: opacity 2.6s ease-in-out, transform 16s linear;
 }
 
 .stage-media .is-on {
@@ -575,7 +575,7 @@ h6,
   transform: scale(1);
 }
 
-/* dark from the left (the type) and the bottom (the subject bar), plus a vignette */
+/* dark from the left (the type) and the bottom, plus a vignette */
 .stage-scrim {
   position: absolute;
   inset: 0;
@@ -616,8 +616,7 @@ h6,
 .stage .btn-primary:hover { background: #fff; }
 .stage .btn-link { color: var(--stage-ink); }
 .stage .hl-text { color: var(--stage-accent); text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35); }
-.stage .hl-stroke,
-.stage .subject::after { background: var(--stage-accent); }
+.stage .hl-stroke { background: var(--stage-accent); }
 
 .stage-copy {
   align-self: center;
@@ -771,7 +770,7 @@ h6,
 .stage-live {
   position: absolute;
   right: 26px;
-  bottom: 84px;
+  bottom: 32px;
 
   display: flex;
   align-items: center;
@@ -822,77 +821,6 @@ h6,
 }
 
 .stage-live-k { font-family: "Shippori Mincho", serif; font-size: 15px; color: var(--stage-accent); letter-spacing: 0; }
-
-/* -- the subject bar along the bottom of the stage -- */
-.stage-bar {
-  grid-column: 1 / -1;
-
-  display: flex;
-  align-items: center;
-  gap: 28px;
-
-  margin: 0 -6% 0 -8%;
-  padding: 18px 6% 22px 8%;
-
-  border-top: 1px solid var(--stage-line);
-}
-
-.stage-count {
-  flex: none;
-  font-family: "IBM Plex Sans", sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  color: var(--stage-muted);
-  font-variant-numeric: tabular-nums;
-}
-
-.stage-count b { color: var(--stage-ink); font-weight: 600; }
-
-.subjects {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 26px;
-  min-width: 0;
-}
-
-.subject {
-  position: relative;
-  padding: 6px 0 9px;
-  border: 0;
-  background: none;
-  cursor: pointer;
-
-  font: 500 12px/1 "IBM Plex Sans", sans-serif;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-
-  color: var(--stage-muted);
-  transition: color 0.3s ease;
-}
-
-.subject:hover,
-.subject:focus-visible { color: var(--stage-ink); }
-.subject:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 2px; }
-
-.subject[aria-selected="true"] { color: var(--stage-ink); }
-
-/* the active subject's underline fills while it's on stage */
-.subject::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2px;
-  background: var(--accent);
-  transform-origin: left center;
-  transform: scaleX(0);
-}
-
-.subject[aria-selected="true"]::after { animation: subject-fill var(--subject-ms, 2800ms) linear forwards; }
-.subjects.paused .subject[aria-selected="true"]::after { animation: none; transform: scaleX(1); }
-
-@keyframes subject-fill { to { transform: scaleX(1); } }
 
 /* -- below the stage: the hako way -- */
 .advantage {
@@ -962,7 +890,7 @@ h6,
   .stage {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
-    padding: 40px 24px 0;
+    padding: 40px 24px 8px;
     min-height: 0;
     border-radius: 22px;
   }
@@ -986,22 +914,6 @@ h6,
   .stage-live-text b { font-size: 16px; }
   .stage-note { top: 18px; right: 18px; }
 
-  .stage-bar {
-    margin: 0 -24px;
-    padding: 14px 24px 18px;
-    gap: 16px;
-  }
-
-  .subjects {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent);
-            mask-image: linear-gradient(90deg, #000 85%, transparent);
-  }
-
-  .subjects::-webkit-scrollbar { display: none; }
-  .subject { flex: none; }
 
   .advantage {
     grid-template-columns: 1fr;
@@ -1021,7 +933,6 @@ h6,
   .stage-media img, .stage-media video { transform: none; transition: opacity 0.8s ease; }
   .hl-item, .hl-item.is-out { transform: none; transition: opacity 0.4s ease; }
   .hl-stroke.draw { animation: none; transform: scaleX(1); }
-  .subject[aria-selected="true"]::after { animation: none; transform: scaleX(1); }
 }
 
 .kanji-mark {
@@ -1490,7 +1401,7 @@ h6,
 }
 
 .tester:hover .tester-avatar {
-  transform: scale(1.08);
+  transform: scale(1.06);
   border-color: var(--accent);
 }
 

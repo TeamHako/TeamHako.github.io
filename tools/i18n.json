@@ -194,14 +194,9 @@
       "de": "alt=\"Eine Runde Pong auf hako\""
     },
     {
-      "en": "data-words='[[\"Japanese\",\"日本語\"],[\"Med School\",\"医学部\"],[\"Russian\",\"ロシア語\"],[\"Language\",\"語学\"],[\"College\",\"大学\"],[\"Work\",\"仕事\"],[\"Korean\",\"韓国語\"],[\"Bar Exam\",\"司法試験\"]]'",
-      "ja": "data-words='[[\"日本語\",\"Japanese\"],[\"医学部\",\"Med School\"],[\"ロシア語\",\"Russian\"],[\"語学\",\"Language\"],[\"大学\",\"College\"],[\"仕事\",\"Work\"],[\"韓国語\",\"Korean\"],[\"司法試験\",\"Bar Exam\"]]'",
-      "de": "data-words='[[\"Japanisch\",\"日本語\"],[\"Medizin\",\"医学部\"],[\"Russisch\",\"ロシア語\"],[\"Sprachen\",\"語学\"],[\"die Uni\",\"大学\"],[\"den Job\",\"仕事\"],[\"Koreanisch\",\"韓国語\"],[\"Jura\",\"司法試験\"]]'"
-    },
-    {
-      "en": "aria-label=\"Subjects\"",
-      "ja": "aria-label=\"科目\"",
-      "de": "aria-label=\"Fächer\""
+      "en": "data-words='[[\"Japanese\",\"日本語\"],[\"Med School\",\"医学部\"],[\"Russian\",\"ロシア語\"],[\"Kanji\",\"漢字\"],[\"College\",\"大学\"],[\"Spanish\",\"スペイン語\"],[\"Bar Exam\",\"司法試験\"],[\"Korean\",\"韓国語\"],[\"Nursing\",\"看護\"],[\"JLPT\",\"日本語能力試験\"],[\"Chinese\",\"中国語\"],[\"Pharmacy\",\"薬学\"],[\"Language\",\"語学\"],[\"French\",\"フランス語\"],[\"Music Theory\",\"音楽理論\"],[\"Coding\",\"プログラミング\"],[\"History\",\"歴史\"],[\"Work\",\"仕事\"],[\"Physics\",\"物理\"],[\"Vocab\",\"単語\"]]'",
+      "ja": "data-words='[[\"日本語\",\"Japanese\"],[\"医学部\",\"Med School\"],[\"ロシア語\",\"Russian\"],[\"漢字\",\"Kanji\"],[\"大学\",\"College\"],[\"スペイン語\",\"Spanish\"],[\"司法試験\",\"Bar Exam\"],[\"韓国語\",\"Korean\"],[\"看護\",\"Nursing\"],[\"JLPT\",\"日本語能力試験\"],[\"中国語\",\"Chinese\"],[\"薬学\",\"Pharmacy\"],[\"語学\",\"Language\"],[\"フランス語\",\"French\"],[\"音楽理論\",\"Music Theory\"],[\"情報\",\"プログラミング\"],[\"歴史\",\"History\"],[\"仕事\",\"Work\"],[\"物理\",\"Physics\"],[\"単語\",\"Vocab\"]]'",
+      "de": "data-words='[[\"Japanisch\",\"日本語\"],[\"Medizin\",\"医学部\"],[\"Russisch\",\"ロシア語\"],[\"Kanji\",\"漢字\"],[\"die Uni\",\"大学\"],[\"Spanisch\",\"スペイン語\"],[\"Jura\",\"司法試験\"],[\"Koreanisch\",\"韓国語\"],[\"Pflege\",\"看護\"],[\"das JLPT\",\"日本語能力試験\"],[\"Chinesisch\",\"中国語\"],[\"Pharmazie\",\"薬学\"],[\"Sprachen\",\"語学\"],[\"Französisch\",\"フランス語\"],[\"Musiktheorie\",\"音楽理論\"],[\"Informatik\",\"プログラミング\"],[\"Geschichte\",\"歴史\"],[\"den Job\",\"仕事\"],[\"Physik\",\"物理\"],[\"Vokabeln\",\"単語\"]]'"
     },
     {
       "en": "data-live='[[\"assets/images/live/pet-kao.webp\",\"Kao\"],[\"assets/images/live/pet-mochi.webp\",\"Mochi\"],[\"assets/images/live/pet-onigiri.webp\",\"Onigiri\"],[\"assets/images/live/pet-classic.webp\",\"Chibi\"]]'",

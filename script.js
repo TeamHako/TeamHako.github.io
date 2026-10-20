@@ -548,8 +548,9 @@ async function liveShop(cta, price) {
 
 // ============================================================
 // HERO: "Fuel your ___ studies." The subject rolls through the
-// headline's data-words ([word, small reading above it]); the bar
-// along the stage lists them all, with a progress underline.
+// headline's data-words ([word, small reading above it]). The banner
+// photos crossfade on their own, slower clock, and the "now on hako"
+// tile steps through the pets with them.
 // ============================================================
 (function () {
   const h = document.querySelector(".headline[data-words]");
@@ -560,13 +561,9 @@ async function liveShop(cta, price) {
 
   const slot = h.querySelector(".hl-slot");
   const stroke = h.querySelector(".hl-stroke");
-  const bar = document.querySelector("[data-subjects]");
-  const nEl = document.querySelector("[data-subject-n]");
-  const totalEl = document.querySelector("[data-subject-total]");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const MS = reduce ? 3800 : 2800;
-  const pad = n => String(n).padStart(2, "0");
-  // banner photos crossfade with the subject; the "now on hako" tile cycles pets
+  const MS = reduce ? 3800 : 2400;               // per word
+  const PHOTO_MS = reduce ? 12000 : 8000;        // per photo
   const media = [...document.querySelectorAll(".stage-media > img, .stage-media > video")];
   const live = document.querySelector(".stage-live[data-live]");
   let pets = [];
@@ -576,7 +573,7 @@ async function liveShop(cta, price) {
   // the ja/ and de/ copies sit one folder down: borrow the starting image's "../"
   const base = liveImg ? (liveImg.getAttribute("src") || "").split("assets/")[0] : "";
   pets.forEach(p => { p[0] = base + p[0]; const im = new Image(); im.src = p[0]; });   // warm the cache
-  let i = 0, timer = null, hovering = false, visible = true;
+  let i = 0, photo = 0, timer = null, photoTimer = null, visible = true;
 
   // Screen readers get the whole sentence once; the rolling word is decoration
   const before = h.querySelector(".hl-a").textContent.trim();
@@ -588,20 +585,6 @@ async function liveShop(cta, price) {
     el.querySelector(".hl-ruby").textContent = w[1] || "";
     el.querySelector(".hl-text").textContent = w[0];
   }
-
-  const buttons = words.map((w, k) => {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = "subject";
-    b.setAttribute("role", "tab");
-    b.setAttribute("aria-selected", k === 0 ? "true" : "false");
-    b.textContent = w[0];
-    b.addEventListener("click", () => { go(k); schedule(); });
-    bar && bar.appendChild(b);
-    return b;
-  });
-  if (bar) bar.style.setProperty("--subject-ms", MS + "ms");
-  if (totalEl) totalEl.textContent = pad(words.length);
 
   function drawStroke() {
     if (!stroke) return;
@@ -625,16 +608,14 @@ async function liveShop(cta, price) {
       old.classList.add("is-out");
       setTimeout(() => old.remove(), 800);
     }
-    buttons.forEach((b, k2) => b.setAttribute("aria-selected", k2 === i ? "true" : "false"));
-    if (nEl) nEl.textContent = pad(i + 1);
     drawStroke();
-    showMedia(i);
   }
 
-  function showMedia(k) {
-    if (media.length > 1) media.forEach((m, j) => m.classList.toggle("is-on", j === k % media.length));
+  function nextPhoto() {
+    photo++;
+    if (media.length > 1) media.forEach((m, j) => m.classList.toggle("is-on", j === photo % media.length));
     if (pets.length > 1 && liveImg) {
-      const p = pets[k % pets.length];
+      const p = pets[photo % pets.length];
       liveImg.classList.add("swap");
       setTimeout(() => {
         liveImg.src = p[0];
@@ -646,9 +627,10 @@ async function liveShop(cta, price) {
 
   function schedule() {
     clearTimeout(timer);
-    const running = !hovering && visible && !document.hidden;
-    if (bar) bar.classList.toggle("paused", !running);
-    if (running) timer = setTimeout(() => { go(i + 1); schedule(); }, MS);
+    clearTimeout(photoTimer);
+    if (!visible || document.hidden) return;
+    timer = setTimeout(function tick() { go(i + 1); timer = setTimeout(tick, MS); }, MS);
+    photoTimer = setTimeout(function tick() { nextPhoto(); photoTimer = setTimeout(tick, PHOTO_MS); }, PHOTO_MS);
   }
 
   // the first subject, in this page's language, without a slide
@@ -656,9 +638,7 @@ async function liveShop(cta, price) {
   drawStroke();
   if (liveName && pets[0]) liveName.textContent = pets[0][1];
 
-  // pause while you're reading the list, while the tab is hidden, or once scrolled past
-  [h, bar].forEach(el => el && el.addEventListener("mouseenter", () => { hovering = true; schedule(); }));
-  [h, bar].forEach(el => el && el.addEventListener("mouseleave", () => { hovering = false; schedule(); }));
+  // pause while the tab is hidden or once scrolled past
   document.addEventListener("visibilitychange", schedule);
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(entries => { visible = entries[0].isIntersecting; schedule(); })
