@@ -566,6 +566,16 @@ async function liveShop(cta, price) {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const MS = reduce ? 3800 : 2800;
   const pad = n => String(n).padStart(2, "0");
+  // banner photos crossfade with the subject; the "now on hako" tile cycles pets
+  const media = [...document.querySelectorAll(".stage-media > img, .stage-media > video")];
+  const live = document.querySelector(".stage-live[data-live]");
+  let pets = [];
+  try { pets = live ? JSON.parse(live.dataset.live) : []; } catch (e) {}
+  const liveImg = live && live.querySelector("[data-live-img]");
+  const liveName = live && live.querySelector("[data-live-name]");
+  // the ja/ and de/ copies sit one folder down: borrow the starting image's "../"
+  const base = liveImg ? (liveImg.getAttribute("src") || "").split("assets/")[0] : "";
+  pets.forEach(p => { p[0] = base + p[0]; const im = new Image(); im.src = p[0]; });   // warm the cache
   let i = 0, timer = null, hovering = false, visible = true;
 
   // Screen readers get the whole sentence once; the rolling word is decoration
@@ -618,6 +628,20 @@ async function liveShop(cta, price) {
     buttons.forEach((b, k2) => b.setAttribute("aria-selected", k2 === i ? "true" : "false"));
     if (nEl) nEl.textContent = pad(i + 1);
     drawStroke();
+    showMedia(i);
+  }
+
+  function showMedia(k) {
+    if (media.length > 1) media.forEach((m, j) => m.classList.toggle("is-on", j === k % media.length));
+    if (pets.length > 1 && liveImg) {
+      const p = pets[k % pets.length];
+      liveImg.classList.add("swap");
+      setTimeout(() => {
+        liveImg.src = p[0];
+        if (liveName) liveName.textContent = p[1];
+        liveImg.classList.remove("swap");
+      }, 400);
+    }
   }
 
   function schedule() {
@@ -630,6 +654,7 @@ async function liveShop(cta, price) {
   // the first subject, in this page's language, without a slide
   fill(slot.querySelector(".hl-item"), words[0]);
   drawStroke();
+  if (liveName && pets[0]) liveName.textContent = pets[0][1];
 
   // pause while you're reading the list, while the tab is hidden, or once scrolled past
   [h, bar].forEach(el => el && el.addEventListener("mouseenter", () => { hovering = true; schedule(); }));

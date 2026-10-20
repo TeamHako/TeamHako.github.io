@@ -220,7 +220,20 @@
   <!-- ============================================================ -->
   <section class="hero" aria-labelledby="heroTitle">
     <div class="stage">
-      <div class="stage-grid" aria-hidden="true"></div>
+      <!-- BANNER MEDIA: the photos crossfade behind the headline, one per
+           subject (the first is "Japanese", so it's the shot with 日本語 on
+           the screen). SWAP: replace these <img>s with new shots, or with a
+           <video class="is-on" autoplay muted loop playsinline poster="…">. -->
+      <div class="stage-media" aria-hidden="true">
+        <img class="is-on" src="../assets/images/photos/en/cards.webp" alt="" fetchpriority="high">
+        <img src="../assets/images/photos/ja/today.webp" alt="" loading="lazy">
+        <img src="../assets/images/photos/ja/heatmap.webp" alt="" loading="lazy">
+        <img src="../assets/images/photos/ja/pet.webp" alt="" loading="lazy">
+        <img src="../assets/images/photos/ja/clock.webp" alt="" loading="lazy">
+        <img src="../assets/images/photos/en/pong.webp" alt="" loading="lazy">
+      </div>
+      <div class="stage-scrim" aria-hidden="true"></div>
+      <p class="stage-note">v2 試作機</p>
       <p class="stage-vert" aria-hidden="true">勉強の相棒</p>
 
       <div class="stage-copy">
@@ -243,17 +256,11 @@
         </p>
       </div>
 
-      <div class="stage-device reveal">
-        <!-- Live panel: frames rendered by the device's own code (assets/demo.js) -->
-        <div class="hako-display" data-hako-display data-autoplay></div>
-        <div class="stage-floor" aria-hidden="true"></div>
-        <ul class="callouts" aria-hidden="true">
-          <li class="callout c-led"><b>64 × 64</b><span>LED · 4,096ドット</span></li>
-          <li class="callout c-knob"><b>ノブ</b><span>回す · 押す</span></li>
-          <li class="callout c-wood"><b>ウォールナット</b><span>組み接ぎ</span></li>
-          <li class="callout c-tap"><b>タッチ</b><span>上面 · NFC</span></li>
-        </ul>
-      </div>
+      <!-- live: the device's own animations, rendered for the web (hako repo: deploy/build-web-pets.py) -->
+      <a class="stage-live reveal" href="#friends" data-live='[["assets/images/live/pet-kao.webp","かお"],["assets/images/live/pet-mochi.webp","もち"],["assets/images/live/pet-onigiri.webp","おにぎり"],["assets/images/live/pet-classic.webp","ちび"]]'>
+        <img src="../assets/images/live/pet-kao.webp" width="120" height="120" alt="" data-live-img>
+        <span class="stage-live-text"><span class="stage-live-k">今</span><span>いまのhako</span><b data-live-name>かお</b></span>
+      </a>
 
       <div class="stage-bar">
         <span class="stage-count" aria-hidden="true"><b data-subject-n>01</b> / <span data-subject-total>08</span></span>

@@ -515,25 +515,13 @@ h6,
    HERO — the stage: "Fuel your ___ studies."
    ============================================================ */
 
-:root,
-:root[data-theme="light"] {
-  --stage-top:    #ebe6dc;
-  --stage-bottom: #f6f3ec;
-  --stage-glow:   rgba(255, 246, 228, 0.95);
-  --stage-line:   rgba(28, 24, 20, 0.06);
-  --stage-floor:  rgba(60, 40, 20, 0.28);
-  --stage-ink:    #1c1814;
-  --stage-muted:  #7c7466;
-}
-
-:root[data-theme="dark"] {
-  --stage-top:    #0c0c0e;
-  --stage-bottom: #16130f;
-  --stage-glow:   rgba(92, 118, 170, 0.22);
-  --stage-line:   rgba(244, 237, 224, 0.05);
-  --stage-floor:  rgba(0, 0, 0, 0.7);
+/* The stage is a photo banner: dark in both themes, so its type is always light */
+.stage {
   --stage-ink:    #f4ede0;
-  --stage-muted:  #9a9080;
+  --stage-muted:  rgba(244, 237, 224, 0.68);
+  --stage-line:   rgba(244, 237, 224, 0.14);
+  --stage-accent: #ff5a76;
+  --stage-shade:  12, 10, 8;
 }
 
 .hero {
@@ -557,29 +545,56 @@ h6,
   padding: 72px 6% 0 8%;
 
   border-radius: 28px;
-  border: 1px solid var(--border-soft);
-
-  background:
-    radial-gradient(60% 70% at 72% 46%, var(--stage-glow), transparent 70%),
-    linear-gradient(180deg, var(--stage-top), var(--stage-bottom));
-
+  background: rgb(var(--stage-shade));
   color: var(--stage-ink);
 }
 
-/* a faint technical grid, like the LED panel's own */
-.stage-grid {
+/* the photos (or a video) behind everything, crossfading per subject */
+.stage-media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.stage-media img,
+.stage-media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 48%;
+
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 1.4s ease, transform 9s cubic-bezier(0.2, 0.6, 0.3, 1);
+}
+
+.stage-media .is-on {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* dark from the left (the type) and the bottom (the subject bar), plus a vignette */
+.stage-scrim {
   position: absolute;
   inset: 0;
   z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(var(--stage-shade), 0.94) 0%, rgba(var(--stage-shade), 0.8) 32%,
+                    rgba(var(--stage-shade), 0.25) 62%, rgba(var(--stage-shade), 0.05) 80%),
+    linear-gradient(0deg, rgba(var(--stage-shade), 0.85) 0%, transparent 26%),
+    radial-gradient(120% 90% at 70% 50%, transparent 55%, rgba(var(--stage-shade), 0.55) 100%);
+}
 
-  background-image:
-    linear-gradient(var(--stage-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--stage-line) 1px, transparent 1px);
-  background-size: 64px 64px;
-  background-position: -1px -1px;
-
-  -webkit-mask-image: radial-gradient(80% 80% at 70% 45%, #000 30%, transparent 80%);
-          mask-image: radial-gradient(80% 80% at 70% 45%, #000 30%, transparent 80%);
+.stage-note {
+  position: absolute;
+  top: 22px;
+  right: 26px;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--stage-muted);
 }
 
 .stage-vert {
@@ -592,9 +607,17 @@ h6,
   font-size: 15px;
   letter-spacing: 0.5em;
 
-  color: var(--accent);
+  color: var(--stage-accent);
   opacity: 0.85;
 }
+
+.stage .kanji-mark { color: var(--stage-accent); }
+.stage .btn-primary { background: var(--stage-ink); color: #1c1814; border-color: var(--stage-ink); }
+.stage .btn-primary:hover { background: #fff; }
+.stage .btn-link { color: var(--stage-ink); }
+.stage .hl-text { color: var(--stage-accent); text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35); }
+.stage .hl-stroke,
+.stage .subject::after { background: var(--stage-accent); }
 
 .stage-copy {
   align-self: center;
@@ -744,99 +767,61 @@ h6,
 
 .hero-tagline strong { color: var(--stage-ink); font-weight: 500; }
 
-/* -- the device on its floor, with labelled details -- */
-.stage-device {
-  position: relative;
-  align-self: center;
-  justify-self: center;
-
-  width: 100%;
-  max-width: 470px;
-  padding: 40px 0 72px;
-}
-
-.stage-device .hako-display {
-  position: relative;
-  z-index: 1;
-  max-width: 470px;
-}
-
-/* standing on the stage: a soft contact shadow right under the box */
-.stage-device .hako-box {
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.18),
-    0 34px 46px -22px var(--stage-floor),
-    0 60px 90px -40px var(--stage-floor);
-}
-
-.stage-floor { display: none; }
-
-.callouts {
+/* -- "Now on hako": the device's own animation, at its native size -- */
+.stage-live {
   position: absolute;
-  inset: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  pointer-events: none;
+  right: 26px;
+  bottom: 84px;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px 10px 10px;
+
+  border: 1px solid var(--stage-line);
+  border-radius: 16px;
+  background: rgba(var(--stage-shade), 0.55);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+
+  color: var(--stage-ink);
+  text-decoration: none;
+  transition: border-color 0.3s ease, transform 0.3s ease;
 }
 
-.callout {
-  position: absolute;
+.stage-live:hover { border-color: rgba(244, 237, 224, 0.4); transform: translateY(-2px); }
+
+.stage-live img {
+  display: block;
+  width: 120px;
+  height: 120px;
+  border-radius: 10px;
+  background: #050505;
+  transition: opacity 0.4s ease;
+}
+
+.stage-live img.swap { opacity: 0; }
+
+.stage-live-text {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  white-space: nowrap;
-
+  gap: 4px;
   font-size: 11px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   color: var(--stage-muted);
 }
 
-.callout b {
-  font-family: "IBM Plex Sans", sans-serif;
-  font-size: 11px;
+.stage-live-text b {
+  font-family: "Shippori Mincho", serif;
+  font-size: 20px;
   font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-transform: none;
   color: var(--stage-ink);
 }
 
-/* a leader line from the label to the point it names */
-.callout::before {
-  content: "";
-  position: absolute;
-  top: 7px;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.55;
-}
-
-.callout::after {
-  content: "";
-  position: absolute;
-  top: 4px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  border: 1px solid var(--accent);
-  background: var(--stage-bottom);
-}
-
-.c-led  { top: 18%; right: calc(100% + 18px); text-align: right; align-items: flex-end; }
-.c-led::before  { left: calc(100% + 8px); width: 74px; }
-.c-led::after   { left: calc(100% + 82px); }
-
-.c-wood { top: 74%; right: calc(100% + 18px); text-align: right; align-items: flex-end; }
-.c-wood::before { left: calc(100% + 8px); width: 48px; }
-.c-wood::after  { left: calc(100% + 56px); }
-
-.c-knob { top: 44%; left: calc(100% + 34px); }
-.c-knob::before { right: calc(100% + 8px); width: 22px; }
-.c-knob::after  { right: calc(100% + 30px); }
-
-.c-tap  { top: 9%; left: calc(100% + 34px); }
-.c-tap::before  { right: calc(100% + 8px); width: 22px; }
-.c-tap::after   { right: calc(100% + 30px); }
+.stage-live-k { font-family: "Shippori Mincho", serif; font-size: 15px; color: var(--stage-accent); letter-spacing: 0; }
 
 /* -- the subject bar along the bottom of the stage -- */
 .stage-bar {
@@ -971,10 +956,6 @@ h6,
   color: var(--muted);
 }
 
-@media (max-width: 1180px) {
-  .callouts { display: none; }
-}
-
 @media (max-width: 960px) {
   .hero { padding: 80px 12px 0; }
 
@@ -987,10 +968,23 @@ h6,
   }
 
   .stage-vert { display: none; }
-  .stage-copy { padding: 8px 0 8px; }
+  /* the photo shows above the type; the scrim darkens toward the bottom instead */
+  .stage { padding-top: min(62vw, 420px); }
+  .stage-media img, .stage-media video { object-position: 64% 30%; height: min(78vw, 560px); }
+  .stage-scrim {
+    background:
+      linear-gradient(180deg, rgba(var(--stage-shade), 0.1) 0,
+                      rgba(var(--stage-shade), 0.2) calc(min(62vw, 420px) - 130px),
+                      rgba(var(--stage-shade), 0.92) calc(min(62vw, 420px) - 10px),
+                      rgba(var(--stage-shade), 0.97) 100%);
+  }
+  .stage-copy { padding: 8px 0 24px; }
   .stage-eyebrow { margin-bottom: 24px; }
-  .stage-device { max-width: 320px; padding: 8px 0 56px; }
-  .stage-device .hako-display { max-width: 320px; }
+  /* in the flow under the buttons, so the photo stays clear */
+  .stage-live { position: relative; inset: auto; justify-self: start; margin: 0 0 24px; padding: 6px 16px 6px 6px; gap: 12px; }
+  .stage-live img { width: 64px; height: 64px; border-radius: 8px; }
+  .stage-live-text b { font-size: 16px; }
+  .stage-note { top: 18px; right: 18px; }
 
   .stage-bar {
     margin: 0 -24px;
@@ -1024,6 +1018,7 @@ h6,
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .stage-media img, .stage-media video { transform: none; transition: opacity 0.8s ease; }
   .hl-item, .hl-item.is-out { transform: none; transition: opacity 0.4s ease; }
   .hl-stroke.draw { animation: none; transform: scaleX(1); }
   .subject[aria-selected="true"]::after { animation: none; transform: scaleX(1); }

@@ -202,6 +202,11 @@
       "en": "aria-label=\"Subjects\"",
       "ja": "aria-label=\"科目\"",
       "de": "aria-label=\"Fächer\""
+    },
+    {
+      "en": "data-live='[[\"assets/images/live/pet-kao.webp\",\"Kao\"],[\"assets/images/live/pet-mochi.webp\",\"Mochi\"],[\"assets/images/live/pet-onigiri.webp\",\"Onigiri\"],[\"assets/images/live/pet-classic.webp\",\"Chibi\"]]'",
+      "ja": "data-live='[[\"assets/images/live/pet-kao.webp\",\"かお\"],[\"assets/images/live/pet-mochi.webp\",\"もち\"],[\"assets/images/live/pet-onigiri.webp\",\"おにぎり\"],[\"assets/images/live/pet-classic.webp\",\"ちび\"]]'",
+      "de": "data-live='[[\"assets/images/live/pet-kao.webp\",\"Kao\"],[\"assets/images/live/pet-mochi.webp\",\"Mochi\"],[\"assets/images/live/pet-onigiri.webp\",\"Onigiri\"],[\"assets/images/live/pet-classic.webp\",\"Chibi\"]]'"
     }
   ],
   "text": [
@@ -1051,36 +1056,6 @@
       "de": "Eine kleine Holzbox, die weiß, wie es mit dem Lernen läuft."
     },
     {
-      "en": "LED · 4,096 dots",
-      "ja": "LED · 4,096ドット",
-      "de": "LED · 4.096 Punkte"
-    },
-    {
-      "en": "turn · press",
-      "ja": "回す · 押す",
-      "de": "drehen · drücken"
-    },
-    {
-      "en": "Walnut",
-      "ja": "ウォールナット",
-      "de": "Walnuss"
-    },
-    {
-      "en": "組み接ぎ box joints",
-      "ja": "組み接ぎ",
-      "de": "組み接ぎ Fingerzinken"
-    },
-    {
-      "en": "Tap",
-      "ja": "タッチ",
-      "de": "Tippen"
-    },
-    {
-      "en": "the top · NFC",
-      "ja": "上面 · NFC",
-      "de": "oben · NFC"
-    },
-    {
       "en": "The hako way",
       "ja": "hakoのこだわり",
       "de": "So ist hako"
@@ -1099,6 +1074,16 @@
       "en": "Follows your Anki queue",
       "ja": "Ankiの進み具合と連動",
       "de": "Folgt deiner Anki-Warteschlange"
+    },
+    {
+      "en": "v2 prototype",
+      "ja": "v2 試作機",
+      "de": "v2-Prototyp"
+    },
+    {
+      "en": "Now on hako",
+      "ja": "いまのhako",
+      "de": "Gerade auf hako"
     }
   ]
 }
