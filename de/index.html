@@ -36,7 +36,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="../style.css?v=202610201509" />
+  <link rel="stylesheet" href="../style.css?v=202610201603" />
 
   <!-- First visit from a Japanese or German browser: go to that page, unless
        the visitor already picked a language with the switcher. -->
@@ -173,6 +173,7 @@
       <a href="#try">Ausprobieren</a>
       <a href="#friends">Freunde</a>
       <a href="#how">So funktioniert's</a>
+      <a href="#shop">Shop</a>
       <a href="#founders">Founder Edition</a>
       <a href="#process">Herstellung</a>
       <a href="#maker">Macher</a>
@@ -201,6 +202,7 @@
     <a href="#try">Ausprobieren</a>
     <a href="#friends">Freunde</a>
     <a href="#how">So funktioniert's</a>
+    <a href="#shop">Shop</a>
     <a href="#founders">Founder Edition</a>
     <a href="#process">Herstellung</a>
     <a href="#maker">Macher</a>
@@ -558,6 +560,91 @@
           <p>Solange Anki offen ist, erscheinen deine Wiederholungen auf der Box. Updates installieren sich nachts von selbst.</p>
         </li>
       </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- THE LINEUP: hako first, then the things around it             -->
+  <!-- SWAP: the case and keys are illustrations until there are     -->
+  <!-- photos; drop real shots into assets/images/shop/ and update   -->
+  <!-- the src (and remove the "Illustration" tag).                  -->
+  <!-- ============================================================ -->
+  <section id="shop" class="section section-shop">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="label-mark">品</span>
+        <span class="label-text">Das Sortiment</span>
+      </div>
+
+      <h2 class="reveal">Eine Box auf deinem Schreibtisch – und ein paar gute Dinge drumherum.</h2>
+
+      <div class="shop-grid">
+        <article class="product product-main reveal">
+          <a class="product-media" href="#founders">
+            <img src="../assets/images/photos/en/today.webp" alt="hako auf dem Schreibtisch mit den heutigen Wiederholungen" width="768" height="768" loading="lazy" />
+            <span class="proto-tag">Prototyp v2</span>
+          </a>
+          <div class="product-body">
+            <p class="product-status is-live">Vorbestellung ab Frühjahr 2027</p>
+            <h3 class="product-name"><span class="product-kanji">箱</span>hako</h3>
+            <p class="product-desc">Der Lernbegleiter selbst: ein 64×64-LED-Panel in einer von Hand verzinkten Holzbox. Es zeigt deine Anki-Wiederholungen, deine Serie und ein Haustier, das dir Gesellschaft leistet.</p>
+            <ul class="product-specs">
+              <li>4.096 LEDs</li>
+              <li>Drehknopf und NFC</li>
+              <li>Handgeschnittene Verbindungen</li>
+              <li>Nummeriert 01&ndash;25</li>
+            </ul>
+            <div class="product-foot">
+              <p class="product-price"><span data-founder-price>$279</span> <small>Founder Edition</small></p>
+              <a href="#founders" class="btn-primary">Zur Founder Edition</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product reveal">
+          <div class="product-media is-light">
+            <img src="../assets/images/shop/stickers.webp" alt="Ein Bogen hako-Sticker: Kao, Mochi, die LED-Box und das 箱-Siegel" width="800" height="800" loading="lazy" />
+          </div>
+          <div class="product-body">
+            <p class="product-status">In jeder Box</p>
+            <h3 class="product-name">Stickerbogen</h3>
+            <p class="product-desc">Kao, Mochi, das leuchtende 箱 und das rote Siegel – gestanzt für Laptop, Notizbuch oder Trinkflasche.</p>
+            <div class="product-foot">
+              <p class="product-price">Inklusive <small>weitere Bögen später</small></p>
+            </div>
+          </div>
+        </article>
+
+        <article class="product reveal">
+          <div class="product-media is-light">
+            <img src="../assets/images/shop/case.svg" alt="Illustration einer grauen Filztasche für hako mit Lederriemen" width="800" height="520" loading="lazy" />
+            <span class="proto-tag">Illustration</span>
+          </div>
+          <div class="product-body">
+            <p class="product-status">In Arbeit</p>
+            <h3 class="product-name">hako-Tasche</h3>
+            <p class="product-desc">Eine gepolsterte Tasche aus Wollfilz, genau passend für hako, mit Platz für Netzteil und Kabel. Für Bibliothek, Café oder Umzugstag.</p>
+            <div class="product-foot">
+              <p class="product-price">Preis folgt</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="product product-next reveal">
+          <div class="product-media is-light">
+            <img src="../assets/images/shop/keys.svg" alt="Illustration eines Walnussblocks mit drei Tasten: Nochmal, Gut und Rückgängig" width="800" height="520" loading="lazy" />
+            <span class="proto-tag">Illustration</span>
+          </div>
+          <div class="product-body">
+            <p class="product-status is-next">Als Nächstes</p>
+            <h3 class="product-name">hako keys <small>Arbeitstitel</small></h3>
+            <p class="product-desc">Drei Tasten in einem Block aus Walnuss, gemacht fürs Wiederholen. Kabellos, für Anki und Migaku: ab Werk Nochmal, Gut und Rückgängig – alle drei frei belegbar. Lehn dich zurück, die Hand auf den Tasten, und arbeite den Stapel ab.</p>
+            <div class="product-foot">
+              <a href="#notify" class="btn-link">Sag mir Bescheid, wenn es so weit ist <span class="arrow">→</span></a>
+            </div>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -994,6 +1081,7 @@
         <div class="footer-col">
           <p class="footer-heading">Das Ding</p>
           <a href="#what">Was es ist</a>
+          <a href="#shop">Shop</a>
           <a href="#founders">Founder Edition</a>
           <a href="#process">Herstellung</a>
           <a href="#notify">Benachrichtigen</a>
@@ -1028,7 +1116,7 @@
     </div>
   </footer>
 
-  <script src="../script.js?v=202610201509"></script>
+  <script src="../script.js?v=202610201603"></script>
   <script src="../assets/demo.js" defer></script>
 </body>
 </html>

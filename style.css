@@ -3191,3 +3191,192 @@ body.gate-locked { overflow: hidden; }
 .proto-note {
   margin-top: -8px;
 }
+
+/* ============================================================
+   THE LINEUP: hako big on the left, the rest around it
+   ============================================================ */
+.section-shop { background: var(--bg-deep); }
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 20px;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+
+  border: 1px solid var(--border-soft);
+  border-radius: 22px;
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.product-main { grid-row: 1 / span 2; }
+.product-next { grid-column: 2 / span 2; flex-direction: row; }
+
+.product-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #0d0b09;
+}
+
+.product-media.is-light { background: var(--surface-soft); }
+
+.product-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.2, 0.6, 0.3, 1);
+}
+
+.product-media.is-light img { object-fit: contain; padding: 6% 8%; }
+.product-main .product-media { aspect-ratio: 1 / 0.82; }
+.product-main .product-media img { object-position: 50% 40%; }
+.product:hover .product-media img { transform: scale(1.03); }
+
+.product-next .product-media { flex: 0 0 46%; aspect-ratio: auto; min-height: 260px; }
+
+.product-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 24px 26px 26px;
+}
+
+.product-main .product-body { padding: 30px 32px 32px; gap: 16px; }
+
+.product-status {
+  align-self: flex-start;
+  padding: 4px 10px;
+
+  border: 1px solid var(--border);
+  border-radius: 999px;
+
+  font: 500 11px/1.3 "IBM Plex Sans", sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.product-status.is-live { border-color: var(--accent); color: var(--accent); background: var(--accent-faint); }
+.product-status.is-next { border-color: var(--ink-soft); color: var(--ink-soft); }
+
+.product-name {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+
+  font-size: 1.45rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.product-main .product-name { font-size: clamp(2rem, 3.2vw, 2.6rem); }
+
+.product-name small {
+  font: 400 12px/1 "IBM Plex Sans", sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.product-kanji {
+  font-family: "Shippori Mincho", serif;
+  color: var(--accent);
+}
+
+.product-desc {
+  max-width: 52ch;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.product-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.product-specs li {
+  padding: 5px 11px;
+  border-radius: 8px;
+  background: var(--bg-deep);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.product-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.product-price {
+  font-family: "Shippori Mincho", serif;
+  font-size: 1.25rem;
+  color: var(--ink);
+}
+
+.product-main .product-price { font-size: 1.7rem; }
+
+.product-price small {
+  margin-left: 6px;
+  font: 400 13px/1 "IBM Plex Sans", sans-serif;
+  color: var(--muted);
+}
+
+@media (max-width: 1080px) {
+  .shop-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .product-main { grid-column: 1 / -1; grid-row: auto; flex-direction: row; }
+  .product-main .product-media { flex: 0 0 48%; aspect-ratio: auto; min-height: 380px; }
+  .product-next { grid-column: 1 / -1; }
+}
+
+@media (max-width: 720px) {
+  .shop-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .product-main, .product-next { flex-direction: column; }
+  .product-main .product-media { flex: none; aspect-ratio: 1 / 0.85; min-height: 0; }
+  .product-next .product-media { flex: none; aspect-ratio: 4 / 3; min-height: 0; }
+  .product-body, .product-main .product-body { padding: 22px 22px 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-media img { transition: none; }
+  .product:hover .product-media img { transform: none; }
+}
+
+/* nine nav links: tighten them before the menu folds into the burger */
+@media (max-width: 1400px) {
+  .nav-links { gap: 22px; }
+  .nav-links a { font-size: 13.5px; }
+}
+@media (max-width: 1060px) {
+  .nav-links { display: none; }
+  .mobile-menu-btn { display: flex; }
+}
+@media (max-width: 1230px) {
+  :root:lang(ja) .nav-links,
+  :root:lang(de) .nav-links { display: none; }
+  :root:lang(ja) .mobile-menu-btn,
+  :root:lang(de) .mobile-menu-btn { display: flex; }
+}

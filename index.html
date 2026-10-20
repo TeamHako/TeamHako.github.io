@@ -35,7 +35,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=202610201509" />
+  <link rel="stylesheet" href="style.css?v=202610201603" />
 
   <!-- First visit from a Japanese or German browser: go to that page, unless
        the visitor already picked a language with the switcher. -->
@@ -152,6 +152,7 @@
       <a href="#try">Try it</a>
       <a href="#friends">Friends</a>
       <a href="#how">How it works</a>
+      <a href="#shop">Shop</a>
       <a href="#founders">Founder Edition</a>
       <a href="#process">Process</a>
       <a href="#maker">Maker</a>
@@ -180,6 +181,7 @@
     <a href="#try">Try it</a>
     <a href="#friends">Friends</a>
     <a href="#how">How it works</a>
+    <a href="#shop">Shop</a>
     <a href="#founders">Founder Edition</a>
     <a href="#process">Process</a>
     <a href="#maker">Maker</a>
@@ -537,6 +539,91 @@
           <p>Your reviews show up on the box while Anki is open. Updates install themselves overnight.</p>
         </li>
       </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- THE LINEUP: hako first, then the things around it             -->
+  <!-- SWAP: the case and keys are illustrations until there are     -->
+  <!-- photos; drop real shots into assets/images/shop/ and update   -->
+  <!-- the src (and remove the "Illustration" tag).                  -->
+  <!-- ============================================================ -->
+  <section id="shop" class="section section-shop">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="label-mark">品</span>
+        <span class="label-text">The lineup</span>
+      </div>
+
+      <h2 class="reveal">One box on your desk, and a few good things around it.</h2>
+
+      <div class="shop-grid">
+        <article class="product product-main reveal">
+          <a class="product-media" href="#founders">
+            <img src="assets/images/photos/en/today.webp" alt="hako on a desk showing today's reviews" width="768" height="768" loading="lazy" />
+            <span class="proto-tag">Prototype v2</span>
+          </a>
+          <div class="product-body">
+            <p class="product-status is-live">Pre-orders spring 2027</p>
+            <h3 class="product-name"><span class="product-kanji">箱</span>hako</h3>
+            <p class="product-desc">The study companion itself. A 64×64 LED panel in a hand-joined hardwood box that shows your Anki reviews, your streak and a pet that keeps you company.</p>
+            <ul class="product-specs">
+              <li>4,096 LEDs</li>
+              <li>Knob and NFC</li>
+              <li>Hand-cut joinery</li>
+              <li>Numbered 01&ndash;25</li>
+            </ul>
+            <div class="product-foot">
+              <p class="product-price"><span data-founder-price>$279</span> <small>Founder Edition</small></p>
+              <a href="#founders" class="btn-primary">See the Founder Edition</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product reveal">
+          <div class="product-media is-light">
+            <img src="assets/images/shop/stickers.webp" alt="A sheet of hako stickers: Kao, Mochi, the LED box and the 箱 seal" width="800" height="800" loading="lazy" />
+          </div>
+          <div class="product-body">
+            <p class="product-status">In every box</p>
+            <h3 class="product-name">Sticker sheet</h3>
+            <p class="product-desc">Kao, Mochi, the glowing 箱 and the red seal, die-cut for your laptop, notebook or water bottle.</p>
+            <div class="product-foot">
+              <p class="product-price">Included <small>extra sheets later</small></p>
+            </div>
+          </div>
+        </article>
+
+        <article class="product reveal">
+          <div class="product-media is-light">
+            <img src="assets/images/shop/case.svg" alt="Illustration of a grey felt hako case with a leather strap" width="800" height="520" loading="lazy" />
+            <span class="proto-tag">Illustration</span>
+          </div>
+          <div class="product-body">
+            <p class="product-status">In design</p>
+            <h3 class="product-name">hako case</h3>
+            <p class="product-desc">A padded wool-felt case cut to fit hako, with room for the power adapter and cable. For the library, the café or moving day.</p>
+            <div class="product-foot">
+              <p class="product-price">Price to come</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="product product-next reveal">
+          <div class="product-media is-light">
+            <img src="assets/images/shop/keys.svg" alt="Illustration of a walnut block with three keys: again, good and undo" width="800" height="520" loading="lazy" />
+            <span class="proto-tag">Illustration</span>
+          </div>
+          <div class="product-body">
+            <p class="product-status is-next">Coming next</p>
+            <h3 class="product-name">hako keys <small>working name</small></h3>
+            <p class="product-desc">Three keys in a block of walnut, made for reviewing. Wireless, built for Anki and Migaku: Again, Good and Undo out of the box, and you can remap all three. Lean back, keep your hand on the keys and get through the pile.</p>
+            <div class="product-foot">
+              <a href="#notify" class="btn-link">Tell me when it's ready <span class="arrow">→</span></a>
+            </div>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -980,6 +1067,7 @@
         <div class="footer-col">
           <p class="footer-heading">The thing</p>
           <a href="#what">What it is</a>
+          <a href="#shop">Shop</a>
           <a href="#founders">Founder Edition</a>
           <a href="#process">Process</a>
           <a href="#notify">Notify me</a>
@@ -1014,7 +1102,7 @@
     </div>
   </footer>
 
-  <script src="script.js?v=202610201509"></script>
+  <script src="script.js?v=202610201603"></script>
   <script src="assets/demo.js" defer></script>
 </body>
 </html>

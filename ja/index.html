@@ -36,7 +36,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="../style.css?v=202610201509" />
+  <link rel="stylesheet" href="../style.css?v=202610201603" />
 
   <!-- First visit from a Japanese or German browser: go to that page, unless
        the visitor already picked a language with the switcher. -->
@@ -173,6 +173,7 @@
       <a href="#try">試してみる</a>
       <a href="#friends">なかま</a>
       <a href="#how">使い方</a>
+      <a href="#shop">ラインナップ</a>
       <a href="#founders">ファウンダーエディション</a>
       <a href="#process">制作</a>
       <a href="#maker">作り手</a>
@@ -201,6 +202,7 @@
     <a href="#try">試してみる</a>
     <a href="#friends">なかま</a>
     <a href="#how">使い方</a>
+    <a href="#shop">ラインナップ</a>
     <a href="#founders">ファウンダーエディション</a>
     <a href="#process">制作</a>
     <a href="#maker">作り手</a>
@@ -558,6 +560,91 @@
           <p>Ankiを開いている間、復習の状況が箱に表示されます。アップデートは夜間に自動でインストールされます。</p>
         </li>
       </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- THE LINEUP: hako first, then the things around it             -->
+  <!-- SWAP: the case and keys are illustrations until there are     -->
+  <!-- photos; drop real shots into assets/images/shop/ and update   -->
+  <!-- the src (and remove the "Illustration" tag).                  -->
+  <!-- ============================================================ -->
+  <section id="shop" class="section section-shop">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="label-mark">品</span>
+        <span class="label-text">ラインナップ</span>
+      </div>
+
+      <h2 class="reveal">机の上に、ひとつの箱。そのまわりに、いくつかの良いもの。</h2>
+
+      <div class="shop-grid">
+        <article class="product product-main reveal">
+          <a class="product-media" href="#founders">
+            <img src="../assets/images/photos/ja/today.webp" alt="今日の復習を表示する机の上のhako" width="768" height="768" loading="lazy" />
+            <span class="proto-tag">試作2号機</span>
+          </a>
+          <div class="product-body">
+            <p class="product-status is-live">予約受付は2027年春</p>
+            <h3 class="product-name"><span class="product-kanji">箱</span>hako</h3>
+            <p class="product-desc">勉強の相棒、本体です。手で組んだ木の箱に64×64のLEDパネル。Ankiの復習、連続記録、そしてそばにいてくれるペットを映します。</p>
+            <ul class="product-specs">
+              <li>LED 4,096個</li>
+              <li>ノブとNFC</li>
+              <li>手刻みの組み接ぎ</li>
+              <li>01〜25のシリアル番号入り</li>
+            </ul>
+            <div class="product-foot">
+              <p class="product-price"><span data-founder-price>$279</span> <small>ファウンダーエディション</small></p>
+              <a href="#founders" class="btn-primary">ファウンダーエディションを見る</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product reveal">
+          <div class="product-media is-light">
+            <img src="../assets/images/shop/stickers.webp" alt="hakoのステッカーシート:かお、もち、LEDの箱、「箱」の落款" width="800" height="800" loading="lazy" />
+          </div>
+          <div class="product-body">
+            <p class="product-status">全ての箱に同梱</p>
+            <h3 class="product-name">ステッカーシート</h3>
+            <p class="product-desc">かお、もち、光る「箱」、赤い落款。ノートPCやノート、水筒にどうぞ。</p>
+            <div class="product-foot">
+              <p class="product-price">同梱 <small>追加シートは後日</small></p>
+            </div>
+          </div>
+        </article>
+
+        <article class="product reveal">
+          <div class="product-media is-light">
+            <img src="../assets/images/shop/case.svg" alt="革ベルト付きのグレーのフェルト製hakoケースのイメージ図" width="800" height="520" loading="lazy" />
+            <span class="proto-tag">イメージ図</span>
+          </div>
+          <div class="product-body">
+            <p class="product-status">デザイン中</p>
+            <h3 class="product-name">hakoケース</h3>
+            <p class="product-desc">hakoにぴったり合わせた、クッション入りのウールフェルトケース。電源アダプターとケーブルも入ります。図書館へ、カフェへ、引っ越しの日にも。</p>
+            <div class="product-foot">
+              <p class="product-price">価格は近日発表</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="product product-next reveal">
+          <div class="product-media is-light">
+            <img src="../assets/images/shop/keys.svg" alt="3つのキー(もう一度・正解・元に戻す)が付いたウォールナットのブロックのイメージ図" width="800" height="520" loading="lazy" />
+            <span class="proto-tag">イメージ図</span>
+          </div>
+          <div class="product-body">
+            <p class="product-status is-next">次の新製品</p>
+            <h3 class="product-name">hakoキー <small>仮称</small></h3>
+            <p class="product-desc">ウォールナットの塊に、キーが3つ。復習のためだけに作りました。ワイヤレスで、AnkiとMigakuに対応。最初は「もう一度」「正解」「元に戻す」、3つとも好きに割り当て直せます。背もたれに寄りかかって、手はキーの上に。今日の山を片づけましょう。</p>
+            <div class="product-foot">
+              <a href="#notify" class="btn-link">完成したら知らせてほしい <span class="arrow">→</span></a>
+            </div>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -994,6 +1081,7 @@
         <div class="footer-col">
           <p class="footer-heading">製品</p>
           <a href="#what">hakoとは</a>
+          <a href="#shop">ラインナップ</a>
           <a href="#founders">ファウンダーエディション</a>
           <a href="#process">制作</a>
           <a href="#notify">通知を受け取る</a>
@@ -1028,7 +1116,7 @@
     </div>
   </footer>
 
-  <script src="../script.js?v=202610201509"></script>
+  <script src="../script.js?v=202610201603"></script>
   <script src="../assets/demo.js" defer></script>
 </body>
 </html>

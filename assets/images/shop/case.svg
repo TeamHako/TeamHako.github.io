@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+  <!-- hako case: a padded wool-felt case with a leather strap. Illustration, not a photo. -->
+  <defs>
+    <linearGradient id="felt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5b5752"/><stop offset="1" stop-color="#3e3b37"/>
+    </linearGradient>
+    <linearGradient id="felttop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#78736c"/><stop offset="1" stop-color="#625e58"/>
+    </linearGradient>
+    <linearGradient id="leather" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a8673a"/><stop offset="1" stop-color="#7e4724"/>
+    </linearGradient>
+    <radialGradient id="shadow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#000" stop-opacity="0.32"/><stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="fuzz" x="0" y="0" width="1" height="1">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/>
+      <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 -0.18"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="400" cy="458" rx="270" ry="30" fill="url(#shadow)"/>
+  <!-- top and front of the case -->
+  <path d="M240 128 Q246 104 272 104 L528 104 Q554 104 560 128 L600 186 L200 186 Z" fill="url(#felttop)"/>
+  <path d="M200 186 L600 186 L600 400 Q600 444 556 444 L244 444 Q200 444 200 400 Z" fill="url(#felt)"/>
+  <path d="M240 128 Q246 104 272 104 L528 104 Q554 104 560 128 L600 186 L200 186 Z" fill="#000" filter="url(#fuzz)"/>
+  <path d="M200 186 L600 186 L600 400 Q600 444 556 444 L244 444 Q200 444 200 400 Z" fill="#000" filter="url(#fuzz)"/>
+  <!-- the seam where the lid closes, and stitching -->
+  <path d="M206 214 Q400 226 594 214" stroke="#2c2a27" stroke-width="3" fill="none" opacity="0.7"/>
+  <rect x="216" y="200" width="368" height="230" rx="30" fill="none" stroke="#a49d93" stroke-width="2.5" stroke-dasharray="9 7" opacity="0.55"/>
+  <!-- the leather strap over the lid, down to a snap -->
+  <path d="M370 104 L430 104 L436 186 L436 300 Q436 322 414 322 L386 322 Q364 322 364 300 L364 186 Z" fill="url(#leather)"/>
+  <path d="M376 112 L424 112 L428 186 L428 296 Q428 312 412 312 L388 312 Q372 312 372 296 L372 186 Z" fill="none" stroke="#e1b48a" stroke-width="2" stroke-dasharray="6 5" opacity="0.7"/>
+  <circle cx="400" cy="286" r="13" fill="#c9a36b"/>
+  <circle cx="400" cy="286" r="7" fill="#9c7a46"/>
+  <!-- debossed seal -->
+  <rect x="386" y="214" width="28" height="28" rx="3" fill="none" stroke="#5e3218" stroke-width="2.5" opacity="0.8"/>
+  <path d="M393 222 h14 M393 228 h14 M393 234 h14 M400 218 v20" stroke="#5e3218" stroke-width="2" opacity="0.65"/>
+</svg>

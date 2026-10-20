@@ -202,6 +202,26 @@
       "en": "data-live='[[\"assets/images/live/pet-kao.webp\",\"Kao\"],[\"assets/images/live/pet-mochi.webp\",\"Mochi\"],[\"assets/images/live/pet-onigiri.webp\",\"Onigiri\"],[\"assets/images/live/pet-classic.webp\",\"Chibi\"]]'",
       "ja": "data-live='[[\"assets/images/live/pet-kao.webp\",\"かお\"],[\"assets/images/live/pet-mochi.webp\",\"もち\"],[\"assets/images/live/pet-onigiri.webp\",\"おにぎり\"],[\"assets/images/live/pet-classic.webp\",\"ちび\"]]'",
       "de": "data-live='[[\"assets/images/live/pet-kao.webp\",\"Kao\"],[\"assets/images/live/pet-mochi.webp\",\"Mochi\"],[\"assets/images/live/pet-onigiri.webp\",\"Onigiri\"],[\"assets/images/live/pet-classic.webp\",\"Chibi\"]]'"
+    },
+    {
+      "en": "alt=\"hako on a desk showing today's reviews\"",
+      "ja": "alt=\"今日の復習を表示する机の上のhako\"",
+      "de": "alt=\"hako auf dem Schreibtisch mit den heutigen Wiederholungen\""
+    },
+    {
+      "en": "alt=\"A sheet of hako stickers: Kao, Mochi, the LED box and the 箱 seal\"",
+      "ja": "alt=\"hakoのステッカーシート:かお、もち、LEDの箱、「箱」の落款\"",
+      "de": "alt=\"Ein Bogen hako-Sticker: Kao, Mochi, die LED-Box und das 箱-Siegel\""
+    },
+    {
+      "en": "alt=\"Illustration of a grey felt hako case with a leather strap\"",
+      "ja": "alt=\"革ベルト付きのグレーのフェルト製hakoケースのイメージ図\"",
+      "de": "alt=\"Illustration einer grauen Filztasche für hako mit Lederriemen\""
+    },
+    {
+      "en": "alt=\"Illustration of a walnut block with three keys: again, good and undo\"",
+      "ja": "alt=\"3つのキー(もう一度・正解・元に戻す)が付いたウォールナットのブロックのイメージ図\"",
+      "de": "alt=\"Illustration eines Walnussblocks mit drei Tasten: Nochmal, Gut und Rückgängig\""
     }
   ],
   "text": [
@@ -1079,6 +1099,131 @@
       "en": "Now on hako",
       "ja": "いまのhako",
       "de": "Gerade auf hako"
+    },
+    {
+      "en": "Shop",
+      "ja": "ラインナップ",
+      "de": "Shop"
+    },
+    {
+      "en": "The lineup",
+      "ja": "ラインナップ",
+      "de": "Das Sortiment"
+    },
+    {
+      "en": "One box on your desk, and a few good things around it.",
+      "ja": "机の上に、ひとつの箱。そのまわりに、いくつかの良いもの。",
+      "de": "Eine Box auf deinem Schreibtisch – und ein paar gute Dinge drumherum."
+    },
+    {
+      "en": "Pre-orders spring 2027",
+      "ja": "予約受付は2027年春",
+      "de": "Vorbestellung ab Frühjahr 2027"
+    },
+    {
+      "en": "The study companion itself. A 64×64 LED panel in a hand-joined hardwood box that shows your Anki reviews, your streak and a pet that keeps you company.",
+      "ja": "勉強の相棒、本体です。手で組んだ木の箱に64×64のLEDパネル。Ankiの復習、連続記録、そしてそばにいてくれるペットを映します。",
+      "de": "Der Lernbegleiter selbst: ein 64×64-LED-Panel in einer von Hand verzinkten Holzbox. Es zeigt deine Anki-Wiederholungen, deine Serie und ein Haustier, das dir Gesellschaft leistet."
+    },
+    {
+      "en": "4,096 LEDs",
+      "ja": "LED 4,096個",
+      "de": "4.096 LEDs"
+    },
+    {
+      "en": "Knob and NFC",
+      "ja": "ノブとNFC",
+      "de": "Drehknopf und NFC"
+    },
+    {
+      "en": "Hand-cut joinery",
+      "ja": "手刻みの組み接ぎ",
+      "de": "Handgeschnittene Verbindungen"
+    },
+    {
+      "en": "Numbered 01&ndash;25",
+      "ja": "01〜25のシリアル番号入り",
+      "de": "Nummeriert 01&ndash;25"
+    },
+    {
+      "en": "See the Founder Edition",
+      "ja": "ファウンダーエディションを見る",
+      "de": "Zur Founder Edition"
+    },
+    {
+      "en": "In every box",
+      "ja": "全ての箱に同梱",
+      "de": "In jeder Box"
+    },
+    {
+      "en": "Sticker sheet",
+      "ja": "ステッカーシート",
+      "de": "Stickerbogen"
+    },
+    {
+      "en": "Kao, Mochi, the glowing 箱 and the red seal, die-cut for your laptop, notebook or water bottle.",
+      "ja": "かお、もち、光る「箱」、赤い落款。ノートPCやノート、水筒にどうぞ。",
+      "de": "Kao, Mochi, das leuchtende 箱 und das rote Siegel – gestanzt für Laptop, Notizbuch oder Trinkflasche."
+    },
+    {
+      "en": "Included",
+      "ja": "同梱",
+      "de": "Inklusive"
+    },
+    {
+      "en": "extra sheets later",
+      "ja": "追加シートは後日",
+      "de": "weitere Bögen später"
+    },
+    {
+      "en": "Illustration",
+      "ja": "イメージ図",
+      "de": "Illustration"
+    },
+    {
+      "en": "In design",
+      "ja": "デザイン中",
+      "de": "In Arbeit"
+    },
+    {
+      "en": "hako case",
+      "ja": "hakoケース",
+      "de": "hako-Tasche"
+    },
+    {
+      "en": "A padded wool-felt case cut to fit hako, with room for the power adapter and cable. For the library, the café or moving day.",
+      "ja": "hakoにぴったり合わせた、クッション入りのウールフェルトケース。電源アダプターとケーブルも入ります。図書館へ、カフェへ、引っ越しの日にも。",
+      "de": "Eine gepolsterte Tasche aus Wollfilz, genau passend für hako, mit Platz für Netzteil und Kabel. Für Bibliothek, Café oder Umzugstag."
+    },
+    {
+      "en": "Price to come",
+      "ja": "価格は近日発表",
+      "de": "Preis folgt"
+    },
+    {
+      "en": "Coming next",
+      "ja": "次の新製品",
+      "de": "Als Nächstes"
+    },
+    {
+      "en": "hako keys",
+      "ja": "hakoキー",
+      "de": "hako keys"
+    },
+    {
+      "en": "working name",
+      "ja": "仮称",
+      "de": "Arbeitstitel"
+    },
+    {
+      "en": "Three keys in a block of walnut, made for reviewing. Wireless, built for Anki and Migaku: Again, Good and Undo out of the box, and you can remap all three. Lean back, keep your hand on the keys and get through the pile.",
+      "ja": "ウォールナットの塊に、キーが3つ。復習のためだけに作りました。ワイヤレスで、AnkiとMigakuに対応。最初は「もう一度」「正解」「元に戻す」、3つとも好きに割り当て直せます。背もたれに寄りかかって、手はキーの上に。今日の山を片づけましょう。",
+      "de": "Drei Tasten in einem Block aus Walnuss, gemacht fürs Wiederholen. Kabellos, für Anki und Migaku: ab Werk Nochmal, Gut und Rückgängig – alle drei frei belegbar. Lehn dich zurück, die Hand auf den Tasten, und arbeite den Stapel ab."
+    },
+    {
+      "en": "Tell me when it's ready",
+      "ja": "完成したら知らせてほしい",
+      "de": "Sag mir Bescheid, wenn es so weit ist"
     }
   ]
 }
