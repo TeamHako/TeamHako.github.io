@@ -3239,15 +3239,29 @@ body.gate-locked { overflow: hidden; }
 }
 
 .product-media.is-light img { object-fit: contain; padding: 6% 8%; }
-/* a render on its own studio backdrop: show all of it and feather its edges
-   into a matching backdrop, so the card can be any shape without cropping */
+/* a render on its own studio backdrop: show all of it. The images fade to
+   #f4f1e9 at every edge, so the card can be any shape without a seam. */
 .product-media.is-render { background: #f4f1e9; }
-.product-media.is-render img {
-  object-fit: contain;
-  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 72%, transparent 100%);
-          mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 72%, transparent 100%);
-}
+.product-media.is-render img { object-fit: contain; }
 .product-next .product-media.is-render { flex-basis: 50%; }
+
+/* a second view that slowly fades in and out over the first */
+.product-media .media-alt {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: media-swap 12s ease-in-out infinite;
+}
+
+@keyframes media-swap {
+  0%, 38%   { opacity: 0; }
+  50%, 88%  { opacity: 1; }
+  100%      { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-media .media-alt { animation: none; }
+}
 .product-main .product-media { aspect-ratio: 1 / 0.82; }
 .product-main .product-media img { object-position: 50% 40%; }
 .product:hover .product-media img { transform: scale(1.03); }
