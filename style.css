@@ -565,14 +565,18 @@ h6,
   object-fit: cover;
   object-position: 62% 48%;
 
+  /* hidden: back to 1x, but only once it has faded out */
   opacity: 0;
-  transform: scale(1.06);
-  transition: opacity 2.6s ease-in-out, transform 16s linear;
+  transform: scale(1);
+  transition: opacity 1.6s ease-in-out, transform 0s linear 1.6s;
 }
 
+/* shown: fades in at 1x and drifts in slowly while it's on screen, so
+   there's always some motion; it stops at 1.08x however long it stays */
 .stage-media .is-on {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1.08);
+  transition: opacity 1.6s ease-in-out, transform 8.5s linear;
 }
 
 /* dark from the left (the type) and the bottom, plus a vignette */
@@ -930,7 +934,7 @@ h6,
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .stage-media img, .stage-media video { transform: none; transition: opacity 0.8s ease; }
+  .stage-media img, .stage-media video, .stage-media .is-on { transform: none; transition: opacity 0.8s ease; }
   .hl-item, .hl-item.is-out { transform: none; transition: opacity 0.4s ease; }
   .hl-stroke.draw { animation: none; transform: scaleX(1); }
 }

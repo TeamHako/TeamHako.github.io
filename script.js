@@ -563,7 +563,7 @@ async function liveShop(cta, price) {
   const stroke = h.querySelector(".hl-stroke");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const MS = reduce ? 3800 : 2400;               // per word
-  const PHOTO_MS = reduce ? 14000 : 10000;       // per photo
+  const PHOTO_MS = reduce ? 12000 : 6500;        // per photo
   const media = [...document.querySelectorAll(".stage-media > img, .stage-media > video")];
   const live = document.querySelector(".stage-live[data-live]");
   let pets = [];
@@ -631,6 +631,16 @@ async function liveShop(cta, price) {
     if (!visible || document.hidden) return;
     timer = setTimeout(function tick() { go(i + 1); timer = setTimeout(tick, MS); }, MS);
     photoTimer = setTimeout(function tick() { nextPhoto(); photoTimer = setTimeout(tick, PHOTO_MS); }, PHOTO_MS);
+  }
+
+  // the first photo is on from the start: let it drift in from 1x too
+  const first = media.find((m) => m.classList.contains("is-on"));
+  if (first && !reduce) {
+    first.style.transition = "none";
+    first.style.transform = "scale(1)";
+    void first.offsetWidth;
+    first.style.transition = "";
+    first.style.transform = "";
   }
 
   // the first subject, in this page's language, without a slide
