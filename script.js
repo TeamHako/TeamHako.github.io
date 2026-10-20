@@ -648,23 +648,94 @@ async function liveShop(cta, price) {
 })();
 
 // ============================================================
-// LINEUP: colour dots under a product swap its photo
+// LINEUP: product photos with several views are a small carousel:
+// swipe, or tap the dots; left alone it moves on by itself. Colour
+// dots under a product (the case) pick which colour's views it shows.
 // ============================================================
-document.querySelectorAll(".product").forEach((card) => {
-  const dots = card.querySelectorAll(".swatch[data-swatch]");
-  if (!dots.length) return;
-  const imgs = card.querySelectorAll("img[data-swatch]");
-  const label = card.querySelector("[data-swatch-name]");
-  dots.forEach((dot) => {
-    dot.addEventListener("click", () => {
-      const key = dot.dataset.swatch;
-      dots.forEach((d) => {
-        const on = d === dot;
-        d.classList.toggle("is-on", on);
-        d.setAttribute("aria-pressed", on ? "true" : "false");
+(function () {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const STEP = 5000, IDLE = 9000;
+  document.querySelectorAll(".product").forEach((card) => {
+    const media = card.querySelector(".product-media");
+    if (!media) return;
+    const all = [...media.querySelectorAll("img")];
+    const swatches = card.querySelectorAll(".swatch[data-swatch]");
+    if (all.length < 2) return;
+    media.classList.add("is-carousel");
+    all.forEach((im) => im.classList.remove("is-on", "media-alt", "swatch-alt"));
+    all.forEach((im) => { im.draggable = false; });
+    media.addEventListener("dragstart", (e) => e.preventDefault());
+
+    const label = card.querySelector("[data-swatch-name]");
+    const dots = document.createElement("div");
+    dots.className = "carousel-dots";
+    media.appendChild(dots);
+
+    let key = swatches.length ? swatches[0].dataset.swatch : null;
+    let slides = [], i = 0, timer = null, resumeAt = 0, visible = false, hovering = false;
+
+    function build() {
+      slides = key ? all.filter((im) => im.dataset.swatch === key) : all;
+      dots.innerHTML = "";
+      slides.forEach((im, k) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.setAttribute("aria-label", `${k + 1} / ${slides.length}`);
+        b.addEventListener("click", () => { touched(); show(k); });
+        dots.appendChild(b);
       });
-      imgs.forEach((im) => im.classList.toggle("is-on", im.dataset.swatch === key));
-      if (label) label.textContent = dot.dataset.name;
+      dots.hidden = slides.length < 2;
+    }
+
+    function show(k) {
+      i = (k + slides.length) % slides.length;
+      all.forEach((im) => im.classList.toggle("is-shown", im === slides[i]));
+      [...dots.children].forEach((b, n) => b.setAttribute("aria-current", n === i ? "true" : "false"));
+    }
+
+    function touched() { resumeAt = Date.now() + IDLE; }
+
+    function tick() {
+      clearTimeout(timer);
+      if (reduce || !visible || document.hidden || slides.length < 2) return;
+      const wait = Math.max(STEP, resumeAt - Date.now());
+      timer = setTimeout(() => {
+        if (!hovering && Date.now() >= resumeAt) show(i + 1);
+        tick();
+      }, wait);
+    }
+
+    // swipe
+    let x0 = null, y0 = null;
+    media.addEventListener("pointerdown", (e) => { x0 = e.clientX; y0 = e.clientY; });
+    media.addEventListener("pointerup", (e) => {
+      if (x0 === null) return;
+      const dx = e.clientX - x0, dy = e.clientY - y0;
+      x0 = null;
+      if (Math.abs(dx) > 36 && Math.abs(dx) > Math.abs(dy)) { touched(); show(i + (dx < 0 ? 1 : -1)); }
     });
+    media.addEventListener("pointercancel", () => { x0 = null; });
+    media.addEventListener("mouseenter", () => { hovering = true; });
+    media.addEventListener("mouseleave", () => { hovering = false; });
+
+    // colour dots
+    swatches.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        key = dot.dataset.swatch;
+        swatches.forEach((d) => {
+          const on = d === dot;
+          d.classList.toggle("is-on", on);
+          d.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+        if (label) label.textContent = dot.dataset.name;
+        touched(); build(); show(0); tick();
+      });
+    });
+
+    document.addEventListener("visibilitychange", tick);
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((es) => { visible = es[0].isIntersecting; tick(); }).observe(media);
+    } else { visible = true; }
+    build(); show(0); tick();
   });
-});
+})();
