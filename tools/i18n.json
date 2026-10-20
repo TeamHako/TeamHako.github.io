@@ -287,6 +287,16 @@
       "en": "alt=\"Concept render of the hako case closed and standing: moss green felt with a tan leather strap\"",
       "ja": "alt=\"閉じて立てたhakoケースのコンセプト画像:タンの革ベルトが付いたモスグリーンのフェルト\"",
       "de": "alt=\"Konzept-Rendering der geschlossenen, stehenden hako-Tasche: moosgrüner Filz mit hellbraunem Lederriemen\""
+    },
+    {
+      "en": "alt=\"Concept render: four hako cases stacked, in charcoal, natural, indigo and moss felt\"",
+      "ja": "alt=\"コンセプト画像:チャコール、生成り、藍、モスグリーンのhakoケースを積み重ねたところ\"",
+      "de": "alt=\"Konzept-Rendering: vier gestapelte hako-Taschen in Anthrazit, Natur, Indigo und Moosgrün\""
+    },
+    {
+      "en": "alt=\"Concept render: four hako cases side by side on a table, in charcoal, natural, indigo and moss felt\"",
+      "ja": "alt=\"コンセプト画像:チャコール、生成り、藍、モスグリーンのhakoケースを机に並べたところ\"",
+      "de": "alt=\"Konzept-Rendering: vier hako-Taschen nebeneinander auf einem Tisch in Anthrazit, Natur, Indigo und Moosgrün\""
     }
   ],
   "text": [
@@ -1294,6 +1304,16 @@
       "en": "Sumi · charcoal",
       "ja": "墨 · チャコール",
       "de": "Sumi · Anthrazit"
+    },
+    {
+      "en": "Four colours, one fit.",
+      "ja": "4色、どれもぴったり。",
+      "de": "Vier Farben, eine Passform."
+    },
+    {
+      "en": "Sumi · Kinari · Ai · Matcha",
+      "ja": "墨 · 生成り · 藍 · 抹茶",
+      "de": "Sumi · Kinari · Ai · Matcha"
     }
   ]
 }

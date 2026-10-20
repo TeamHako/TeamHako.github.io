@@ -123,7 +123,7 @@ def still_english(source: str, page: str) -> list[str]:
 
 
 # Text that is meant to stay English on every page
-KEEP_ENGLISH = {"Founder Edition", "Founder Edition ·", "mikko", "by hako", "Shop"}
+KEEP_ENGLISH = {"Founder Edition", "Founder Edition ·", "mikko", "by hako", "Shop", "Sumi · Kinari · Ai · Matcha"}
 
 
 def main() -> None:
