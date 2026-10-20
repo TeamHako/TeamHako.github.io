@@ -655,7 +655,7 @@ async function liveShop(cta, price) {
 (function () {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const STEP = 5000, IDLE = 9000;
-  document.querySelectorAll(".product").forEach((card) => {
+  document.querySelectorAll(".product, .product-page").forEach((card) => {
     const media = card.querySelector(".product-media");
     if (!media) return;
     const all = [...media.querySelectorAll("img")];
@@ -738,4 +738,22 @@ async function liveShop(cta, price) {
     } else { visible = true; }
     build(); show(0); tick();
   });
+})();
+
+// ============================================================
+// PAGES — mark the current page in the nav, and send old links to
+// sections that moved off the home page (/#faq → hako/#faq).
+// ============================================================
+(function () {
+  const page = document.documentElement.dataset.page;
+  document.querySelectorAll("[data-nav]").forEach((a) => {
+    if (a.dataset.nav === page || (a.dataset.nav === "shop" && (page === "case" || page === "mikko"))) {
+      a.setAttribute("aria-current", "page");
+    }
+  });
+  if (page !== "home") return;
+  const moved = { friends: "hako/", features: "hako/", how: "hako/", founders: "hako/", faq: "hako/",
+                  process: "about/", maker: "about/", testers: "about/" };
+  const id = location.hash.slice(1);
+  if (moved[id]) location.replace(moved[id] + location.hash);
 })();

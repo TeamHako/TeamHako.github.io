@@ -3522,3 +3522,170 @@ body.gate-locked { overflow: hidden; }
 .carousel-dots button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 50%; }
 .shop-colours[hidden] { display: none; }
 .product-media.is-carousel img { -webkit-user-drag: none; user-select: none; }
+
+/* ============================================================
+   SUB-PAGES (hako/, about/, shop/, shop/case/, shop/mikko/)
+   ============================================================ */
+.nav-links a[aria-current="page"] { color: var(--ink); }
+.nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+
+.page-hero {
+  position: relative;
+  z-index: 1;
+  padding: 150px 8% 10px;
+}
+
+.page-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  font: 500 12px/1 "IBM Plex Sans", sans-serif;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.page-eyebrow .kanji-mark { margin: 0; font-size: 1.6rem; letter-spacing: 0; text-transform: none; }
+
+.page-hero h1 {
+  max-width: 820px;
+  margin-bottom: 18px;
+  font-size: clamp(2.4rem, 5.4vw, 4.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  text-wrap: balance;
+  color: var(--ink);
+}
+
+.page-sub {
+  max-width: 62ch;
+  font-family: "Shippori Mincho", serif;
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+/* the first section after a page header doesn't need the full gap above it */
+.page-hero + .section,
+.page-hero + svg + .section { padding-top: 70px; }
+
+/* the shop page: the lineup grid straight under the header */
+[data-page="shop"] .section-shop { background: none; padding-top: 50px; }
+
+.product-name a { color: inherit; }
+.product-name a:hover { color: var(--accent); }
+
+.more-link { margin-top: 48px; }
+
+/* -- founder teaser on the home page -- */
+.section-teaser { padding-top: 40px; padding-bottom: 40px; }
+
+.teaser {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 28px 40px;
+  padding: 36px 40px;
+  border: 1px solid var(--border-soft);
+  border-radius: 22px;
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.teaser .kanji-mark { margin: 0; font-size: 2.6rem; }
+.teaser h2 { margin: 0 0 8px; font-size: clamp(1.4rem, 2.4vw, 2rem); }
+.teaser .founder-price { margin: 0; }
+
+/* -- product pages -- */
+.section-pdp { padding-top: 120px; }
+
+.pdp-back { margin-bottom: 22px; }
+.pdp-back .arrow { transition: transform 0.25s ease; }
+.pdp-back a:hover .arrow { transform: translateX(-4px); }
+
+.pdp {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
+}
+
+.pdp-media {
+  position: sticky;
+  top: 100px;
+  aspect-ratio: 11 / 10;
+  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
+}
+
+.pdp-media.is-render { background: #f4f1e9; }
+.pdp-media.is-render img { object-fit: contain; }
+
+.pdp-info {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.pdp-info .product-name { font-size: clamp(2.2rem, 4vw, 3.2rem); }
+.pdp-info .product-desc { max-width: 56ch; font-size: 16px; }
+
+.pdp-price {
+  font-family: "Shippori Mincho", serif;
+  font-size: 2rem;
+  color: var(--ink);
+}
+
+.pdp-price small {
+  margin-left: 8px;
+  font: 400 13px/1 "IBM Plex Sans", sans-serif;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.pdp-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 6px 0 4px;
+}
+
+.pdp-note { font-size: 13px; color: var(--muted); }
+
+.pdp-specs {
+  margin-top: 10px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.pdp-specs > div {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.pdp-specs dt {
+  font: 500 12px/1.6 "IBM Plex Sans", sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pdp-specs dd { margin: 0; font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
+
+@media (max-width: 960px) {
+  .page-hero { padding: 120px 24px 0; }
+  .pdp { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .pdp-media { position: relative; top: 0; }
+  .section-pdp { padding-top: 100px; }
+}
+
+@media (max-width: 720px) {
+  .teaser { grid-template-columns: minmax(0, 1fr); padding: 28px 24px; gap: 16px; }
+  .pdp-specs > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+}

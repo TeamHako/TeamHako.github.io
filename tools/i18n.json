@@ -521,9 +521,9 @@
       "de": "Vorbestellung ab Frühjahr 2027"
     },
     {
-      "en": "Ships about 6&ndash;8 weeks after you order. Full refund any time before your box ships. <a href=\"shipping.html\">Shipping &amp; returns</a>",
-      "ja": "ご注文から約6〜8週間で発送します。発送前ならいつでも全額返金できます。<a href=\"shipping.html\">配送と返品について</a>",
-      "de": "Versand etwa 6&ndash;8 Wochen nach deiner Bestellung. Volle Rückerstattung jederzeit vor dem Versand. <a href=\"shipping.html\">Versand &amp; Rückgabe</a>"
+      "en": "Ships about 6&ndash;8 weeks after you order. Full refund any time before your box ships. <a href=\"../shipping.html\">Shipping &amp; returns</a>",
+      "ja": "ご注文から約6〜8週間で発送します。発送前ならいつでも全額返金できます。<a href=\"../shipping.html\">配送と返品について</a>",
+      "de": "Versand etwa 6&ndash;8 Wochen nach deiner Bestellung. Volle Rückerstattung jederzeit vor dem Versand. <a href=\"../shipping.html\">Versand &amp; Rückgabe</a>"
     },
     {
       "en": "Founder Edition or the Kickstarter run?",
@@ -776,9 +776,9 @@
       "de": "Versendest du in mein Land?"
     },
     {
-      "en": "Yes, worldwide, with tracking and a power adapter for your country. Shipping is calculated at checkout. Outside the US, your country will probably charge import tax (VAT or GST) on delivery, collected by the carrier. See <a href=\"shipping.html\">shipping &amp; returns</a>.",
-      "ja": "はい。追跡番号付きで世界中に発送し、お住まいの国に合った電源アダプターを同梱します。送料は購入時に計算されます。米国外では、受け取り時に輸入消費税（日本では約10%）が配送業者から請求される場合があります。<a href=\"shipping.html\">配送と返品について</a>をご覧ください。",
-      "de": "Ja, weltweit, mit Sendungsverfolgung und einem Netzteil für dein Land. Der Versand wird beim Bezahlen berechnet. Außerhalb der USA fällt bei der Zustellung wahrscheinlich Einfuhrumsatzsteuer an (in Deutschland 19 %), die der Paketdienst erhebt. Siehe <a href=\"shipping.html\">Versand &amp; Rückgabe</a>."
+      "en": "Yes, worldwide, with tracking and a power adapter for your country. Shipping is calculated at checkout. Outside the US, your country will probably charge import tax (VAT or GST) on delivery, collected by the carrier. See <a href=\"../shipping.html\">shipping &amp; returns</a>.",
+      "ja": "はい。追跡番号付きで世界中に発送し、お住まいの国に合った電源アダプターを同梱します。送料は購入時に計算されます。米国外では、受け取り時に輸入消費税（日本では約10%）が配送業者から請求される場合があります。<a href=\"../shipping.html\">配送と返品について</a>をご覧ください。",
+      "de": "Ja, weltweit, mit Sendungsverfolgung und einem Netzteil für dein Land. Der Versand wird beim Bezahlen berechnet. Außerhalb der USA fällt bei der Zustellung wahrscheinlich Einfuhrumsatzsteuer an (in Deutschland 19 %), die der Paketdienst erhebt. Siehe <a href=\"../shipping.html\">Versand &amp; Rückgabe</a>."
     },
     {
       "en": "What if I change my mind, or it breaks?",
@@ -1266,11 +1266,6 @@
       "de": "Eine gepolsterte Tasche aus Wollfilz, genau passend für hako, mit Platz für Netzteil und Kabel. Vier Farben, jede mit Lederriemen und dem 箱-Siegel. Für Bibliothek, Café oder Umzugstag."
     },
     {
-      "en": "Price to come",
-      "ja": "価格は近日発表",
-      "de": "Preis folgt"
-    },
-    {
       "en": "Coming next",
       "ja": "次の新製品",
       "de": "Als Nächstes"
@@ -1314,6 +1309,243 @@
       "en": "Sumi · Kinari · Ai · Matcha",
       "ja": "墨 · 生成り · 藍 · 抹茶",
       "de": "Sumi · Kinari · Ai · Matcha"
+    },
+    {
+      "en": "How it works, the friends and the little extras",
+      "ja": "仕組み、ペットたち、ちょっとしたおまけ",
+      "de": "So funktioniert's, die Freunde und die kleinen Extras"
+    },
+    {
+      "en": "The device",
+      "ja": "本体",
+      "de": "Das Gerät"
+    },
+    {
+      "en": "Meet hako.",
+      "ja": "hakoについて。",
+      "de": "Das ist hako."
+    },
+    {
+      "en": "A walnut box with a 64×64 LED screen that shows your Anki reviews, your streak and a small friend who keeps you company. Here's how it works, who lives in it, and how to get one.",
+      "ja": "64×64のLEDを載せたウォールナットの箱。Ankiの復習、連続記録、そしてそばにいてくれる小さな友だちを映します。仕組み、中に住むペットたち、手に入れる方法をご紹介します。",
+      "de": "Eine Walnussbox mit 64×64-LED-Display, die deine Anki-Wiederholungen, deine Serie und einen kleinen Freund zeigt, der dir Gesellschaft leistet. Hier erfährst du, wie sie funktioniert, wer darin wohnt und wie du eine bekommst."
+    },
+    {
+      "en": "Made by hand, by one person.",
+      "ja": "ひとりの手で、ひとつずつ。",
+      "de": "Von Hand gemacht, von einer Person."
+    },
+    {
+      "en": "How each box is cut, joined and tested, who's making them, and the testers who helped shape it.",
+      "ja": "箱をどう切り、組み、テストしているか。誰が作っているか。そして形づくりを手伝ってくれたテスターたち。",
+      "de": "Wie jede Box zugeschnitten, verzinkt und getestet wird, wer sie baut und welche Tester sie mitgeprägt haben."
+    },
+    {
+      "en": "hako, and a few good things around it.",
+      "ja": "hakoと、そのまわりの良いもの。",
+      "de": "hako – und ein paar gute Dinge drumherum."
+    },
+    {
+      "en": "Nothing is on sale yet: Founder Edition pre-orders open spring 2027, and the case and mikko follow. Prices in US dollars, before shipping.",
+      "ja": "まだ販売はしていません。ファウンダーエディションの予約は2027年春から、ケースとみっこはその後に続きます。価格は米ドル、送料別です。",
+      "de": "Noch ist nichts im Verkauf: Die Vorbestellung der Founder Edition startet im Frühjahr 2027, Tasche und mikko folgen. Preise in US-Dollar, zzgl. Versand."
+    },
+    {
+      "en": "Details",
+      "ja": "詳しく",
+      "de": "Details"
+    },
+    {
+      "en": "$49",
+      "ja": "$49",
+      "de": "49 $"
+    },
+    {
+      "en": "$69.99",
+      "ja": "$69.99",
+      "de": "69,99 $"
+    },
+    {
+      "en": "planned price",
+      "ja": "予定価格",
+      "de": "geplanter Preis"
+    },
+    {
+      "en": "Not on sale yet. Leave your email below and I'll write when it is.",
+      "ja": "まだ販売前です。下にメールアドレスを残してもらえれば、発売時にお知らせします。",
+      "de": "Noch nicht im Verkauf. Hinterlass unten deine E-Mail-Adresse, dann schreibe ich dir, sobald es so weit ist."
+    },
+    {
+      "en": "Coming after hako. Leave your email below and I'll write when it's ready.",
+      "ja": "hakoの後に登場予定。下にメールアドレスを残してもらえれば、完成時にお知らせします。",
+      "de": "Kommt nach hako. Hinterlass unten deine E-Mail-Adresse, dann schreibe ich dir, sobald es fertig ist."
+    },
+    {
+      "en": "Outside",
+      "ja": "外寸",
+      "de": "Außenmaß"
+    },
+    {
+      "en": "About 26 × 26 × 9 cm",
+      "ja": "約26 × 26 × 9 cm",
+      "de": "Etwa 26 × 26 × 9 cm"
+    },
+    {
+      "en": "Shell",
+      "ja": "外側",
+      "de": "Hülle"
+    },
+    {
+      "en": "Thick wool felt in four colours: Sumi, Kinari, Ai and Matcha",
+      "ja": "厚手のウールフェルト。墨・生成り・藍・抹茶の4色",
+      "de": "Dicker Wollfilz in vier Farben: Sumi, Kinari, Ai und Matcha"
+    },
+    {
+      "en": "Inside",
+      "ja": "内側",
+      "de": "Innen"
+    },
+    {
+      "en": "Soft cream felt, with a fitted recess for hako and a notch to lift it out",
+      "ja": "やわらかなクリーム色のフェルト。hakoがぴったり収まるくぼみと、取り出すための指かけ付き",
+      "de": "Weicher cremefarbener Filz, mit passender Mulde für hako und einer Griffmulde zum Herausnehmen"
+    },
+    {
+      "en": "Lid",
+      "ja": "ふた",
+      "de": "Deckel"
+    },
+    {
+      "en": "A pocket with an elastic band for the power adapter and the cable",
+      "ja": "電源アダプターとケーブルを留めるゴムバンド付きポケット",
+      "de": "Eine Tasche mit Gummiband für Netzteil und Kabel"
+    },
+    {
+      "en": "Closure",
+      "ja": "留め具",
+      "de": "Verschluss"
+    },
+    {
+      "en": "One leather strap that wraps over the front and fastens with a brass snap",
+      "ja": "前面を回り込む革ベルト1本を、真鍮のスナップで留めます",
+      "de": "Ein Lederriemen, der über die Vorderseite greift und mit einem Messingdruckknopf schließt"
+    },
+    {
+      "en": "Fits",
+      "ja": "対応",
+      "de": "Passend für"
+    },
+    {
+      "en": "hako (22 × 22 × 6 cm)",
+      "ja": "hako(22 × 22 × 6 cm)",
+      "de": "hako (22 × 22 × 6 cm)"
+    },
+    {
+      "en": "Keys",
+      "ja": "キー",
+      "de": "Tasten"
+    },
+    {
+      "en": "Three, in solid walnut: Again, Good and Undo, all remappable",
+      "ja": "無垢のウォールナットで3つ。「もう一度」「正解」「元に戻す」、すべて割り当て変更可",
+      "de": "Drei, aus massiver Walnuss: Nochmal, Gut und Rückgängig, alle frei belegbar"
+    },
+    {
+      "en": "Body",
+      "ja": "本体",
+      "de": "Gehäuse"
+    },
+    {
+      "en": "Solid oiled walnut with box-jointed corners and the 箱 seal",
+      "ja": "オイル仕上げの無垢ウォールナット。角は組み接ぎ、「箱」の落款入り",
+      "de": "Massive geölte Walnuss mit verzinkten Ecken und dem 箱-Siegel"
+    },
+    {
+      "en": "Connects",
+      "ja": "接続",
+      "de": "Verbindung"
+    },
+    {
+      "en": "Bluetooth, a USB-C cable or the 2.4 GHz USB receiver, picked with a switch on the front",
+      "ja": "Bluetooth・USB-Cケーブル・2.4GHz USBレシーバー。前面のスイッチで切り替え",
+      "de": "Bluetooth, USB-C-Kabel oder der 2,4-GHz-USB-Empfänger, gewählt mit einem Schalter vorne"
+    },
+    {
+      "en": "Rechargeable over USB-C. Sleeps when idle and wakes on the first press",
+      "ja": "USB-Cで充電。使っていないときは眠り、最初のひと押しで目を覚まします",
+      "de": "Über USB-C aufladbar. Schläft bei Nichtbenutzung und wacht beim ersten Tastendruck auf"
+    },
+    {
+      "en": "Size",
+      "ja": "サイズ",
+      "de": "Größe"
+    },
+    {
+      "en": "About 15 × 6 × 2.5 cm",
+      "ja": "約15 × 6 × 2.5 cm",
+      "de": "Etwa 15 × 6 × 2,5 cm"
+    },
+    {
+      "en": "Works with",
+      "ja": "対応アプリ",
+      "de": "Funktioniert mit"
+    },
+    {
+      "en": "Anki and Migaku, and anything that takes keyboard shortcuts",
+      "ja": "AnkiとMigaku、そしてキーボードショートカットが使えるアプリ全般",
+      "de": "Anki und Migaku – und allem, was Tastenkürzel versteht"
     }
-  ]
+  ],
+  "pages": {
+    "hako/": {
+      "ja": {
+        "title": "hako · 仕組み",
+        "description": "hakoの仕組み:画面、勉強の友だち、5分で終わるセットアップ、シリアル番号入りファウンダーエディション25台、よくある質問。"
+      },
+      "de": {
+        "title": "hako · So funktioniert's",
+        "description": "So funktioniert hako: die Anzeigen, die Lernfreunde, Einrichtung in fünf Minuten, die 25 nummerierten Founder-Edition-Exemplare und Antworten auf häufige Fragen."
+      }
+    },
+    "about/": {
+      "ja": {
+        "title": "hako · 作り手について",
+        "description": "hakoを一台ずつ手で切り、組み、テストする工程。作り手のこと。そして形づくりを手伝ってくれたテスターたち。"
+      },
+      "de": {
+        "title": "hako · Über hako",
+        "description": "Wie jede hako von Hand zugeschnitten, verzinkt und getestet wird, wer sie baut und welche Tester sie mitgeprägt haben."
+      }
+    },
+    "shop/": {
+      "ja": {
+        "title": "hako · ラインナップ",
+        "description": "hakoと、そのまわりのもの:ステッカーシート、4色のフェルト製hakoケース、Anki復習用の3キーのウォールナットキーボード「みっこ」。"
+      },
+      "de": {
+        "title": "hako · Shop",
+        "description": "hako und die Dinge drumherum: der Stickerbogen, die Filztasche in vier Farben und mikko, ein Walnussbrett mit drei Tasten für Anki-Wiederholungen."
+      }
+    },
+    "shop/case/": {
+      "ja": {
+        "title": "hakoケース · hako専用フェルトケース",
+        "description": "hakoにぴったり合わせたクッション入りウールフェルトケース。4色展開、革ベルト、専用くぼみ、アダプターとケーブル用ポケット付き。$49。"
+      },
+      "de": {
+        "title": "hako-Tasche · Filztasche für hako",
+        "description": "Eine gepolsterte Wollfilztasche, genau passend für hako, in vier Farben, mit Lederriemen, passender Mulde und Fach für Netzteil und Kabel. 49 $."
+      }
+    },
+    "shop/mikko/": {
+      "ja": {
+        "title": "みっこ by hako · Anki用3キーのウォールナットキーボード",
+        "description": "みっこ:ウォールナットの塊にウォールナットのキーが3つ。AnkiとMigakuの復習のために。Bluetooth・USB-C・2.4GHz、キー割り当て変更可、電源スイッチなし。$69.99。"
+      },
+      "de": {
+        "title": "mikko by hako · Walnussbrett mit drei Tasten für Anki",
+        "description": "mikko: drei Walnusstasten in einem Walnussblock, gemacht für Anki- und Migaku-Wiederholungen. Bluetooth, USB-C oder 2,4 GHz, frei belegbare Tasten, kein Ein-/Ausschalter. 69,99 $."
+      }
+    }
+  }
 }

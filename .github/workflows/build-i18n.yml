@@ -1,16 +1,20 @@
-# Regenerates ja/index.html and de/index.html whenever index.html or the
-# translations change, so editing the English page on GitHub is enough.
+# Rebuilds the English sub-pages (hako/, about/, shop/…, from pages/*.html
+# and the shared parts of index.html) and every Japanese and German page
+# whenever any of those or the translations change, so editing the English
+# source on GitHub is enough.
 # Untranslated text (new English copy with no entry in tools/i18n.json, and
 # translations whose English is gone) shows up as warnings on the run.
-name: Build Japanese & German pages
+name: Build pages (sub-pages, Japanese & German)
 
 on:
   push:
     branches: [main]
     paths:
       - 'index.html'
+      - 'pages/**'
       - 'tools/i18n.json'
       - 'tools/build-i18n.py'
+      - 'tools/build_pages.py'
   workflow_dispatch:
 
 permissions:
@@ -28,13 +32,15 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Build
-        run: python3 tools/build-i18n.py 2>&1 | sed -E 's/^\[(..)\] (not found|still English)/::warning::[\1] \2/'
+        run: |
+          python3 tools/build_pages.py
+          python3 tools/build-i18n.py 2>&1 | sed -E 's/^\[(..)\] (not found|still English)/::warning::[\1] \2/'
 
       - name: Commit if changed
         run: |
-          if git diff --quiet -- ja de; then echo "already up to date"; exit 0; fi
+          git add -A -- ja de hako about shop
+          if git diff --cached --quiet; then echo "already up to date"; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add ja de
-          git commit -m "Rebuild Japanese and German pages"
+          git commit -m "Rebuild pages"
           git push
