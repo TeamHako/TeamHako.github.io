@@ -36,7 +36,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="../../style.css?v=202610201943" />
+  <link rel="stylesheet" href="../../style.css?v=202610202058" />
 
   <!-- First visit from a Japanese or German browser: go to that page, unless
        the visitor already picked a language with the switcher. -->
@@ -259,9 +259,7 @@
 
         <div class="process-step reveal">
           <div class="process-photo">
-            <!-- SWAP: assets/images/process/board.webp (a KiCad 3D render or layout crop of the board)
-                 replaces the v2 close-up as soon as it exists -->
-            <img src="../../assets/images/process/board.webp" alt="hakoの電子回路" width="1200" height="900" loading="lazy" onerror="this.onerror=null; this.src='/assets/images/process/v2-detail.webp';" />
+            <img src="../../assets/images/process/v2-detail.webp" alt="hakoの電子回路" width="1200" height="900" loading="lazy" />
           </div>
           <p class="step-num">電子</p>
           <h3>本物の部品</h3>
@@ -282,9 +280,9 @@
         </div>
       </div>
 
-      <!-- v1 → v2: the prototypes side by side. Add a v3 figure here as the board moves on. -->
+      <!-- v1 → v2 → v3: the prototypes side by side. -->
       <div class="versions reveal">
-        <h3>v1からv2へ</h3>
+        <h3>v1からv3へ</h3>
         <div class="versions-grid">
           <figure class="version">
             <div class="process-photo"><img src="../../assets/images/process/v1-internals.webp" alt="v1試作機:小さな基板をノブとセンサーにジャンパー線で手配線したもの" width="1200" height="900" loading="lazy" /></div>
@@ -303,8 +301,26 @@
               <span>より速く、より安定して。ちゃんとしたコネクタと、ウォールナットの箱に合わせたサイズの部品。このサイトの写真に写っているのがこれです。</span>
             </figcaption>
           </figure>
+          <span class="versions-arrow" aria-hidden="true">→</span>
+          <figure class="version">
+            <!-- SWAP: assets/images/process/board.webp (a KiCad 3D render of the v3 board) replaces the teaser as soon as it exists -->
+            <div class="process-photo version-soon">
+              <svg class="pcb-teaser" viewBox="0 0 400 300" aria-hidden="true">
+                <rect x="14" y="14" width="372" height="272" rx="18" class="pcb-board"/>
+                <g class="pcb-traces"><path d="M225 98 H248 L271 44"/><path d="M108 153 H56 L4 131"/><path d="M104 171 H128 L152 146"/><path d="M277 75 H243 L209 19"/><path d="M263 72 H240 L218 34"/><path d="M274 96 H234 L195 70"/><path d="M156 155 H101 L46 99"/><path d="M90 218 H38 L-13 287"/><path d="M220 179 H263 L306 214"/><path d="M152 238 H127 L102 291"/><path d="M313 147 H351 L389 120"/><path d="M322 167 H280 L239 116"/><path d="M275 70 H235 L195 134"/><path d="M239 212 H288 L337 187"/></g>
+                <g class="pcb-pads"><rect x="92" y="38" width="7" height="7" rx="1.5"/><rect x="92" y="49" width="7" height="7" rx="1.5"/><rect x="103" y="38" width="7" height="7" rx="1.5"/><rect x="103" y="49" width="7" height="7" rx="1.5"/><rect x="114" y="38" width="7" height="7" rx="1.5"/><rect x="114" y="49" width="7" height="7" rx="1.5"/><rect x="125" y="38" width="7" height="7" rx="1.5"/><rect x="125" y="49" width="7" height="7" rx="1.5"/><rect x="136" y="38" width="7" height="7" rx="1.5"/><rect x="136" y="49" width="7" height="7" rx="1.5"/><rect x="147" y="38" width="7" height="7" rx="1.5"/><rect x="147" y="49" width="7" height="7" rx="1.5"/><rect x="158" y="38" width="7" height="7" rx="1.5"/><rect x="158" y="49" width="7" height="7" rx="1.5"/><rect x="169" y="38" width="7" height="7" rx="1.5"/><rect x="169" y="49" width="7" height="7" rx="1.5"/><rect x="180" y="38" width="7" height="7" rx="1.5"/><rect x="180" y="49" width="7" height="7" rx="1.5"/><rect x="191" y="38" width="7" height="7" rx="1.5"/><rect x="191" y="49" width="7" height="7" rx="1.5"/><rect x="202" y="38" width="7" height="7" rx="1.5"/><rect x="202" y="49" width="7" height="7" rx="1.5"/><rect x="213" y="38" width="7" height="7" rx="1.5"/><rect x="213" y="49" width="7" height="7" rx="1.5"/><rect x="224" y="38" width="7" height="7" rx="1.5"/><rect x="224" y="49" width="7" height="7" rx="1.5"/><rect x="235" y="38" width="7" height="7" rx="1.5"/><rect x="235" y="49" width="7" height="7" rx="1.5"/><rect x="246" y="38" width="7" height="7" rx="1.5"/><rect x="246" y="49" width="7" height="7" rx="1.5"/><rect x="257" y="38" width="7" height="7" rx="1.5"/><rect x="257" y="49" width="7" height="7" rx="1.5"/><rect x="268" y="38" width="7" height="7" rx="1.5"/><rect x="268" y="49" width="7" height="7" rx="1.5"/><rect x="279" y="38" width="7" height="7" rx="1.5"/><rect x="279" y="49" width="7" height="7" rx="1.5"/><rect x="290" y="38" width="7" height="7" rx="1.5"/><rect x="290" y="49" width="7" height="7" rx="1.5"/><rect x="301" y="38" width="7" height="7" rx="1.5"/><rect x="301" y="49" width="7" height="7" rx="1.5"/></g>
+                <rect x="150" y="120" width="70" height="70" rx="4" class="pcb-chip"/><rect x="250" y="150" width="44" height="30" rx="3" class="pcb-chip"/><rect x="90" y="200" width="36" height="24" rx="3" class="pcb-chip"/><circle cx="40" cy="40" r="8" class="pcb-hole"/><circle cx="360" cy="40" r="8" class="pcb-hole"/><circle cx="40" cy="260" r="8" class="pcb-hole"/><circle cx="360" cy="260" r="8" class="pcb-hole"/>
+              </svg>
+              <span class="soon-label">KiCadで設計中</span>
+              <img src="../../assets/images/process/board.webp" alt="KiCadで設計したv3の基板" width="1200" height="900" loading="lazy" onload="this.parentElement.classList.remove('version-soon')" onerror="this.remove()" />
+            </div>
+            <figcaption>
+              <span class="version-tag">v3</span>
+              <strong>すべてを、基板ひとつに。</strong>
+              <span>箱に合わせて作る専用基板。ばらばらの配線はなし。レンダリングはもうすぐ公開します。</span>
+            </figcaption>
+          </figure>
         </div>
-        <p class="versions-next">次は、すべてを専用基板ひとつに。ばらばらの配線は、もうなし。</p>
       </div>
 
       <div class="inside reveal">
@@ -529,6 +545,6 @@
     </div>
   </footer>
 
-  <script src="../../script.js?v=202610201943"></script>
+  <script src="../../script.js?v=202610202058"></script>
 </body>
 </html>

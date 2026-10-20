@@ -332,6 +332,11 @@
       "en": "alt=\"The v2 prototype: faster boards, a knob and proper cables, laid out for the wooden box\"",
       "ja": "alt=\"v2試作機:より速い基板、ノブ、きちんとしたケーブルを木の箱に合わせて配置したもの\"",
       "de": "alt=\"Der v2-Prototyp: schnellere Platinen, ein Knopf und richtige Kabel, angeordnet für die Holzbox\""
+    },
+    {
+      "en": "alt=\"The v3 board, designed in KiCad\"",
+      "ja": "alt=\"KiCadで設計したv3の基板\"",
+      "de": "alt=\"Die v3-Platine, entworfen in KiCad\""
     }
   ],
   "text": [
@@ -1516,9 +1521,9 @@
       "de": "Gute Bauteile auf einer eigenen Platine, ohne lose Kabel. Jedes Gerät läuft vor dem Versand ein und testet sich selbst."
     },
     {
-      "en": "From v1 to v2",
-      "ja": "v1からv2へ",
-      "de": "Von v1 zu v2"
+      "en": "From v1 to v3",
+      "ja": "v1からv3へ",
+      "de": "Von v1 zu v3"
     },
     {
       "en": "Does it work?",
@@ -1541,9 +1546,19 @@
       "de": "Schneller, stabiler, mit richtigen Steckverbindern und jedem Teil passend für das Walnussgehäuse. Das ist die Version auf den Fotos dieser Website."
     },
     {
-      "en": "Next: everything on one custom board, with no loose wires at all.",
-      "ja": "次は、すべてを専用基板ひとつに。ばらばらの配線は、もうなし。",
-      "de": "Als Nächstes: alles auf einer eigenen Platine, ganz ohne lose Kabel."
+      "en": "In KiCad now",
+      "ja": "KiCadで設計中",
+      "de": "Gerade in KiCad"
+    },
+    {
+      "en": "Everything on one board.",
+      "ja": "すべてを、基板ひとつに。",
+      "de": "Alles auf einer Platine."
+    },
+    {
+      "en": "A custom circuit board, made to fit the box, with no loose wires. Renders soon.",
+      "ja": "箱に合わせて作る専用基板。ばらばらの配線はなし。レンダリングはもうすぐ公開します。",
+      "de": "Eine eigene Platine, passend für die Box, ohne lose Kabel. Renderings folgen bald."
     }
   ],
   "pages": {
