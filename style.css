@@ -3449,3 +3449,16 @@ body.gate-locked { overflow: hidden; }
   font-size: 13px;
   color: var(--muted);
 }
+
+/* the top-row cards (stickers, case) use a squarer frame that fits their renders */
+.shop-grid > .product:not(.product-main):not(.product-next) .product-media { aspect-ratio: 11 / 10; }
+
+/* each colour's closed view fades in and out over its open view */
+.product-media.is-swatched img.swatch-alt.is-on {
+  opacity: 0;
+  animation: media-swap 12s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-media.is-swatched img.swatch-alt.is-on { animation: none; opacity: 0; }
+}
