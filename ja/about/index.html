@@ -260,8 +260,8 @@
         <div class="process-step reveal">
           <div class="process-photo">
             <!-- SWAP: assets/images/process/board.webp (a KiCad 3D render or layout crop of the board)
-                 replaces the v2 prototype photo as soon as it exists -->
-            <img src="../../assets/images/process/board.webp" alt="hakoの電子回路" width="1200" height="900" loading="lazy" onerror="this.onerror=null; this.src='/assets/images/process/v2-internals.webp';" />
+                 replaces the v2 close-up as soon as it exists -->
+            <img src="../../assets/images/process/board.webp" alt="hakoの電子回路" width="1200" height="900" loading="lazy" onerror="this.onerror=null; this.src='/assets/images/process/v2-detail.webp';" />
           </div>
           <p class="step-num">電子</p>
           <h3>本物の部品</h3>
@@ -280,6 +280,31 @@
             第一弾が25台なのは、手作業できちんと作れるのがその数だからです。その後、より多くの台数をKickstarterで製作します。
           </p>
         </div>
+      </div>
+
+      <!-- v1 → v2: the prototypes side by side. Add a v3 figure here as the board moves on. -->
+      <div class="versions reveal">
+        <h3>v1からv2へ</h3>
+        <div class="versions-grid">
+          <figure class="version">
+            <div class="process-photo"><img src="../../assets/images/process/v1-internals.webp" alt="v1試作機:小さな基板をノブとセンサーにジャンパー線で手配線したもの" width="1200" height="900" loading="lazy" /></div>
+            <figcaption>
+              <span class="version-tag">v1</span>
+              <strong>ちゃんと動く?</strong>
+              <span>ジャンパー線をいくつかと、ノブがひとつ、それに手探りがたくさん。復習の数がはじめて光ったのを見るには、それで十分でした。</span>
+            </figcaption>
+          </figure>
+          <span class="versions-arrow" aria-hidden="true">→</span>
+          <figure class="version">
+            <div class="process-photo"><img src="../../assets/images/process/v2-internals.webp" alt="v2試作機:より速い基板、ノブ、きちんとしたケーブルを木の箱に合わせて配置したもの" width="1200" height="900" loading="lazy" /></div>
+            <figcaption>
+              <span class="version-tag is-now">v2</span>
+              <strong>箱に収まる?</strong>
+              <span>より速く、より安定して。ちゃんとしたコネクタと、ウォールナットの箱に合わせたサイズの部品。このサイトの写真に写っているのがこれです。</span>
+            </figcaption>
+          </figure>
+        </div>
+        <p class="versions-next">次は、すべてを専用基板ひとつに。ばらばらの配線は、もうなし。</p>
       </div>
 
       <div class="inside reveal">

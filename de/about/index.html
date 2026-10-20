@@ -260,8 +260,8 @@
         <div class="process-step reveal">
           <div class="process-photo">
             <!-- SWAP: assets/images/process/board.webp (a KiCad 3D render or layout crop of the board)
-                 replaces the v2 prototype photo as soon as it exists -->
-            <img src="../../assets/images/process/board.webp" alt="Die Elektronik von hako" width="1200" height="900" loading="lazy" onerror="this.onerror=null; this.src='/assets/images/process/v2-internals.webp';" />
+                 replaces the v2 close-up as soon as it exists -->
+            <img src="../../assets/images/process/board.webp" alt="Die Elektronik von hako" width="1200" height="900" loading="lazy" onerror="this.onerror=null; this.src='/assets/images/process/v2-detail.webp';" />
           </div>
           <p class="step-num">電子</p>
           <h3>Echte Bauteile</h3>
@@ -280,6 +280,31 @@
             Die erste Serie hat 25 Stück, weil ich so viele gut von Hand bauen kann. Danach kommt eine größere Serie auf Kickstarter.
           </p>
         </div>
+      </div>
+
+      <!-- v1 → v2: the prototypes side by side. Add a v3 figure here as the board moves on. -->
+      <div class="versions reveal">
+        <h3>Von v1 zu v2</h3>
+        <div class="versions-grid">
+          <figure class="version">
+            <div class="process-photo"><img src="../../assets/images/process/v1-internals.webp" alt="Der v1-Prototyp: eine kleine Platine, mit Steckbrücken von Hand an einen Knopf und einen Sensor verdrahtet" width="1200" height="900" loading="lazy" /></div>
+            <figcaption>
+              <span class="version-tag">v1</span>
+              <strong>Funktioniert es?</strong>
+              <span>Ein paar Steckbrücken, ein Knopf und viel Ausprobieren. Genug, um zum ersten Mal eine Wiederholungszahl aufleuchten zu sehen.</span>
+            </figcaption>
+          </figure>
+          <span class="versions-arrow" aria-hidden="true">→</span>
+          <figure class="version">
+            <div class="process-photo"><img src="../../assets/images/process/v2-internals.webp" alt="Der v2-Prototyp: schnellere Platinen, ein Knopf und richtige Kabel, angeordnet für die Holzbox" width="1200" height="900" loading="lazy" /></div>
+            <figcaption>
+              <span class="version-tag is-now">v2</span>
+              <strong>Passt es in die Box?</strong>
+              <span>Schneller, stabiler, mit richtigen Steckverbindern und jedem Teil passend für das Walnussgehäuse. Das ist die Version auf den Fotos dieser Website.</span>
+            </figcaption>
+          </figure>
+        </div>
+        <p class="versions-next">Als Nächstes: alles auf einer eigenen Platine, ganz ohne lose Kabel.</p>
       </div>
 
       <div class="inside reveal">

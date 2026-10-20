@@ -322,6 +322,16 @@
       "en": "alt=\"The workbench: a soldering iron, wire strippers, a reel of solder and a tangle of wire\"",
       "ja": "alt=\"作業台:はんだごて、ワイヤーストリッパー、はんだのリール、絡まったワイヤー\"",
       "de": "alt=\"Die Werkbank: ein Lötkolben, eine Abisolierzange, eine Rolle Lötzinn und ein Gewirr aus Drähten\""
+    },
+    {
+      "en": "alt=\"The v1 prototype: a small board hand-wired to a knob and a sensor with jumper wires\"",
+      "ja": "alt=\"v1試作機:小さな基板をノブとセンサーにジャンパー線で手配線したもの\"",
+      "de": "alt=\"Der v1-Prototyp: eine kleine Platine, mit Steckbrücken von Hand an einen Knopf und einen Sensor verdrahtet\""
+    },
+    {
+      "en": "alt=\"The v2 prototype: faster boards, a knob and proper cables, laid out for the wooden box\"",
+      "ja": "alt=\"v2試作機:より速い基板、ノブ、きちんとしたケーブルを木の箱に合わせて配置したもの\"",
+      "de": "alt=\"Der v2-Prototyp: schnellere Platinen, ein Knopf und richtige Kabel, angeordnet für die Holzbox\""
     }
   ],
   "text": [
@@ -1504,6 +1514,36 @@
       "en": "Good parts on one custom circuit board, with no loose wires. Every unit is burned in and self-tested before it ships.",
       "ja": "良い部品を、配線のばらつきのない専用基板ひとつに。どの一台も出荷前にエージングとセルフテストを行います。",
       "de": "Gute Bauteile auf einer eigenen Platine, ohne lose Kabel. Jedes Gerät läuft vor dem Versand ein und testet sich selbst."
+    },
+    {
+      "en": "From v1 to v2",
+      "ja": "v1からv2へ",
+      "de": "Von v1 zu v2"
+    },
+    {
+      "en": "Does it work?",
+      "ja": "ちゃんと動く?",
+      "de": "Funktioniert es?"
+    },
+    {
+      "en": "A handful of jumper wires, a knob and a lot of guessing. Enough to see a review count light up for the first time.",
+      "ja": "ジャンパー線をいくつかと、ノブがひとつ、それに手探りがたくさん。復習の数がはじめて光ったのを見るには、それで十分でした。",
+      "de": "Ein paar Steckbrücken, ein Knopf und viel Ausprobieren. Genug, um zum ersten Mal eine Wiederholungszahl aufleuchten zu sehen."
+    },
+    {
+      "en": "Will it fit the box?",
+      "ja": "箱に収まる?",
+      "de": "Passt es in die Box?"
+    },
+    {
+      "en": "Faster, steadier, with proper connectors and every part sized for the walnut case. This is the one in the photos on this site.",
+      "ja": "より速く、より安定して。ちゃんとしたコネクタと、ウォールナットの箱に合わせたサイズの部品。このサイトの写真に写っているのがこれです。",
+      "de": "Schneller, stabiler, mit richtigen Steckverbindern und jedem Teil passend für das Walnussgehäuse. Das ist die Version auf den Fotos dieser Website."
+    },
+    {
+      "en": "Next: everything on one custom board, with no loose wires at all.",
+      "ja": "次は、すべてを専用基板ひとつに。ばらばらの配線は、もうなし。",
+      "de": "Als Nächstes: alles auf einer eigenen Platine, ganz ohne lose Kabel."
     }
   ],
   "pages": {

@@ -240,8 +240,8 @@
         <div class="process-step reveal">
           <div class="process-photo">
             <!-- SWAP: assets/images/process/board.webp (a KiCad 3D render or layout crop of the board)
-                 replaces the v2 prototype photo as soon as it exists -->
-            <img src="../assets/images/process/board.webp" alt="hako's electronics" width="1200" height="900" loading="lazy" onerror="this.onerror=null; this.src='/assets/images/process/v2-internals.webp';" />
+                 replaces the v2 close-up as soon as it exists -->
+            <img src="../assets/images/process/board.webp" alt="hako's electronics" width="1200" height="900" loading="lazy" onerror="this.onerror=null; this.src='/assets/images/process/v2-detail.webp';" />
           </div>
           <p class="step-num">電子</p>
           <h3>Real components</h3>
@@ -261,6 +261,31 @@
             The first batch is 25 because that's how many I can build well by hand. After that, a bigger run goes to Kickstarter.
           </p>
         </div>
+      </div>
+
+      <!-- v1 → v2: the prototypes side by side. Add a v3 figure here as the board moves on. -->
+      <div class="versions reveal">
+        <h3>From v1 to v2</h3>
+        <div class="versions-grid">
+          <figure class="version">
+            <div class="process-photo"><img src="../assets/images/process/v1-internals.webp" alt="The v1 prototype: a small board hand-wired to a knob and a sensor with jumper wires" width="1200" height="900" loading="lazy" /></div>
+            <figcaption>
+              <span class="version-tag">v1</span>
+              <strong>Does it work?</strong>
+              <span>A handful of jumper wires, a knob and a lot of guessing. Enough to see a review count light up for the first time.</span>
+            </figcaption>
+          </figure>
+          <span class="versions-arrow" aria-hidden="true">→</span>
+          <figure class="version">
+            <div class="process-photo"><img src="../assets/images/process/v2-internals.webp" alt="The v2 prototype: faster boards, a knob and proper cables, laid out for the wooden box" width="1200" height="900" loading="lazy" /></div>
+            <figcaption>
+              <span class="version-tag is-now">v2</span>
+              <strong>Will it fit the box?</strong>
+              <span>Faster, steadier, with proper connectors and every part sized for the walnut case. This is the one in the photos on this site.</span>
+            </figcaption>
+          </figure>
+        </div>
+        <p class="versions-next">Next: everything on one custom board, with no loose wires at all.</p>
       </div>
 
       <div class="inside reveal">
