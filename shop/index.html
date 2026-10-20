@@ -36,7 +36,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="../style.css?v=202610202058" />
+  <link rel="stylesheet" href="../style.css?v=202610202102" />
 
   <!-- First visit from a Japanese or German browser: go to that page, unless
        the visitor already picked a language with the switcher. -->
@@ -207,10 +207,15 @@
 
       <div class="shop-grid">
         <article class="product product-main reveal">
-          <a class="product-media" href="../hako/#founders">
+          <!-- photos cycle (script.js carousel); the Kao face shot is left out on purpose -->
+          <div class="product-media">
             <img src="../assets/images/photos/en/today.webp" alt="hako on a desk showing today's reviews" width="768" height="768" loading="lazy" />
+            <img src="../assets/images/photos/en/heatmap.webp" alt="hako showing six weeks of reviews as a heatmap" width="768" height="768" loading="lazy" />
+            <img src="../assets/images/photos/en/cards.webp" alt="hako showing a recently added card" width="768" height="768" loading="lazy" />
+            <img src="../assets/images/photos/en/clock.webp" alt="hako showing the time and the weather" width="768" height="768" loading="lazy" />
+            <img src="../assets/images/photos/en/pong.webp" alt="A game of Pong on hako" width="768" height="768" loading="lazy" />
             <span class="proto-tag">Prototype v2</span>
-          </a>
+          </div>
           <div class="product-body">
             <p class="product-status is-live">Pre-orders spring 2027</p>
             <h3 class="product-name"><span class="product-kanji">箱</span>hako</h3>
@@ -402,6 +407,6 @@
     </div>
   </footer>
 
-  <script src="../script.js?v=202610202058"></script>
+  <script src="../script.js?v=202610202102"></script>
 </body>
 </html>
