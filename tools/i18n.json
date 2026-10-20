@@ -209,16 +209,6 @@
       "de": "alt=\"hako auf dem Schreibtisch mit den heutigen Wiederholungen\""
     },
     {
-      "en": "alt=\"A sheet of hako stickers: Kao, Mochi, the LED box and the 箱 seal\"",
-      "ja": "alt=\"hakoのステッカーシート:かお、もち、LEDの箱、「箱」の落款\"",
-      "de": "alt=\"Ein Bogen hako-Sticker: Kao, Mochi, die LED-Box und das 箱-Siegel\""
-    },
-    {
-      "en": "alt=\"Illustration of a grey felt hako case with a leather strap\"",
-      "ja": "alt=\"革ベルト付きのグレーのフェルト製hakoケースのイメージ図\"",
-      "de": "alt=\"Illustration einer grauen Filztasche für hako mit Lederriemen\""
-    },
-    {
       "en": "alt=\"Concept render of mikko: a walnut block with three walnut keys marked ✕, ○ and ↺\"",
       "ja": "alt=\"みっこのコンセプト画像:✕・○・↺のウォールナットキーが3つ付いたウォールナットのブロック\"",
       "de": "alt=\"Konzept-Rendering von mikko: ein Walnussblock mit drei Walnusstasten mit ✕, ○ und ↺\""
@@ -227,6 +217,56 @@
       "en": "alt=\"The front of mikko: a switch for Bluetooth, USB and 2.4 GHz, a status light and a USB-C port\"",
       "ja": "alt=\"みっこの前面:Bluetooth・USB・2.4GHzの切り替えスイッチ、ステータスランプ、USB-Cポート\"",
       "de": "alt=\"Die Vorderseite von mikko: ein Schalter für Bluetooth, USB und 2,4 GHz, eine Statusleuchte und ein USB-C-Anschluss\""
+    },
+    {
+      "en": "aria-label=\"Sumi · charcoal\" data-name=\"Sumi · charcoal\"",
+      "ja": "aria-label=\"墨 · チャコール\" data-name=\"墨 · チャコール\"",
+      "de": "aria-label=\"Sumi · Anthrazit\" data-name=\"Sumi · Anthrazit\""
+    },
+    {
+      "en": "aria-label=\"Kinari · natural\" data-name=\"Kinari · natural\"",
+      "ja": "aria-label=\"生成り · ナチュラル\" data-name=\"生成り · ナチュラル\"",
+      "de": "aria-label=\"Kinari · Natur\" data-name=\"Kinari · Natur\""
+    },
+    {
+      "en": "aria-label=\"Ai · indigo\" data-name=\"Ai · indigo\"",
+      "ja": "aria-label=\"藍 · インディゴ\" data-name=\"藍 · インディゴ\"",
+      "de": "aria-label=\"Ai · Indigo\" data-name=\"Ai · Indigo\""
+    },
+    {
+      "en": "aria-label=\"Matcha · moss\" data-name=\"Matcha · moss\"",
+      "ja": "aria-label=\"抹茶 · モスグリーン\" data-name=\"抹茶 · モスグリーン\"",
+      "de": "aria-label=\"Matcha · Moosgrün\" data-name=\"Matcha · Moosgrün\""
+    },
+    {
+      "en": "alt=\"Concept render of a charcoal felt hako case with a cognac leather strap\"",
+      "ja": "alt=\"コニャック色の革ベルトが付いたチャコールのフェルト製hakoケースのコンセプト画像\"",
+      "de": "alt=\"Konzept-Rendering einer anthrazitfarbenen Filztasche für hako mit cognacfarbenem Lederriemen\""
+    },
+    {
+      "en": "alt=\"Concept render of a natural undyed felt hako case with a light leather strap\"",
+      "ja": "alt=\"明るい革ベルトが付いた生成りのフェルト製hakoケースのコンセプト画像\"",
+      "de": "alt=\"Konzept-Rendering einer naturbelassenen Filztasche für hako mit hellem Lederriemen\""
+    },
+    {
+      "en": "alt=\"Concept render of an indigo felt hako case with a dark brown leather strap\"",
+      "ja": "alt=\"こげ茶の革ベルトが付いた藍色のフェルト製hakoケースのコンセプト画像\"",
+      "de": "alt=\"Konzept-Rendering einer indigoblauen Filztasche für hako mit dunkelbraunem Lederriemen\""
+    },
+    {
+      "en": "alt=\"Concept render of a moss green felt hako case with a tan leather strap\"",
+      "ja": "alt=\"タンの革ベルトが付いたモスグリーンのフェルト製hakoケースのコンセプト画像\"",
+      "de": "alt=\"Konzept-Rendering einer moosgrünen Filztasche für hako mit hellbraunem Lederriemen\""
+    },
+    {
+      "en": "alt=\"A sheet of hako stickers on a desk: Kao, Mochi, the LED box and the 箱 seal, one half peeled\"",
+      "ja": "alt=\"机の上のhakoステッカーシート:かお、もち、LEDの箱、「箱」の落款。1枚は半分はがれかけ\"",
+      "de": "alt=\"Ein Bogen hako-Sticker auf dem Schreibtisch: Kao, Mochi, die LED-Box und das 箱-Siegel, einer halb abgezogen\""
+    },
+    {
+      "en": "alt=\"hako stickers on a laptop, a water bottle and a notebook\"",
+      "ja": "alt=\"ノートPC、水筒、ノートに貼ったhakoステッカー\"",
+      "de": "alt=\"hako-Sticker auf einem Laptop, einer Trinkflasche und einem Notizbuch\""
     }
   ],
   "text": [
@@ -1181,11 +1221,6 @@
       "de": "weitere Bögen 5,99 $"
     },
     {
-      "en": "Illustration",
-      "ja": "イメージ図",
-      "de": "Illustration"
-    },
-    {
       "en": "In design",
       "ja": "デザイン中",
       "de": "In Arbeit"
@@ -1196,9 +1231,9 @@
       "de": "hako-Tasche"
     },
     {
-      "en": "A padded wool-felt case cut to fit hako, with room for the power adapter and cable. For the library, the café or moving day.",
-      "ja": "hakoにぴったり合わせた、クッション入りのウールフェルトケース。電源アダプターとケーブルも入ります。図書館へ、カフェへ、引っ越しの日にも。",
-      "de": "Eine gepolsterte Tasche aus Wollfilz, genau passend für hako, mit Platz für Netzteil und Kabel. Für Bibliothek, Café oder Umzugstag."
+      "en": "A padded wool-felt case cut to fit hako, with room for the power adapter and cable. Four colours, each with a leather strap and the 箱 seal. For the library, the café or moving day.",
+      "ja": "hakoにぴったり合わせた、クッション入りのウールフェルトケース。電源アダプターとケーブルも入ります。4色展開、どれも革ベルトと「箱」の落款付き。図書館へ、カフェへ、引っ越しの日にも。",
+      "de": "Eine gepolsterte Tasche aus Wollfilz, genau passend für hako, mit Platz für Netzteil und Kabel. Vier Farben, jede mit Lederriemen und dem 箱-Siegel. Für Bibliothek, Café oder Umzugstag."
     },
     {
       "en": "Price to come",
@@ -1234,6 +1269,11 @@
       "en": "Concept render",
       "ja": "コンセプト画像",
       "de": "Konzept-Rendering"
+    },
+    {
+      "en": "Sumi · charcoal",
+      "ja": "墨 · チャコール",
+      "de": "Sumi · Anthrazit"
     }
   ]
 }

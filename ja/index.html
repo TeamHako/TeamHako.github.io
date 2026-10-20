@@ -36,7 +36,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="../style.css?v=202610201644" />
+  <link rel="stylesheet" href="../style.css?v=202610201653" />
 
   <!-- First visit from a Japanese or German browser: go to that page, unless
        the visitor already picked a language with the switcher. -->
@@ -602,8 +602,10 @@
         </article>
 
         <article class="product reveal">
-          <div class="product-media is-light">
-            <img src="../assets/images/shop/stickers.webp" alt="hakoのステッカーシート:かお、もち、LEDの箱、「箱」の落款" width="800" height="800" loading="lazy" />
+          <div class="product-media">
+            <img src="../assets/images/shop/stickers-sheet.webp" alt="机の上のhakoステッカーシート:かお、もち、LEDの箱、「箱」の落款。1枚は半分はがれかけ" width="960" height="720" loading="lazy" />
+            <img class="media-alt" src="../assets/images/shop/stickers-use.webp" alt="ノートPC、水筒、ノートに貼ったhakoステッカー" width="960" height="720" loading="lazy" />
+            <span class="proto-tag">コンセプト画像</span>
           </div>
           <div class="product-body">
             <p class="product-status">全ての箱に同梱</p>
@@ -616,14 +618,24 @@
         </article>
 
         <article class="product reveal">
-          <div class="product-media is-light">
-            <img src="../assets/images/shop/case.svg" alt="革ベルト付きのグレーのフェルト製hakoケースのイメージ図" width="800" height="520" loading="lazy" />
-            <span class="proto-tag">イメージ図</span>
+          <div class="product-media is-render is-swatched">
+            <img class="is-on" src="../assets/images/shop/case-sumi.webp" alt="コニャック色の革ベルトが付いたチャコールのフェルト製hakoケースのコンセプト画像" width="960" height="720" loading="lazy" data-swatch="sumi" />
+            <img src="../assets/images/shop/case-kinari.webp" alt="明るい革ベルトが付いた生成りのフェルト製hakoケースのコンセプト画像" width="960" height="720" loading="lazy" data-swatch="kinari" />
+            <img src="../assets/images/shop/case-ai.webp" alt="こげ茶の革ベルトが付いた藍色のフェルト製hakoケースのコンセプト画像" width="960" height="720" loading="lazy" data-swatch="ai" />
+            <img src="../assets/images/shop/case-matcha.webp" alt="タンの革ベルトが付いたモスグリーンのフェルト製hakoケースのコンセプト画像" width="960" height="720" loading="lazy" data-swatch="matcha" />
+            <span class="proto-tag">コンセプト画像</span>
           </div>
           <div class="product-body">
             <p class="product-status">デザイン中</p>
             <h3 class="product-name">hakoケース</h3>
-            <p class="product-desc">hakoにぴったり合わせた、クッション入りのウールフェルトケース。電源アダプターとケーブルも入ります。図書館へ、カフェへ、引っ越しの日にも。</p>
+            <div class="swatches">
+              <button type="button" class="swatch is-on" aria-pressed="true" data-swatch="sumi" style="--sw:#4b4a48" aria-label="墨 · チャコール" data-name="墨 · チャコール"></button>
+              <button type="button" class="swatch" aria-pressed="false" data-swatch="kinari" style="--sw:#e4dac8" aria-label="生成り · ナチュラル" data-name="生成り · ナチュラル"></button>
+              <button type="button" class="swatch" aria-pressed="false" data-swatch="ai" style="--sw:#2c3558" aria-label="藍 · インディゴ" data-name="藍 · インディゴ"></button>
+              <button type="button" class="swatch" aria-pressed="false" data-swatch="matcha" style="--sw:#5b6a3e" aria-label="抹茶 · モスグリーン" data-name="抹茶 · モスグリーン"></button>
+              <span class="swatch-name" data-swatch-name>墨 · チャコール</span>
+            </div>
+            <p class="product-desc">hakoにぴったり合わせた、クッション入りのウールフェルトケース。電源アダプターとケーブルも入ります。4色展開、どれも革ベルトと「箱」の落款付き。図書館へ、カフェへ、引っ越しの日にも。</p>
             <div class="product-foot">
               <p class="product-price">価格は近日発表</p>
             </div>
@@ -1118,7 +1130,7 @@
     </div>
   </footer>
 
-  <script src="../script.js?v=202610201644"></script>
+  <script src="../script.js?v=202610201653"></script>
   <script src="../assets/demo.js" defer></script>
 </body>
 </html>

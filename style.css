@@ -3409,3 +3409,42 @@ body.gate-locked { overflow: hidden; }
   :root:lang(ja) .mobile-menu-btn,
   :root:lang(de) .mobile-menu-btn { display: flex; }
 }
+
+/* colour choices: dots under the name swap the photo */
+.product-media.is-swatched img[data-swatch] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.45s ease, transform 1.2s cubic-bezier(0.2, 0.6, 0.3, 1);
+}
+
+.product-media.is-swatched img[data-swatch].is-on { opacity: 1; }
+
+.swatches {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.swatch {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 3px solid var(--surface);
+  border-radius: 50%;
+  background: var(--sw);
+  box-shadow: 0 0 0 1px var(--border);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.swatch:hover { transform: scale(1.08); }
+.swatch.is-on { box-shadow: 0 0 0 2px var(--ink); }
+.swatch:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.swatch-name {
+  margin-left: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}

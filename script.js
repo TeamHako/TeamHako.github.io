@@ -646,3 +646,25 @@ async function liveShop(cta, price) {
   }
   schedule();
 })();
+
+// ============================================================
+// LINEUP: colour dots under a product swap its photo
+// ============================================================
+document.querySelectorAll(".product").forEach((card) => {
+  const dots = card.querySelectorAll(".swatch[data-swatch]");
+  if (!dots.length) return;
+  const imgs = card.querySelectorAll("img[data-swatch]");
+  const label = card.querySelector("[data-swatch-name]");
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => {
+      const key = dot.dataset.swatch;
+      dots.forEach((d) => {
+        const on = d === dot;
+        d.classList.toggle("is-on", on);
+        d.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      imgs.forEach((im) => im.classList.toggle("is-on", im.dataset.swatch === key));
+      if (label) label.textContent = dot.dataset.name;
+    });
+  });
+});
