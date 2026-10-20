@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hako · page not found</title>
+  <meta name="robots" content="noindex" />
+  <!-- GitHub Pages serves this file for every missing URL, at any depth and in
+       any language folder, so every link here starts at the site root, and the
+       text switches to Japanese or German under /ja/ or /de/. No access gate. -->
+  <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon-180.png" />
+  <meta name="theme-color" content="#bc002d" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script>
+    try {
+      var t = localStorage.getItem("hako-theme");
+      if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  </script>
+  <style>
+    .lost {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 48px 24px;
+      text-align: center;
+    }
+    .lost-inner { display: flex; flex-direction: column; align-items: center; gap: 18px; max-width: 560px; }
+    .lost-logo { display: inline-flex; align-items: baseline; gap: 10px; color: var(--ink); }
+    .lost-logo .logo-mark { font-family: "Shippori Mincho", serif; font-size: 1.6rem; color: var(--accent); }
+    .lost-logo .logo-word { font-family: "Shippori Mincho", serif; font-size: 1.3rem; font-weight: 600; }
+    .lost-pet {
+      width: 168px;
+      height: 168px;
+      margin: 12px 0 4px;
+      border-radius: 20px;
+      background: #0a0908;
+      box-shadow: 0 14px 32px rgba(28, 24, 20, 0.25);
+      image-rendering: pixelated;
+    }
+    .lost-code {
+      font: 500 12px/1 "IBM Plex Sans", sans-serif;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .lost-code b { font-family: "Shippori Mincho", serif; font-size: 1.1rem; letter-spacing: 0.1em; color: var(--accent); margin-right: 10px; }
+    .lost h1 {
+      font-family: "Shippori Mincho", serif;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      text-wrap: balance;
+      color: var(--ink);
+    }
+    .lost p.lost-sub { max-width: 46ch; font-size: 16px; line-height: 1.65; color: var(--ink-soft); }
+    .lost-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 6px; }
+    .lost-links a {
+      padding: 10px 18px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface);
+      font-size: 14px;
+      color: var(--ink);
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .lost-links a:hover { border-color: var(--accent); color: var(--accent); }
+    .lost-notify { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="bg-character" aria-hidden="true">箱</div>
+
+  <main class="lost">
+    <div class="lost-inner">
+      <a class="lost-logo" href="/" data-href="">
+        <span class="logo-mark">箱</span>
+        <span class="logo-word">hako</span>
+      </a>
+      <img class="lost-pet" src="/assets/images/live/pet-kao.webp" width="168" height="168" alt="" />
+      <p class="lost-code"><b>迷子</b>404</p>
+      <h1 data-t="title">This page wandered off.</h1>
+      <p class="lost-sub" data-t="sub">The link might be old, or the page moved when the site got its new pages. Here's the way back.</p>
+      <nav class="lost-links">
+        <a href="/" data-href="" data-t="home">Home</a>
+        <a href="/hako/" data-href="hako/">hako</a>
+        <a href="/shop/" data-href="shop/" data-t="shop">Shop</a>
+        <a href="/about/" data-href="about/" data-t="about">About</a>
+      </nav>
+      <a class="btn-primary lost-notify" href="/#notify" data-href="#notify" data-t="notify">Get notified when it launches</a>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var lang = (location.pathname.match(/^\/(ja|de)\//) || [])[1];
+      if (!lang) return;
+      var T = {
+        ja: {
+          doc: "hako · ページが見つかりません",
+          title: "このページは迷子になったようです。",
+          sub: "リンクが古いか、サイトの再構成でページが移動したのかもしれません。こちらからどうぞ。",
+          home: "ホーム", shop: "ラインナップ", about: "作り手について",
+          notify: "発売のお知らせを受け取る"
+        },
+        de: {
+          doc: "hako · Seite nicht gefunden",
+          title: "Diese Seite hat sich verlaufen.",
+          sub: "Vielleicht ist der Link alt, oder die Seite ist beim Umbau der Website umgezogen. Hier geht's zurück.",
+          home: "Startseite", shop: "Shop", about: "Über hako",
+          notify: "Zum Start benachrichtigt werden"
+        }
+      }[lang];
+      document.documentElement.lang = lang;
+      document.title = T.doc;
+      document.querySelectorAll("[data-t]").forEach(function (el) { el.textContent = T[el.dataset.t]; });
+      document.querySelectorAll("[data-href]").forEach(function (a) { a.setAttribute("href", "/" + lang + "/" + a.dataset.href); });
+    })();
+  </script>
+</body>
+</html>
