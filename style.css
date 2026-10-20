@@ -3689,3 +3689,24 @@ body.gate-locked { overflow: hidden; }
   .teaser { grid-template-columns: minmax(0, 1fr); padding: 28px 24px; gap: 16px; }
   .pdp-specs > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
 }
+.ill-mystery circle { fill: #ff5a76; }
+@media (prefers-reduced-motion: no-preference) {
+  .ill-mystery { animation: hk-mystery 3.2s ease-in-out infinite; }
+}
+@keyframes hk-mystery { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+
+/* setup steps: a recorded clip replaces the panel picture once it exists */
+.how-clip { display: none; }
+.how-step.has-clip .how-clip {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  margin-bottom: 18px;
+  border-radius: 14px;
+  background: #0a0908;
+  box-shadow: 0 10px 24px rgba(28, 24, 20, 0.18);
+}
+.how-step.has-clip .how-art { display: none; }

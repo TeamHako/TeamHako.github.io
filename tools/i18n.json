@@ -109,11 +109,6 @@
       "de": "alt=\"Die Holzverbindungen einer hako-Box werden von Hand geschnitten\""
     },
     {
-      "en": "alt=\"hako internal electronics\"",
-      "ja": "alt=\"hakoの内部の電子部品\"",
-      "de": "alt=\"Die Elektronik im Inneren von hako\""
-    },
-    {
       "en": "alt=\"hako showing a recently added card\"",
       "ja": "alt=\"最近追加したカードを表示するhako\"",
       "de": "alt=\"hako zeigt eine kürzlich hinzugefügte Karte\""
@@ -137,11 +132,6 @@
       "en": "aria-label=\"Studying as usual while the box keeps track\"",
       "ja": "aria-label=\"いつも通り勉強すると、箱が進み具合を見守ります\"",
       "de": "aria-label=\"Wie gewohnt lernen, die Box behält den Überblick\""
-    },
-    {
-      "en": "aria-label=\"Cutaway of the hako box showing the LED panel, Raspberry Pi, NFC chip, shake sensor, knob and power\"",
-      "ja": "aria-label=\"hakoの内部構造：LEDパネル、Raspberry Pi、NFCチップ、振動センサー、ノブ、電源\"",
-      "de": "aria-label=\"Schnitt durch die hako-Box: LED-Panel, Raspberry Pi, NFC-Chip, Schüttelsensor, Drehknopf und Stromversorgung\""
     },
     {
       "en": "placeholder=\"enter the phrase\"",
@@ -297,6 +287,36 @@
       "en": "alt=\"Concept render: four hako cases side by side on a table, in charcoal, natural, indigo and moss felt\"",
       "ja": "alt=\"コンセプト画像:チャコール、生成り、藍、モスグリーンのhakoケースを机に並べたところ\"",
       "de": "alt=\"Konzept-Rendering: vier hako-Taschen nebeneinander auf einem Tisch in Anthrazit, Natur, Indigo und Moosgrün\""
+    },
+    {
+      "en": "aria-label=\"hako from the outside: the screen, the top you tap your phone on, the knob and the power cable\"",
+      "ja": "aria-label=\"外から見たhako:画面、スマホをかざす天面、ノブ、電源ケーブル\"",
+      "de": "aria-label=\"hako von außen: das Display, die Oberseite zum Antippen mit dem Handy, der Knopf und das Stromkabel\""
+    },
+    {
+      "en": "alt=\"Assembling a hako\"",
+      "ja": "alt=\"hakoを組み立てているところ\"",
+      "de": "alt=\"Eine hako wird zusammengebaut\""
+    },
+    {
+      "en": "alt=\"hako being plugged in and opening its setup network\"",
+      "ja": "alt=\"電源を入れたhakoがセットアップ用ネットワークを開くところ\"",
+      "de": "alt=\"hako wird eingesteckt und öffnet sein Einrichtungsnetzwerk\""
+    },
+    {
+      "en": "alt=\"Setting up hako's Wi-Fi from a phone\"",
+      "ja": "alt=\"スマホからhakoのWi-Fiを設定するところ\"",
+      "de": "alt=\"Das WLAN von hako wird mit dem Handy eingerichtet\""
+    },
+    {
+      "en": "alt=\"Clicking Allow in Anki as hako asks\"",
+      "ja": "alt=\"hakoの求めに応じてAnkiで「許可」をクリックするところ\"",
+      "de": "alt=\"In Anki auf „Erlauben“ klicken, wenn hako fragt\""
+    },
+    {
+      "en": "alt=\"Studying in Anki while hako counts the reviews down\"",
+      "ja": "alt=\"Ankiで勉強するあいだ、hakoが復習の数を減らしていくところ\"",
+      "de": "alt=\"In Anki lernen, während hako die Wiederholungen herunterzählt\""
     }
   ],
   "text": [
@@ -826,59 +846,9 @@
       "de": "E-Mail"
     },
     {
-      "en": "What's inside the box",
-      "ja": "箱の中身",
-      "de": "Was in der Box steckt"
-    },
-    {
-      "en": "It has one knob, a shake sensor, and an NFC chip under the top of the box that you tap your phone on.",
-      "ja": "ノブがひとつと振動センサー、そしてスマホをかざすためのNFCチップが箱の上面の木の下に入っています。",
-      "de": "Es hat einen Drehknopf, einen Schüttelsensor und einen NFC-Chip unter der Oberseite, an den du dein Handy hältst."
-    },
-    {
-      "en": "64×64 LED panel",
-      "ja": "64×64 LEDパネル",
-      "de": "64×64-LED-Panel"
-    },
-    {
       "en": "4,096 lights, easy to read from across the room",
       "ja": "4,096個のLEDで、部屋の向こうからでも読みやすい",
       "de": "4.096 Lichter, auch quer durch den Raum gut lesbar"
-    },
-    {
-      "en": "Raspberry Pi and matrix driver",
-      "ja": "Raspberry Piとマトリクスドライバー",
-      "de": "Raspberry Pi und Matrix-Treiber"
-    },
-    {
-      "en": "runs hako's software and updates itself overnight",
-      "ja": "hakoのソフトウェアを動かし、夜間に自動でアップデート",
-      "de": "steuert hako und aktualisiert sich nachts von selbst"
-    },
-    {
-      "en": "NFC chip, just under the top",
-      "ja": "上面の木のすぐ下のNFCチップ",
-      "de": "NFC-Chip, direkt unter der Oberseite"
-    },
-    {
-      "en": "tap your phone on the top of the box to set up Wi-Fi or open hako's web page",
-      "ja": "箱の上面にスマホをかざすと、Wi-Fiの設定やhakoの設定ページが開きます",
-      "de": "Handy oben an die Box halten, um das WLAN einzurichten oder hakos Webseite zu öffnen"
-    },
-    {
-      "en": "Shake sensor",
-      "ja": "振動センサー",
-      "de": "Schüttelsensor"
-    },
-    {
-      "en": "a gentle shake shows the next screen",
-      "ja": "軽く振ると次の画面へ",
-      "de": "leicht schütteln zeigt den nächsten Bildschirm"
-    },
-    {
-      "en": "Knob",
-      "ja": "ノブ",
-      "de": "Knopf"
     },
     {
       "en": "turn to change screens, press to refresh, hold for the menu",
@@ -889,11 +859,6 @@
       "en": "Power",
       "ja": "電源",
       "de": "Strom"
-    },
-    {
-      "en": "one adapter, made for your country",
-      "ja": "お住まいの国に合ったアダプターひとつ",
-      "de": "ein Netzteil, passend für dein Land"
     },
     {
       "en": "first batch · spring 2027",
@@ -1049,11 +1014,6 @@
       "en": "It gets nervous when reviews pile up and relaxes once you're caught up. Keep a streak going and new friends move in.",
       "ja": "復習がたまるとそわそわし、追いつくとほっとします。連続記録を続けると、新しいなかまがやってきます。",
       "de": "Es wird nervös, wenn sich Wiederholungen stapeln, und entspannt sich, wenn du aufgeholt hast. Bleib dran, und neue Freunde ziehen ein."
-    },
-    {
-      "en": "A 64×64 RGB LED panel, a knob, a shake sensor and an NFC tag for tap-to-connect, on one custom circuit board with no loose wires. Every unit is burned in and self-tested before it ships.",
-      "ja": "64×64のRGB LEDパネル、ノブ、振動センサー、タッチ接続用のNFCタグを、配線のない専用基板ひとつにまとめました。出荷前に全台エージングと自己診断を行います。",
-      "de": "Ein 64×64-RGB-LED-Panel, ein Drehknopf, ein Schüttelsensor und ein NFC-Tag zum Verbinden per Antippen – auf einer eigenen Platine ohne lose Kabel. Jedes Gerät wird vor dem Versand eingebrannt und selbst getestet."
     },
     {
       "en": "It sits on your desk and shows your Anki progress on a 64×64 LED panel: today's queue, card health, a six-week heatmap, your study pet, recent or random cards, retention, and a clock with the weather. Turn the knob to look around or play Pong. There's no touchscreen, no notifications and no app to open.",
@@ -1494,6 +1454,51 @@
       "en": "Anki and Migaku, and anything that takes keyboard shortcuts",
       "ja": "AnkiとMigaku、そしてキーボードショートカットが使えるアプリ全般",
       "de": "Anki und Migaku – und allem, was Tastenkürzel versteht"
+    },
+    {
+      "en": "What's inside? That's the box's secret.",
+      "ja": "中身は?それは箱のひみつ。",
+      "de": "Was drin ist? Das bleibt das Geheimnis der Box."
+    },
+    {
+      "en": "You'll only ever deal with four things: the screen, the top, the knob and one cable. The rest stays inside the box.",
+      "ja": "触れるのは4つだけ。画面、天面、ノブ、そしてケーブル1本。それ以外は、箱の中に。",
+      "de": "Du hast es nur mit vier Dingen zu tun: dem Display, der Oberseite, dem Knopf und einem Kabel. Der Rest bleibt in der Box."
+    },
+    {
+      "en": "The screen",
+      "ja": "画面",
+      "de": "Das Display"
+    },
+    {
+      "en": "The top",
+      "ja": "天面",
+      "de": "Die Oberseite"
+    },
+    {
+      "en": "tap your phone on it to set up Wi-Fi or open hako's page",
+      "ja": "スマホをかざしてWi-Fiを設定したり、hakoのページを開いたり",
+      "de": "Halte dein Handy daran, um WLAN einzurichten oder die Seite von hako zu öffnen"
+    },
+    {
+      "en": "The knob",
+      "ja": "ノブ",
+      "de": "Der Knopf"
+    },
+    {
+      "en": "One cable",
+      "ja": "ケーブル1本",
+      "de": "Ein Kabel"
+    },
+    {
+      "en": "with an adapter made for your country",
+      "ja": "お住まいの国に合わせた電源アダプター付き",
+      "de": "mit einem Netzteil für dein Land"
+    },
+    {
+      "en": "Good parts on one custom circuit board, with no loose wires. Every unit is burned in and self-tested before it ships.",
+      "ja": "良い部品を、配線のばらつきのない専用基板ひとつに。どの一台も出荷前にエージングとセルフテストを行います。",
+      "de": "Gute Bauteile auf einer eigenen Platine, ohne lose Kabel. Jedes Gerät läuft vor dem Versand ein und testet sich selbst."
     }
   ],
   "pages": {
