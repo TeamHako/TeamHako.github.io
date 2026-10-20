@@ -563,7 +563,7 @@ async function liveShop(cta, price) {
   const stroke = h.querySelector(".hl-stroke");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const MS = reduce ? 3800 : 2400;               // per word
-  const PHOTO_MS = reduce ? 12000 : 8000;        // per photo
+  const PHOTO_MS = reduce ? 14000 : 10000;       // per photo
   const media = [...document.querySelectorAll(".stage-media > img, .stage-media > video")];
   const live = document.querySelector(".stage-live[data-live]");
   let pets = [];
