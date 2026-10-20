@@ -294,9 +294,9 @@
       "de": "aria-label=\"hako von außen: das Display, die Oberseite zum Antippen mit dem Handy, der Knopf und das Stromkabel\""
     },
     {
-      "en": "alt=\"Assembling a hako\"",
-      "ja": "alt=\"hakoを組み立てているところ\"",
-      "de": "alt=\"Eine hako wird zusammengebaut\""
+      "en": "alt=\"hako's electronics\"",
+      "ja": "alt=\"hakoの電子回路\"",
+      "de": "alt=\"Die Elektronik von hako\""
     },
     {
       "en": "alt=\"hako being plugged in and opening its setup network\"",
@@ -1456,9 +1456,9 @@
       "de": "Anki und Migaku – und allem, was Tastenkürzel versteht"
     },
     {
-      "en": "What's inside? That's the box's secret.",
-      "ja": "中身は?それは箱のひみつ。",
-      "de": "Was drin ist? Das bleibt das Geheimnis der Box."
+      "en": "What's inside",
+      "ja": "箱の中身",
+      "de": "Was drin ist"
     },
     {
       "en": "You'll only ever deal with four things: the screen, the top, the knob and one cable. The rest stays inside the box.",
