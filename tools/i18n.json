@@ -476,9 +476,29 @@
       "de": "Einstecken"
     },
     {
-      "en": "hako opens its own setup network and shows a QR code.",
-      "ja": "hakoが設定用のネットワークを開き、QRコードを表示します。",
-      "de": "hako öffnet ein eigenes Einrichtungs-WLAN und zeigt einen QR-Code."
+      "en": "Snap the stand onto the back and plug it in. hako opens its own setup network and shows a QR code.",
+      "ja": "背面にスタンドを付けて、電源につなぎます。hakoが設定用のネットワークを開き、QRコードを表示します。",
+      "de": "Steck den Ständer hinten an und schließ hako an. hako öffnet ein eigenes Einrichtungs-WLAN und zeigt einen QR-Code."
+    },
+    {
+      "en": "A detachable magnetic stand: a walnut hub and two steel bars that snap onto the back",
+      "ja": "取り外せるマグネットスタンド（ウォールナットのハブと、背面にピタッと付く鋼のバー2本）",
+      "de": "Abnehmbarer Magnetständer: eine Walnussnabe und zwei Stahlstäbe, die hinten haften"
+    },
+    {
+      "en": "How does it stand on my desk?",
+      "ja": "机の上ではどうやって立てるの？",
+      "de": "Wie steht hako auf dem Schreibtisch?"
+    },
+    {
+      "en": "On the magnetic stand in the box: a small walnut hub and two steel bars. The bars snap onto magnets in hako's back, and which faces of the hub you put them in sets how far it leans back. Without the stand, hako stands upright on its flat bottom.",
+      "ja": "箱に入っているマグネットスタンドで立てます。小さなウォールナットのハブと鋼のバー2本でできていて、バーはhakoの背面の磁石にピタッと付きます。ハブのどの面にバーを差すかで、後ろへの傾きが変わります。スタンドを外しても、平らな底でまっすぐ立ちます。",
+      "de": "Auf dem Magnetständer aus dem Karton: eine kleine Nabe aus Walnuss und zwei Stahlstäbe. Die Stäbe haften an Magneten in hakos Rückseite, und an welchen Flächen der Nabe du sie ansetzt, bestimmt, wie weit sich hako zurücklehnt. Ohne Ständer steht hako aufrecht auf seiner flachen Unterseite."
+    },
+    {
+      "en": "Magnetic stand",
+      "ja": "マグネットスタンド",
+      "de": "Magnetständer"
     },
     {
       "en": "Connect with your phone",
