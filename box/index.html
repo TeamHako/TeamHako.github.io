@@ -611,15 +611,22 @@ async function startViewer(manifest) {
   backEngraving.rotation.y = Math.PI;
   backEngraving.position.set(0, -15, -HD / 2 - 0.08);
   hako.add(backEngraving);
-  // two steel magnets set flush in the back panel, where the stand's nuts snap on
+  // two steel discs hidden 1.5 mm under the back panel's surface, where the
+  // stand's magnets snap on; only a faint burned ring marks each spot
   const MAGNETS = [-STAND.x, STAND.x].map(x => new THREE.Vector3(x, STAND.y, -HD / 2));
   const magnetSteel = new THREE.MeshStandardMaterial({ color: 0x9a9da2, metalness: 0.9, roughness: 0.35,
     polygonOffset: true, polygonOffsetFactor: -2 });
-  MAGNETS.forEach(m => {
-    const disc = mesh(new THREE.CircleGeometry(6, 32), magnetSteel, false);
-    disc.rotation.y = Math.PI; disc.position.copy(m).setZ(-HD / 2 - 0.09);
-    hako.add(disc);
-  });
+  { const c = document.createElement('canvas'); c.width = c.height = 128;
+    const g = c.getContext('2d'); g.strokeStyle = '#120A05'; g.lineWidth = 6;
+    g.beginPath(); g.arc(64, 64, 52, 0, Math.PI * 2); g.stroke();
+    const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding;
+    const ringMat = new THREE.MeshStandardMaterial({ map: t, transparent: true, opacity: 0.35, depthWrite: false, roughness: 0.9,
+      polygonOffset: true, polygonOffsetFactor: -2 });
+    MAGNETS.forEach(m => {
+      const ring = mesh(new THREE.PlaneGeometry(16, 16), ringMat, false);
+      ring.rotation.y = Math.PI; ring.position.copy(m).setZ(-HD / 2 - 0.09);
+      hako.add(ring);
+    }); }
   async function drawBackEngraving() {
     await fontsReady;
     await document.fonts.load('700 76px "Zen Old Mincho"').catch(() => {});
@@ -844,9 +851,10 @@ async function startViewer(manifest) {
   const clothBody = mesh(new THREE.BoxGeometry(CLOTH, CLOTH_H, 4), solid(0x2E3D5A, 1));
   cloth.add(clothBody, clothFront, clothBack);
 
-  // --- the magnetic stand: one piece of blackened steel ------------------------
-  // The U and its two octagonal nuts are a single part. Five faces of each nut
-  // carry a magnet, starting with the face parallel to the U: on that face the
+  // --- the magnetic stand: one piece of blackened stainless steel ---------------
+  // The U and its two octagonal nuts are a single part, in 304 stainless: heavy,
+  // and not magnetic, so only the magnets decide where it sticks. Five faces of
+  // each nut carry a flush magnet, starting with the face parallel to the U: on that face the
   // stand folds flat against hako's back (how it ships); each next face swings
   // the U out another 45°, and hako comes to rest at a different angle. The stand
   // is a child of hako, pivoting about the nuts' axis.
