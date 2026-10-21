@@ -523,7 +523,8 @@ async function startViewer(manifest) {
   // back panel: the diagonal vent band and the USB-C opening
   const USB_Y = -80;
   { const sh = rectShape(-inX, innerBot, inX, innerTop);
-    for (let i = 0; i < 13; i++) sh.holes.push(slotPath(66 - i * 11, 56, 62, 6, -Math.PI / 4));   // rising to the right, seen from behind
+    // rising to the right, seen from behind; set high enough to leave solid wood round the stand's nuts
+    for (let i = 0; i < 13; i++) sh.holes.push(slotPath(66 - i * 11, 68, 62, 6, -Math.PI / 4));
     const r = 2.2, w = 13, h = 7, o = new THREE.Path();                     // the port's opening in the wood
     o.moveTo(-w / 2 + r, USB_Y - h / 2); o.lineTo(w / 2 - r, USB_Y - h / 2); o.quadraticCurveTo(w / 2, USB_Y - h / 2, w / 2, USB_Y - h / 2 + r);
     o.lineTo(w / 2, USB_Y + h / 2 - r); o.quadraticCurveTo(w / 2, USB_Y + h / 2, w / 2 - r, USB_Y + h / 2);
