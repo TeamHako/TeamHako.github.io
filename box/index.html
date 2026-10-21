@@ -59,6 +59,8 @@
   .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
   .controls [hidden] { display: none; }
   .controls .sep { width: 1px; height: 24px; background: var(--line); margin: 0 4px; }
+  .stand-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; flex-basis: 100%; order: 10; }
+  .stand-label { font-size: 13px; color: var(--muted); margin-right: 4px; }
   button {
     font: 500 14px/1 var(--body); color: var(--ink); background: transparent;
     border: 1px solid var(--line); border-radius: 999px; padding: 11px 16px; min-height: 44px; cursor: pointer;
@@ -131,6 +133,14 @@
   <div class="controls">
     <button class="primary" id="openBtn" type="button">Open the lid</button>
     <button id="hakoBtn" type="button" disabled>Take hako out</button>
+    <span class="stand-row" id="standRow" hidden>
+      <span class="stand-label">Stand face</span>
+      <button type="button" data-face="0" aria-pressed="true">1</button>
+      <button type="button" data-face="1" aria-pressed="false">2</button>
+      <button type="button" data-face="2" aria-pressed="false">3</button>
+      <button type="button" data-face="3" aria-pressed="false">4</button>
+      <button type="button" data-face="4" aria-pressed="false">5</button>
+    </span>
     <span class="sep" aria-hidden="true"></span>
     <button id="viewAngle" type="button">Three-quarter</button>
     <button id="viewFront" type="button">Front</button>
@@ -141,7 +151,7 @@
     <button id="edFounder" type="button" aria-pressed="true" data-editions hidden>Founder edition</button>
     <button id="edStandard" type="button" aria-pressed="false" data-editions hidden>Standard</button>
   </div>
-  <p class="hint" id="hint">Drag to turn the box, pinch or scroll to zoom. Tap the lid to open it, then tap the booklet, the card, the stickers or hako itself. Once hako is out, it stands on its magnetic stand; tap either to pick it up and turn it in your hand. Under hako: the power supply, cable, cleaning cloth and the stand.</p>
+  <p class="hint" id="hint">Drag to turn the box, pinch or scroll to zoom. Tap the lid to open it, then tap the booklet, the card, the stickers or hako itself. Once hako is out it stands on its magnetic stand: pick a stand face to change the angle, or tap hako to turn it in your hand. The stand ships folded flat against hako’s back; under hako: the power supply, cable and cleaning cloth.</p>
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -377,14 +387,16 @@ async function startViewer(manifest) {
   const foamFloor = mesh(new THREE.BoxGeometry(2 * FI, 10, 2 * FI), foamMat);
   foamFloor.position.y = T + 5;
   base.add(foamFloor);
-  const POCKETS = {                          // x, z (base coords, back half so they show past the front wall)
-    brick: { x: -82, z: -48, w: 50, d: 50, floor: 2 },
-    cable: { x: -4, z: -48, r: 39, floor: 18 },
-    cloth: { x: 76, z: -48, w: 84, d: 84, floor: 24 },
-    // the stand, in the front half: the faceted hub and its two steel bars
-    hub: { x: 88, z: 50, w: 34, d: 34, floor: 0 },
-    barA: { x: -30, z: 38, w: 118, d: 12, floor: 18 },
-    barB: { x: -30, z: 62, w: 118, d: 12, floor: 18 }
+  // The magnetic stand: a steel U (8 mm rod) with an octagonal nut at the top of
+  // each arm, the nuts on the magnets in hako's back. hako coordinates, in mm.
+  const STAND = { x: 70, y: -60, rIn: 7, len: 16, bar: 4, leg: 140, bend: 12 };
+  // hako lies screen-up with its top toward the front and the stand folded flat
+  // against its back, so the stand's U-shaped recess frames the middle of the
+  // foam; the cable sits inside the U, the power supply and cloth along the back.
+  const POCKETS = {                          // x, z (base coords)
+    brick: { x: -70, z: -96, w: 50, d: 50, floor: 2 },
+    cable: { x: 0, z: 8, r: 39, floor: 18 },
+    cloth: { x: 50, z: -96, w: 84, d: 44, floor: 24 }
   };
   const foamShape = new THREE.Shape();
   foamShape.moveTo(-FI, -FI); foamShape.lineTo(FI, -FI); foamShape.lineTo(FI, FI); foamShape.lineTo(-FI, FI); foamShape.lineTo(-FI, -FI);
@@ -399,6 +411,18 @@ async function startViewer(manifest) {
       base.add(riser);
     }
   });
+  { // the stand's recess: the U's outline with room round the rod and the nuts, 17 mm deep
+    const { x: X, leg } = STAND, nz = STAND.y, cz = STAND.y + leg, w = 6, n = 9;
+    const pts = [[-X - n, nz - n], [-X + n, nz - n], [-X + n, nz + n], [-X + w, nz + n], [-X + w, cz - w], [X - w, cz - w],
+                 [X - w, nz + n], [X - n, nz + n], [X - n, nz - n], [X + n, nz - n], [X + n, nz + n], [X + w, nz + n],
+                 [X + w, cz + w], [-X - w, cz + w], [-X - w, nz + n], [-X - n, nz + n]];
+    const outline = sh => { sh.moveTo(pts[0][0], -pts[0][1]); pts.slice(1).forEach(([x, z]) => sh.lineTo(x, -z)); sh.closePath(); return sh; };
+    foamShape.holes.push(outline(new THREE.Path()));
+    const g = new THREE.ExtrudeGeometry(outline(new THREE.Shape()), { depth: 13, bevelEnabled: false });
+    g.rotateX(-Math.PI / 2);
+    const riser = mesh(g, foamMat);
+    riser.position.y = T + 10;
+    base.add(riser); }
   const foamGeo = new THREE.ExtrudeGeometry(foamShape, { depth: 30, bevelEnabled: false, curveSegments: 40 });
   foamGeo.rotateX(-Math.PI / 2);
   const foam = mesh(foamGeo, foamMat);
@@ -409,9 +433,9 @@ async function startViewer(manifest) {
   // --- hako itself ----------------------------------------------------------
   // Built standing, as it sits on a desk: screen on the front (+z), knob on
   // the right (+x), USB-C low on the back, the NFC tag under the top. A plain
-  // box with a flat bottom: on the desk it leans back LEAN on the magnetic
-  // stand (two steel magnets in the back panel); in the box it lies screen-up.
-  const HW = 220, HD = 60, LEAN = THREE.MathUtils.degToRad(12);
+  // box with a flat bottom and two steel magnets in the back panel for the
+  // stand (further down); in the box it lies screen-up.
+  const HW = 220, HD = 60;
   const hako = new THREE.Group();
   hako.userData.pick = 'hako';
   // Oiled walnut: a photo-scanned veneer (manifest.hako.wood) with its normal
@@ -587,8 +611,8 @@ async function startViewer(manifest) {
   backEngraving.rotation.y = Math.PI;
   backEngraving.position.set(0, -15, -HD / 2 - 0.08);
   hako.add(backEngraving);
-  // two steel magnets set flush in the back panel, where the stand's bars snap on
-  const MAGNETS = [-70, 70].map(x => new THREE.Vector3(x, -55, -HD / 2));
+  // two steel magnets set flush in the back panel, where the stand's nuts snap on
+  const MAGNETS = [-STAND.x, STAND.x].map(x => new THREE.Vector3(x, STAND.y, -HD / 2));
   const magnetSteel = new THREE.MeshStandardMaterial({ color: 0x9a9da2, metalness: 0.9, roughness: 0.35,
     polygonOffset: true, polygonOffsetFactor: -2 });
   MAGNETS.forEach(m => {
@@ -796,79 +820,62 @@ async function startViewer(manifest) {
     cable.add(plug);
   });
 
-  // microfiber cleaning cloth, folded to 80 × 80 mm, indigo with a woven tag
-  const CLOTH = 80;
+  // microfiber cleaning cloth, folded to 80 × 40 mm, indigo with a woven tag
+  const CLOTH = 80, CLOTH_H = 40;
   const cloth = new THREE.Group();
   cloth.userData.pick = 'cloth';
   function weave(g, w, h) {
     g.fillStyle = '#2E3D5A'; g.fillRect(0, 0, w, h);
     for (let i = 0; i < w; i += 3) { g.fillStyle = i % 6 ? 'rgba(255,255,255,0.025)' : 'rgba(0,0,0,0.06)'; g.fillRect(i, 0, 1, h); g.fillRect(0, i, w, 1); }
   }
-  const clothFront = mesh(new THREE.PlaneGeometry(CLOTH, CLOTH), new THREE.MeshStandardMaterial({ roughness: 1,
-    map: canvasTex(640, 640, (g, w, h) => {
+  const clothFront = mesh(new THREE.PlaneGeometry(CLOTH, CLOTH_H), new THREE.MeshStandardMaterial({ roughness: 1,
+    map: canvasTex(640, 320, (g, w, h) => {
       weave(g, w, h);
       const fold = g.createLinearGradient(0, h * 0.46, 0, h * 0.54);   // the fold across the middle
       fold.addColorStop(0, 'rgba(0,0,0,0)'); fold.addColorStop(0.5, 'rgba(0,0,0,0.22)'); fold.addColorStop(1, 'rgba(255,255,255,0.04)');
       g.fillStyle = fold; g.fillRect(0, h * 0.46, w, h * 0.08);
-      g.fillStyle = '#ECE5D7'; g.fillRect(w * 0.66, h * 0.78, w * 0.24, h * 0.1);   // woven tag
+      g.fillStyle = '#ECE5D7'; g.fillRect(w * 0.66, h * 0.7, w * 0.24, h * 0.18);   // woven tag
       g.fillStyle = '#2E3D5A'; g.font = '40px "Zen Old Mincho", serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
-      g.fillText('hako 箱', w * 0.78, h * 0.832);
+      g.fillText('hako 箱', w * 0.78, h * 0.795);
     }) }), false);
   clothFront.position.z = 2.05;
-  const clothBack = mesh(new THREE.PlaneGeometry(CLOTH, CLOTH), new THREE.MeshStandardMaterial({ roughness: 1, map: canvasTex(320, 320, weave) }), false);
+  const clothBack = mesh(new THREE.PlaneGeometry(CLOTH, CLOTH_H), new THREE.MeshStandardMaterial({ roughness: 1, map: canvasTex(320, 160, weave) }), false);
   clothBack.position.z = -2.05; clothBack.rotation.y = Math.PI;
-  const clothBody = mesh(new THREE.BoxGeometry(CLOTH, CLOTH, 4), solid(0x2E3D5A, 1));
+  const clothBody = mesh(new THREE.BoxGeometry(CLOTH, CLOTH_H, 4), solid(0x2E3D5A, 1));
   cloth.add(clothBody, clothFront, clothBack);
 
-  // --- the magnetic stand: a faceted walnut hub and two blackened steel bars ---
-  // On the desk the hub sits behind hako and the bars run up to the two magnets
-  // in its back panel; which faces of the hub the bars sit in sets the angle.
-  // In the box the three pieces lie in their own pockets under hako.
-  const HUB_R = 14, HUB_IN = HUB_R * 0.7947, BAR_R = 4, BAR_L = 112;   // HUB_IN: the dodecahedron's inradius
+  // --- the magnetic stand: one piece of blackened steel ------------------------
+  // The U and its two octagonal nuts are a single part. Five faces of each nut
+  // carry a magnet, starting with the face parallel to the U: on that face the
+  // stand folds flat against hako's back (how it ships); each next face swings
+  // the U out another 45°, and hako comes to rest at a different angle. The stand
+  // is a child of hako, pivoting about the nuts' axis.
   const stand = new THREE.Group();
-  stand.userData.pick = 'stand';
-  const hub = board(new THREE.DodecahedronGeometry(HUB_R));
-  const hubFaces = [];                              // a magnet in every face
-  { const g = new THREE.DodecahedronGeometry(HUB_R), p = g.attributes.position, seen = new Set();
-    const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3();
-    for (let i = 0; i < p.count; i += 3) {
-      a.fromBufferAttribute(p, i); b.fromBufferAttribute(p, i + 1); c.fromBufferAttribute(p, i + 2);
-      const n = new THREE.Vector3().subVectors(b, a).cross(new THREE.Vector3().subVectors(c, a)).normalize();
-      if (n.dot(a) < 0) n.negate();
-      const key = n.toArray().map(v => v.toFixed(2)).join();
-      if (seen.has(key)) continue;
-      seen.add(key); hubFaces.push(n);
-      const disc = mesh(new THREE.CircleGeometry(4.5, 24), magnetSteel, false);
-      disc.position.copy(n).multiplyScalar(HUB_IN + 0.05);
-      disc.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), n);
-      hub.add(disc);
-    } }
-  const Y = new THREE.Vector3(0, 1, 0);
-  // resting on a face: turn the face that points most downward to point straight down
-  const hubRest = new THREE.Quaternion().setFromUnitVectors(
-    hubFaces.reduce((m, n) => (n.y < m.y ? n : m)), Y.clone().negate());
-  const barSteel = new THREE.MeshStandardMaterial({ color: 0x2b2c2e, metalness: 0.85, roughness: 0.42 });
-  const capSteel = new THREE.MeshStandardMaterial({ color: 0x9a9da2, metalness: 0.9, roughness: 0.35 });
-  const bars = [0, 1].map(() => {
-    const g = new THREE.Group();
-    g.add(mesh(new THREE.CylinderGeometry(BAR_R, BAR_R, BAR_L, 24), barSteel));
-    [-1, 1].forEach(e => {                          // a magnet cap at each end
-      const cp = mesh(new THREE.CylinderGeometry(BAR_R + 0.25, BAR_R + 0.25, 2.5, 24), capSteel);
-      cp.position.y = e * (BAR_L / 2 - 1.2);
-      g.add(cp);
-    });
-    return g;
-  });
-  stand.add(hub, ...bars);
-  const standPieces = [hub, ...bars];
-  const barPose = (from, to) => ({ pos: from.clone().add(to).multiplyScalar(0.5),
-    quat: new THREE.Quaternion().setFromUnitVectors(Y, to.clone().sub(from).normalize()) });
-  const standPacked = [                             // in the base's coordinates
-    { pos: new THREE.Vector3(POCKETS.hub.x, T + 10 + HUB_IN, POCKETS.hub.z), quat: hubRest },
-    ...['barA', 'barB'].map(k => ({ pos: new THREE.Vector3(POCKETS[k].x, T + 10 + POCKETS[k].floor + BAR_R, POCKETS[k].z),
-      quat: new THREE.Quaternion().setFromUnitVectors(Y, new THREE.Vector3(1, 0, 0)) }))
-  ];
-  let standAssembled = null;                        // set once hako's place on the desk is known
+  stand.position.set(0, STAND.y, -HD / 2 - STAND.rIn);
+  hako.add(stand);
+  const blackSteel = new THREE.MeshStandardMaterial({ color: 0x2a2b2d, metalness: 0.85, roughness: 0.42 });
+  { const { x: X, rIn, len, bar, leg, bend } = STAND, rOut = rIn / Math.cos(Math.PI / 8);
+    const V = (x, y) => new THREE.Vector3(x, y, 0), path = new THREE.CurvePath();
+    path.add(new THREE.LineCurve3(V(-X, rIn), V(-X, leg - bend)));
+    path.add(new THREE.QuadraticBezierCurve3(V(-X, leg - bend), V(-X, leg), V(-X + bend, leg)));
+    path.add(new THREE.LineCurve3(V(-X + bend, leg), V(X - bend, leg)));
+    path.add(new THREE.QuadraticBezierCurve3(V(X - bend, leg), V(X, leg), V(X, leg - bend)));
+    path.add(new THREE.LineCurve3(V(X, leg - bend), V(X, rIn)));
+    stand.add(mesh(new THREE.TubeGeometry(path, 200, bar, 20, false), blackSteel));
+    [-X, X].forEach(x => {
+      const g = new THREE.CylinderGeometry(rOut, rOut, len, 8, 1, false, Math.PI / 8);   // a face, not a corner, toward +z
+      g.rotateZ(Math.PI / 2);                                                         // axis along x; the arm enters the +y face
+      const nut = mesh(g, blackSteel);
+      nut.position.x = x;
+      stand.add(nut);
+      for (let k = 0; k < 5; k++) {          // the magnet faces: +z (flat), then round, away from the arm
+        const n = new THREE.Vector3(0, -Math.sin(k * Math.PI / 4), Math.cos(k * Math.PI / 4));
+        const disc = mesh(new THREE.CircleGeometry(rIn * 0.55, 24), magnetSteel, false);
+        disc.position.set(x, 0, 0).addScaledVector(n, rIn + 0.05);
+        disc.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), n);
+        stand.add(disc);
+      }
+    }); }
 
   // --- the booklet: sheets hinged on a spine at x = 0 ------------------------
   const PAGE = 120;
@@ -1004,8 +1011,8 @@ async function startViewer(manifest) {
     return { parent, pos: new THREE.Vector3(cx - off.x, y, cz - off.z), quat: q };
   }
   const homes = {
-    hako: { parent: 'base', pos: new THREE.Vector3(0, 72, 0),               // lying screen-up
-      quat: new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0)) },
+    hako: { parent: 'base', pos: new THREE.Vector3(0, 72, 0),               // lying screen-up, top toward the front
+      quat: new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, Math.PI, 0, 'YXZ')) },
     stickers: flatPose('base', -55, 102.6, -20, 0.15, 0),
     card: flatPose('base', -40, 103.3, 55, -0.2, 0),
     booklet: flatPose('base', 45, 104.2, 35, -0.08, PAGE / 2),
@@ -1014,40 +1021,51 @@ async function startViewer(manifest) {
     cloth: flatPose('base', POCKETS.cloth.x, T + 10 + POCKETS.cloth.floor + 2, POCKETS.cloth.z, 0, 0)
   };
   const tableSpots = {
-    hako: { parent: 'scene',                                               // standing on its front edge, leaning back on the stand
-      pos: new THREE.Vector3(-390, HW / 2 * Math.cos(LEAN) + HD / 2 * Math.sin(LEAN), 40),
-      quat: new THREE.Quaternion().setFromEuler(new THREE.Euler(-LEAN, 0.35, 0, 'YXZ')) },
     stickers: flatPose('scene', 420, 0.5, -70, 0.25, 0),
     card: flatPose('scene', 300, 0.6, -120, -0.15, 0),
     booklet: flatPose('scene', 330, 1.5, 70, 0.12, PAGE / 2)
   };
-  // the stand on the desk: the hub behind hako, centred between the magnets,
-  // as far back as the bars reach
-  homes.stand = { parent: 'base', pos: new THREE.Vector3(), quat: new THREE.Quaternion() };
-  {
-    const ht = tableSpots.hako, yaw = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0.35, 0));
-    const mags = MAGNETS.map(m => m.clone().applyQuaternion(ht.quat).add(ht.pos));
-    const mid = mags[0].clone().add(mags[1]).multiplyScalar(0.5);
-    const reach = BAR_L + HUB_IN, half = mags[0].distanceTo(mags[1]) / 2, rise = mid.y - HUB_IN;
-    const run = Math.sqrt(Math.max(0, reach * reach - half * half - rise * rise));
-    const hubAt = new THREE.Vector3(mid.x, HUB_IN, mid.z).addScaledVector(new THREE.Vector3(0, 0, -1).applyQuaternion(yaw), run);
-    tableSpots.stand = { parent: 'scene', pos: hubAt, quat: yaw };
-    const unyaw = yaw.clone().invert(), local = v => v.clone().sub(hubAt).applyQuaternion(unyaw);
-    standAssembled = [{ pos: new THREE.Vector3(), quat: hubRest },
-      ...mags.map(m => { const to = local(m); return barPose(to.clone().setLength(HUB_IN), to); })];
+  // Where hako comes to rest on each stand face. Side view (y up, z toward the
+  // screen, hako's coordinates): tip it back (t > 0) or forward through every
+  // angle and keep the ones where it sits on two supports with the centre of
+  // mass between them. Face 0 keeps it upright; on the others it leans onto the U.
+  function restPose(face) {
+    const { y: MY, rIn, leg, bar } = STAND, rOut = rIn / Math.cos(Math.PI / 8), a = -face * Math.PI / 4;
+    const N = [MY, -HD / 2 - rIn], d = [Math.cos(a), Math.sin(a)];             // nut centre; nut → crossbar
+    const C = [N[0] + leg * d[0], N[1] + leg * d[1]];
+    const pts = [[-HW / 2, HD / 2], [-HW / 2, -HD / 2], [HW / 2, HD / 2], [HW / 2, -HD / 2]];
+    for (let k = 0; k < 8; k++) { const v = Math.PI / 8 + k * Math.PI / 4; pts.push([N[0] + rOut * Math.sin(v), N[1] + rOut * Math.cos(v)]); }
+    const share = 0.26;                                                          // the steel's share of the weight
+    const com = [(N[0] + d[0] * leg * 0.6) * share, (N[1] + d[1] * leg * 0.6) * share];
+    const at = (q, t) => [q[0] * Math.cos(t) + q[1] * Math.sin(t), -q[0] * Math.sin(t) + q[1] * Math.cos(t)];
+    const runs = [];
+    for (let i = -850; i <= 1000; i++) {
+      const t = THREE.MathUtils.degToRad(i / 10);
+      const w = pts.map(q => at(q, t)), c = at(C, t);
+      w.push([c[0] - bar, c[1]]);
+      const low = Math.min(...w.map(q => q[0]));
+      const zs = w.filter(q => q[0] - low < 0.25).map(q => q[1]), cz = at(com, t)[1];
+      if (Math.max(...zs) - Math.min(...zs) > 5 && cz >= Math.min(...zs) && cz <= Math.max(...zs)) {
+        const r = runs[runs.length - 1];
+        if (r && i - r.last === 1) { r.last = i; r.all.push({ t, low }); } else runs.push({ last: i, all: [{ t, low }] });
+      }
+    }
+    const rests = runs.map(r => r.all[r.all.length >> 1]);
+    if (!rests.length) rests.push({ t: 0, low: -HW / 2 });             // no rest found: stand it upright
+    const pick = face === 0 ? rests.reduce((m, r) => Math.abs(r.t) < Math.abs(m.t) ? r : m)
+                            : rests.reduce((m, r) => Math.abs(r.t) > Math.abs(m.t) ? r : m);
+    return { parent: 'scene', pos: new THREE.Vector3(-390, -pick.low, 40),
+      quat: new THREE.Quaternion().setFromEuler(new THREE.Euler(-pick.t, 0.35, 0, 'YXZ')), deg: THREE.MathUtils.radToDeg(pick.t) };
   }
-  function arrangeStand(assembled, instant) {
-    const poses = assembled ? standAssembled : standPacked;
-    standPieces.forEach((pc, i) => {
-      if (instant) { pc.position.copy(poses[i].pos); pc.quaternion.copy(poses[i].quat); }
-      else moveTo(pc, stand, poses[i].pos, poses[i].quat, 0.9, assembled ? 0 : 15);
-    });
-  }
-  const objects = { hako, booklet, card, stickers, brick, cable, cloth, stand };
+  const STAND_FACES = [0, 1, 2, 3, 4].map(restPose);
+  const standLabel = (f, deg) => f === 0 ? 'folded flat' : deg > 80 ? 'lying back'
+    : deg > 1 ? 'leans back ' + Math.round(deg) + '°' : deg < -1 ? 'tilts forward ' + Math.round(-deg) + '°' : 'upright';
+  let standFace = 0;                                 // folded flat, as it ships
+  tableSpots.hako = STAND_FACES[0];
+  const objects = { hako, booklet, card, stickers, brick, cable, cloth };
   const parents = { base, scene };
   function place(o, p) { parents[p.parent].add(o); o.position.copy(p.pos); o.quaternion.copy(p.quat); }
-  ['booklet', 'card', 'stickers', 'hako', 'brick', 'cable', 'cloth', 'stand'].forEach(k => place(objects[k], homes[k]));
-  arrangeStand(false, true);
+  ['booklet', 'card', 'stickers', 'hako', 'brick', 'cable', 'cloth'].forEach(k => place(objects[k], homes[k]));
 
   // --- tweens ---------------------------------------------------------------
   const tweens = new Map();
@@ -1115,10 +1133,10 @@ async function startViewer(manifest) {
   let zoom = 1;
   const pan = new THREE.Vector2();          // in mm as seen at the un-zoomed holding distance
   const holdSize = { booklet: [PAGE * 2, PAGE], card: [CARD_W, CARD_H], stickers: [ST_W, ST_H],
-    brick: [BRICK[0] * 1.3, BRICK[1] * 1.3], cable: [80, 80], cloth: [CLOTH, CLOTH], hako: [270, 270], stand: [190, 190] };
+    brick: [BRICK[0] * 1.3, BRICK[1] * 1.3], cable: [80, 80], cloth: [CLOTH, CLOTH_H], hako: [270, 270] };
   // 3D things you turn in your hand: drag rotates them instead of panning
-  const SOLID = { brick: true, cable: true, hako: true, stand: true };
-  const START_TURN = { brick: [0.42, -0.5], cable: [0.42, -0.5], hako: [0.2, -0.6], stand: [0.3, -0.5] };   // show the knob side first
+  const SOLID = { brick: true, cable: true, hako: true };
+  const START_TURN = { brick: [0.42, -0.5], cable: [0.42, -0.5], hako: [0.2, -0.6] };   // show the knob side first
   const holdQuat = new THREE.Quaternion();
   function holdDist(name) {
     const [w, h] = holdSize[name];
@@ -1161,7 +1179,6 @@ async function startViewer(manifest) {
     controls.autoRotate = false; $('spinBtn').setAttribute('aria-pressed', 'false');
     const p = holdPose(name);
     moveTo(objects[name], camera, p.pos, p.quat, 0.9);
-    if (name === 'stand') arrangeStand(true);       // put together, as it stands on the desk
     updateHeldBar();
   }
   function putBack() {
@@ -1172,7 +1189,6 @@ async function startViewer(manifest) {
     zoom = 1; pan.set(0, 0);
     const p = (hakoOut && tableSpots[name]) || homes[name];
     moveTo(objects[name], parents[p.parent], p.pos, p.quat, 0.9, 40);
-    if (name === 'stand') arrangeStand(hakoOut);
     updateHeldBar();
   }
   function reHold() { /* the frame loop follows holdPose() */ }
@@ -1184,7 +1200,7 @@ async function startViewer(manifest) {
     stackSheets(); reHold(); updateHeldBar();
   }
   let cardName = 'the signed card';
-  const restHint = () => 'Drag to turn the box, pinch or scroll to zoom. Tap the lid to open it, then tap the booklet, ' + cardName + ', the stickers or hako itself. Once hako is out, it stands on its magnetic stand; tap either to pick it up and turn it in your hand. Under hako: the power supply, cable, cleaning cloth and the stand.';
+  const restHint = () => 'Drag to turn the box, pinch or scroll to zoom. Tap the lid to open it, then tap the booklet, ' + cardName + ', the stickers or hako itself. Once hako is out it stands on its magnetic stand: pick a stand face to change the angle, or tap hako to turn it in your hand. The stand ships folded flat against hako’s back; under hako: the power supply, cable and cleaning cloth.';
   function updateHeldBar() {
     $('heldBar').hidden = !held;
     const isBook = held === 'booklet';
@@ -1273,11 +1289,10 @@ async function startViewer(manifest) {
     if (out === hakoOut) return;
     if (held) putBack();
     hakoOut = out;
+    setStand(out ? 2 : 0, true);                    // out: swing the stand to a desk angle; back: fold it flat
     const spot = out ? tableSpots.hako : homes.hako;
     later(() => moveTo(hako, parents[spot.parent], spot.pos, spot.quat, 1.2, 140), out ? 350 : 0);
-    // the stand comes out of its pockets and goes together behind hako
-    const sp = out ? tableSpots.stand : homes.stand;
-    later(() => { moveTo(stand, parents[sp.parent], sp.pos, sp.quat, 1.1, 80); arrangeStand(out); }, out ? 650 : 0);
+    $('standRow').hidden = !out;
     // what rests on hako is set down on the table first, and goes back on top after
     ['booklet', 'card', 'stickers'].forEach((k, i) => {
       const p = out ? tableSpots[k] : homes[k];
@@ -1288,6 +1303,21 @@ async function startViewer(manifest) {
     if (!out) { screenMat.map = screenMat.emissiveMap = screenTex[0]; screenMat.needsUpdate = true; screenIdx = 0; }
   }
   $('hakoBtn').addEventListener('click', () => setHako(!hakoOut));
+  // which nut face is on the magnets: swing the stand, and if hako is on the desk, let it settle
+  function setStand(face, quiet) {
+    standFace = face;
+    const q = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -face * Math.PI / 4);
+    moveTo(stand, hako, stand.position, q, 0.7, 0);
+    tableSpots.hako = STAND_FACES[face];
+    document.querySelectorAll('[data-face]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.face === face)));
+    if (quiet || !hakoOut || held === 'hako') return;
+    moveTo(hako, scene, tableSpots.hako.pos, tableSpots.hako.quat, 0.9, 25);
+  }
+  document.querySelectorAll('[data-face]').forEach(b => {
+    const f = +b.dataset.face;
+    b.textContent = (f + 1) + ' · ' + standLabel(f, STAND_FACES[f].deg);
+    b.addEventListener('click', () => setStand(f));
+  });
   let screenIdx = 0, screenClock = 0;
 
   ['viewAngle', 'viewFront', 'viewTop', 'viewBottom'].forEach(id => $(id).addEventListener('click', () => { if (held) putBack(); goTo(id); }));
@@ -1306,7 +1336,7 @@ async function startViewer(manifest) {
     const r = el.getBoundingClientRect();
     ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     raycaster.setFromCamera(ndc, camera);
-    const hits = raycaster.intersectObjects([lid, base, hako, booklet, card, stickers, brick, cable, cloth, stand], true);
+    const hits = raycaster.intersectObjects([lid, base, hako, booklet, card, stickers, brick, cable, cloth], true);
     if (!hits.length) return null;
     let o = hits[0].object;
     while (o && !o.userData.pick) o = o.parent;
