@@ -1,0 +1,98 @@
+<!-- page: {"path": "app/", "page": "app", "title": "hako · Desktop app", "description": "The free hako desktop app for Windows, Mac and Linux: your Anki streak, reviews and study friend in a small window that floats above your other apps."} -->
+
+  <!-- ============================================================ -->
+  <!-- PAGE HEADER                                                  -->
+  <!-- ============================================================ -->
+  <section class="page-hero">
+    <div class="section-inner">
+      <p class="page-eyebrow reveal"><span class="kanji-mark">机</span><span>Desktop app</span></p>
+      <h1 class="reveal">hako, on your computer.</h1>
+      <p class="page-sub reveal">The same screens and the same study friends as the box, in a small window that floats above your other apps. Free for Windows, Mac and Linux. It works on its own, no hako needed.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- DOWNLOADS (files from the desktop release workflow; the     -->
+  <!-- names carry no version, so latest/download/ is the newest)  -->
+  <!-- ============================================================ -->
+  <section id="download" class="section section-app">
+    <div class="section-inner">
+      <div class="app-layout">
+        <div class="app-main">
+          <div class="section-label reveal">
+            <span class="label-mark">落</span>
+            <span class="label-text">Download</span>
+          </div>
+          <h2 class="reveal">Pick your computer.</h2>
+          <p class="app-beta reveal"><span class="app-beta-tag">Test build</span> These builds are for testers and aren't signed yet, so your computer will ask before opening them the first time. The steps below cover it.</p>
+
+          <ul class="app-downloads reveal">
+            <li>
+              <div class="app-os"><span class="app-os-name">Windows</span><span class="app-os-note">Windows 10 and 11, 64-bit</span></div>
+              <a class="btn-link" href="https://github.com/TeamHako/hako-desktop/releases/latest/download/hako-windows-setup.exe">hako-windows-setup.exe <span class="arrow">↓</span></a>
+            </li>
+            <li>
+              <div class="app-os"><span class="app-os-name">Mac · Apple silicon</span><span class="app-os-note">M1 and newer</span></div>
+              <a class="btn-link" href="https://github.com/TeamHako/hako-desktop/releases/latest/download/hako-macos-arm64.dmg">hako-macos-arm64.dmg <span class="arrow">↓</span></a>
+            </li>
+            <li>
+              <div class="app-os"><span class="app-os-name">Mac · Intel</span><span class="app-os-note">Macs from before 2021</span></div>
+              <a class="btn-link" href="https://github.com/TeamHako/hako-desktop/releases/latest/download/hako-macos-x64.dmg">hako-macos-x64.dmg <span class="arrow">↓</span></a>
+            </li>
+            <li>
+              <div class="app-os"><span class="app-os-name">Linux</span><span class="app-os-note">64-bit, Ubuntu 22.04 or newer</span></div>
+              <a class="btn-link" href="https://github.com/TeamHako/hako-desktop/releases/latest/download/hako-linux-x64.tar.gz">hako-linux-x64.tar.gz <span class="arrow">↓</span></a>
+            </li>
+            <li>
+              <div class="app-os"><span class="app-os-name">Anki add-on</span><span class="app-os-note">Lets hako read your reviews</span></div>
+              <a class="btn-link" href="https://github.com/TeamHako/hako-desktop/releases/latest/download/hako.ankiaddon">hako.ankiaddon <span class="arrow">↓</span></a>
+            </li>
+          </ul>
+          <p class="app-more reveal"><a class="btn-link" href="https://github.com/TeamHako/hako-desktop/releases" target="_blank" rel="noopener">Every release and what changed <span class="arrow">↗</span></a></p>
+        </div>
+
+        <figure class="app-window reveal" aria-hidden="true">
+          <div class="app-window-bar"><span></span><span></span><span></span></div>
+          <img src="assets/images/live/pet-mochi.webp" alt="" width="240" height="240" loading="lazy" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- INSTALLING                                                   -->
+  <!-- ============================================================ -->
+  <section id="install" class="section section-app-install">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="label-mark">設</span>
+        <span class="label-text">Installing</span>
+      </div>
+      <h2 class="reveal">Two minutes, start to finish.</h2>
+
+      <dl class="pdp-specs app-steps reveal">
+        <div>
+          <dt>1 · Anki</dt>
+          <dd>Install the hako add-on: in Anki choose <b>Tools → Add-ons → Get Add-ons</b> and enter <code>1077082455</code>, or double-click <code>hako.ankiaddon</code>. Restart Anki. AnkiConnect works too if you already use it.</dd>
+        </div>
+        <div>
+          <dt>Windows</dt>
+          <dd>Open the installer, <code>hako-windows-setup.exe</code>. If Windows says it protected your PC, choose <b>More info → Run anyway</b> to continue.</dd>
+        </div>
+        <div>
+          <dt>Mac</dt>
+          <dd>Open the disk image (<code>.dmg</code>) and drag hako into Applications. The first time, macOS won't open it: in <b>System Settings → Privacy &amp; Security</b>, scroll down and choose <b>Open Anyway</b> to start it.</dd>
+        </div>
+        <div>
+          <dt>Linux</dt>
+          <dd>In a terminal, unpack it: <code>tar -xzf hako-linux-x64.tar.gz</code>. Then, in the new folder, run <code>./install.sh</code> and hako shows up in your app menu.</dd>
+        </div>
+        <div>
+          <dt>2 · Open hako</dt>
+          <dd>With Anki open, hako finds your collection by itself. If the add-on asks, click <b>Allow</b>. Right-click the window for settings: screens, your study friend, the clock, always on top and starting at login.</dd>
+        </div>
+      </dl>
+
+      <p class="app-more reveal">Have a hako too? Both read the same Anki history, so a friend you unlock on one moves in on the other. Questions or a bug? Write to <a href="mailto:hello@hakoshop.com">hello@hakoshop.com</a></p>
+    </div>
+  </section>

@@ -1046,11 +1046,6 @@
       "de": "Wird immer besser"
     },
     {
-      "en": "New pets, screens and fixes arrive as signed updates while you sleep. There's a free desktop app for Windows, Mac and Linux too.",
-      "ja": "新しいペットや画面、修正は、寝ている間に署名付きアップデートで届きます。Windows・Mac・Linux 用の無料デスクトップアプリもあります。",
-      "de": "Neue Haustiere, Bildschirme und Fehlerbehebungen kommen als signierte Updates, während du schläfst. Dazu gibt es eine kostenlose Desktop-App für Windows, Mac und Linux."
-    },
-    {
       "en": "It gets nervous when reviews pile up and relaxes once you're caught up. Keep a streak going and new friends move in.",
       "ja": "復習がたまるとそわそわし、追いつくとほっとします。連続記録を続けると、新しいなかまがやってきます。",
       "de": "Es wird nervös, wenn sich Wiederholungen stapeln, und entspannt sich, wenn du aufgeholt hast. Bleib dran, und neue Freunde ziehen ein."
@@ -1579,6 +1574,216 @@
       "en": "A custom circuit board, made to fit the box, with no loose wires. Renders soon.",
       "ja": "箱に合わせて作る専用基板。ばらばらの配線はなし。レンダリングはもうすぐ公開します。",
       "de": "Eine eigene Platine, passend für die Box, ohne lose Kabel. Renderings folgen bald."
+    },
+    {
+      "en": "Desktop app",
+      "ja": "デスクトップアプリ",
+      "de": "Desktop-App"
+    },
+    {
+      "en": "hako, on your computer.",
+      "ja": "パソコンの中の hako。",
+      "de": "hako, auf deinem Computer."
+    },
+    {
+      "en": "The same screens and the same study friends as the box, in a small window that floats above your other apps. Free for Windows, Mac and Linux. It works on its own, no hako needed.",
+      "ja": "箱と同じ画面、同じ勉強なかまが、ほかのアプリの上に浮かぶ小さなウィンドウに。Windows・Mac・Linux 用で無料です。hako本体がなくても単体で使えます。",
+      "de": "Dieselben Bildschirme und dieselben Lernfreunde wie in der Box, in einem kleinen Fenster, das über deinen anderen Apps schwebt. Kostenlos für Windows, Mac und Linux. Funktioniert auch allein, ganz ohne hako."
+    },
+    {
+      "en": "Download",
+      "ja": "ダウンロード",
+      "de": "Download"
+    },
+    {
+      "en": "Pick your computer.",
+      "ja": "お使いのパソコンを選んでください。",
+      "de": "Wähle deinen Computer."
+    },
+    {
+      "en": "Test build",
+      "ja": "テスト版",
+      "de": "Testversion"
+    },
+    {
+      "en": "These builds are for testers and aren't signed yet, so your computer will ask before opening them the first time. The steps below cover it.",
+      "ja": "テスター向けのビルドで、まだ署名されていません。そのため初回はパソコンが開く前に確認してきます。下の手順で対応できます。",
+      "de": "Diese Versionen sind für Tester und noch nicht signiert, daher fragt dein Computer beim ersten Öffnen nach. Die Schritte unten zeigen, wie es geht."
+    },
+    {
+      "en": "Windows 10 and 11, 64-bit",
+      "ja": "Windows 10・11（64ビット）",
+      "de": "Windows 10 und 11, 64-Bit"
+    },
+    {
+      "en": "Mac · Apple silicon",
+      "ja": "Mac · Appleシリコン",
+      "de": "Mac · Apple Silicon"
+    },
+    {
+      "en": "M1 and newer",
+      "ja": "M1以降",
+      "de": "M1 und neuer"
+    },
+    {
+      "en": "Macs from before 2021",
+      "ja": "2021年より前のMac",
+      "de": "Macs von vor 2021"
+    },
+    {
+      "en": "64-bit, Ubuntu 22.04 or newer",
+      "ja": "64ビット、Ubuntu 22.04以降",
+      "de": "64-Bit, Ubuntu 22.04 oder neuer"
+    },
+    {
+      "en": "Anki add-on",
+      "ja": "Ankiアドオン",
+      "de": "Anki-Add-on"
+    },
+    {
+      "en": "Lets hako read your reviews",
+      "ja": "hakoが復習を読み取るために",
+      "de": "Damit hako deine Wiederholungen lesen kann"
+    },
+    {
+      "en": "Every release and what changed",
+      "ja": "すべてのリリースと変更点",
+      "de": "Alle Versionen und was sich geändert hat"
+    },
+    {
+      "en": "Installing",
+      "ja": "インストール",
+      "de": "Installation"
+    },
+    {
+      "en": "Two minutes, start to finish.",
+      "ja": "最初から最後まで、2分。",
+      "de": "Zwei Minuten, von Anfang bis Ende."
+    },
+    {
+      "en": "Install the hako add-on: in Anki choose",
+      "ja": "hakoアドオンを入れます。Ankiで",
+      "de": "Installiere das hako-Add-on: Wähle in Anki"
+    },
+    {
+      "en": "Tools → Add-ons → Get Add-ons",
+      "ja": "ツール → アドオン → アドオンを取得",
+      "de": "Extras → Erweiterungen → Erweiterungen herunterladen"
+    },
+    {
+      "en": "and enter",
+      "ja": "を選んで",
+      "de": "und gib"
+    },
+    {
+      "en": ", or double-click",
+      "ja": "を入力するか、",
+      "de": "ein, oder doppelklicke auf"
+    },
+    {
+      "en": ". Restart Anki. AnkiConnect works too if you already use it.",
+      "ja": "をダブルクリックします。そのあとAnkiを再起動してください。AnkiConnectをお使いなら、それでも動きます。",
+      "de": ". Starte Anki danach neu. Wenn du AnkiConnect schon nutzt, geht das auch."
+    },
+    {
+      "en": "Open the installer,",
+      "ja": "インストーラー",
+      "de": "Öffne den Installer"
+    },
+    {
+      "en": ". If Windows says it protected your PC, choose",
+      "ja": "を開きます。「WindowsによってPCが保護されました」と表示されたら、",
+      "de": ". Wenn Windows meldet, dass dein PC geschützt wurde, wähle"
+    },
+    {
+      "en": "More info → Run anyway",
+      "ja": "詳細情報 → 実行",
+      "de": "Weitere Informationen → Trotzdem ausführen"
+    },
+    {
+      "en": "to continue.",
+      "ja": "を選んで続けます。",
+      "de": ", um fortzufahren."
+    },
+    {
+      "en": "Open the disk image (",
+      "ja": "ディスクイメージ（",
+      "de": "Öffne das Disk-Image ("
+    },
+    {
+      "en": ") and drag hako into Applications. The first time, macOS won't open it: in",
+      "ja": "）を開き、hakoを「アプリケーション」にドラッグします。初回は macOS が開いてくれないので、",
+      "de": ") und zieh hako in den Programme-Ordner. Beim ersten Mal öffnet macOS es nicht: Scrolle in"
+    },
+    {
+      "en": "System Settings → Privacy &amp; Security",
+      "ja": "システム設定 → プライバシーとセキュリティ",
+      "de": "Systemeinstellungen → Datenschutz &amp; Sicherheit"
+    },
+    {
+      "en": ", scroll down and choose",
+      "ja": "を開いて下にスクロールし、",
+      "de": "nach unten und wähle"
+    },
+    {
+      "en": "Open Anyway",
+      "ja": "このまま開く",
+      "de": "Dennoch öffnen"
+    },
+    {
+      "en": "to start it.",
+      "ja": "を選ぶと起動します。",
+      "de": ", um es zu starten."
+    },
+    {
+      "en": "In a terminal, unpack it:",
+      "ja": "ターミナルで展開します：",
+      "de": "Entpacke es im Terminal:"
+    },
+    {
+      "en": ". Then, in the new folder, run",
+      "ja": "。次に、できたフォルダで",
+      "de": ". Führe dann im neuen Ordner"
+    },
+    {
+      "en": "and hako shows up in your app menu.",
+      "ja": "を実行すると、アプリメニューに hako が表示されます。",
+      "de": "aus, und hako erscheint in deinem App-Menü."
+    },
+    {
+      "en": "2 · Open hako",
+      "ja": "2 · hakoを開く",
+      "de": "2 · hako öffnen"
+    },
+    {
+      "en": "With Anki open, hako finds your collection by itself. If the add-on asks, click",
+      "ja": "Ankiを開いておけば、hakoが自動でコレクションを見つけます。アドオンに聞かれたら",
+      "de": "Wenn Anki offen ist, findet hako deine Sammlung von selbst. Fragt das Add-on nach, klicke auf"
+    },
+    {
+      "en": "Allow",
+      "ja": "許可",
+      "de": "Erlauben"
+    },
+    {
+      "en": ". Right-click the window for settings: screens, your study friend, the clock, always on top and starting at login.",
+      "ja": "をクリックしてください。設定はウィンドウを右クリック：画面、勉強なかま、時計、常に手前に表示、ログイン時に起動。",
+      "de": ". Einstellungen gibt es per Rechtsklick auf das Fenster: Bildschirme, dein Lernfreund, die Uhr, immer im Vordergrund und Start bei der Anmeldung."
+    },
+    {
+      "en": "Have a hako too? Both read the same Anki history, so a friend you unlock on one moves in on the other. Questions or a bug? Write to",
+      "ja": "hako本体もお持ちですか？どちらも同じAnkiの履歴を読むので、片方で仲間になった友だちはもう片方にも引っ越してきます。質問やバグの報告はこちらへ：",
+      "de": "Hast du auch eine hako? Beide lesen denselben Anki-Verlauf, also zieht ein Freund, den du auf der einen freischaltest, auch auf der anderen ein. Fragen oder ein Fehler? Schreib an"
+    },
+    {
+      "en": "New pets, screens and fixes arrive as signed updates while you sleep. There's a",
+      "ja": "新しいペットや画面、修正は、寝ている間に署名付きアップデートで届きます。Windows・Mac・Linux 用の",
+      "de": "Neue Haustiere, Bildschirme und Fehlerbehebungen kommen als signierte Updates, während du schläfst. Dazu gibt es eine"
+    },
+    {
+      "en": "for Windows, Mac and Linux too.",
+      "ja": "もあります。",
+      "de": "für Windows, Mac und Linux."
     }
   ],
   "pages": {
@@ -1630,6 +1835,16 @@
       "de": {
         "title": "mikko by hako · Walnussbrett mit drei Tasten für Anki",
         "description": "mikko: drei Walnusstasten in einem Walnussblock, gemacht für Anki- und Migaku-Wiederholungen. Bluetooth, USB-C oder 2,4 GHz, frei belegbare Tasten, kein Ein-/Ausschalter. 69,99 $."
+      }
+    },
+    "app/": {
+      "ja": {
+        "title": "hako · デスクトップアプリ",
+        "description": "Windows・Mac・Linux 用の無料 hako デスクトップアプリ。Ankiの連続記録、復習、勉強なかまを、ほかのアプリの上に浮かぶ小さなウィンドウで。"
+      },
+      "de": {
+        "title": "hako · Desktop-App",
+        "description": "Die kostenlose hako-Desktop-App für Windows, Mac und Linux: deine Anki-Serie, Wiederholungen und dein Lernfreund in einem kleinen Fenster über deinen anderen Apps."
       }
     }
   }

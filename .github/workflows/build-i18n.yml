@@ -38,7 +38,7 @@ jobs:
 
       - name: Commit if changed
         run: |
-          git add -A -- ja de hako about shop
+          git add -A -- ja de hako about shop app
           if git diff --cached --quiet; then echo "already up to date"; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
