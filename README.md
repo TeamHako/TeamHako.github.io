@@ -19,11 +19,14 @@ Placeholders show a dashed box with a label until the file exists. Drop in:
 
 ## Panel images and translations
 
-- `assets/demo/` (live demo frames) and `assets/images/panel/<lang>/` (still panel
-  images in the cards and setup steps) are rendered from the device's own code. In the
-  hako-device repo: `python3 deploy/build-web-demo.py <site>/assets/demo` and
-  `python3 deploy/build-web-images.py <site>/assets/images/panel`.
-- `assets/images/live/` (animated pets, Pong, the unlock party, clock and tap screens)
-  comes from `python3 deploy/build-web-pets.py <site>/assets/images/live` in the hako repo.
+- Panel images are rendered from hako's own drawing code, in the
+  [Jear-Bear/hako](https://github.com/Jear-Bear/hako) repo (the reference the ESP32
+  firmware matches pixel for pixel). From that repo:
+  - `assets/demo/` (live demo frames): `python3 deploy/build-web-demo.py <site>/assets/demo`
+  - `assets/images/panel/<lang>/` (still panel images in the cards and setup steps):
+    `python3 deploy/build-web-images.py <site>/assets/images/panel`
+  - `assets/images/live/` (animated pets, Pong, the unlock party, clock and tap screens):
+    `python3 deploy/build-web-pets.py <site>/assets/images/live`
+- TeamHako/hako-device is an old, archived copy of that code; don't render from it.
 - `ja/` and `de/` are generated: edit `index.html` and `tools/i18n.json`; a GitHub
   Action rebuilds them (or run `python3 tools/build-i18n.py`).
