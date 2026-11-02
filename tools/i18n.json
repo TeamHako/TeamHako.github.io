@@ -1784,6 +1784,11 @@
       "en": "for Windows, Mac and Linux too.",
       "ja": "もあります。",
       "de": "für Windows, Mac und Linux."
+    },
+    {
+      "en": "Guide",
+      "ja": "使い方ガイド",
+      "de": "Anleitung"
     }
   ],
   "pages": {
@@ -1845,6 +1850,16 @@
       "de": {
         "title": "hako · Desktop-App",
         "description": "Die kostenlose hako-Desktop-App für Windows, Mac und Linux: deine Anki-Serie, Wiederholungen und dein Lernfreund in einem kleinen Fenster über deinen anderen Apps."
+      }
+    },
+    "guide/": {
+      "ja": {
+        "title": "hako · 使い方ガイド",
+        "description": "hakoの使い方のすべて:セットアップ、ノブ、画面、ペット、ゲーム、設定ページ、スリープ、Wi-Fiと旅行、アップデート、困ったとき、初期化。"
+      },
+      "de": {
+        "title": "hako · Anleitung",
+        "description": "Alles zur Bedienung von hako: Einrichtung, Drehknopf, Anzeigen, Haustiere, Spiele, Einstellungsseite, Schlaf, WLAN und Reisen, Updates, Hilfe und Zurücksetzen."
       }
     }
   }

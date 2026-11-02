@@ -12,6 +12,8 @@ pages/ holds one page's own content, with a first line like
 
     <!-- page: {"path": "hako/", "page": "hako", "title": "…", "description": "…"} -->
 
+("gate": false lets a page through without the access gate.)
+
 Links in pages/ are written as on the home page (relative to the site root:
 "assets/…", "shop/case/", "#notify"); they're rewritten for the page's
 folder. "<!-- @copy:ID -->" pastes the section with that id from index.html
@@ -87,6 +89,16 @@ def build(spec: dict, home: str) -> str:
     # the language switcher goes to this page in the other language
     for lang in ("", "ja/", "de/"):
         page = page.replace(f'<a href="/{lang}" hreflang=', f'<a href="/{lang}{path}" hreflang=')
+    # a page anyone can read before launch (the guide) skips the access gate
+    if spec.get("gate") is False:
+        i = page.index('<div class="gate" id="accessGate">')
+        depth, j = 0, i
+        for m in re.finditer(r"<div\b|</div>", page[i:]):
+            depth += 1 if m.group(0) == "<div" else -1
+            if depth == 0:
+                j = i + m.end()
+                break
+        page = page[:i] + page[j:].lstrip("\n")
     # only the home page has the interactive demo
     page = re.sub(r'  <script src="assets/demo\.js[^"]*" defer></script>\n', "", page)
 
