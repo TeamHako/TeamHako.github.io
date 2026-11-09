@@ -1789,6 +1789,86 @@
       "en": "Guide",
       "ja": "使い方ガイド",
       "de": "Anleitung"
+    },
+    {
+      "en": "The corner dot",
+      "ja": "右上の点",
+      "de": "Der Punkt in der Ecke"
+    },
+    {
+      "en": "The little dot in the top-right corner shows how hako is getting on with Anki.",
+      "ja": "右上の小さな点は、hako と Anki のつながり具合を表しています。",
+      "de": "Der kleine Punkt oben rechts zeigt, wie es um hakos Verbindung zu Anki steht."
+    },
+    {
+      "en": "Green",
+      "ja": "緑",
+      "de": "Grün"
+    },
+    {
+      "en": "Connected: Anki answered the last check.",
+      "ja": "接続中：前回の確認に Anki が応答しました。",
+      "de": "Verbunden: Anki hat auf die letzte Abfrage geantwortet."
+    },
+    {
+      "en": "Pulsing teal",
+      "ja": "点滅する青緑",
+      "de": "Pulsierendes Türkis"
+    },
+    {
+      "en": "Checking with Anki right now. hako checks every 30 seconds.",
+      "ja": "いま Anki に確認しています。hako は30秒ごとに確認します。",
+      "de": "Fragt gerade bei Anki nach. hako fragt alle 30 Sekunden."
+    },
+    {
+      "en": "Blinking yellow",
+      "ja": "点滅する黄色",
+      "de": "Blinkendes Gelb"
+    },
+    {
+      "en": "Anki hasn't answered for over a minute. hako keeps trying.",
+      "ja": "1分以上 Anki から応答がありません。hako は再接続を続けています。",
+      "de": "Anki antwortet seit über einer Minute nicht. hako versucht es weiter."
+    },
+    {
+      "en": "Orange",
+      "ja": "オレンジ",
+      "de": "Orange"
+    },
+    {
+      "en": "No answer for 5 minutes. The numbers are from the last sync.",
+      "ja": "5分間応答がありません。表示は最後に同期した数字です。",
+      "de": "Seit 5 Minuten keine Antwort. Die Zahlen stammen von der letzten Synchronisierung."
+    },
+    {
+      "en": "Red",
+      "ja": "赤",
+      "de": "Rot"
+    },
+    {
+      "en": "hako hasn't reached Anki yet.",
+      "ja": "hako はまだ Anki につながっていません。",
+      "de": "hako hat Anki noch nicht erreicht."
+    },
+    {
+      "en": "Pink pixel in the very corner",
+      "ja": "いちばん端のピンクの点",
+      "de": "Rosa Pixel ganz in der Ecke"
+    },
+    {
+      "en": "Another hako is nearby.",
+      "ja": "近くに別の hako があります。",
+      "de": "Ein anderer hako ist in der Nähe."
+    },
+    {
+      "en": "The corner dot keeps turning yellow",
+      "ja": "右上の点がよく黄色になる",
+      "de": "Der Punkt in der Ecke wird oft gelb"
+    },
+    {
+      "en": "hako can only reach Anki while Anki is open on a computer on the same Wi-Fi. If the dot blinks yellow a lot, the computer may be going to sleep, its Wi-Fi may be saving power, or Anki may be busy syncing. The settings page shows the last error under Advanced → Anki connection. Closing Anki is fine: the dot turns orange and hako keeps your last numbers.",
+      "ja": "hako が Anki とつながれるのは、同じ Wi-Fi のパソコンで Anki が開いているときだけです。黄色の点滅が多いときは、パソコンがスリープしている、Wi-Fi が省電力になっている、または Anki が同期中で忙しい可能性があります。最後のエラーは設定ページの「詳細 → Anki との接続」で確認できます。Anki を閉じても大丈夫です。点がオレンジになり、hako は最後の数字を表示し続けます。",
+      "de": "hako erreicht Anki nur, solange Anki auf einem Computer im selben WLAN geöffnet ist. Blinkt der Punkt oft gelb, geht der Computer vielleicht in den Ruhezustand, sein WLAN spart Strom oder Anki ist gerade mit dem Synchronisieren beschäftigt. Den letzten Fehler zeigt die Einstellungsseite unter Erweitert → Verbindung zu Anki. Anki zu schließen ist kein Problem: Der Punkt wird orange und hako behält deine letzten Zahlen."
     }
   ],
   "pages": {

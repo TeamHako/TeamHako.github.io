@@ -3882,3 +3882,6 @@ body.gate-locked { overflow: hidden; }
   .versions-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .versions-arrow { margin: 0; transform: rotate(90deg); justify-self: center; }
 }
+
+/* the guide's corner-dot table: a swatch of each color */
+.dot-swatch { display: inline-block; width: 0.6em; height: 0.6em; border-radius: 2px; margin-right: 0.5em; vertical-align: 0.05em; }

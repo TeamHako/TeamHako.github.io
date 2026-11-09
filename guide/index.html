@@ -287,6 +287,18 @@
         <figure><img src="../assets/images/panel/en/cards.webp" alt="The cards screen" width="384" height="384" loading="lazy" /><figcaption>Cards</figcaption></figure>
       </div>
       <p>Hide the screens you don't want, and choose the cards, the reading field and the fonts, on the <a href="#settings">settings page</a>.</p>
+      <h3>The corner dot</h3>
+      <p>The little dot in the top-right corner shows how hako is getting on with Anki.</p>
+      <div class="guide-table-wrap">
+        <table class="guide-table">
+          <tr><th><span class="dot-swatch" style="background:#3cc850"></span>Green</th><td>Connected: Anki answered the last check.</td></tr>
+          <tr><th><span class="dot-swatch" style="background:#28c8b4"></span>Pulsing teal</th><td>Checking with Anki right now. hako checks every 30 seconds.</td></tr>
+          <tr><th><span class="dot-swatch" style="background:#f0d228"></span>Blinking yellow</th><td>Anki hasn't answered for over a minute. hako keeps trying.</td></tr>
+          <tr><th><span class="dot-swatch" style="background:#f08c1e"></span>Orange</th><td>No answer for 5 minutes. The numbers are from the last sync.</td></tr>
+          <tr><th><span class="dot-swatch" style="background:#e62832"></span>Red</th><td>hako hasn't reached Anki yet.</td></tr>
+          <tr><th><span class="dot-swatch" style="background:#f05aaa"></span>Pink pixel in the very corner</th><td>Another hako is nearby.</td></tr>
+        </table>
+      </div>
       <p class="guide-top"><a href="#top">↑ Contents</a></p>
     </div>
   </section>
@@ -415,6 +427,10 @@
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false"><span class="faq-text">The settings page says "Anki not connected"</span><span class="faq-icon" aria-hidden="true">+</span></button>
           <div class="faq-answer"><p>Open Anki on your computer and check the hako add-on is installed (<em>Tools → Add-ons</em>). hako and the computer need to be on the same Wi-Fi. Then press the knob once to refresh. Still nothing? On the settings page, <em>Now → Look for Anki now</em>, or type Anki's address under <em>Advanced</em>.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false"><span class="faq-text">The corner dot keeps turning yellow</span><span class="faq-icon" aria-hidden="true">+</span></button>
+          <div class="faq-answer"><p>hako can only reach Anki while Anki is open on a computer on the same Wi-Fi. If the dot blinks yellow a lot, the computer may be going to sleep, its Wi-Fi may be saving power, or Anki may be busy syncing. The settings page shows the last error under Advanced → Anki connection. Closing Anki is fine: the dot turns orange and hako keeps your last numbers.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false"><span class="faq-text">The setup page doesn't open on my phone</span><span class="faq-icon" aria-hidden="true">+</span></button>

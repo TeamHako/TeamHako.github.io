@@ -307,6 +307,18 @@
         <figure><img src="../../assets/images/panel/ja/cards.webp" alt="The cards screen" width="384" height="384" loading="lazy" /><figcaption>Cards</figcaption></figure>
       </div>
       <p>Hide the screens you don't want, and choose the cards, the reading field and the fonts, on the <a href="#settings">settings page</a>.</p>
+      <h3>右上の点</h3>
+      <p>右上の小さな点は、hako と Anki のつながり具合を表しています。</p>
+      <div class="guide-table-wrap">
+        <table class="guide-table">
+          <tr><th><span class="dot-swatch" style="background:#3cc850"></span>緑</th><td>接続中：前回の確認に Anki が応答しました。</td></tr>
+          <tr><th><span class="dot-swatch" style="background:#28c8b4"></span>点滅する青緑</th><td>いま Anki に確認しています。hako は30秒ごとに確認します。</td></tr>
+          <tr><th><span class="dot-swatch" style="background:#f0d228"></span>点滅する黄色</th><td>1分以上 Anki から応答がありません。hako は再接続を続けています。</td></tr>
+          <tr><th><span class="dot-swatch" style="background:#f08c1e"></span>オレンジ</th><td>5分間応答がありません。表示は最後に同期した数字です。</td></tr>
+          <tr><th><span class="dot-swatch" style="background:#e62832"></span>赤</th><td>hako はまだ Anki につながっていません。</td></tr>
+          <tr><th><span class="dot-swatch" style="background:#f05aaa"></span>いちばん端のピンクの点</th><td>近くに別の hako があります。</td></tr>
+        </table>
+      </div>
       <p class="guide-top"><a href="#top">↑ Contents</a></p>
     </div>
   </section>
@@ -435,6 +447,10 @@
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false"><span class="faq-text">The settings page says "Anki not connected"</span><span class="faq-icon" aria-hidden="true">+</span></button>
           <div class="faq-answer"><p>Open Anki on your computer and check the hako add-on is installed (<em>Tools → Add-ons</em>). hako and the computer need to be on the same Wi-Fi. Then press the knob once to refresh. Still nothing? On the settings page, <em>Now → Look for Anki now</em>, or type Anki's address under <em>Advanced</em>.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false"><span class="faq-text">右上の点がよく黄色になる</span><span class="faq-icon" aria-hidden="true">+</span></button>
+          <div class="faq-answer"><p>hako が Anki とつながれるのは、同じ Wi-Fi のパソコンで Anki が開いているときだけです。黄色の点滅が多いときは、パソコンがスリープしている、Wi-Fi が省電力になっている、または Anki が同期中で忙しい可能性があります。最後のエラーは設定ページの「詳細 → Anki との接続」で確認できます。Anki を閉じても大丈夫です。点がオレンジになり、hako は最後の数字を表示し続けます。</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false"><span class="faq-text">The setup page doesn't open on my phone</span><span class="faq-icon" aria-hidden="true">+</span></button>

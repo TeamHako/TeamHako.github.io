@@ -307,6 +307,18 @@
         <figure><img src="../../assets/images/panel/de/cards.webp" alt="The cards screen" width="384" height="384" loading="lazy" /><figcaption>Cards</figcaption></figure>
       </div>
       <p>Hide the screens you don't want, and choose the cards, the reading field and the fonts, on the <a href="#settings">settings page</a>.</p>
+      <h3>Der Punkt in der Ecke</h3>
+      <p>Der kleine Punkt oben rechts zeigt, wie es um hakos Verbindung zu Anki steht.</p>
+      <div class="guide-table-wrap">
+        <table class="guide-table">
+          <tr><th><span class="dot-swatch" style="background:#3cc850"></span>Grün</th><td>Verbunden: Anki hat auf die letzte Abfrage geantwortet.</td></tr>
+          <tr><th><span class="dot-swatch" style="background:#28c8b4"></span>Pulsierendes Türkis</th><td>Fragt gerade bei Anki nach. hako fragt alle 30 Sekunden.</td></tr>
+          <tr><th><span class="dot-swatch" style="background:#f0d228"></span>Blinkendes Gelb</th><td>Anki antwortet seit über einer Minute nicht. hako versucht es weiter.</td></tr>
+          <tr><th><span class="dot-swatch" style="background:#f08c1e"></span>Orange</th><td>Seit 5 Minuten keine Antwort. Die Zahlen stammen von der letzten Synchronisierung.</td></tr>
+          <tr><th><span class="dot-swatch" style="background:#e62832"></span>Rot</th><td>hako hat Anki noch nicht erreicht.</td></tr>
+          <tr><th><span class="dot-swatch" style="background:#f05aaa"></span>Rosa Pixel ganz in der Ecke</th><td>Ein anderer hako ist in der Nähe.</td></tr>
+        </table>
+      </div>
       <p class="guide-top"><a href="#top">↑ Contents</a></p>
     </div>
   </section>
@@ -435,6 +447,10 @@
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false"><span class="faq-text">The settings page says "Anki not connected"</span><span class="faq-icon" aria-hidden="true">+</span></button>
           <div class="faq-answer"><p>Open Anki on your computer and check the hako add-on is installed (<em>Tools → Add-ons</em>). hako and the computer need to be on the same Wi-Fi. Then press the knob once to refresh. Still nothing? On the settings page, <em>Now → Look for Anki now</em>, or type Anki's address under <em>Advanced</em>.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false"><span class="faq-text">Der Punkt in der Ecke wird oft gelb</span><span class="faq-icon" aria-hidden="true">+</span></button>
+          <div class="faq-answer"><p>hako erreicht Anki nur, solange Anki auf einem Computer im selben WLAN geöffnet ist. Blinkt der Punkt oft gelb, geht der Computer vielleicht in den Ruhezustand, sein WLAN spart Strom oder Anki ist gerade mit dem Synchronisieren beschäftigt. Den letzten Fehler zeigt die Einstellungsseite unter Erweitert → Verbindung zu Anki. Anki zu schließen ist kein Problem: Der Punkt wird orange und hako behält deine letzten Zahlen.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false"><span class="faq-text">The setup page doesn't open on my phone</span><span class="faq-icon" aria-hidden="true">+</span></button>
