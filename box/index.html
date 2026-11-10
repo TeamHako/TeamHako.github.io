@@ -535,7 +535,7 @@ async function startViewer(manifest) {
     g.translate(0, 0, -HD / 2);
     hako.add(board(g)); }
   // inside: dark, with the Pi and the back of the LED panel where the vents look in.
-  // Unlit colours, as if in the case's own shadow.
+  // Unlit colors, as if in the case's own shadow.
   const dim = c => new THREE.MeshBasicMaterial({ color: new THREE.Color(c).convertSRGBToLinear() });
   { const cavity = mesh(new THREE.BoxGeometry(2 * inX - 0.2, innerTop - innerBot - 0.2, HD - 2 * PANEL - 0.2),
       new THREE.MeshBasicMaterial({ color: new THREE.Color(0x0a0806).convertSRGBToLinear(), side: THREE.BackSide }), false);
@@ -664,7 +664,7 @@ async function startViewer(manifest) {
   knob.rotation.z = -Math.PI / 2;                   // pointing out of the right side
   knob.position.set(HW / 2, 55, 0);
   hako.add(knob);
-  // USB-C, low and centred on the back, so the cable runs straight off the desk:
+  // USB-C, low and centered on the back, so the cable runs straight off the desk:
   // a stainless shell set 1.5 mm into the opening, the black tongue with its
   // gold contacts inside
   { const rr = (w, h, r) => { const sh = new THREE.Shape(), x = -w / 2, y = -h / 2;
@@ -765,7 +765,7 @@ async function startViewer(manifest) {
   const prongBack = mesh(new THREE.PlaneGeometry(36, 36), new THREE.MeshStandardMaterial({ roughness: 0.5, transparent: true,
     map: canvasTex(1024, 1024, (g, w, h) => {
       // the regulatory side: folding prongs in their recess, ringed by the
-      // small print a wall adapter has to carry, in moulded-in grey
+      // small print a wall adapter has to carry, in molded-in gray
       g.fillStyle = '#1d1c1a';
       [w * 0.38, w * 0.62].forEach(x => { g.beginPath(); g.roundRect ? g.roundRect(x - 26, h * 0.27, 52, h * 0.36, 14) : g.rect(x - 26, h * 0.27, 52, h * 0.36); g.fill(); });
       g.fillStyle = '#c9c4ba'; [w * 0.38, w * 0.62].forEach(x => g.fillRect(x - 11, h * 0.3, 22, h * 0.3));
@@ -1021,7 +1021,7 @@ async function startViewer(manifest) {
   function flatPose(parent, cx, y, cz, yaw, offsetX) {
     const q = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, yaw, 0))
       .multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0)));
-    const off = new THREE.Vector3(offsetX, 0, 0).applyQuaternion(q);   // the booklet's centre is half a page from its spine
+    const off = new THREE.Vector3(offsetX, 0, 0).applyQuaternion(q);   // the booklet's center is half a page from its spine
     return { parent, pos: new THREE.Vector3(cx - off.x, y, cz - off.z), quat: q };
   }
   const homes = {
@@ -1041,12 +1041,12 @@ async function startViewer(manifest) {
   };
   // Where hako comes to rest on each stand face. Side view (y up, z toward the
   // screen, hako's coordinates): tip it back (t > 0) or forward through every
-  // angle and keep the ones where it sits on two supports with the centre of
+  // angle and keep the ones where it sits on two supports with the center of
   // mass between them. Face 0 keeps it upright; on each next face it leans back
   // further onto the U (about 22°, 44°, 66°, then flat on its back).
   function restPose(face) {
     const { y: MY, rIn, leg, bar } = STAND, rOut = rIn / Math.cos(Math.PI / 8), a = face * Math.PI / 4;
-    const N = [MY, -HD / 2 - rIn], d = [-Math.cos(a), -Math.sin(a)];           // nut centre; nut → crossbar
+    const N = [MY, -HD / 2 - rIn], d = [-Math.cos(a), -Math.sin(a)];           // nut center; nut → crossbar
     const C = [N[0] + leg * d[0], N[1] + leg * d[1]];
     const pts = [[-HW / 2, HD / 2], [-HW / 2, -HD / 2], [HW / 2, HD / 2], [HW / 2, -HD / 2]];
     for (let k = 0; k < 8; k++) { const v = Math.PI / 8 + k * Math.PI / 4; pts.push([N[0] + rOut * Math.sin(v), N[1] + rOut * Math.cos(v)]); }

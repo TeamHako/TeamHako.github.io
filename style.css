@@ -2882,7 +2882,7 @@ body.gate-locked { overflow: hidden; }
   .nav-actions .btn-cta-small { display: none; }
 }
 
-/* The menu link colour was overriding the button text colour */
+/* The menu link color was overriding the button text color */
 .mobile-nav a.btn-cta-small,
 .mobile-nav a.btn-cta-small:hover { color: var(--bg); text-align: center; }
 
@@ -3430,7 +3430,7 @@ body.gate-locked { overflow: hidden; }
 /* the top-row cards (stickers, case) use a squarer frame that fits their renders */
 .shop-grid > .product:not(.product-main):not(.product-next) .product-media { aspect-ratio: 11 / 10; }
 
-/* the case in all four colours, under the lineup */
+/* the case in all four colors, under the lineup */
 .shop-colours {
   display: grid;
   grid-template-columns: minmax(0, 0.62fr) minmax(0, 1fr);

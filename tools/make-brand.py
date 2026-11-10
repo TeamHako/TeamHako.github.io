@@ -55,7 +55,7 @@ GLYPH = """
 
 
 def glyph_grid(n: int = 25) -> list[list[bool]]:
-    """GLYPH centred on an n×n grid."""
+    """GLYPH centered on an n×n grid."""
     rows = [r for r in GLYPH.strip("\n").split("\n")]
     cells = [(x, y) for y, r in enumerate(rows) for x, c in enumerate(r) if c == "#"]
     x0, x1 = min(x for x, _ in cells), max(x for x, _ in cells)

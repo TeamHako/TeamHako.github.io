@@ -659,8 +659,8 @@ async function liveShop(cta, price) {
 
 // ============================================================
 // LINEUP: product photos with several views are a small carousel:
-// swipe, or tap the dots; left alone it moves on by itself. Colour
-// dots under a product (the case) pick which colour's views it shows.
+// swipe, or tap the dots; left alone it moves on by itself. Color
+// dots under a product (the case) pick which color's views it shows.
 // ============================================================
 (function () {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -728,7 +728,7 @@ async function liveShop(cta, price) {
     media.addEventListener("mouseenter", () => { hovering = true; });
     media.addEventListener("mouseleave", () => { hovering = false; });
 
-    // colour dots
+    // color dots
     swatches.forEach((dot) => {
       dot.addEventListener("click", () => {
         key = dot.dataset.swatch;

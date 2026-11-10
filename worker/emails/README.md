@@ -1,7 +1,7 @@
 # Waitlist emails
 
 Ready-to-paste drafts for the hako waitlist, in the three site languages. Each
-file has the subject, the preview text (the grey line inboxes show after the
+file has the subject, the preview text (the gray line inboxes show after the
 subject), and the body.
 
 | File | When it goes out |
